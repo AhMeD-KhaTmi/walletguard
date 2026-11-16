@@ -8,3 +8,8 @@ __pycache__/
 .agents/
 .aws/
 .codex/
+
+# Member A: generated traffic data and raw run evidence
+eval/runs/
+locust/data/creds_seed*.json
+locust/data/*.jsonl

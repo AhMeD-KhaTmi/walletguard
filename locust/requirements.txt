@@ -1,0 +1,8 @@
+# Member A's traffic tooling dependencies.
+#
+# The target API's own dependencies stay in the repository-root requirements.txt;
+# this file only adds what the workloads need. Install into the same virtualenv:
+#
+#   .venv/bin/python -m pip install -r requirements.txt -r locust/requirements.txt
+locust>=2.31,<3
+redis>=5,<7
