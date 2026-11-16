@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-11-16T15:37:46.168655+00:00",
+  "kind": "development_smoke_not_attack_evaluation",
+  "base_url": "http://127.0.0.1:42479",
+  "health": {
+    "status": "ok",
+    "waf_mode": "off",
+    "dependencies": {
+      "redis": "ok",
+      "mock_llm": "ok"
+    },
+    "cost_is_simulated": true
+  },
+  "checks": {
+    "products": "pass",
+    "invalid_login": "pass",
+    "login": "pass",
+    "http_mock_chat": "pass",
+    "usage_delta": "pass",
+    "negative_output_rejected": "pass",
+    "openapi_and_docs": "pass"
+  },
+  "chat_usage": {
+    "tokens_in": 5,
+    "tokens_out": 50,
+    "cost_usd": 0.0007650000000000001
+  },
+  "cost_is_simulated": true,
+  "session_credentials_saved": false
+}

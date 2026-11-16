@@ -1,0 +1,43 @@
+{
+  "timestamp_utc": "2026-11-16T16:39:29.170981+00:00",
+  "automated_tests_passed": 64,
+  "real_http_development_checks_passed": 12,
+  "kernel_integrated": false,
+  "application_modes_checked": [
+    "C0",
+    "C1",
+    "C2"
+  ],
+  "ml_tooling": "tested with temporary synthetic fixtures; no production model trained",
+  "real_detector_precision": null,
+  "real_detector_recall": null,
+  "real_detector_fpr": null,
+  "remaining": [
+    "Member A Locust attacks and realistic multi-IP labeled traffic",
+    "production base-model training and independent evaluation",
+    "real sensor data, augmented model and C4 integration",
+    "final ASR/latency/resource runs and presentation results"
+  ],
+  "source_sha256": {
+    "app/llm_service.py": "02f561f0f0902b494c0f2a8c3e6355a2de8ca87265390381b9dea8e2f5134bc7",
+    "app/main.py": "30361a4f9fe7e4156694d50338a791443e780a9319c45c16ca9ed4f1b7d32654",
+    "app/mock_llm.py": "ac25748b24e06dd0af76b150b7faff61d253a3c67fbc200106e95004451802a9",
+    "app/schemas.py": "f78b8d2c4052acf34bd5cc8c6fe7732fd9e714a7d26595db98958ebcd677ddd2",
+    "app/settings.py": "034da26748afb8d6ffbb06a0a24d60104592599d0a32d37ce0380e414742b4fc",
+    "app/web.py": "016a568ca21ac22d697ce43fa2d2386267cd0cefb7d8e592331ae2be02f0c5a6",
+    "ml/evaluate.py": "3cb394d704ada902ba98d9c26ed27495fc6de11e4904d333616c629d600cd874",
+    "ml/export.py": "34944bdade5d1e4965dba81981cd58e34ad4a792b51994ae1333f00334fbd9e3",
+    "ml/train.py": "9edb1b3003084f1d4cbc9c843da25c85ebfe55f6eee900927271ed0c02b1b28d",
+    "scripts/check_application.py": "c46c8efc411163533bad1fd201f0ef69885e0594c08cbc0740082ca1985c3eb2",
+    "scripts/reset_state.py": "dba2911cd7a83fa77e4581e468fc1ac8339eef21cf85d4ffb64563b74d82bc3d",
+    "scripts/run_demo.py": "bedf6a5a3ddf120e0ca54473e22017f94ba9f2359899d1dc7a0543347f664230",
+    "scripts/smoke_baseline.py": "9a59eb3542db5fd70a426ff86f31818b3aeb92d5d686dd2d7c0f781b1d3d8b30",
+    "waf/bans.py": "a2a149b8eb8cb8a759cdf8be07d00f320aa1ca8749181e6925f2880e4fca3088",
+    "waf/buckets.py": "cf15e86fcefc8e7f5e70e4c7f4277e77be9840a20e1c03d4a8eab1a687b5355d",
+    "waf/config.py": "9afd229e8583d031047e175f902e98a3bf89e97602a8d9c4a0e1fda6181d6d09",
+    "waf/features.py": "b5d186ab79712d9d4f3f08eb952bf775153444f503948983a4af19964f5b91a0",
+    "waf/middleware.py": "cea3e2da91c4c5a0e248515a9cf91ed97c735a314e1b5b8b5923c5af1a86dbb4",
+    "waf/scoring.py": "e231129a118f4e9b5d28bbd3fa5a1f2004f9ea43bb5640bc1d426f34e680817d",
+    "waf/state.py": "21e9ddd22b8b5525103f7b854f09a7c68ba471015c2e1e0a4fc5408ae6cf6022"
+  }
+}

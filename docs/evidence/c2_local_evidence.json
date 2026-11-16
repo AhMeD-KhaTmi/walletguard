@@ -1,0 +1,80 @@
+{
+  "run_id": "development",
+  "kind": "process_local_bounded_evidence_not_final_benchmark",
+  "timings": [
+    {
+      "request_id": "bff7c877b66d43c4982d8549086de6c2",
+      "run_id": "development",
+      "waf_overhead_ms": 3.308850000394159,
+      "scoring_ms": 0,
+      "degraded": false
+    },
+    {
+      "request_id": "d8c6310396da43d2bcd428d29362ebbb",
+      "run_id": "development",
+      "waf_overhead_ms": 8.222284000112268,
+      "scoring_ms": 0,
+      "degraded": false
+    },
+    {
+      "request_id": "d8c96e08330c4439af80b5388a88af81",
+      "run_id": "development",
+      "waf_overhead_ms": 9.921066999595496,
+      "scoring_ms": 0,
+      "degraded": false
+    },
+    {
+      "request_id": "77663bcc463c464aad7b7cc04c8d3fa0",
+      "run_id": "development",
+      "waf_overhead_ms": 3.6359809992063674,
+      "scoring_ms": 0,
+      "degraded": false
+    },
+    {
+      "request_id": "0458116eb5854cb98a354f142b492797",
+      "run_id": "development",
+      "waf_overhead_ms": 5.356396999559365,
+      "scoring_ms": 0,
+      "degraded": false
+    },
+    {
+      "request_id": "d6797ad391064fbf87a7fb33484a9b90",
+      "run_id": "development",
+      "waf_overhead_ms": 7.74541800001316,
+      "scoring_ms": 0,
+      "degraded": false
+    },
+    {
+      "request_id": "01faddf3f7524c2886bfd633a30d566d",
+      "run_id": "development",
+      "waf_overhead_ms": 3.8977079993856023,
+      "scoring_ms": 0,
+      "degraded": false
+    },
+    {
+      "request_id": "0ddffecc5b6f40f1a500a2712b110d9f",
+      "run_id": "development",
+      "waf_overhead_ms": 2.291249000336393,
+      "scoring_ms": 0,
+      "degraded": false
+    },
+    {
+      "request_id": "2b48f726fb0343fab6008ae327853323",
+      "run_id": "development",
+      "waf_overhead_ms": 1.4740469996468164,
+      "scoring_ms": 0,
+      "degraded": false
+    }
+  ],
+  "outage_events": [],
+  "outage_usage": {
+    "requests": 0,
+    "tokens_in": 0,
+    "tokens_out": 0,
+    "cost_usd": 0.0
+  },
+  "dropped_events": 0,
+  "dropped_timings": 0,
+  "cache_evictions": 0,
+  "note": "Outage Redis commits may be uncertain; do not automatically merge or double-add these totals."
+}

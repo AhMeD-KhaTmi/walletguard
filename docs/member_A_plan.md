@@ -1,0 +1,945 @@
+# Project 20: Member A Plan ("Attack & Kernel" track)
+
+> Execution update — 2026-11-16: follow [the coordinated master plan](MASTER_PLAN.md)
+> and [Redis Bridge schema v2](../contract/redis_schema.md) for current decisions.
+> The original plan below is background and starter examples; conflicting snippets
+> are superseded. Implement objective-specific counters, real config switching,
+> concurrent event capture, scoped sensor signals, expiring XDP map entries and
+> the calibrated HTTP-mock cross-check specified there. C0–C4 meanings and flag
+> names remain unchanged. Version 2 adds availability/correlation fields and
+> shadow decision values; update readers before claiming integration readiness.
+> A owns updates to `eval/schema.md` and evaluation code using master-plan section 7.
+> Track evidence in [the project journal](PROJECT_JOURNAL.md).
+> B also owns a demo app and read-only management dashboard. Dashboard telemetry
+> must use real signals; polling is separated from measured traffic (master plan §4).
+> Handoff update: B's C2 writer now emits the documented schema-v2 decisions and
+> ban notifications. Independent checks pass; your Locust/benign labels, actual
+> signal producer, XDP consumer and joint acceptance runs are still required.
+
+## Current handoff — read this before the original starter plan
+
+Updated **2026-11-16**. B's independent application work has passed **64 automated
+tests and 12 real-HTTP C0/C1/C2 developer checks**. These are not your Locust ASR
+results and do not establish any kernel integration. This section and the linked
+master plan/contracts override conflicting examples later in this document.
+
+### What B has ready for you
+
+- One FastAPI target with `/login`, `/logout`, `/products`, `/chat`, usage metrics,
+  dependency health, demo UI and restricted management dashboard.
+- A separate **local HTTP mock LLM** on port 8001, called by the API on port 8000.
+  The in-process-only mock design has been replaced before final baseline runs.
+- C2 request/login/account/token budgets, reserve/refund, honeypot/strikes/bans,
+  schema-v2 decisions and bounded Redis-outage handling.
+- C1 complete observation with separate shadow state and `would_*` decisions.
+- Base-model export/training/evaluation tooling. **No production model exists:**
+  your realistic multi-IP benign traffic and labels are needed first.
+
+### Deliver these first — do not wait for XDP
+
+1. Three runnable Locust scenarios plus a synthetic credential dataset and fixed
+   seeds. Pass the API target explicitly with `--host`; validate imports from the
+   repository root rather than assuming the local `locust/` folder is importable
+   as part of the installed package.
+2. A realistic benign generator from multiple **actual source IPv4 addresses**.
+   Record distinct management/benign/attacker addresses and separate account pools.
+   Neither measured benign nor attacker addresses belong on the allowlist.
+3. Multiple independent, uniquely named traffic runs for training, calibration and
+   testing. Supply a JSON label mapping `run_id -> IP -> benign/attack`, along with
+   account roles, dataset hashes, seeds, rates, duration and concurrency. Set
+   `P20_RUN_ID` on the API for each collection run. B's tools reject unknown labels
+   for training and overlapping test/training run IDs.
+4. Client-side per-attempt objective logs and baseline results. Keep setup logins
+   separate from malicious `/chat` attempts; record timeouts/errors and unknown
+   generation outcomes. Do not save bearer sessions, passwords or raw prompts in
+   shared evidence.
+
+This first handoff lets B validate C2 against your attacks and train the base
+detector while you finish the sensor/XDP layer.
+
+### Required corrections to your evaluation design
+
+- **ASR is objective-specific**, not Locust's generic success/failure count:
+  valid login token, requested product data, or accounted malicious generation.
+  Track unique compromised accounts/products and actual tokens/simulated cost too.
+- Restart/reconfigure the API for each config and verify `/health` and effective
+  flags. Merely looping over C0–C4 names does not switch defenses. C3 requires a
+  compatible real model; **C4 currently rejects startup as integration pending**.
+  Do not try a final C3/C4 run until the corresponding B handoff is ready.
+- Define result rows by `(run_id, config, workload, repetition)`; use these keys
+  for joining both members' measurements, not just `config`.
+- Use labels for benign FPR. `would_*` is hypothetical detection, not actual
+  denial. Client records provide denominators in C0 and for XDP timeouts, because
+  those requests cannot all appear in the WAF decision stream.
+- Capture Redis ban, map insertion and first attributable per-IP XDP drop **while
+  traffic runs**. Use actual source IPs and UTC timestamps; missing events are
+  null/status values, not zero. Separate each timing endpoint.
+- Read actual `llm_tokens_charged` separately from reserved/refunded tokens.
+  `latency_ms` is WAF overhead, never end-to-end latency. Full finalized timings
+  are available through restricted `/dashboard/evidence` before process shutdown.
+- Reset/restart Redis runtime keys, local histories and owned kernel state in a
+  coordinated procedure; preserve the allowlist/schema. B's reset helper clears
+  Redis state only, and does not stop/reset your agent or XDP map.
+- Test both oversized-output DoW and repeated **under-cap** chat. Authenticate
+  measured chat clients during a labeled setup phase so a login limit does not
+  accidentally replace the token-budget experiment. Add explicit honeypot and
+  connection-churn probes; ordinary scraping does not guarantee either event.
+
+### Required corrections to the kernel design
+
+- Implement [Redis schema v2](../contract/redis_schema.md), including signal
+  `available_fields` and correlation metadata. `conn_rate_10s` retains its name
+  but means accepted connections in the rolling 10s window, not requests/sec.
+  Measure SYNs/failures/bytes independently; placeholders are not measurements.
+- Check actual kernel function signatures/return values and source attribution
+  against the target VM and official tooling docs. Scope connections to the API
+  and exec events to the app process/cgroup. The snippets below are unvalidated
+  examples, not a completed sensor.
+- Observe API-to-mock port 8001 traffic, including loopback when deployed locally.
+  Keep attacker-facing XDP on the verified ingress interface, not loopback. HTTP
+  keep-alive means request rate and connection count need separate experiments.
+- For IT-3, measure directional TCP payload traffic and calibrate protocol/JSON
+  overhead against mock input/output usage. **Bytes do not equal tokens or money.**
+  Validate on separate traffic before applying the planned tolerance.
+- Read remaining Redis PTTL when populating the map. Store an expiry checked by
+  XDP itself, so bans expire even if your agent dies. Do not restart a full ban TTL
+  on every resync. Reconcile at startup, on events and every 2s; remove newly
+  allowlisted IPs as well as deleted/expired bans.
+- Implement per-IP drop/event telemetry, safe counters and cleanup of your owned
+  attachment. Explicitly select/check and report the actual XDP interface/mode;
+  do not assume the starter flags imply generic/SKB mode or universal support.
+- Keep the WAF as normal ban decision-maker; optional kernel hard-threshold bans
+  use `ebpf_conn_flood` with the same JSON/TTL/allowlist rules. Jointly test agent
+  loss, Redis loss, expiry and recovery before asserting IT-1–6 pass.
+
+### Files to receive with this plan
+
+- [Master plan](MASTER_PLAN.md) — current design and acceptance gates.
+- [API handoff](../contract/api_handoff.md) and [OpenAPI](../contract/openapi.json).
+- [Redis schema v2](../contract/redis_schema.md) — exact keys, units, TTLs and fields.
+- [README](../README.md) — current startup/reset/test instructions.
+- [Independent status](evidence/independent_status.json) — implemented versus pending.
+
+Use the shared repository or send these files together with their relative folder
+structure. Sending only this Markdown file omits the contracts it depends on.
+For namespace traffic, B's API must bind to `0.0.0.0` on the isolated VM; the local
+demo launcher binds loopback and is for local preview. Always keep
+`--no-proxy-headers` on the target. Keep the HTTP mock on loopback. Pause dashboard
+polling during measured runs. No teammate implementation was changed by this update.
+
+---
+
+## Original plan and starter examples — reference only where not superseded
+
+Project: **eBPF / Behavioral Runtime Intrusion Detection & Automated Token-Bucket ASGI WAF Against LLM "Denial-of-Wallet"** (Pillar IV: API Security, ISG Tunis, Master SSI 2026-2027).
+
+You are **Member A**. This file is your personal plan and starting guide. It mirrors Member B's plan (`member_B_plan.md`) so the two fit together. It uses the same defaults, not yet confirmed by the professor: eBPF included (sensor + XDP), Linux VM, mock LLM, "Agent Harness" = a simple `/chat` API, ASR = successful malicious requests / total malicious requests, "deterministic" = scripted and reproducible.
+
+---
+
+## 0. Your mission in one page
+
+**You own the attacks and the kernel-level defense.** You build:
+
+1. The **Red Team**: Locust scenarios for credential stuffing, layer-7 scraping and LLM token-exhaustion Denial-of-Wallet, plus a **benign-traffic generator** from several distinct client IPs.
+2. The **evaluation harness**: runs attacks against each configuration and computes ASR, detection rate, time-to-ban.
+3. The **eBPF layer**: a kernel sensor (connection rates, egress traffic to the LLM, unexpected processes) publishing signals to Redis, plus an **XDP program** that drops packets from banned IPs.
+4. The **user-space agent** that bridges Redis and the kernel (reads bans, writes to the BPF map; reads kernel events, writes signals).
+
+**You give Member B:** attack scripts, the benign-traffic generator (several IPs), labeled benign/attacker IP lists for training, eBPF signals in Redis, and the XDP drop acting on B's bans.
+
+**You need from Member B:** the API contract (OpenAPI), demo accounts, honeypot paths, the running baseline + hardened app, and the decision log.
+
+**Your measured metrics:** Attack Success Rate (ASR) per attack type, detection rate, time-to-ban, tokens/cost burned, XDP drop counts, eBPF agent overhead.
+
+**Your owned folders:** `ebpf/`, `locust/`, `eval/`. Shared: `contract/`, `docs/`.
+
+---
+
+## 1. Your work packages
+
+| ID | Work package | Days | Done when |
+|---|---|---|---|
+| A0 | Linux VM, kernel check, install BCC/bpftrace, hello-world eBPF program, network namespaces + veth for multiple attacker IPs | 1 | A kprobe prints events; two namespaces can both reach the app with different source IPs |
+| A1 | Red Team: Locust scenarios (stuffing, scraping, DoW) + datasets + benign-traffic generator (multi-IP) + fixed seeds | 3.5 | All 4 scenarios run against B's baseline and produce logs |
+| A2 | Baseline measurement run + evaluation harness (ASR, detection rate, time-to-ban, results CSV) | 1.5 | `eval/results.csv` has one row per (config, attack) with ASR |
+| A3 | eBPF **sensor**: connection/accept rates per source IP, outbound bytes to the LLM port, unexpected `execve`; user-space agent publishing to Redis | 3 | `p20:sig:ip:*` and `p20:sig:host` update live while traffic runs |
+| A4 | eBPF **XDP enforcement**: banned-IP BPF map, `XDP_DROP`, agent syncing Redis bans into the map, drop counters | 3 | A banned IP's packets are dropped at the interface within 1 second of the ban |
+| A5 | Your slides + attack side of the demo | 2 | Slides 2, 3, 4, 7, 9, 12, 13, 15 done; demo script ready |
+| J | Joint with B: contract workshop (0.5), integration tests (1.5), final run + rehearsal (1) | 3 | IT-1 to IT-6 pass |
+
+**Total: about 17 days.**
+
+---
+
+## 2. Start here: your first 90 minutes
+
+### 2.1 Environment (Linux VM — same VM family as Member B, or a separate one you can both reach over the network)
+
+```bash
+# Check kernel version: 5.x or newer is comfortable for BCC/XDP
+uname -r
+
+sudo apt update
+sudo apt install -y git curl build-essential python3 python3-venv python3-pip \
+  docker.io redis-tools bpfcc-tools linux-headers-$(uname -r) \
+  iproute2 bridge-utils clang llvm libbpf-dev
+
+sudo usermod -aG docker $USER      # log out and back in after this
+
+python3 -m venv .venv && source .venv/bin/activate
+pip install locust redis httpx numpy pandas bcc 2>/dev/null || true
+# If `pip install bcc` fails (common — BCC is usually a system package),
+# just use the system python3-bpfcc tools instead and skip the pip package.
+
+mkdir -p ebpf locust eval contract docs
+```
+
+### 2.2 Hello-world eBPF check (do this before anything else — confirms your VM can actually run eBPF)
+
+```bash
+sudo python3 - << 'PYEOF'
+from bcc import BPF
+prog = """
+int hello(void *ctx) {
+    bpf_trace_printk("hello from eBPF\\n");
+    return 0;
+}
+"""
+b = BPF(text=prog)
+b.attach_kprobe(event=b.get_syscall_fnname("execve"), fn_name="hello")
+print("Attached. Run another command in a second terminal, then Ctrl+C here.")
+b.trace_print()
+PYEOF
+```
+
+If this fails (`Failed to compile BPF module`, permission errors), fix it now — everything else depends on it. Common causes: missing kernel headers for your exact kernel, or running without `sudo`, or a WSL2 kernel too old/custom (switch to a real VM).
+
+### 2.3 Multi-IP setup for realistic attacker and benign traffic (network namespaces)
+
+A single Locust process normally sends everything from one source IP, which breaks per-IP rate limiting tests on both sides. Use network namespaces + veth pairs to get several real, distinct source IPs talking to B's app.
+
+```bash
+# scripts/make_netns.sh — creates N namespaces (ns1..nsN) bridged to the host
+#!/usr/bin/env bash
+set -e
+N=${1:-5}
+BR=p20br0
+sudo ip link add $BR type bridge 2>/dev/null || true
+sudo ip link set $BR up
+for i in $(seq 1 "$N"); do
+  NS="ns$i"; VETH_H="veth-h$i"; VETH_N="veth-n$i"
+  sudo ip netns add "$NS" 2>/dev/null || true
+  sudo ip link add "$VETH_H" type veth peer name "$VETH_N" 2>/dev/null || true
+  sudo ip link set "$VETH_N" netns "$NS"
+  sudo ip link set "$VETH_H" master "$BR"
+  sudo ip link set "$VETH_H" up
+  sudo ip netns exec "$NS" ip link set lo up
+  sudo ip netns exec "$NS" ip link set "$VETH_N" up
+  sudo ip netns exec "$NS" ip addr add "10.20.0.$((10+i))/24" dev "$VETH_N"
+done
+sudo ip addr add 10.20.0.1/24 dev $BR 2>/dev/null || true
+echo "namespaces ns1..ns$N ready, app reachable from host at 10.20.0.1"
+```
+
+```bash
+chmod +x scripts/make_netns.sh
+sudo scripts/make_netns.sh 5
+# run B's app bound to 0.0.0.0 on the host, then from inside a namespace:
+sudo ip netns exec ns1 curl -s http://10.20.0.1:8000/products?page=1 | head -c 200
+```
+
+Each namespace (`ns1`..`ns5`) now has its own IP on the `10.20.0.0/24` subnet and can reach B's app at `10.20.0.1:8000`. Point your Locust workers at the app through the right namespace (see 3.4) so each attacker/benign client gets a distinct, real source IP that the WAF and your eBPF sensor both see correctly.
+
+---
+
+## 3. A1: Red Team — Locust scenarios (starter code)
+
+### 3.1 `locust/common.py`
+
+```python
+import json
+import random
+import string
+
+HOST = "http://10.20.0.1:8000"          # B's app, reached through the bridge (section 2.3)
+
+DEMO_USERS = [f"user{i}" for i in range(1, 51)]        # from B's hand-off (H1)
+
+
+def random_password(n=10):
+    return "".join(random.choices(string.ascii_letters + string.digits, k=n))
+
+
+def load_leaked_creds(path="locust/data/leaked_creds.txt"):
+    """username:password per line — a FEW real demo accounts + many wrong guesses."""
+    with open(path) as f:
+        for line in f:
+            u, _, p = line.strip().partition(":")
+            if u:
+                yield u, p
+```
+
+### 3.2 Build a synthetic "leaked credentials" dataset (do not use real leaked lists — synthetic data only)
+
+```python
+# locust/data/make_creds.py
+import random
+from locust.common import DEMO_USERS, random_password
+
+with open("locust/data/leaked_creds.txt", "w") as f:
+    # 5% of attempts use a real demo password (simulates reused/leaked passwords)
+    for _ in range(2000):
+        u = random.choice(DEMO_USERS)
+        if random.random() < 0.05:
+            n = int(u.replace("user", ""))
+            pwd = f"Passw0rd!{n}"          # matches B's app.main USERS dict
+        else:
+            pwd = random_password()
+        f.write(f"{u}:{pwd}\n")
+print("wrote locust/data/leaked_creds.txt")
+```
+
+### 3.3 `locust/attack_credential_stuffing.py`
+
+```python
+from itertools import cycle
+
+from locust import HttpUser, task, between
+
+from locust.common import HOST, load_leaked_creds
+
+CREDS = cycle(list(load_leaked_creds()))
+
+
+class CredentialStuffer(HttpUser):
+    host = HOST
+    wait_time = between(0.05, 0.2)          # fast, bot-like
+
+    @task
+    def try_login(self):
+        u, p = next(CREDS)
+        with self.client.post("/login", json={"username": u, "password": p},
+                              catch_response=True) as r:
+            if r.status_code == 200:
+                r.success()                 # a hit — record it for ASR
+            elif r.status_code in (401, 429, 403):
+                r.success()                 # expected outcomes, not a Locust "failure"
+            else:
+                r.failure(f"unexpected {r.status_code}")
+```
+
+Run: `locust -f locust/attack_credential_stuffing.py --headless -u 20 -r 5 -t 2m --csv eval/cs`
+
+### 3.4 `locust/attack_scraping.py` (uses the namespaces for several source IPs)
+
+```python
+import itertools
+
+from locust import HttpUser, task, constant_pacing
+
+TOTAL_PAGES = 250          # 5,000 products / 20 per page
+
+
+class Scraper(HttpUser):
+    wait_time = constant_pacing(0.3)        # steady, bot-like cadence
+
+    def on_start(self):
+        self._pages = itertools.cycle(range(1, TOTAL_PAGES + 1))
+
+    @task
+    def crawl(self):
+        page = next(self._pages)
+        self.client.get(f"/products?page={page}&per_page=20", name="/products")
+```
+
+Run one Locust process **per namespace** so each gets a distinct source IP:
+
+```bash
+for i in 1 2 3; do
+  sudo ip netns exec "ns$i" env PATH="$PATH" \
+    locust -f locust/attack_scraping.py --headless -u 5 -r 5 -t 2m \
+    --csv "eval/scrape_ns$i" &
+done
+wait
+```
+
+### 3.5 `locust/attack_dow.py` (LLM token-exhaustion Denial-of-Wallet)
+
+```python
+import json
+import random
+
+from locust import HttpUser, task, between
+
+from locust.common import HOST
+
+
+class TokenBurner(HttpUser):
+    host = HOST
+    wait_time = between(0.1, 0.3)
+    token = None
+
+    def on_start(self):
+        r = self.client.post("/login", json={"username": "user1", "password": "Passw0rd!1"})
+        self.token = r.json().get("token")
+
+    @task(3)
+    def max_output(self):
+        # ask for the largest output the (vulnerable) baseline allows
+        self._chat("Write an extremely long, detailed essay about distributed systems.", 32000)
+
+    @task(1)
+    def long_prompt(self):
+        self._chat("Repeat this context. " * 500 + "Now summarize everything above.", 2000)
+
+    def _chat(self, prompt, max_out):
+        headers = {"authorization": f"Bearer {self.token}"} if self.token else {}
+        with self.client.post("/chat", json={"prompt": prompt, "max_output_tokens": max_out},
+                              headers=headers, catch_response=True) as r:
+            if r.status_code == 200:
+                out = int(r.headers.get("X-Tokens-Out", 0))
+                r.success() if out > 0 else r.failure("no tokens charged")
+            elif r.status_code in (429, 400, 403):
+                r.success()                 # throttled/blocked — expected under defense
+            else:
+                r.failure(f"unexpected {r.status_code}")
+```
+
+### 3.6 `locust/benign.py` (realistic users — critical for B's training data and your false-positive tests)
+
+```python
+import random
+
+from locust import HttpUser, task, between
+
+from locust.common import HOST
+
+
+class BenignUser(HttpUser):
+    host = HOST
+    wait_time = between(1, 6)              # human-like pauses
+    token = None
+
+    def on_start(self):
+        u = random.choice([f"user{i}" for i in range(1, 51)])
+        n = int(u.replace("user", ""))
+        r = self.client.post("/login", json={"username": u, "password": f"Passw0rd!{n}"})
+        self.token = r.json().get("token")
+
+    @task(3)
+    def browse(self):
+        self.client.get(f"/products?page={random.randint(1, 30)}&per_page=20", name="/products")
+
+    @task(1)
+    def chat(self):
+        headers = {"authorization": f"Bearer {self.token}"} if self.token else {}
+        self.client.post("/chat", json={"prompt": "What's a good birthday gift idea?",
+                                        "max_output_tokens": random.randint(50, 300)},
+                         headers=headers)
+```
+
+Run benign traffic from several namespaces at once (so it looks like several real users, not one IP hammering the app):
+
+```bash
+for i in 1 2 3 4 5; do
+  sudo ip netns exec "ns$i" env PATH="$PATH" \
+    locust -f locust/benign.py --headless -u 3 -r 1 -t 5m --csv "eval/benign_ns$i" &
+done
+wait
+```
+
+**Hand-off H2 to Member B:** once this is running cleanly, tell B which namespace IPs (`10.20.0.11`..`10.20.0.15`) were benign and which were attackers for each run, so B can label training data and compute false positives correctly.
+
+---
+
+## 4. A2: evaluation harness (starter code)
+
+### 4.1 `eval/harness.py`
+
+```python
+"""Runs one attack scenario against one configuration and computes ASR."""
+import csv
+import subprocess
+import sys
+import time
+
+import redis
+
+CONFIGS = ["C0", "C1", "C2", "C3", "C4"]        # must match waf/config.py on B's side
+ATTACKS = {
+    "credential_stuffing": "locust/attack_credential_stuffing.py",
+    "scraping": "locust/attack_scraping.py",
+    "dow": "locust/attack_dow.py",
+}
+
+r = redis.Redis(decode_responses=True)
+
+
+def reset():
+    subprocess.run(["bash", "scripts/reset_state.sh"], check=True)   # from member_B_plan.md section 6
+
+
+def run_attack(name, script, duration_s=60):
+    out_prefix = f"eval/{name}"
+    subprocess.run(["locust", "-f", script, "--headless", "-u", "10", "-r", "5",
+                    "-t", f"{duration_s}s", "--csv", out_prefix], check=True)
+    return parse_locust_stats(f"{out_prefix}_stats.csv")
+
+
+def parse_locust_stats(path):
+    total = succeeded_as_attack = 0
+    with open(path) as f:
+        for row in csv.DictReader(f):
+            if row["Name"] == "Aggregated":
+                total = int(row["Request Count"])
+                succeeded_as_attack = total - int(row["Failure Count"])
+    return total, succeeded_as_attack
+
+
+def time_to_ban(ip, started_ms, timeout_s=10):
+    deadline = time.time() + timeout_s
+    while time.time() < deadline:
+        if r.exists(f"p20:ban:{ip}"):
+            return (time.time() * 1000 - started_ms) / 1000.0
+        time.sleep(0.1)
+    return None
+
+
+def main():
+    reset()
+    with open("eval/results.csv", "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["config", "attack", "total_requests", "attack_success", "asr", "time_to_ban_s"])
+        for config in CONFIGS:
+            for name, script in ATTACKS.items():
+                reset()
+                t0 = time.time() * 1000
+                total, succeeded = run_attack(name, script)
+                asr = succeeded / total if total else 0.0
+                ttb = time_to_ban("10.20.0.99", t0)       # adjust to your attacker IP(s)
+                w.writerow([config, name, total, succeeded, round(asr, 4), ttb])
+                print(config, name, "ASR=", round(asr, 4))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+**Note on ASR with Locust:** Locust's own "failure" count is not quite the same as "attack blocked". In each attack script above, a `429/401/403` response is marked `r.success()` in Locust (it is an *expected* outcome for that request) — ASR itself is computed from your own, attack-specific definition of success (a working login found, a page scraped, tokens actually charged), tracked with counters in Redis or a log file in each attack script rather than from the generic Locust pass/fail. Extend each attack script to increment a counter such as `p20:eval:hits:<attack>` only on a genuine objective met, and have `harness.py` read that counter instead of (or in addition to) the Locust stats.
+
+### 4.2 `eval/schema.md` (agree this with Member B before Day 2)
+
+```
+eval/results.csv columns:
+config, attack, total_requests, attack_success, asr, time_to_ban_s,
+latency_p50_ms, latency_p95_ms, latency_p99_ms, false_positive_rate, waf_overhead_ms_mean
+```
+(This is the original minimal schema, superseded by master-plan section 7. Merge
+on run ID, config, workload and repetition; A owns the matching `eval/schema.md` update.)
+
+---
+
+## 5. A3: eBPF sensor (starter code)
+
+### 5.1 `ebpf/sensor.py`
+
+```python
+"""User-space agent: attaches BPF probes, aggregates events, publishes to Redis."""
+import ctypes as ct
+import time
+from collections import defaultdict
+
+import redis
+from bcc import BPF
+
+r = redis.Redis(decode_responses=True)
+
+BPF_SRC = r"""
+#include <uapi/linux/ptrace.h>
+#include <net/sock.h>
+#include <bcc/proto.h>
+
+struct conn_evt_t { u32 saddr; u64 ts; };
+BPF_PERF_OUTPUT(conn_events);
+
+struct exec_evt_t { u32 pid; char comm[16]; u64 ts; };
+BPF_PERF_OUTPUT(exec_events);
+
+int trace_accept(struct pt_regs *ctx, struct sock *sk) {
+    struct conn_evt_t evt = {};
+    evt.saddr = sk->__sk_common.skc_daddr;   // peer address as seen by the server
+    evt.ts = bpf_ktime_get_ns();
+    conn_events.perf_submit(ctx, &evt, sizeof(evt));
+    return 0;
+}
+
+int trace_exec(struct pt_regs *ctx) {
+    struct exec_evt_t evt = {};
+    evt.pid = bpf_get_current_pid_tgid() >> 32;
+    bpf_get_current_comm(&evt.comm, sizeof(evt.comm));
+    evt.ts = bpf_ktime_get_ns();
+    exec_events.perf_submit(ctx, &evt, sizeof(evt));
+    return 0;
+}
+"""
+
+APP_PROCESS_NAME = "python3"          # uvicorn runs as python3/uvicorn — set to your real process name
+EXPECTED_CHILD_PROCS = {"python3", "uvicorn"}   # anything else exec'd BY the app is "unexpected"
+
+b = BPF(text=BPF_SRC)
+b.attach_kprobe(event="inet_csk_accept", fn_name="trace_accept")
+b.attach_kprobe(event=b.get_syscall_fnname("execve"), fn_name="trace_exec")
+
+conn_hits = defaultdict(list)     # ip -> [timestamps]
+unexpected_exec_count = 0
+
+
+def ip_from_int(n: int) -> str:
+    import socket, struct
+    return socket.inet_ntoa(struct.pack("<I", n))
+
+
+def handle_conn(cpu, data, size):
+    evt = b["conn_events"].event(data)
+    ip = ip_from_int(evt.saddr)
+    conn_hits[ip].append(time.time())
+
+
+def handle_exec(cpu, data, size):
+    global unexpected_exec_count
+    evt = b["exec_events"].event(data)
+    comm = evt.comm.decode(errors="replace")
+    if comm not in EXPECTED_CHILD_PROCS:
+        unexpected_exec_count += 1
+
+
+b["conn_events"].open_perf_buffer(handle_conn)
+b["exec_events"].open_perf_buffer(handle_exec)
+
+print("eBPF sensor running — Ctrl+C to stop")
+last_publish = time.time()
+while True:
+    b.perf_buffer_poll(timeout=200)
+    now = time.time()
+    if now - last_publish >= 1.0:            # publish aggregates once per second
+        for ip, stamps in list(conn_hits.items()):
+            stamps[:] = [t for t in stamps if now - t <= 10]     # keep last 10s
+            if not stamps:
+                del conn_hits[ip]
+                continue
+            rate_1s = sum(1 for t in stamps if now - t <= 1)
+            rate_10s = len(stamps)
+            key = f"p20:sig:ip:{ip}"
+            r.hset(key, mapping={"conn_rate_1s": rate_1s, "conn_rate_10s": rate_10s,
+                                 "syn_rate_10s": rate_10s, "failed_conn_10s": 0,
+                                 "bytes_in_10s": 0, "updated_ms": int(now * 1000)})
+            r.expire(key, 60)
+        r.hset("p20:sig:host", mapping={"egress_bytes_llm_60s": 0, "egress_conns_llm_60s": 0,
+                                        "unexpected_exec_count": unexpected_exec_count,
+                                        "updated_ms": int(now * 1000)})
+        r.expire("p20:sig:host", 120)
+        last_publish = now
+```
+
+Run: `sudo python3 ebpf/sensor.py` (needs root to load BPF programs). **This is a starting point, not production eBPF.** The connection tracking (`inet_csk_accept`) and egress byte counting (currently a placeholder at 0) need real work — see Section 5.2.
+
+### 5.2 Egress-to-LLM tracking (fill this in — it is the Denial-of-Wallet signal)
+
+Attach a kprobe or tracepoint on `tcp_sendmsg`/`tcp_cleanup_rbuf` filtered by the destination port your mock LLM uses (or, more realistically, by the real LLM provider's port/IP if you use a real API in Phase 2). Aggregate bytes sent in the last 60 seconds into `egress_bytes_llm_60s`. This is the field Member B's IT-3 cost cross-check compares against the app's own token accounting (`/_metrics/usage`).
+
+### 5.3 Test the sensor is alive
+
+```bash
+redis-cli HGETALL p20:sig:host
+redis-cli --scan --pattern 'p20:sig:ip:*' | xargs -n1 redis-cli HGETALL
+```
+Run `locust/attack_scraping.py` from a namespace and confirm `conn_rate_10s` for that IP rises.
+
+---
+
+## 6. A4: XDP enforcement (starter code)
+
+### 6.1 `ebpf/xdp_ban.py`
+
+```python
+"""Loads an XDP program with a banned-IP map; a sidecar thread syncs Redis bans into it."""
+import socket
+import struct
+import threading
+import time
+
+import redis
+from bcc import BPF
+
+r = redis.Redis(decode_responses=True)
+
+XDP_SRC = r"""
+#include <uapi/linux/bpf.h>
+#include <uapi/linux/if_ether.h>
+#include <uapi/linux/ip.h>
+
+BPF_HASH(banned_ips, u32, u8, 10240);
+BPF_ARRAY(drop_count, u64, 1);
+
+int xdp_drop_banned(struct xdp_md *ctx) {
+    void *data = (void *)(long)ctx->data;
+    void *data_end = (void *)(long)ctx->data_end;
+    struct ethhdr *eth = data;
+    if ((void *)(eth + 1) > data_end) return XDP_PASS;
+    if (eth->h_proto != __constant_htons(ETH_P_IP)) return XDP_PASS;
+    struct iphdr *ip = (void *)(eth + 1);
+    if ((void *)(ip + 1) > data_end) return XDP_PASS;
+
+    u32 src = ip->saddr;
+    u8 *hit = banned_ips.lookup(&src);
+    if (hit) {
+        u32 idx = 0;
+        u64 *c = drop_count.lookup(&idx);
+        if (c) (*c)++;
+        return XDP_DROP;
+    }
+    return XDP_PASS;
+}
+"""
+
+
+def ip_to_u32(ip: str) -> int:
+    return struct.unpack("<I", socket.inet_aton(ip))[0]   # little-endian to match saddr byte order
+
+
+def load_xdp(iface: str):
+    b = BPF(text=XDP_SRC)
+    fn = b.load_func("xdp_drop_banned", BPF.XDP)
+    b.attach_xdp(iface, fn, 0)
+    print(f"XDP program attached to {iface}")
+    return b
+
+
+def sync_loop(b):
+    banned_map = b["banned_ips"]
+    pubsub = r.pubsub()
+    pubsub.subscribe("p20:ch:ban")
+
+    def reconcile():
+        """Full resync every 2s — covers missed pub/sub messages (contract rule)."""
+        wanted = set()
+        for key in r.scan_iter("p20:ban:*"):
+            wanted.add(key.split(":")[-1])
+        current = {socket.inet_ntoa(struct.pack("<I", k.value)) for k, _ in banned_map.items()}
+        for ip in wanted - current:
+            if r.sismember("p20:allowlist", ip):          # never ban the allowlist
+                continue
+            banned_map[ct_u32(ip)] = ct_u8(1)
+        for ip in current - wanted:
+            del banned_map[ct_u32(ip)]
+
+    def ct_u32(ip):
+        import ctypes
+        return ctypes.c_uint32(ip_to_u32(ip))
+
+    def ct_u8(v):
+        import ctypes
+        return ctypes.c_uint8(v)
+
+    last_reconcile = 0
+    while True:
+        msg = pubsub.get_message(timeout=1.0)
+        if msg and msg["type"] == "message":
+            reconcile()                                    # a ban or unban arrived — resync now
+        if time.time() - last_reconcile > 2:
+            reconcile()
+            last_reconcile = time.time()
+
+
+if __name__ == "__main__":
+    import sys
+    iface = sys.argv[1] if len(sys.argv) > 1 else "eth0"   # use your bridge/veth interface, e.g. p20br0
+    bpf = load_xdp(iface)
+    try:
+        sync_loop(bpf)
+    except KeyboardInterrupt:
+        pass
+```
+
+Run: `sudo python3 ebpf/xdp_ban.py p20br0` (or the real interface facing your attacker namespaces — check with `ip link`).
+
+**Test it manually before relying on it:**
+```bash
+redis-cli SET p20:ban:10.20.0.12 '{"ip":"10.20.0.12","reason":"test","source":"waf","ts_ms":0,"ttl_s":60}' EX 60
+redis-cli PUBLISH p20:ch:ban '{"op":"add","ip":"10.20.0.12","ttl_s":60,"reason":"test"}'
+# from ns2 (whichever namespace has 10.20.0.12):
+sudo ip netns exec ns2 curl -m 3 http://10.20.0.1:8000/products      # should now time out / fail
+```
+
+**Mode verification required:** explicitly select/check the supported XDP mode on
+the target interface and record the observed result. Do not infer the mode from
+this snippet or claim native performance/universal support without verification.
+
+---
+
+## 7. Your side of the Redis Bridge (integration with Member B — this is where you stop and hand off)
+
+This is the exact point where your track and B's track meet. Everything above this line is yours alone; everything in this section is shared contract — do not change these key names or shapes without updating B.
+
+| Key / channel | You | Notes |
+|---|---|---|
+| `p20:sig:ip:<ip>` | **write** | `conn_rate_1s, conn_rate_10s, syn_rate_10s, failed_conn_10s, bytes_in_10s, updated_ms`, TTL 60s |
+| `p20:sig:host` | **write** | `egress_bytes_llm_60s, egress_conns_llm_60s, unexpected_exec_count, updated_ms`, TTL 120s |
+| `p20:stream:ebpf_events` | **write** (optional, for richer detection) | `type` (`conn_burst`, `egress_spike`, `unexpected_exec`), `ip`, `pid`, `comm`, `detail`, `ts_ms` |
+| `p20:ban:<ip>` | **read** (sync into XDP map); **write** only for your own hard-threshold bans (`ebpf_conn_flood`) | same JSON shape B uses |
+| `p20:ch:ban` | **subscribe** | `{"op":"add"|"del","ip","ttl_s","reason"}` |
+| `p20:xdp:drops` | **write** | `total_dropped_pkts, dropped_pkts:<ip>, map_size, updated_ms` |
+| `p20:allowlist` | **read** | never ban/drop these IPs (your VM host, Redis host, test runner) |
+| `p20:stream:waf_decisions` | **read** (your eval harness) | `ts_ms, ip, client_id, route, decision, reason, anomaly_score, llm_tokens_charged, latency_ms` |
+
+**You stop here and B's layer takes over:** once your sensor writes `p20:sig:*` and your XDP program enforces `p20:ban:*`, your job for a given request is done — B's middleware reads your signals as ML features and decides allow/throttle/block/ban; your agent then only has to notice B's ban and sync the map. You never read request bodies, headers or application logic — that is entirely B's side.
+
+### 7.1 Develop without waiting for B: `contract/fake_waf.py`
+
+```python
+# Usage: python contract/fake_waf.py 10.20.0.12   (pretend the WAF just banned this IP)
+import json
+import sys
+import time
+
+import redis
+
+r = redis.Redis(decode_responses=True)
+ip = sys.argv[1]
+payload = {"ip": ip, "reason": "honeypot", "source": "waf", "ts_ms": int(time.time() * 1000), "ttl_s": 60}
+r.set(f"p20:ban:{ip}", json.dumps(payload), ex=60)
+r.publish("p20:ch:ban", json.dumps({"op": "add", "ip": ip, "ttl_s": 60, "reason": "honeypot"}))
+print("fake ban written for", ip)
+```
+
+Use this to test `ebpf/xdp_ban.py` end-to-end before B's middleware exists.
+
+### 7.2 Integration tests you take part in
+
+| ID | Test | Your part |
+|---|---|---|
+| IT-1 | Honeypot hit leads to a kernel drop in 1 second or less | Your sync loop must pick up the ban fast (pub/sub + 2s reconcile) |
+| IT-2 | eBPF connection burst raises the WAF's anomaly score / strikes | Your sensor must publish `conn_rate_10s` correctly and promptly |
+| IT-3 | Cost cross-check: your egress bytes vs B's token accounting agree within a tolerance | Finish the egress tracking in Section 5.2 |
+| IT-4 | Closed loop: time-to-ban from first malicious request to first XDP drop | Your `p20:xdp:drops` counters + B's decision timestamps |
+| IT-5 | Failure modes: your agent stopped, Redis stopped | Make sure the app keeps working without you (test by killing your agent mid-attack) |
+| IT-6 | No false bans on benign traffic | Tune your hard-threshold ban (if any) conservatively; most banning should come from B |
+
+---
+
+## 8. Configurations you run against (same as B's — keep in sync)
+
+| Config | Meaning | What you run |
+|---|---|---|
+| **C0** | Vulnerable baseline | All 3 attacks + benign, B's app with `WAF_MODE=off` |
+| **C1** | Observe only | Benign + attacks, collects B's training data |
+| **C2** | Buckets + honeypot | Attacks should now be throttled/blocked |
+| **C3** | C2 + IsolationForest | Attacks should be detected even when budgets alone miss them |
+| **C4** | C3 + your eBPF signals and XDP drops | Full stack — run your sensor and `xdp_ban.py` alongside |
+
+For C4, start in this order: Redis → B's app (`WAF_MODE=enforce ... WAF_EBPF_SIGNALS=1`) → your sensor (`sudo python3 ebpf/sensor.py`) → your XDP loader (`sudo python3 ebpf/xdp_ban.py <iface>`) → then run attacks.
+
+---
+
+## 9. A5: the slides you own (8 of 18) and what to put in them
+
+| # | Slide | Content to prepare |
+|---|---|---|
+| 2 | Formal threat model | Assets (accounts, data, LLM budget, host), actors, entry points, impact/likelihood per attack |
+| 3 | Attack catalogue | One slide per attack with the mechanics: credential stuffing, layer-7 scraping, LLM token-exhaustion DoW |
+| 4 | CWE + OWASP API Security Top 10 mapping | CWE-307 (auth attempt restriction), CWE-770 (resource allocation without limits), CWE-799 (interaction frequency); OWASP API Security Top 10 (2023): API2, API4, API6. **Verify exact names/IDs on the official OWASP page before citing** |
+| 7 | eBPF layer architecture | Sensor → Redis → agent → XDP map, drawn by you |
+| 9 | Attack sequence diagrams (drawn by your team) | Starter below |
+| 12 | Install/config: Linux/VM, BCC, XDP, Locust, namespaces | Your Section 2 and 3 commands, kernel version requirement |
+| 13 | Cited comparison matrix 1: where to enforce | Table below |
+| 15 | Results: ASR, detection rate, time-to-ban, tokens/cost burned | Charts from `eval/results.csv` |
+
+Joint slides with B: 8 (Redis Bridge) and 17 (live demo).
+
+### Mermaid starter for the credential-stuffing attack sequence diagram
+
+```mermaid
+sequenceDiagram
+    participant Atk as Attacker (Locust, ns1)
+    participant WAF as ASGI WAF (B)
+    participant App as FastAPI /login
+    participant eBPF as eBPF sensor (A)
+    Atk->>WAF: POST /login (guess 1)
+    WAF->>App: forward (not yet throttled)
+    App-->>WAF: 401 unknown/wrong
+    WAF-->>Atk: 401
+    Note over Atk: repeats rapidly, many accounts
+    eBPF->>eBPF: conn_rate_10s(ns1 IP) rises
+    eBPF-->>WAF: p20:sig:ip:<ip> updated (via Redis)
+    Atk->>WAF: POST /login (guess N)
+    WAF->>WAF: login_ip bucket empty -> throttle, strike++
+    WAF-->>Atk: 429 Retry-After
+    Note over WAF: strikes >= limit -> ban
+    WAF->>WAF: SET p20:ban, PUBLISH p20:ch:ban
+    Note over eBPF: agent syncs ban into XDP map
+    Atk->>eBPF: next packets
+    eBPF-->>Atk: XDP_DROP (no response at all)
+```
+
+### Comparison matrix starter (slide 13): where to enforce — you must add citations
+
+| Enforcement point | Can see | Overhead | Can weight by cost (LLM tokens) | Notes |
+|---|---|---|---|---|
+| **eBPF/XDP (chosen, kernel)** | Packet/connection level | Very low | No (no app semantics) | Fast drop, blind to payload |
+| iptables/nftables | Packet/connection level | Low | No | Simpler, less flexible than eBPF |
+| Reverse-proxy WAF (e.g. Nginx + ModSecurity) | Full HTTP request | Medium | Partial | Extra network hop |
+| **In-app ASGI middleware (chosen, B's layer)** | Full HTTP request + app state | Low–medium (in-process) | **Yes** | Needed for LLM token budgets |
+
+**Sources to find and cite:** the eBPF and XDP documentation (kernel.org, Cilium's eBPF documentation), the BCC project documentation, OWASP API Security Top 10 (2023), a comparative paper or blog on kernel-level vs application-level rate limiting (for example Cloudflare's or Cilium's engineering blog on XDP-based mitigation). Verify titles/URLs yourself before citing.
+
+---
+
+## 10. Timeline for Member A
+
+| Week | Your work | Checkpoint |
+|---|---|---|
+| **1** | Day 1: A0 (VM, BCC hello-world, namespaces) + contract workshop with B (0.5 day). Days 2-5: A1 (all Locust scenarios + benign generator), send H2 (benign IPs/dataset) toward end of week | **IC0:** contract frozen, `fake_waf.py` exists, your attacks run against B's baseline |
+| **2** | A2 (evaluation harness, baseline ASR results on C0), start A3 (sensor) | **IC1:** baseline attacks succeed on C0 (high ASR) and are reduced on C2 |
+| **3** | Finish A3, A4 (XDP map + enforcement), IT-1 and IT-2 with B's real middleware | **IC2:** IT-1 and IT-2 pass |
+| **4** | A5 slides, IT-3 to IT-6, full C0–C4 run with B, demo rehearsal x2 | **IC3:** demo ready |
+
+---
+
+## 11. Messages to send Member B today
+
+1. "Day 1 workshop: let's freeze the Redis contract and the `results.csv` columns (see `eval/schema.md`)."
+2. "I'm building the benign generator with 5 distinct source IPs via network namespaces (`10.20.0.11`-`15`) — tell me if your per-IP bucket limits need adjusting for that."
+3. "I'll have `fake_waf.py` ready so you don't need my real eBPF/XDP code running to test your middleware early."
+4. "Please keep my VM host IP and the Redis host IP on `p20:allowlist` only — I will never add attacker IPs there."
+5. "My `latency_ms` interest is end-to-end per request from Locust stats — confirm your `latency_ms` in the decision stream is WAF overhead only, not end-to-end, so we don't double-count."
+
+---
+
+## 12. Pitfalls to avoid
+
+- **Single-IP attacks look unrealistic and also break per-IP rate-limit testing.** Always use the namespace setup for both attacks and benign traffic.
+- **XDP needs the right interface.** Attaching to `lo` (loopback) behaves differently from a real interface — use the bridge/veth interface facing your namespaces.
+- **BCC compiles C code against your exact running kernel headers.** If you change VM/kernel, reinstall matching `linux-headers-$(uname -r)`.
+- **Root required.** Both `sensor.py` and `xdp_ban.py` need `sudo`. Plan your demo script around that (don't forget passwords mid-demo).
+- **Locust's pass/fail is not your ASR.** Define and log attack-specific "success" (Section 4.1) rather than relying on HTTP status codes alone.
+- **Reconcile, don't trust pub/sub alone.** A missed Redis pub/sub message must not leave a stale XDP map — always keep the periodic full resync.
+- **Never put attacker IPs on the allowlist**, even by accident during testing — check this before every run.
+- **Reproducibility:** fixed seeds in your credential dataset generation, same namespace IPs every run, run `scripts/reset_state.sh` (B's script) before every measured run.
+- **Egress tracking is the hardest part of A3 — start it early**, it directly feeds IT-3 and your DoW story.
+
+---
+
+## 13. Definition of done (your checklist)
+
+- [ ] A0: VM ready, BCC hello-world works, namespaces/veth bridge working with multiple IPs
+- [ ] A1: all 3 attacks + benign generator run against B's baseline, synthetic creds dataset only
+- [ ] H2 sent: benign/attacker IP lists and dataset for B's IsolationForest training
+- [ ] A2: evaluation harness produces `eval/results.csv` with ASR per config/attack
+- [ ] A3: sensor publishes `p20:sig:ip:*` and `p20:sig:host` live, including egress bytes (Section 5.2 completed)
+- [ ] A4: XDP program loaded, banned IPs dropped within 1s, drop counters in `p20:xdp:drops`
+- [ ] `fake_waf.py` committed and used to test A4 independently
+- [ ] IT-1 to IT-6 pass with B
+- [ ] Slides 2, 3, 4, 7, 9, 12, 13, 15 done (+ joint 8 and 17)
+- [ ] One-command reproducible run (`eval/harness.py` + your sensor/XDP scripts); backup demo video recorded
+- [ ] You can explain the whole project, including B's WAF/IsolationForest layer, at a high level

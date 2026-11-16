@@ -2,6 +2,16 @@
 
 Repository: [AhMeD-KhaTmi/walletguard](https://github.com/AhMeD-KhaTmi/walletguard).
 
+## Team
+
+| Member | Track | Responsibilities | Contact |
+|---|---|---|---|
+| [AhMeD-KhaTmi](https://github.com/AhMeD-KhaTmi) — Member B | Application & Intelligence | FastAPI target, mock LLM, ASGI WAF, ML tooling and dashboard | GitHub profile |
+| Member A | Attack & Kernel | Synthetic attack/benign traffic, evaluation harness, eBPF sensor and XDP enforcement | [amantounsi@gmail.com](mailto:amantounsi@gmail.com) |
+
+Both members share the Redis contract, integration tests, final measurements and
+presentation. See the [coordinated plan](docs/MASTER_PLAN.md) for ownership and handoffs.
+
 Member B's FastAPI target, HTTP mock LLM and application-defense starter.
 Current execution plan: [docs/MASTER_PLAN.md](docs/MASTER_PLAN.md).
 Work history and remaining issues: [docs/PROJECT_JOURNAL.md](docs/PROJECT_JOURNAL.md).
