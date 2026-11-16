@@ -12,6 +12,9 @@ Repository: [AhMeD-KhaTmi/walletguard](https://github.com/AhMeD-KhaTmi/walletgua
 Both members share the Redis contract, integration tests, final measurements and
 presentation. See the [coordinated plan](docs/MASTER_PLAN.md) for ownership and handoffs.
 
+**Member A's AI agent:** start with [the agent handoff guide](docs/MEMBER_A_AGENT_HANDOFF.md)
+for the exact reading order, first PR deliverables and submission workflow.
+
 Member B's FastAPI target, HTTP mock LLM and application-defense starter.
 Current execution plan: [docs/MASTER_PLAN.md](docs/MASTER_PLAN.md).
 Work history and remaining issues: [docs/PROJECT_JOURNAL.md](docs/PROJECT_JOURNAL.md).

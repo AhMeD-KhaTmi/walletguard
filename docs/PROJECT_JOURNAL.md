@@ -822,6 +822,26 @@ Next action: connect GitHub or configure Git HTTPS/SSH authentication, then run
   pushes; the connected GitHub tools successfully published this project without
   exposing or requesting tokens. Public fetch and remote verification work normally.
 
+### 2026-11-16 — created Member A's AI-agent launch guide
+
+- User requested a Markdown file explaining exactly what A's agent should read
+  and push for B to review before integration.
+- Added `docs/MEMBER_A_AGENT_HANDOFF.md` with the human's Member A launch prompt,
+  exact reading order, ownership boundaries, current readiness, first traffic/data
+  PR checklist, later kernel checklist, measurement rules and branch/PR workflow.
+- Explicitly addressed the root AGENTS.md's Member B perspective: A's human should
+  authorize their own track in the agent prompt; shared rules/B ownership remain.
+- Prioritized attack scripts, multi-IP benign traffic and run labels before XDP,
+  and required truthful test evidence plus independent train/calibration/test runs.
+- Linked the guide from README. No application or teammate implementation changed;
+  no invitation, message, integration or runtime test was performed by this edit.
+- Checked local links, Markdown fences and required handoff topics. Existing
+  runtime results are unchanged; documentation does not require rerunning them.
+
+Publication: include the guide, README link and this journal entry in a
+documentation-only GitHub update; verify the remote tree matches the local commit.
+Next action: A reads the guide after cloning and submits the first traffic/data PR.
+
 ### Template for later work entries
 
 Date and task:
