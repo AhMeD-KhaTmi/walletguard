@@ -842,6 +842,25 @@ Publication: include the guide, README link and this journal entry in a
 documentation-only GitHub update; verify the remote tree matches the local commit.
 Next action: A reads the guide after cloning and submits the first traffic/data PR.
 
+### 2026-11-16 — redesigned the repository README
+
+- User requested a professional README. Reorganized it around WalletGuard's
+  identity, threat/defense overview, clear readiness table, real screenshots,
+  architecture, ordered quick start, validation, ML workflow, docs and team.
+- Preserved Member A's email and the agent handoff link. Added static stack/status
+  badges tied to actual files; explicitly labeled 64 tests/12 probes as recorded
+  local evidence, not live CI or final integration results.
+- Kept operational details in collapsible/manual sections, including source-IP
+  identity, scratch DB 15, reset boundaries, mock-only costs, local fallback and
+  missing production models/kernel integration. Documented redis-server as a
+  prerequisite for the disposable outage-test cases.
+- No runtime/dependency changes. Checked documentation links, fences, screenshot
+  paths and consistency with launcher/settings and saved evidence. No unnecessary
+  application test rerun for this presentation-only edit.
+
+Publication: include README and journal in a documentation-only GitHub update,
+checking the remote head and resulting tree before synchronizing local main.
+
 ### Template for later work entries
 
 Date and task:
