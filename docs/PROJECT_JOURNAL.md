@@ -801,6 +801,27 @@ Next action: connect GitHub or configure Git HTTPS/SSH authentication, then run
   with bounded reads and exact hash checks. No credentials or local configuration
   are included. Original local commits will remain on a backup branch.
 
+### 2026-11-16 — full project published to walletguard
+
+- Published all 64 reviewed files, including the README Team section with Member A
+  and `amantounsi@gmail.com`, through the authenticated GitHub connection.
+- Verified the complete GitHub tree SHA exactly matches the local committed tree:
+  `57dada3909cfdd2989649ffbce9a23fdca749ab1`. Binary files were uploaded from bounded
+  reads and individually verified against their Git blob hashes.
+- Created project commit `fa16bbddb6a868829b31d26bc08af77974b17f5d` and advanced
+  remote `main` without force from the known README bootstrap. `git ls-remote`
+  confirmed that exact published head.
+- Repository: `https://github.com/AhMeD-KhaTmi/walletguard`.
+- This follow-up documentation records the verified publication and updates the
+  checklist's commit status. Original local history is retained on
+  `local-initial-history`; local `main` is aligned to track the GitHub branch.
+- No runtime code changed in this publishing task. Existing 64-test/12-probe
+  evidence remains valid; local caches, environments, .env and assistant/cloud
+  configuration were excluded. No repository invitation or email message was sent.
+- Command-line HTTPS Git still needs its own credential setup for future direct
+  pushes; the connected GitHub tools successfully published this project without
+  exposing or requesting tokens. Public fetch and remote verification work normally.
+
 ### Template for later work entries
 
 Date and task:

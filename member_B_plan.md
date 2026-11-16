@@ -978,7 +978,7 @@ joint validation. Your entire Member B track is not finished yet.
 - [x] **B2 — independent implementation:** request/login/account/token buckets, reserve/refund, concurrency and cancellation checks, 429 + `Retry-After`. Validation with A's actual Locust attacks is still pending.
 - [x] **B3 — independent implementation:** honeypot + `robots.txt`, strikes, ban key/TTL/pubsub and allowlist tested. Redis-to-XDP enforcement is part of the pending joint tests.
 - [ ] **B4 — partial:** observe collection, feature extraction, grouped training/evaluation and model-loading code tested. Real labeled data, production base/augmented models, calibrated thresholds and realistic precision/recall/FPR/scoring results remain pending.
-- [ ] **Redis Bridge deliverable — partial:** schema-v2 decision writer and ban notifications tested; `contract/fake_ebpf.py` exists. Git commit status, real signal consumption and joint contract acceptance are not confirmed.
+- [ ] **Redis Bridge deliverable — partial:** schema-v2 decision writer and ban notifications tested; `contract/fake_ebpf.py` is committed and published in walletguard. Real signal consumption and joint contract acceptance remain pending.
 - [ ] **IT-1 to IT-6:** joint tests with A, including real sensor/XDP and calibrated traffic/token cross-check. Independent outage/ban tests do not replace these.
 - [ ] **B5:** final matched C0–C4 results CSV with latency/FPR/overhead and repeated runs. Development timings exist; final benchmark results do not.
 - [ ] **B6:** slides 1, 5, 6, 10, 11, 14, 16, 18 and joint slides 8/17.
