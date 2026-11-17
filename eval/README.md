@@ -135,11 +135,18 @@ their latency stays in the per-attempt JSONL and is never published as a benign 
 ```
 
 `eval/summary.csv` is the plan's §7.2.6 summary: median, min and max per
-`(config, workload, profile)` over the **valid** repetitions, with the contributing run
+`(config, workload, profile, code_revision, dow_pace_s)` over the **valid** repetitions, with the contributing run
 count in the `repetitions` column. The profile is part of the key because `dow` is run
 twice with different traffic shapes (`undercap`, `overcap`); averaging them would produce
 a median that no run ever measured. Per-run rows stay in `eval/results.csv`; the summary
 never replaces them and never averages an invalid run in.
+
+Pacing and code revisions also define comparable repetitions. New standalone DoW
+manifests record `dow_pace_s` (0 for burst); old ones remain unavailable rather than
+being assigned an invented zero. The existing paced probe and historical burst runs
+have different revisions, so they no longer share a summary. A group of one remains
+single-run evidence, not a repeated benchmark. `dow_pace_s` is a post-request wait,
+not an exact start-to-start interval; request processing adds to that interval.
 
 `labels.json` labels each run's source IPs `benign`, `attack` or `probe` (connection
 churn is a kernel-sensor probe, not an attack). `splits.json` proposes disjoint

@@ -1,8 +1,20 @@
 """Unit tests for the harness's evidence rules (no traffic is started)."""
 
 import json
+from types import SimpleNamespace
 
 from eval import harness
+
+
+def test_dow_pacing_metadata_records_both_paced_and_burst():
+    for pace in (0.0, 7.0):
+        args = SimpleNamespace(workload="dow", profile="undercap", dow_pace=pace)
+        assert harness.workload_metadata(args) == {"profile": "undercap", "dow_pace_s": pace}
+
+
+def test_other_workloads_do_not_claim_dow_pacing():
+    args = SimpleNamespace(workload="benign", profile="undercap", dow_pace=7)
+    assert harness.workload_metadata(args) == {"profile": None, "dow_pace_s": None}
 
 
 def test_clean_workers_produce_no_invalidation_reason():

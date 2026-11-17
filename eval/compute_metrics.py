@@ -35,7 +35,7 @@ PROFILED_WORKLOADS = {"dow"}
 AGGREGATE_WORKLOADS = {"mixed", "combined"}
 
 COLUMNS = [
-    "run_id", "config", "workload", "profile", "attack", "repetition", "seed", "duration_s",
+    "run_id", "config", "workload", "profile", "dow_pace_s", "attack", "repetition", "seed", "duration_s",
     "measured_attempts",
     "malicious_attempts", "attack_success", "unknown_outcomes", "asr",
     "unique_objectives",
@@ -127,6 +127,11 @@ def summarise(run_dir: pathlib.Path, labels: dict | None = None) -> dict:
     })
     if manifest is None:
         unavailable.append("manifest")
+    if row["workload"] == "dow":
+        pace = (manifest or {}).get("dow_pace_s")
+        row["dow_pace_s"] = pace if pace is not None else ""
+        if pace is None:
+            unavailable.append("dow_pace_s")
     # --- provenance (MASTER_PLAN 7.3): every row must be traceable to a revision ---
     revision = (manifest or {}).get("code_revision") or {}
     # Keep the dirty flag visible: a run from an uncommitted tree must not look like a
@@ -321,27 +326,31 @@ SUMMARY_METRICS = [
 
 
 def summarise_repetitions(rows: list[dict], metrics: list[str] | None = None) -> list[dict]:
-    """Median and range per (config, workload, profile) across valid repetitions (7.2.6).
+    """Median/range across valid repetitions with matching revision and DoW pace.
 
     Invalid runs are excluded rather than averaged in, and `repetitions` states how many
     rows actually contributed, so a single-run group cannot masquerade as a median. The
     profile is part of the group key because one workload can be run in configurations
     that differ in both traffic shape and outcome (`dow` undercap vs overcap).
     """
-    groups: dict[tuple[str, str, str], list[dict]] = {}
+    groups: dict[tuple[str, ...], list[dict]] = {}
     for row in rows:
         if row.get("run_valid") != "true":
             continue
-        key = (str(row["config"]), str(row["workload"]), str(row.get("profile") or ""))
+        pace = row.get("dow_pace_s")
+        pace_key = str(float(pace)) if pace not in ("", None) else ""
+        key = (str(row["config"]), str(row["workload"]), str(row.get("profile") or ""),
+               str(row.get("code_revision") or ""), pace_key)
         groups.setdefault(key, []).append(row)
     summary = []
-    for (config, workload, profile), group in sorted(groups.items()):
+    for (config, workload, profile, revision, pace), group in sorted(groups.items()):
         for metric in metrics or SUMMARY_METRICS:
             values = [float(row[metric]) for row in group if row.get(metric) not in ("", None)]
             if not values:
                 continue
             summary.append({
                 "config": config, "workload": workload, "profile": profile,
+                "code_revision": revision, "dow_pace_s": pace,
                 "metric": metric,
                 "repetitions": len(values),
                 "median": round(statistics.median(values), 4),
@@ -365,7 +374,7 @@ def main() -> int:
     parser.add_argument("--labels", help="JSON: run_id -> source IP -> benign/attack")
     parser.add_argument("--json", help="also write the aggregated rows to this JSON file")
     parser.add_argument("--summary-out", default=None,
-                        help="also write per-(config, workload) median/range across repetitions")
+                        help="write median/range grouped by config, workload, profile, revision and pace")
     args = parser.parse_args()
 
     runs_dir = pathlib.Path(args.runs)
@@ -390,7 +399,7 @@ def main() -> int:
         summary_path.parent.mkdir(parents=True, exist_ok=True)
         with summary_path.open("w", newline="", encoding="utf-8") as handle:
             writer = csv.DictWriter(handle, fieldnames=[
-                "config", "workload", "profile", "metric", "repetitions",
+                "config", "workload", "profile", "code_revision", "dow_pace_s", "metric", "repetitions",
                 "median", "min", "max"])
             writer.writeheader()
             writer.writerows(summary)

@@ -1191,3 +1191,20 @@ Date and task:
   runs predate the latest harness fixes. These remain open.
 - Next: collect C1 DoW, correct summary separation and finish benchmark
   reruns before producing the final handoff. No push authorized here.
+
+### 2026-11-17 — C1 DoW received; pacing and summary comparability corrections
+
+- Fast-forwarded the Windows branch to VM checkpoint bf681ed. The seven Windows
+  working changes matched that checkpoint exactly; preserved them in a named stash.
+- User verified C1 DoW at clean bf681ed: valid, no invalid reasons, 3290 feature
+  rows, SHA-256 8a5a21f4d7dd80c1423fdaca10f6155575dc1356760126c526d7b817693b2d6f.
+  This completes collection for all three C1 attack types; final aggregation pending.
+- Harness now records effective dow_pace_s for future standalone DoW manifests.
+  Historical manifests are not edited or assigned inferred pace values.
+- Result schema v4 adds dow_pace_s. Summary grouping additionally separates code
+  revision and pacing, preventing the 0eecf88 paced probe from joining the 71f24b9
+  burst benchmark. Missing pacing stays unavailable, not zero.
+- Four regression tests added for metadata, legacy missing values, revision and
+  pacing separation. User reports 106 passed on the Linux VM.
+- Only eval/ and shared docs changed. Next: user runs eval tests on VM, commit and
+  synchronize clean revision before corrected C0/C2 benchmark reruns. No push.

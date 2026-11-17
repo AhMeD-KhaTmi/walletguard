@@ -448,6 +448,14 @@ def _seconds(duration: str) -> float:
     return float(text)
 
 
+def workload_metadata(args) -> dict:
+    """Record effective DoW spacing without inventing it for older manifests."""
+    return {
+        "profile": args.profile if args.workload == "dow" else None,
+        "dow_pace_s": max(0.0, args.dow_pace) if args.workload == "dow" else None,
+    }
+
+
 def run(args) -> int:
     args.data = identities.load(args.identities)
     args.run_id = args.run_id or (f"{args.workload}-{args.config.lower()}-r{args.repetition}-"
@@ -487,7 +495,7 @@ def run(args) -> int:
                 spawn_rate=args.spawn_rate, client_timeout_s=args.timeout, datasets=[],
                 policy_path=REPO / "waf/config.py",
                 notes=[f"readiness failure: {problem}" for problem in problems],
-                extra={"readiness": "failed", "invalid": True},
+                extra={"readiness": "failed", "invalid": True, **workload_metadata(args)},
             ))
         return 1
     if args.dry_run:
@@ -618,7 +626,7 @@ def run(args) -> int:
                    # `--profile` has an argparse default, so writing it for every workload
                    # would stamp "undercap" onto benign and scraping runs. Only the
                    # profiled workload records it.
-                   "profile": args.profile if args.workload == "dow" else None,
+                   **workload_metadata(args),
                    "per_identity": results,
                    "duration_requested": args.duration, "wall_duration_s": duration,
                    "overran": overran, "late_traffic": late_traffic,

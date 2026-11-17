@@ -266,6 +266,35 @@ def test_dow_profiles_are_summarised_separately():
     ]
 
 
+def test_summaries_separate_pacing_and_revision_without_guessing_legacy_pace():
+    base = {"config": "C2", "workload": "dow", "profile": "undercap",
+            "run_valid": "true", "code_revision": "new"}
+    rows = [
+        {**base, "dow_pace_s": 0, "asr": 0.1},
+        {**base, "dow_pace_s": 0.0, "asr": 0.3},
+        {**base, "dow_pace_s": 7, "asr": 0.5},
+        {**base, "asr": 0.6},
+        {**base, "code_revision": "old", "asr": 0.8},
+    ]
+    summary = compute_metrics.summarise_repetitions(rows, ["asr"])
+    groups = {(r["code_revision"], r["dow_pace_s"]): r for r in summary}
+    assert len(groups) == 4
+    assert groups["new", "0.0"]["repetitions"] == 2
+    assert groups["new", "0.0"]["median"] == 0.2
+    assert groups["new", "7.0"]["median"] == 0.5
+    assert groups["new", ""]["median"] == 0.6
+    assert groups["old", ""]["median"] == 0.8
+
+
+def test_result_records_pace_but_does_not_backfill_old_manifests(tmp_path):
+    run = make_run(tmp_path, "dow", [attempt()], extra={"dow_pace_s": 7.0})
+    assert compute_metrics.summarise(run)["dow_pace_s"] == 7.0
+    legacy = make_run(tmp_path, "dow", [attempt()], repetition=2)
+    legacy_row = compute_metrics.summarise(legacy)
+    assert legacy_row["dow_pace_s"] == ""
+    assert "dow_pace_s" in legacy_row["unavailable_fields"].split(",")
+
+
 def test_row_carries_the_dow_profile_from_the_manifest(tmp_path):
     run = make_run(tmp_path, "dow", [attempt()], extra={"profile": "undercap"})
     row = compute_metrics.summarise(run)

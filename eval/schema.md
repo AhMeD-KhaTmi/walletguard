@@ -1,6 +1,6 @@
 # Evaluation result schema — Member A (traffic and client-side truth)
 
-Version 3 · 2026-11-17 · supersedes the earlier starter column set.
+Version 4 · 2026-11-17 · adds explicit DoW pacing and revision-separated summaries.
 Governed by `docs/MASTER_PLAN.md` section 7. Join key is **`(run_id, config, workload,
 profile, repetition)`**; never join on `config` alone. `profile` is empty for every
 workload except `dow`, which is run under `undercap` and `overcap`.
@@ -25,6 +25,13 @@ Rules that every column obeys:
 
 ## 2. Columns
 
+Summary groups are `(config, workload, profile, code_revision, dow_pace_s)`.
+Revisions and paced/unpaced runs must not be pooled as equivalent repetitions.
+For old manifests, missing pacing remains unavailable, never assumed to be zero.
+The existing paced probe at `0eecf88` consequently stays separate from the old
+unpaced benchmark at `71f24b9` by revision, without modifying either manifest.
+Single-run groups are evidence, not a three-repetition benchmark.
+
 | Column | Unit | Source | Definition |
 |---|---|---|---|
 | `run_id` | string | manifest | Unique run identifier; also the directory name under `eval/runs/` |
@@ -32,6 +39,7 @@ Rules that every column obeys:
 | `workload` | enum | manifest | `benign`, `credential_stuffing`, `scraping`, `dow`, `honeypot`, `churn`, `mixed`, `combined` |
 | `profile` | enum/empty | manifest | Sub-profile of a workload that changes traffic shape: `undercap`/`overcap` for `dow`, empty otherwise. Part of the summary grouping key, so the two DoW profiles are never averaged into one median. The harness's `--profile` default is **not** reported for other workloads, even though pre-2026-11-17 manifests carry it. |
 | `attack` | enum/empty | manifest | `credential_stuffing`, `scraping`, `dow`, `honeypot`, `churn`, `combined`, `mixed`; empty for benign |
+| `dow_pace_s` | seconds/empty | manifest | Fixed per-user post-request wait for standalone DoW; 0 means the original burst. Empty for other workloads or older manifests with no recorded pace. Never backfilled from a run name. |
 | `repetition` | integer | manifest | Repetition index for the same (config, workload) pair |
 | `seed` | integer | manifest | `--seed` passed to the harness. `manifest.workers` lists each workload process with its **derived** seed (`seed ^ pid`), because the configured value alone does not reproduce a worker's RNG stream |
 | `duration_s` | seconds | manifest | Wall-clock duration of the measured phase (the setup/gated phase is excluded; total run time is `wall_duration_s` in the manifest) |
