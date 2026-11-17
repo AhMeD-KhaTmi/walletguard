@@ -1,0 +1,362 @@
+{
+  "measured_revision": "aa51185caa87307672e4042683a9e6ccfbbfe59d",
+  "measured_tree": "d3be66abb08c7bf77883f6c934d510057c457e6f",
+  "remote_parent": "414a9a59ad577e85d5749e71cca62689d65629bb",
+  "publication_method": "Connected GitHub app creates an equivalent current file tree; remote commit IDs differ from the original local measured history.",
+  "measured_runtime_files": [
+    {
+      "path": "app/agent.py",
+      "mode": "100644",
+      "blob_sha": "27da652ddb7d7fc89c8c377634b4cc8932197cf5"
+    },
+    {
+      "path": "app/llm_service.py",
+      "mode": "100644",
+      "blob_sha": "b18f1235b96e125f210c3cc5346df60a879664c2"
+    },
+    {
+      "path": "app/main.py",
+      "mode": "100644",
+      "blob_sha": "26db62020cc189f6d7127841ab34254d14a3a281"
+    },
+    {
+      "path": "app/mock_llm.py",
+      "mode": "100755",
+      "blob_sha": "a1709ad2e9b92bdddd8026083f29a5980c3f0ed4"
+    },
+    {
+      "path": "app/schemas.py",
+      "mode": "100644",
+      "blob_sha": "8e8c0ef3c9e82c46330c7614399118fd8efe0dc5"
+    },
+    {
+      "path": "app/settings.py",
+      "mode": "100644",
+      "blob_sha": "635db5a58b3faa151770baaab53f78f69806c151"
+    },
+    {
+      "path": "app/static/dashboard.js",
+      "mode": "100644",
+      "blob_sha": "13a1a9dc51018c3eab13f35af2e7b4965f187efd"
+    },
+    {
+      "path": "app/static/demo.js",
+      "mode": "100644",
+      "blob_sha": "4b3e9ed0073de71b9b0627badf5c74805955884d"
+    },
+    {
+      "path": "app/static/style.css",
+      "mode": "100644",
+      "blob_sha": "0b3988d924f83548b63b9202b3cf3c6a8792f9f8"
+    },
+    {
+      "path": "app/templates/dashboard.html",
+      "mode": "100644",
+      "blob_sha": "da890240fb07a81fa07076cd8f6ef8019f9f2646"
+    },
+    {
+      "path": "app/templates/index.html",
+      "mode": "100644",
+      "blob_sha": "9d5bff25258ef87174d0c4c6e78af6ad8e875c72"
+    },
+    {
+      "path": "app/web.py",
+      "mode": "100644",
+      "blob_sha": "d8bfe30545b0b8aec384ba5b85d83b81cff14652"
+    },
+    {
+      "path": "common/agent.py",
+      "mode": "100644",
+      "blob_sha": "78da6d907abe27fada6c99a6e33edbaa528c8107"
+    },
+    {
+      "path": "common/tokens.py",
+      "mode": "100755",
+      "blob_sha": "8ff9d23c00fa33faf69f860d9ed162b709820185"
+    },
+    {
+      "path": "eval/__init__.py",
+      "mode": "100644",
+      "blob_sha": "8c2af668703426bbdaf381fdb28eb74a09deeb5d"
+    },
+    {
+      "path": "eval/clientlog.py",
+      "mode": "100644",
+      "blob_sha": "ac487266a7158574ea7fcc86630b25daf8be2b34"
+    },
+    {
+      "path": "eval/compute_metrics.py",
+      "mode": "100755",
+      "blob_sha": "ff97f4a0be6b203158502faeb024e780c27505a8"
+    },
+    {
+      "path": "eval/export_features.py",
+      "mode": "100644",
+      "blob_sha": "ebb5b2fcada095a2f698ed7954a82f7dd69d2be5"
+    },
+    {
+      "path": "eval/harness.py",
+      "mode": "100644",
+      "blob_sha": "43342d9c902e23edc99628b795a90a9f1f4e787b"
+    },
+    {
+      "path": "eval/identities.py",
+      "mode": "100644",
+      "blob_sha": "2528152d6655e61c8fdbde27fd7e61cefc7b6e6c"
+    },
+    {
+      "path": "eval/labels.py",
+      "mode": "100644",
+      "blob_sha": "4428e038b511dbe65fc4e6bf8bc0fda14724ab71"
+    },
+    {
+      "path": "eval/manifest.py",
+      "mode": "100644",
+      "blob_sha": "4f09fc4136a3c139bd3f4f2df311ad67795a9175"
+    },
+    {
+      "path": "eval/netns.py",
+      "mode": "100644",
+      "blob_sha": "90ebee843e7ae4dd929c1929a4c29177c5f7a3ed"
+    },
+    {
+      "path": "eval/package_handoff.sh",
+      "mode": "100755",
+      "blob_sha": "9eaac54cb15e1c233d4d349f138ad02d6149ceeb"
+    },
+    {
+      "path": "eval/resources.py",
+      "mode": "100644",
+      "blob_sha": "00d9b3c27a49a8c82e0cd723e36c764cd39dc36c"
+    },
+    {
+      "path": "eval/run_grid.sh",
+      "mode": "100755",
+      "blob_sha": "ebaa8583a7f93ef3413d47e141b0fcabff351708"
+    },
+    {
+      "path": "eval/tests/conftest.py",
+      "mode": "100644",
+      "blob_sha": "a0d147c2ba87cda13ea5b14d630dc035a3af1991"
+    },
+    {
+      "path": "eval/tests/test_clientlog.py",
+      "mode": "100644",
+      "blob_sha": "42df2fdd650f778bd60cf239f9512ee858c5436c"
+    },
+    {
+      "path": "eval/tests/test_compute_metrics.py",
+      "mode": "100644",
+      "blob_sha": "f89d95dca0ad122d59bcc567e86935afc89be07e"
+    },
+    {
+      "path": "eval/tests/test_export_features.py",
+      "mode": "100644",
+      "blob_sha": "41071e62eb4a81bf793c71f5492be2361ed99201"
+    },
+    {
+      "path": "eval/tests/test_gate.py",
+      "mode": "100644",
+      "blob_sha": "96a040716465721c87ecf3c4886f9693fd971ee5"
+    },
+    {
+      "path": "eval/tests/test_harness.py",
+      "mode": "100644",
+      "blob_sha": "fada0f4961a22f0fff4b4a60d6f75b45db340e89"
+    },
+    {
+      "path": "eval/tests/test_identities.py",
+      "mode": "100644",
+      "blob_sha": "9c34d50ef0b9a4cb3696aac08a2b22285c88ad96"
+    },
+    {
+      "path": "eval/tests/test_labels.py",
+      "mode": "100644",
+      "blob_sha": "d9fb2031cd0216e512d530b9f2fbf17db3c3385d"
+    },
+    {
+      "path": "eval/tests/test_locust_users.py",
+      "mode": "100644",
+      "blob_sha": "654c2ab7c25e2dfefcc13c9835054d5a7d561e6c"
+    },
+    {
+      "path": "eval/tests/test_make_creds.py",
+      "mode": "100644",
+      "blob_sha": "d2e6012011041463d0edffc410badcc2e6cbdd03"
+    },
+    {
+      "path": "eval/tests/test_manifest.py",
+      "mode": "100644",
+      "blob_sha": "b9ae13b15ef1d2bf7de3dfdc94c7befbe3eacddf"
+    },
+    {
+      "path": "eval/tests/test_netns.py",
+      "mode": "100644",
+      "blob_sha": "44161113982979aa3dc61a16be0475656033e5f1"
+    },
+    {
+      "path": "eval/tests/test_resources.py",
+      "mode": "100644",
+      "blob_sha": "6af2027b9f03c6a171142850978f542f40dee74d"
+    },
+    {
+      "path": "eval/workload.py",
+      "mode": "100644",
+      "blob_sha": "91bbe957a180d6b223fb22b5dae62756f4b34495"
+    },
+    {
+      "path": "locust/attack_churn.py",
+      "mode": "100644",
+      "blob_sha": "74228d16aa77de243d79d8a61697d434867794e9"
+    },
+    {
+      "path": "locust/attack_credential_stuffing.py",
+      "mode": "100644",
+      "blob_sha": "6b2c319411cea8b15670013f0679f9ad6efd5717"
+    },
+    {
+      "path": "locust/attack_dow.py",
+      "mode": "100644",
+      "blob_sha": "25c0d8b3ed2c12846b790336c0bfa48918dccffd"
+    },
+    {
+      "path": "locust/attack_honeypot.py",
+      "mode": "100644",
+      "blob_sha": "1ce4f1a6a631d9c110726252fc373b3e084f2afb"
+    },
+    {
+      "path": "locust/attack_scraping.py",
+      "mode": "100644",
+      "blob_sha": "1e6ec5c8e5eb60588cec5946378aa4c20cbbdfac"
+    },
+    {
+      "path": "locust/benign.py",
+      "mode": "100644",
+      "blob_sha": "16704ed3b9b1c18df55e416521d24399d5c9b63e"
+    },
+    {
+      "path": "locust/data/make_creds.py",
+      "mode": "100644",
+      "blob_sha": "b42ae2faf61df49ee74d625cc6bfc62be1a29abe"
+    },
+    {
+      "path": "locust/mixed.py",
+      "mode": "100644",
+      "blob_sha": "9ab8a89b6182e4489d6335bd06a84fb7914dafde"
+    },
+    {
+      "path": "ml/evaluate.py",
+      "mode": "100644",
+      "blob_sha": "ea34fbb3010a273bffc5615bfccaa1e1b1e71c4b"
+    },
+    {
+      "path": "ml/export.py",
+      "mode": "100644",
+      "blob_sha": "a7f49574ad6b2f8574185756ebe7901b8567e1a0"
+    },
+    {
+      "path": "ml/train.py",
+      "mode": "100644",
+      "blob_sha": "c46ca593bfa027e850f97ba86e4dd784ae789001"
+    },
+    {
+      "path": "scripts/check_application.py",
+      "mode": "100644",
+      "blob_sha": "6e70b5257a96aedf7fbd01312b5dd071848e40d0"
+    },
+    {
+      "path": "scripts/check_environment.py",
+      "mode": "100644",
+      "blob_sha": "89870c010ace25516c0b56ace0e61155ecbeac16"
+    },
+    {
+      "path": "scripts/make_netns.sh",
+      "mode": "100644",
+      "blob_sha": "7ccf3f8f97331cde3013f7e80ea108861f8dfda4"
+    },
+    {
+      "path": "scripts/refresh_agent_data.py",
+      "mode": "100644",
+      "blob_sha": "6f6c647a7948b969a5f21eeb740fa0d8961e3d4c"
+    },
+    {
+      "path": "scripts/reset_state.py",
+      "mode": "100644",
+      "blob_sha": "a8ea13b60c7cd78e718f05e5e3bda72fa1d92d18"
+    },
+    {
+      "path": "scripts/reset_state.sh",
+      "mode": "100755",
+      "blob_sha": "fc2fa1d406ecd92cc8a2fc683c53e3d28a165c40"
+    },
+    {
+      "path": "scripts/run_c23_benchmark.py",
+      "mode": "100644",
+      "blob_sha": "7270c5ec522af6d527f0958d3e9f8f296d1c4abc"
+    },
+    {
+      "path": "scripts/run_c23_isolated.sh",
+      "mode": "100644",
+      "blob_sha": "98d54a2efb2fb224425262c9f8fbaa7ca509addc"
+    },
+    {
+      "path": "scripts/run_demo.py",
+      "mode": "100644",
+      "blob_sha": "5973ce3fae71266b3adb7326970d5ee1ff1649ec"
+    },
+    {
+      "path": "scripts/smoke_baseline.py",
+      "mode": "100644",
+      "blob_sha": "7c11f9332df85fdfd7e17dc121cd78fb6cf4b8c4"
+    },
+    {
+      "path": "scripts/summarize_app_run.py",
+      "mode": "100644",
+      "blob_sha": "7f2be0ef8cb8039374b2ab3db61fb789b12694a0"
+    },
+    {
+      "path": "scripts/teardown_netns.sh",
+      "mode": "100644",
+      "blob_sha": "de738db9032cf9196c1b4f21abc1bfb6d5c32b0a"
+    },
+    {
+      "path": "waf/bans.py",
+      "mode": "100644",
+      "blob_sha": "69402cee09a2080f01899bbec3954cc2686ecba6"
+    },
+    {
+      "path": "waf/buckets.py",
+      "mode": "100644",
+      "blob_sha": "5fdf812e78093428dbd2805b34b5e32354b9c832"
+    },
+    {
+      "path": "waf/config.py",
+      "mode": "100644",
+      "blob_sha": "9867912c78799925df1465affb9770bf14473066"
+    },
+    {
+      "path": "waf/features.py",
+      "mode": "100644",
+      "blob_sha": "a5f3ae375b685d8e19e0dee0cf821eea7ec76246"
+    },
+    {
+      "path": "waf/middleware.py",
+      "mode": "100644",
+      "blob_sha": "f6b1bd7b4f8363f59b3d4761b0cac2438fb56036"
+    },
+    {
+      "path": "waf/scoring.py",
+      "mode": "100644",
+      "blob_sha": "1630c8b293525c1837e1cd9d8ae15ca91f29ad91"
+    },
+    {
+      "path": "waf/state.py",
+      "mode": "100644",
+      "blob_sha": "103bc0262dafb4f8e43cd095eb673c5525dbcb59"
+    }
+  ],
+  "notes": [
+    "Current runtime files match the measured revision. Later additions are documentation, frozen-model delivery and a post-run validator.",
+    "Original history/raw run package stays local; no Git history bundle is published."
+  ]
+}

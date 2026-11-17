@@ -3,6 +3,49 @@
 Repository: [AhMeD-KhaTmi/walletguard](https://github.com/AhMeD-KhaTmi/walletguard).
 Prepared 2026-11-16 for the **Attack & Kernel** track.
 
+## Current handoff — professor update, 2026-11-17
+
+Start from branch `codex/professor-agent-update`. Fetch it, then create your own
+work branch from that remote branch; keep any existing local work committed first.
+
+```bash
+git fetch origin
+git switch -c codex/member-a-kernel origin/codex/professor-agent-update
+```
+
+The first traffic/data handoff described below has already been integrated.
+**Your next work is the real kernel sensor and enforcement backend**, following
+the current checklist at the top of `docs/member_A_plan.md`. Do not repeat PR #1.
+
+Read the required files in section 2, plus `docs/PROFESSOR_UPDATE.md`,
+`docs/PROFESSOR_BENCHMARK_RESULTS.md`, and `docs/TEAM_CHECKLIST.md`. The current
+runtime uses a three-step simulated agent by default, feature version 3 and exact
+synthetic token counting. Preserve Redis schema v2. B's budget/model calibration
+continues independently; use the frozen model for comparison without retuning it.
+
+The frozen compatible C3 model is included at
+`ml/artifacts/model_base_agent_v3.joblib`, with its manifest and setup instructions
+in `ml/artifacts/README.md`. Its low recall and scoring overhead are known open
+issues. C1/C2 can be used for sensor development without ML. C4 stays gated until
+real signals, enforcement telemetry and an augmented model are ready.
+
+Deliver app-attributed `connect`/`execve` events and real Redis signals, then tested
+XDP native/generic or an explicitly recorded approved fallback. Include freshness,
+ban expiry, allowlist, reconciliation and per-IP enforcement evidence. Submit a
+separate branch/PR and update the journal. The next joint step is real-signal C1
+collection and IT-1–IT-6, followed by final C0–C4 measurements.
+
+The publication uses GitHub's connected app because terminal Git credentials are
+unavailable. The remote publication commit can therefore differ from local source
+commit IDs, while its complete file tree is verified against the prepared branch.
+Measured runtime provenance is recorded in
+`docs/evidence/professor_publication.json`; original local commits and full raw
+captures stay in B's local evidence package. This branch contains the reviewed
+current files and frozen model needed for your work.
+
+The original launch instruction and PR #1 checklist below are historical guidance;
+the current handoff above and current member plan supersede their old status.
+
 ## 1. Human launch instruction
 
 Member A should paste this into their agent after cloning the repository:

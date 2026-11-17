@@ -44,7 +44,7 @@ async def test_real_http_mock_usage_headers_and_counters(api_client, redis_db):
     headers = await login(client)
     prompt = "hello from the API"
     for _ in range(2):
-        result = await client.post("/chat", headers=headers, json={"prompt": prompt, "max_output_tokens": 32000})
+        result = await client.post("/chat", headers=headers, json={"prompt": prompt, "agent_steps": 1, "max_output_tokens": 32000})
         assert result.status_code == 200
         usage = result.json()["usage"]
         assert usage["tokens_in"] == estimate_tokens(prompt)
@@ -65,14 +65,14 @@ async def test_real_http_mock_usage_headers_and_counters(api_client, redis_db):
 @pytest.mark.parametrize("output", [-10, 0, True, 1.5, "100"])
 async def test_invalid_output_does_not_generate_or_charge(api_client, redis_db, output):
     client, _ = api_client
-    result = await client.post("/chat", headers=await login(client), json={"prompt": "hello", "max_output_tokens": output})
+    result = await client.post("/chat", headers=await login(client), json={"prompt": "hello", "agent_steps": 1, "max_output_tokens": output})
     assert result.status_code == 422
     assert redis_db.hgetall("p20:app:usage:total") == {}
 
 
 async def test_authentication_and_session_expiry(api_client, redis_db):
     client, _ = api_client
-    body = {"prompt": "hello", "max_output_tokens": 10}
+    body = {"prompt": "hello", "agent_steps": 1, "max_output_tokens": 10}
     assert (await client.post("/chat", json=body)).status_code == 401
     headers = await login(client)
     key = "p20:app:session:" + headers["authorization"][7:]
@@ -112,7 +112,7 @@ async def test_backend_failure_is_explicit_not_retried_or_charged(api_client, re
         original = api.state.llm
         api.state.llm = fake
         try:
-            result = await client.post("/chat", headers=headers, json={"prompt": "hello"})
+            result = await client.post("/chat", headers=headers, json={"prompt": "hello", "agent_steps": 1})
             assert result.status_code == expected
             assert len(calls) == 1
             assert not redis_db.exists("p20:app:usage:total")

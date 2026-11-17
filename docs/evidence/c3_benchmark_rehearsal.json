@@ -1,0 +1,246 @@
+{
+  "scope": "local mixed HTTP rehearsal using distinct loopback IPs and fixed request counts",
+  "source_ips": {
+    "benign-a": "127.0.0.2",
+    "benign-b": "127.0.0.3",
+    "stuffing": "127.0.0.4",
+    "scraping": "127.0.0.5",
+    "dow": "127.0.0.6"
+  },
+  "runs": [
+    {
+      "run_id": "local-rehearsal-c2-r1",
+      "config": "C2",
+      "workload": "mixed-dev",
+      "repetition": 1,
+      "measured_attempts": 83,
+      "http_attempts": 83,
+      "timed_attempts": 83,
+      "timing_coverage": 1.0,
+      "benign_attempts": 18,
+      "benign_policy_denials": 0,
+      "false_positive_rate": 0.0,
+      "benign_errors": 0,
+      "benign_timeouts": 0,
+      "benign_unknown": 0,
+      "benign_unsuccessful_rate": 0.0,
+      "latency_p50_ms": 45.1695,
+      "latency_p95_ms": 96.63094999999998,
+      "latency_p99_ms": 100.82858999999999,
+      "waf_overhead_ms_mean": 3.490232674518764,
+      "scoring_p50_ms": null,
+      "scoring_p95_ms": null,
+      "attack_outcomes": {
+        "stuffing": {
+          "fail": 4,
+          "success": 1,
+          "blocked": 4
+        },
+        "scraping": {
+          "success": 33,
+          "blocked": 7
+        },
+        "dow": {
+          "success": 10,
+          "blocked": 6
+        }
+      },
+      "app_model_hash": null
+    },
+    {
+      "run_id": "local-rehearsal-c3-r1",
+      "config": "C3",
+      "workload": "mixed-dev",
+      "repetition": 1,
+      "measured_attempts": 83,
+      "http_attempts": 83,
+      "timed_attempts": 83,
+      "timing_coverage": 1.0,
+      "benign_attempts": 18,
+      "benign_policy_denials": 0,
+      "false_positive_rate": 0.0,
+      "benign_errors": 0,
+      "benign_timeouts": 0,
+      "benign_unknown": 0,
+      "benign_unsuccessful_rate": 0.0,
+      "latency_p50_ms": 105.157,
+      "latency_p95_ms": 128.63905,
+      "latency_p99_ms": 133.05021,
+      "waf_overhead_ms_mean": 37.65962065085934,
+      "scoring_p50_ms": 15.400747999592568,
+      "scoring_p95_ms": 53.86487559953816,
+      "attack_outcomes": {
+        "stuffing": {
+          "fail": 4,
+          "success": 1,
+          "blocked": 4
+        },
+        "scraping": {
+          "success": 35,
+          "blocked": 5
+        },
+        "dow": {
+          "success": 10,
+          "blocked": 6
+        }
+      },
+      "app_model_hash": "591afffd16bac2bb45a13d5bf83fda7f2e10f09315df90f2bb15dc754fc4ddad"
+    },
+    {
+      "run_id": "local-rehearsal-c3-r2",
+      "config": "C3",
+      "workload": "mixed-dev",
+      "repetition": 2,
+      "measured_attempts": 83,
+      "http_attempts": 83,
+      "timed_attempts": 83,
+      "timing_coverage": 1.0,
+      "benign_attempts": 18,
+      "benign_policy_denials": 0,
+      "false_positive_rate": 0.0,
+      "benign_errors": 0,
+      "benign_timeouts": 0,
+      "benign_unknown": 0,
+      "benign_unsuccessful_rate": 0.0,
+      "latency_p50_ms": 99.9675,
+      "latency_p95_ms": 165.18334999999996,
+      "latency_p99_ms": 179.93186999999998,
+      "waf_overhead_ms_mean": 38.7669247711638,
+      "scoring_p50_ms": 16.43731299918727,
+      "scoring_p95_ms": 51.16358960021897,
+      "attack_outcomes": {
+        "stuffing": {
+          "fail": 4,
+          "success": 1,
+          "blocked": 4
+        },
+        "scraping": {
+          "success": 34,
+          "blocked": 6
+        },
+        "dow": {
+          "success": 10,
+          "blocked": 6
+        }
+      },
+      "app_model_hash": "591afffd16bac2bb45a13d5bf83fda7f2e10f09315df90f2bb15dc754fc4ddad"
+    },
+    {
+      "run_id": "local-rehearsal-c2-r2",
+      "config": "C2",
+      "workload": "mixed-dev",
+      "repetition": 2,
+      "measured_attempts": 83,
+      "http_attempts": 83,
+      "timed_attempts": 83,
+      "timing_coverage": 1.0,
+      "benign_attempts": 18,
+      "benign_policy_denials": 0,
+      "false_positive_rate": 0.0,
+      "benign_errors": 0,
+      "benign_timeouts": 0,
+      "benign_unknown": 0,
+      "benign_unsuccessful_rate": 0.0,
+      "latency_p50_ms": 46.9885,
+      "latency_p95_ms": 100.33334999999998,
+      "latency_p99_ms": 106.84026999999998,
+      "waf_overhead_ms_mean": 3.5856829277712765,
+      "scoring_p50_ms": null,
+      "scoring_p95_ms": null,
+      "attack_outcomes": {
+        "stuffing": {
+          "fail": 4,
+          "success": 1,
+          "blocked": 4
+        },
+        "scraping": {
+          "success": 33,
+          "blocked": 7
+        },
+        "dow": {
+          "success": 10,
+          "blocked": 6
+        }
+      },
+      "app_model_hash": null
+    },
+    {
+      "run_id": "local-rehearsal-c2-r3",
+      "config": "C2",
+      "workload": "mixed-dev",
+      "repetition": 3,
+      "measured_attempts": 83,
+      "http_attempts": 83,
+      "timed_attempts": 83,
+      "timing_coverage": 1.0,
+      "benign_attempts": 18,
+      "benign_policy_denials": 0,
+      "false_positive_rate": 0.0,
+      "benign_errors": 0,
+      "benign_timeouts": 0,
+      "benign_unknown": 0,
+      "benign_unsuccessful_rate": 0.0,
+      "latency_p50_ms": 46.054,
+      "latency_p95_ms": 63.45719999999994,
+      "latency_p99_ms": 89.37063999999994,
+      "waf_overhead_ms_mean": 3.4035774096334634,
+      "scoring_p50_ms": null,
+      "scoring_p95_ms": null,
+      "attack_outcomes": {
+        "stuffing": {
+          "fail": 4,
+          "success": 1,
+          "blocked": 4
+        },
+        "scraping": {
+          "success": 33,
+          "blocked": 7
+        },
+        "dow": {
+          "success": 10,
+          "blocked": 6
+        }
+      },
+      "app_model_hash": null
+    },
+    {
+      "run_id": "local-rehearsal-c3-r3",
+      "config": "C3",
+      "workload": "mixed-dev",
+      "repetition": 3,
+      "measured_attempts": 83,
+      "http_attempts": 83,
+      "timed_attempts": 83,
+      "timing_coverage": 1.0,
+      "benign_attempts": 18,
+      "benign_policy_denials": 0,
+      "false_positive_rate": 0.0,
+      "benign_errors": 0,
+      "benign_timeouts": 0,
+      "benign_unknown": 0,
+      "benign_unsuccessful_rate": 0.0,
+      "latency_p50_ms": 96.52850000000001,
+      "latency_p95_ms": 131.18064999999999,
+      "latency_p99_ms": 133.59533,
+      "waf_overhead_ms_mean": 32.764976963784626,
+      "scoring_p50_ms": 15.117252998607,
+      "scoring_p95_ms": 34.05352319896336,
+      "attack_outcomes": {
+        "stuffing": {
+          "fail": 4,
+          "success": 1,
+          "blocked": 4
+        },
+        "scraping": {
+          "success": 34,
+          "blocked": 6
+        },
+        "dow": {
+          "success": 10,
+          "blocked": 6
+        }
+      },
+      "app_model_hash": "591afffd16bac2bb45a13d5bf83fda7f2e10f09315df90f2bb15dc754fc4ddad"
+    }
+  ]
+}

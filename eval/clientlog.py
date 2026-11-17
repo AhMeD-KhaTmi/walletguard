@@ -156,12 +156,20 @@ def execute(log: AttemptLog, *, request: Callable[[], Any], classify: Callable[[
                         phase=phase, **extra)
     try:
         response = request()
-    except BaseException as exc:  # requests/locust raise on timeout and transport errors
-        outcome = _error_outcome(exc)
+    except Exception as exc:
+        error = exc
+    except BaseException as exc:
+        log.finish(pending, outcome="unknown", reason=type(exc).__name__)
+        raise
+    else:
+        # Locust wraps Requests transport failures in a status-0 response.
+        error = getattr(response, "error", None)
+    if error is not None:
+        outcome = _error_outcome(error)
         if outcome == "timeout" and unknown_on_timeout:
             outcome = "unknown"
-        return log.finish(pending, outcome=outcome, reason=type(exc).__name__,
-                          detail=str(exc)[:200])
+        return log.finish(pending, outcome=outcome, reason=type(error).__name__,
+                          detail=str(error)[:200])
     try:
         outcome, reason, metrics = classify(response)
     except Exception as exc:  # a broken response body must not hide the attempt
@@ -171,7 +179,7 @@ def execute(log: AttemptLog, *, request: Callable[[], Any], classify: Callable[[
     metrics.setdefault("request_id", _header(headers, "x-request-id") or None)
     metrics.setdefault("response_bytes", len(getattr(response, "content", b"") or b""))
     return log.finish(pending, outcome=outcome, reason=reason,
-                      status=response.status_code, **metrics)
+                      status=getattr(response, "status_code", None), **metrics)
 
 
 # --- objective predicates -------------------------------------------------------
@@ -219,6 +227,8 @@ def classify_products(response, expected_ids: list[int] | None = None,
 def classify_chat(response) -> tuple[str, str, dict]:
     status = response.status_code
     headers = response.headers or {}
+    if status == 504:
+        return "unknown", "backend_generation_timeout", {}
     if status == 200:
         try:
             tokens_out = int(_header(headers, "x-tokens-out") or 0)

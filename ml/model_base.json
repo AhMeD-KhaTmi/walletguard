@@ -1,0 +1,71 @@
+{
+  "features": [
+    "is_chat",
+    "is_login",
+    "is_products",
+    "is_other",
+    "body_size",
+    "prompt_tokens",
+    "max_out_tokens",
+    "prompt_entropy",
+    "has_ua",
+    "has_accept_lang",
+    "req_10s",
+    "req_60s",
+    "distinct_paths_60s",
+    "fail_ratio_60s",
+    "mean_gap_s",
+    "std_gap_s",
+    "window_saturated",
+    "agent_steps",
+    "task_token_budget"
+  ],
+  "feature_version": 3,
+  "agent_version": "context-loop-v1",
+  "tokenizer": "synthetic-whitespace-v1",
+  "feature_units": {
+    "is_chat": "indicator",
+    "is_login": "indicator",
+    "is_products": "indicator",
+    "is_other": "indicator",
+    "body_size": "bytes",
+    "prompt_tokens": "tokens",
+    "max_out_tokens": "tokens",
+    "prompt_entropy": "bits per character",
+    "has_ua": "indicator",
+    "has_accept_lang": "indicator",
+    "req_10s": "requests",
+    "req_60s": "requests",
+    "distinct_paths_60s": "paths",
+    "fail_ratio_60s": "fraction",
+    "mean_gap_s": "seconds",
+    "std_gap_s": "seconds",
+    "window_saturated": "indicator",
+    "agent_steps": "iterations",
+    "task_token_budget": "tokens"
+  },
+  "sklearn_version": "1.9.1",
+  "dependencies": {
+    "python": "3.11.18",
+    "numpy": "2.4.6",
+    "pandas": "3.1.1",
+    "scikit-learn": "1.9.1",
+    "joblib": "1.6.0"
+  },
+  "code_revision": "414a9a59ad577e85d5749e71cca62689d65629bb",
+  "trainer_sha256": "8fa2433ba355d45629f7084327750201f00ff8ab4de01813646f6dd04ad0dbb6",
+  "threshold": -0.7149966528383122,
+  "calibration_percentile": 0.5,
+  "seed": 42,
+  "trees": 100,
+  "dataset_sha256": "fd39c9ba8bbc79adfcdc44d309136680f031ce788a25036319ba56d95844c026",
+  "training_runs": [
+    "agent3-benign-1"
+  ],
+  "calibration_runs": [
+    "agent3-benign-2"
+  ],
+  "training_rows": 187,
+  "calibration_rows": 187,
+  "splits_sha256": "b0963f18252b43ce6fdbabc5772cb09d4bcafe96a7d91a0cd06f05b14aed1c5d"
+}

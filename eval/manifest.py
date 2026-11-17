@@ -72,6 +72,8 @@ def environment() -> dict:
         "kernel": platform.release(),
         "cpu_count": os.cpu_count(),
         "machine": platform.machine(),
+        "os_release": platform.freedesktop_os_release(),
+        "btf_available": pathlib.Path("/sys/kernel/btf/vmlinux").is_file(),
     }
 
 

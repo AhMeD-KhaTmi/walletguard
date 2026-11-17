@@ -1,4 +1,4 @@
-"""Launch the local C0 demo and HTTP mock; Ctrl+C stops both owned processes."""
+"""Launch the local API and HTTP mock; Ctrl+C stops both owned processes."""
 
 import argparse
 import os
@@ -21,11 +21,18 @@ def main() -> int:
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--mock-port", type=int, default=8001)
     parser.add_argument("--mode", choices=["off", "observe", "enforce"], default="off")
+    parser.add_argument("--model", type=Path, help="Load a trained base model in enforce mode (C3)")
     args = parser.parse_args()
+    if args.model is not None and args.mode != "enforce":
+        parser.error("--model requires --mode enforce")
+    if args.model is not None and not args.model.is_file():
+        parser.error(f"model file does not exist: {args.model}")
     stop = threading.Event()
     for sig in (signal.SIGTERM, signal.SIGINT):
         signal.signal(sig, lambda *_: stop.set())
     env = {**os.environ, "WAF_MODE": args.mode, "WAF_BUCKETS": "0" if args.mode == "off" else "1", "WAF_HONEYPOT": "0" if args.mode == "off" else "1", "WAF_ML": "0", "WAF_EBPF_SIGNALS": "0", "LLM_BASE_URL": f"http://127.0.0.1:{args.mock_port}"}
+    if args.model is not None:
+        env.update(WAF_ML="1", WAF_MODEL_PATH=str(args.model.resolve()))
     processes = []
     try:
         with ExitStack() as stack:
@@ -33,6 +40,7 @@ def main() -> int:
             sockets = []
             for port in (args.mock_port, args.port):
                 listener = stack.enter_context(socket.socket())
+                listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                 listener.bind(("127.0.0.1", port))
                 listener.listen(128)
                 sockets.append(listener)
@@ -55,6 +63,8 @@ def main() -> int:
                 else:
                     raise RuntimeError("Dependencies not ready; check Redis and the mock")
             label = {"off": "C0 baseline", "observe": "C1 observe only", "enforce": "C2 application defenses"}[args.mode]
+            if args.model is not None:
+                label = "C3 application defenses with IsolationForest"
             print(f"Demo application: {url}/\nManagement dashboard: {url}/dashboard\n{label}, simulated costs. Ctrl+C stops both services. No state was reset automatically.", flush=True)
             while not stop.wait(.25):
                 if any(p.poll() is not None for p in processes):

@@ -14,3 +14,7 @@ eval/runs/
 eval/handoff/
 locust/data/creds_seed*.json
 locust/data/*.jsonl
+
+# Member B: generated training inputs and local model binary
+/ml/data/
+/ml/model_base.joblib

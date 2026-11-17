@@ -13,6 +13,9 @@ Every workload class derives from `LoggedUser`, which:
 
 from __future__ import annotations
 
+from functools import partial
+import hashlib
+from itertools import count
 import json
 import os
 import pathlib
@@ -30,6 +33,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 DEFAULT_CREDS = ROOT / "locust" / "data" / "creds_seed42.json"
 DEFAULT_TIMEOUT_S = 3.0
 _LOGS: dict[tuple[str, str | None], AttemptLog] = {}
+_USER_INDICES = count()
 
 
 def env_float(name: str, default: float) -> float:
@@ -87,6 +91,7 @@ class LoggedUser(HttpUser):
 
     def on_start(self) -> None:
         self.client.timeout = env_float("P20_TIMEOUT", DEFAULT_TIMEOUT_S)
+        self.client.request = partial(self.client.request, timeout=self.client.timeout)
         self.log = get_log(self.workload, self.attack, self.host)
         expected = os.environ.get("P20_EXPECT_IP")
         if expected and self.log.ip != expected:
@@ -95,9 +100,15 @@ class LoggedUser(HttpUser):
                 "run inside the matching namespace"
             )
         configured_seed = env_int("P20_SEED", 42)
-        self.rng = random.Random(configured_seed ^ os.getpid())
+        identity = os.environ.get("P20_WORKER_ID", self.log.ip)
+        seed_bytes = f"{configured_seed}:{identity}:{self.workload}".encode()
+        worker_seed = int.from_bytes(hashlib.sha256(seed_bytes).digest()[:8], "big")
+        self.user_index = next(_USER_INDICES)
+        if self.user_index == 0:
+            random.seed(worker_seed)  # Locust's task and wait selection in this process.
+        self.rng = random.Random(f"{worker_seed}:{self.user_index}")
         self.log.worker_meta(configured_seed=configured_seed,
-                             derived_seed=configured_seed ^ os.getpid(),
+                             derived_seed=worker_seed,
                              timeout_s=self.client.timeout, target=self.host)
         self.token: str | None = None
         # Independent stop condition: Locust's own --run-time has proved unreliable
@@ -133,7 +144,7 @@ class LoggedUser(HttpUser):
         return execute(
             self.log, request=request, classify=classify, route=route, method=method,
             intent=intent, objective=objective, phase=phase,
-            unknown_on_timeout=unknown_on_timeout, **extra,
+            unknown_on_timeout=unknown_on_timeout, user_index=self.user_index, **extra,
         )
 
     def login(self, username: str, password: str, *, phase: str = "setup",
@@ -207,8 +218,11 @@ class GatedUser(LoggedUser):
         while time.monotonic() < deadline:
             state = read_gate(gate)
             if state.get("measured"):
-                # The measured window starts now, not at spawn.
-                self.arm_deadline(env_float("P20_DEADLINE_S", 0.0))
+                duration = env_float("P20_DEADLINE_S", 0.0)
+                if state.get("deadline_epoch_s") is not None:
+                    self.deadline = time.monotonic() + state["deadline_epoch_s"] - time.time()
+                else:
+                    self.arm_deadline(duration)
                 return
             if state.get("abort"):
                 raise StopUser()

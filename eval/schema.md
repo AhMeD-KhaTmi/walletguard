@@ -1,6 +1,19 @@
 # Evaluation result schema — Member A (traffic and client-side truth)
 
-Version 4 · 2026-11-17 · adds explicit DoW pacing and revision-separated summaries.
+Version 5 · 2026-11-17 · records the agent/tokenizer revision and finalized WAF percentiles.
+
+Current runs use agent context-loop-v1 and synthetic-whitespace-v1, with feature
+version 3. Manifests include the environment's OS release, kernel/BTF status and
+mock latency settings. Step usage is aggregated in request token/cost headers.
+`usage.json` includes independent mock before/after counters in addition to API
+totals. Historical single-call runs keep their original semantics and metadata.
+
+The application metrics export adds `waf_overhead_p50_ms` and
+`waf_overhead_p95_ms` from finalized measured-request timing. Report these with
+client p50/p95 and matched C0-relative p50/p95 differences. Preserve negative
+differences and label the baseline-relative values as end-to-end deltas.
+Kernel manifests must state native/generic XDP or the actual tc/nftables/WAF
+fallback, its reason, interface and supporting enforcement records.
 Governed by `docs/MASTER_PLAN.md` section 7. Join key is **`(run_id, config, workload,
 profile, repetition)`**; never join on `config` alone. `profile` is empty for every
 workload except `dow`, which is run under `undercap` and `overcap`.

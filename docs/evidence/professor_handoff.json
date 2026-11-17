@@ -1,0 +1,12 @@
+{
+  "path": "eval/handoff/professor-agent3-aa51185.tar.gz",
+  "bytes": 80172140,
+  "sha256": "96059c0be3a11ba0eb9a77a8043bb8f7bfb04b9c06efc83e3f5b90dbaa9e753a",
+  "contents": [
+    "Frozen measured source aa51185",
+    "Fresh C1 captures, labels, splits and fit/calibration/test CSVs",
+    "Frozen feature-v3 model binary and manifest",
+    "81 raw C0/C2/C3 run directories and results"
+  ],
+  "distribution": "local generated artifact; not uploaded or pushed"
+}

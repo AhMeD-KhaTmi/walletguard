@@ -59,7 +59,7 @@ async def test_actual_redis_loss_cached_auth_local_ban_and_recovery(disposable_r
         result = await c.post("/login", json={"username": "user1", "password": "Passw0rd!1"})
         assert result.status_code == 200
         headers = {"authorization": "Bearer " + result.json()["token"]}
-        body = {"prompt": "hello", "max_output_tokens": 10}
+        body = {"prompt": "hello", "agent_steps": 1, "max_output_tokens": 10}
         assert (await c.post("/chat", headers=headers, json=body)).status_code == 200
         process.terminate()
         process.wait(timeout=5)
@@ -87,5 +87,5 @@ async def test_expired_cached_session_is_not_extended_during_outage(disposable_r
         process.terminate()
         process.wait(timeout=5)
         await asyncio.sleep(.06)
-        response = await c.post("/chat", headers={"authorization": "Bearer short"}, json={"prompt": "hi"})
+        response = await c.post("/chat", headers={"authorization": "Bearer short"}, json={"prompt": "hi", "agent_steps": 1})
         assert response.status_code == 503

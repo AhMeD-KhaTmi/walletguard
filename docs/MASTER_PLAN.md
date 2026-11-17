@@ -1,6 +1,6 @@
 # Project 20 — coordinated execution plan
 
-Version: 1.2 · 2026-11-16 · Owners: Member B (user) and Member A.
+Version: 1.3 · 2026-11-17 · Owners: Member B (user) and Member A.
 
 ## 1. How to use this plan
 
@@ -16,15 +16,25 @@ a milestone. Planning decisions are settled here; code findings remain open unti
 implemented and tested. See the journal for current verification status; individual
 baseline checks do not imply the joint attack/kernel gates are complete.
 
-Independent progress: C0/C1/C2 application checks and outage handling are implemented.
-The base-model training/evaluation tooling is implemented, but realistic labeled
-data, production thresholds and detector metrics remain pending. C4 is explicitly
-blocked until the kernel integration is implemented. See the journal/evidence for
-test outcomes; these do not replace A's attack or joint acceptance runs.
+Current progress: C0/C1/C2 application checks and outage handling are implemented.
+The agent-loop revision uses fresh feature-version-3 C1 data and model training.
+See [the professor update](PROFESSOR_UPDATE.md) for current verification.
+The [current agent benchmark](PROFESSOR_BENCHMARK_RESULTS.md) contains 81 valid
+C0/C2/C3 runs. Its measurements are complete, but the initial benign FPR and
+zero-benign-ban acceptance targets are unmet. B must calibrate budgets on fresh
+data and retest independently; the current base detector also has very low recall
+and substantial scoring overhead. Preserve these results before further tuning.
+The earlier [54-run benchmark](C23_BENCHMARK_RESULTS.md) remains historical.
+The full C0–C4 comparison awaits the real kernel integration and joint acceptance.
 
-Professor confirmation remains external: mock LLM, simple chat harness and
-sensor-plus-XDP are team implementation assumptions, not verified course approval.
-No real LLM keys or costs are needed. All credentials and traffic are synthetic.
+The professor's six proposals are approved with conditions as reported in the
+user-supplied [feedback comparison](masterplan_vs_professor_diff.pdf). This version
+adopts those conditions. The PDF's implementation suggestions guide our choices.
+Use a simulated agent loop, exact synthetic token counts, configurable latency,
+Ubuntu 22.04/24.04 with kernel >=5.15 and BTF, and documented enforcement fallbacks.
+Report ASR with benign enforcement FPR and p50/p95 overhead against matched C0.
+An OpenAI/Ollama-compatible live demonstration is optional. Load campaigns use
+the local synthetic backend and require no paid credentials.
 
 ## 2. Objective and scope
 
@@ -36,7 +46,8 @@ useful; report residual abuse honestly.
 
 Included: FastAPI, asynchronous ASGI WAF, Redis atomic budgets, honeypot, strikes,
 IsolationForest, Locust, Linux runtime sensor, XDP and a reproducible evaluation.
-Excluded: real leaked credentials, paid LLM calls, a tool-using autonomous agent,
+Included agent behavior is a bounded simulated catalogue-tool loop with growing
+context and repeated local HTTP calls. Excluded: real leaked credentials, paid LLM calls,
 distributed deployment and claims of production-grade protection.
 
 ## 3. Architecture and fixed design decisions
@@ -57,11 +68,24 @@ flowchart LR
 ### 3.1 Deployment and identity
 
 - Use one Linux target VM and one Uvicorn worker for the measured prototype.
+  Target Ubuntu 22.04 or 24.04 LTS, kernel >=5.15 and
+  `/sys/kernel/btf/vmlinux`. Save `scripts/check_environment.py` results with G0.
   Redis may run in Docker; run the API directly on the VM to avoid source-IP NAT.
 - B exposes the existing mock through a separate local HTTP process, planned as
   `app/llm_service.py`, with a fixed port configured through application settings.
   The API calls it using an asynchronous HTTP client. Keep the existing estimator,
   usage semantics, output hard cap and simulated pricing consistent.
+- `/chat` defaults to three simulated agent steps and accepts `agent_steps`
+  from 1 to 8 in every config. Each step calls `/complete`, records its usage,
+  appends the generated text and deterministic catalogue observation to context,
+  and closes its backend HTTP connection so `connect` activity varies with steps.
+  Response usage and headers aggregate all steps. Partial confirmed usage is
+  recorded on failure. A timeout retains the full reservation conservatively.
+- Tokenizer `synthetic-whitespace-v1` counts whitespace-delimited words exactly,
+  including zero for empty input. `common/tokens.py::estimate_tokens` remains
+  the shared counting entry point. Generated words match reported output counts.
+  `MOCK_TOKENS_PER_S`, `MOCK_BASE_MS`, `MOCK_JITTER_MS`, `MOCK_DELAY_CAP_S`
+  and `MOCK_SEED` define deterministic mock latency and are saved in run manifests.
 - Use this same backend, code revision, dataset and application behavior in C0–C4.
   Make this change before collecting the final baseline; earlier starter runs
   are development checks, not comparable final results.
@@ -81,7 +105,7 @@ flowchart LR
 | C1 | observe | 1 | 1 | 0 | 0 normally | Off; XDP detached |
 | C2 | enforce | 1 | 1 | 0 | 0 | Off; XDP detached |
 | C3 | enforce | 1 | 1 | 1 | 0 | Off; XDP detached |
-| C4 | enforce | 1 | 1 | 1 | 1 | Sensor, agent and XDP running |
+| C4 | enforce | 1 | 1 | 1 | 1 | Sensor and agent with verified enforcement mode |
 
 C1 may set `WAF_EBPF_SIGNALS=1` with the sensor running and XDP detached to collect
 real augmented training features. It remains observe-only with ML disabled; this
@@ -91,6 +115,12 @@ Optional sensor-only calibration runs must be identified separately from C0–C4
 Require explicit environment values for each run; do not inherit shell defaults.
 Reject unsupported configuration values. A requested missing/incompatible ML model
 fails readiness/startup; it must not silently downgrade C3/C4 to C2.
+
+For C4, attempt native XDP, then generic/skb XDP. If XDP is unusable, use a
+verified tc/nftables consumer of the same Redis ban records, or record WAF
+enforcement with the sensor present. Record the backend, interface, attach mode
+and fallback reason. Only claim packet drops where that backend produced evidence.
+Never equate a WAF-only fallback with a working kernel drop path.
 
 ### 3.3 WAF policy
 
@@ -131,7 +161,10 @@ allowed requests; reconcile accounting; record the decision.
 - C3 can detect/ban continuing anomalous behavior following a recent budget denial;
   C4 can also use fresh kernel corroboration. Measure whether ML adds value. Do not
   tune against final test data or promise C3 will outperform C2 on every workload.
-- Reserve input estimate plus permitted maximum output atomically before generation.
+- Reserve the whole agent task atomically before its first call, including
+  every repeated input, output and tool-context marker. With S steps, P input
+  tokens, O capped output tokens and G = O+9 context-growth tokens, the bound is
+  `S*(P+O) + G*S*(S-1)/2`, implemented only in `common/agent.py`.
   Preserve reservation ownership through every verdict. Refund unconsumed tokens
   on rejection/cancellation/errors where generation did not occur. If usage is
   uncertain after generation started, retain the reservation conservatively and
@@ -152,7 +185,10 @@ are explicitly excluded from the dataset rather than silently counted as benign.
 
 Use timestamped time-window state that can distinguish high rates beyond 100
 requests. If a safety bound is reached, record saturation; do not call a truncated
-count exact. The common estimator is the only source of prompt token estimates.
+count exact. The shared tokenizer supplies prompt counts. Feature version 3 adds
+`agent_steps` and `task_token_budget`. Version-2 datasets/models and single-call
+measurements are historical evidence and require fresh collection and training
+for this runtime. Reject incompatible model manifests at startup.
 Record missing/stale sensor state separately from real measured zero.
 
 ### 3.5 Failure and recovery
@@ -251,7 +287,19 @@ For each gate: update journal, retain raw artifacts, document startup/test comma
 and cross-review the other track's handoff. Do not mark G1/G2/G4 done using unit
 tests alone. Missing A scripts may allow B unit work, but block attack-validation claims.
 
-### Immediate next work session — B0/B1
+### Current next work — independent calibration and the kernel handoff
+
+1. B preserves the current 81-run evidence and shares the professor update, source
+   snapshot, model manifest and revised plans with A.
+2. B gathers new calibration traffic for the legitimate multi-step agent, adjusts
+   budgets/strike behavior only from calibration evidence, and retests independently.
+   Investigate the base detector's low recall and scoring overhead in parallel.
+3. A delivers the scoped sensor and tested enforcement backend with actual mode,
+   freshness, expiry, allowlist and per-IP telemetry evidence.
+4. Both integrate real signals, collect augmented data, complete IT-1–IT-6 and run
+   the final matched C0–C4 comparison. No final acceptance is claimed yet.
+
+### Original B0/B1 starting sequence — completed reference
 
 1. Read instructions, this plan and journal; inventory files and environment.
 2. Verify Python/venv, dependencies and Redis connectivity without replacing an
@@ -286,6 +334,9 @@ A measures accepted connections, SYNs, failed connections and bytes independentl
 accepted connections are not SYN counts. Scope observations to the target service
 and process/cgroup, and verify accepted socket/source-IP attribution on the VM.
 Keep-alive is enabled normally; use a dedicated churn probe to test connection signals.
+Sensor syscall representatives are app-scoped `connect` and `execve`. Track
+unexpected process execution and backend destinations with process attribution.
+The simulated tool loop uses local data and never executes prompt-provided code.
 
 ## 7. Evaluation specification
 
@@ -361,6 +412,10 @@ retain request IDs and timestamps; final result rows do not replace raw evidence
 - Measure benign end-to-end latency on the client. Publish successful-response
   percentiles plus errors/timeouts separately; fast denials must not make the
   hardened system look artificially faster. Compare like routes/workloads.
+  Report p50/p95 explicitly for C0–C4. For each matched pair, subtract C0's
+  p50/p95 client latency from the hardened config's corresponding percentile.
+  Preserve negative observed differences and label these as baseline-relative
+  end-to-end differences. Also report finalized WAF-only p50/p95 from app timings.
 - `latency_ms` in Redis means WAF overhead excluding downstream app/mock time.
   Instrument decision and finalization spans, including refund/telemetry overhead.
   Put the finalized overhead in a separate per-request timing artifact so emitting

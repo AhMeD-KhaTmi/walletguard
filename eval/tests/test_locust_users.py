@@ -107,3 +107,25 @@ def test_gated_user_can_send_its_setup_login_before_the_gate_opens():
     assert user.deadline is None
     assert user._past_deadline() is False
     assert LoggedUser.deadline is None
+
+
+def test_locust_request_uses_the_configured_timeout(monkeypatch, tmp_path):
+    from locust.env import Environment
+    from requests import Session
+    from unittest.mock import Mock
+
+    from eval import workload
+    from eval.clientlog import AttemptLog
+
+    log = AttemptLog(workload="generic", root=tmp_path, run_id="r", ip="10.20.0.11")
+    monkeypatch.setattr(workload, "get_log", lambda *args: log)
+    monkeypatch.setenv("P20_TIMEOUT", "1.25")
+    request = Mock(side_effect=ValueError("simulate a Requests failure"))
+    monkeypatch.setattr(Session, "request", request)
+    monkeypatch.setattr(workload.LoggedUser, "host", "http://127.0.0.1:8000")
+    user = workload.LoggedUser(Environment())
+    user.on_start()
+    with pytest.raises(ValueError):
+        user.client.get("/products")
+    assert request.call_args.kwargs["timeout"] == 1.25
+    log.close()

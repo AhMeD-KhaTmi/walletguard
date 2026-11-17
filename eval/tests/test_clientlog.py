@@ -1,4 +1,5 @@
 import json
+from types import SimpleNamespace
 
 import pytest
 
@@ -133,11 +134,27 @@ def test_shutdown_interruption_is_unknown_not_a_failure(tmp_path):
     def killed():
         raise GreenletExit()
 
-    row = clientlog.execute(log, request=killed, classify=clientlog.classify_products,
-                            route="/products", method="GET", intent="page:1")
+    with pytest.raises(GreenletExit):
+        clientlog.execute(log, request=killed, classify=clientlog.classify_products,
+                          route="/products", method="GET", intent="page:1")
+    log.close()
+    row = json.loads(next(tmp_path.glob("attempts-*.jsonl")).read_text())
     assert row["outcome"] == "unknown"
     assert row["unresolved"] is True
+
+
+def test_status_zero_read_timeout_preserves_uncertain_generation(tmp_path):
+    log = clientlog.AttemptLog(workload="dow", root=tmp_path, run_id="r", ip="10.20.0.22")
+    response = SimpleNamespace(status_code=0, error=TimeoutError("read timed out"))
+    row = clientlog.execute(log, request=lambda: response, classify=clientlog.classify_chat,
+                            route="/chat", method="POST", intent="chat:900", unknown_on_timeout=True)
     log.close()
+    assert row["outcome"] == "unknown" and row["unresolved"] is True
+
+
+def test_backend_timeout_retains_unknown_agent_outcome():
+    outcome, reason, _ = clientlog.classify_chat(FakeResponse(504))
+    assert outcome == "unknown" and reason == "backend_generation_timeout"
 
 
 def test_worker_meta_records_the_seed_the_process_used(tmp_path):

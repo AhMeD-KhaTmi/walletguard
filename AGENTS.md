@@ -22,7 +22,15 @@ A two-person Red-vs-Blue security project. We attack a deliberately vulnerable F
 
 I own `app/`, `waf/`, `ml/`. My teammate (Member A, "Attack & Kernel" track) owns `ebpf/`, `locust/`, `eval/`. `contract/` and `docs/` are shared. Full plans: `member_B_plan.md` (mine) and `docs/member_A_plan.md` (teammate's) — read both before making non-trivial changes, since this system only works as the two halves together.
 
-**Defaults in effect (not yet confirmed by the professor — see `member_B_plan.md` Section 0):** eBPF included as sensor + XDP enforcer; everything runs on a Linux VM; the LLM is a mock with token counting exposed over local HTTP in every measured configuration; "Agent Harness" = a simple `/chat` API endpoint; ASR = successful malicious requests / total malicious requests per attack type; "deterministic" = scripted, seeded, reproducible runs.
+**Professor-approved execution requirements (2026-11-17, master plan v1.3):**
+Use Ubuntu 22.04/24.04, kernel >=5.15 and BTF. `/chat` runs a bounded simulated
+agent loop over the local mock with growing context, exact synthetic token counts,
+configurable deterministic latency and aggregate/per-step usage. Features are
+version 3, so use compatible data and models. A's sensor covers scoped connect
+and execve activity. Native XDP may fall back to generic/skb, tc/nftables or WAF
+enforcement with an explicit backend/mode and evidence. Report per-attack ASR,
+benign FPR, p50/p95 client deltas from matched C0 and finalized WAF p50/p95.
+See `docs/masterplan_vs_professor_diff.pdf` and both updated member plans.
 
 ## Repository layout
 
@@ -104,7 +112,9 @@ All keys use prefix `p20:`. Full schema lives in `contract/` and in both member 
 ## Conventions
 
 - Python, type-annotated where practical, `async def` throughout the FastAPI app and WAF (the whole stack is ASGI — never introduce blocking I/O in the request path without `asyncio.to_thread`).
-- Token counting always goes through `common/tokens.py::estimate_tokens` — the app, the WAF reservation logic, and any evaluation script must use the *same* estimator, or the reserve/refund token-bucket logic (Section 4.4 of `member_B_plan.md`) goes out of sync.
+- Token counting goes through `common/tokens.py::estimate_tokens`, the exact
+  synthetic whitespace tokenizer. Whole-task reservation uses
+  `common/agent.py::reserve_tokens` for repeated inputs and all outputs.
 - Redis Lua scripts in `waf/buckets.py` own normal token-bucket math. The approved Redis-outage exception is a locked process-local backend in that same module, with equivalent policy semantics and conservative recovery as specified in `docs/MASTER_PLAN.md`. Do not implement bucket math in other modules; keep take/refund atomic within each backend.
 - New WAF behavior should be added as a new check inside `WAFMiddleware._decide`, returning a `Verdict`, not as a separate middleware layer, unless there's a specific reason to split it.
 - Config values (bucket capacities/rates, ban TTL, strike limits, honeypot paths) live in `waf/config.py::Config` — don't hardcode them elsewhere.

@@ -10,7 +10,8 @@ import uuid
 from dataclasses import dataclass
 from starlette.datastructures import Headers
 
-from common.tokens import estimate_tokens
+from common.tokens import TOKENIZER_VERSION
+from common.agent import DEFAULT_AGENT_STEPS, MAX_AGENT_STEPS, reserve_tokens
 from waf.bans import BanStore
 from waf.buckets import TokenBucket
 from waf.features import FEATURE_VERSION, FeatureStore
@@ -143,7 +144,7 @@ class WAFMiddleware:
         finally:
             usage = scope.get("p20.usage")
             generation = scope.get("p20.generation", "not_started")
-            known = usage is not None or generation in {"not_started", "not_generated"} or not forwarded
+            known = generation in {"not_started", "not_generated", "completed"} or not forwarded
             charged = usage.tokens_in+usage.tokens_out if usage else 0 if known else ""
             if verdict.reserved:
                 key, reserve = verdict.reserved
@@ -162,6 +163,8 @@ class WAFMiddleware:
                 "llm_tokens_charged": charged, "tokens_reserved": verdict.reserved[1] if verdict.reserved else 0,
                 "tokens_refunded": refunded, "accounting_status": ("known" if known else "uncertain") if path == "/chat" else "not_applicable",
                 "sensor_status": "not_used", "latency_ms": round((time.perf_counter()-started-downstream)*1000, 3),
+                "agent_steps_completed": scope.get("p20.agent_steps_completed", 0),
+                "tokenizer": TOKENIZER_VERSION,
             }
             await self.state.log(cfg.decisions_stream, fields, 200_000)
             self.state.timing({"request_id": request_id, "run_id": cfg.run_id,
@@ -216,14 +219,16 @@ class WAFMiddleware:
                     return result
         if path == "/chat" and method == "POST" and user:
             output, prompt = body.get("max_output_tokens", 256), body.get("prompt")
-            if type(output) is not int or output < 1 or not isinstance(prompt, str):
+            steps = body.get("agent_steps", DEFAULT_AGENT_STEPS)
+            if (type(output) is not int or output < 1 or not isinstance(prompt, str)
+                    or type(steps) is not int or not 1 <= steps <= MAX_AGENT_STEPS):
                 return Verdict()  # The shared API schema owns invalid-input responses.
             if output > cfg.max_output_cap:
                 return Verdict("block", "max_output_exceeds_policy", 400)
             result = await take("chat_req", user)
             if result.decision != "allow":
                 return result
-            reserve = estimate_tokens(prompt)+output
+            reserve = reserve_tokens(prompt, output, steps)
             result = await take("llm_tok", user, reserve)
             if result.decision == "allow":
                 result.reserved = (f"{prefix}llm_tok:{user}", reserve)

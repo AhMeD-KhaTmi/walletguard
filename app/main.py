@@ -2,18 +2,21 @@
 
 import secrets
 import time
+import asyncio
 from contextlib import asynccontextmanager
 
 import httpx
 import redis.asyncio as aioredis
 from fastapi import FastAPI, Header, HTTPException, Response, Request
 from fastapi.staticfiles import StaticFiles
-from pydantic import ValidationError
 from redis.exceptions import RedisError
 from redis.asyncio.retry import Retry
 from redis.backoff import NoBackoff
 
-from app.schemas import ChatIn, Completion, LoginIn
+from app.schemas import ChatIn, AgentCompletion, LoginIn
+from app.agent import run_agent
+from common.agent import AGENT_VERSION
+from common.tokens import TOKENIZER_VERSION
 from app.settings import Settings
 from app.web import STATIC, web_router
 from waf.config import Config
@@ -81,7 +84,8 @@ def create_app(settings: Settings | None = None, waf_config: Config | None = Non
             pass
         try:
             result = await api.state.llm.get("/health")
-            if result.status_code == 200 and result.json().get("backend") == "synthetic":
+            if (result.status_code == 200 and result.json().get("backend") == "synthetic"
+                    and result.json().get("tokenizer") == TOKENIZER_VERSION):
                 dependencies["mock_llm"] = "ok"
         except (httpx.HTTPError, ValueError, AttributeError):
             pass
@@ -92,6 +96,8 @@ def create_app(settings: Settings | None = None, waf_config: Config | None = Non
             "waf_mode": cfg.waf_mode,
             "dependencies": dependencies,
             "cost_is_simulated": True,
+            "agent_version": AGENT_VERSION, "tokenizer": TOKENIZER_VERSION,
+            "active_agent_tasks": runtime.active_agent_tasks,
             "controls": {"buckets": policy.enable_buckets and policy.mode == "enforce",
                          "honeypot": policy.enable_honeypot and policy.mode == "enforce",
                          "ml": runtime.scorer is not None, "kernel": False},
@@ -138,32 +144,32 @@ def create_app(settings: Settings | None = None, waf_config: Config | None = Non
             raise HTTPException(401, "invalid token")
         return user
 
-    @api.post("/chat", response_model=Completion, tags=["Target"])
+    @api.post("/chat", response_model=AgentCompletion, tags=["Target"])
     async def chat(
         body: ChatIn, response: Response, request: Request,
         authorization: str | None = Header(default=None),
     ):
         user = await current_user(authorization)
-        request.scope["p20.generation"] = "started"
+        runtime.active_agent_tasks += 1
         try:
-            result = await api.state.llm.post("/complete", json=body.model_dump())
-            result.raise_for_status()
-            completion = Completion.model_validate(result.json())
-        except httpx.ConnectError as exc:
-            request.scope["p20.generation"] = "not_generated"
-            raise HTTPException(502, "mock LLM unavailable") from exc
-        except httpx.TimeoutException as exc:
-            # Never retry automatically: generation may already have occurred.
-            raise HTTPException(504, "mock LLM timed out; usage may be uncertain") from exc
-        except (httpx.HTTPError, ValidationError, ValueError) as exc:
-            raise HTTPException(502, "mock LLM unavailable or invalid response") from exc
+            completion = await run_agent(api.state.llm, body, request.scope)
+        finally:
+            try:
+                known_usage = request.scope.get("p20.usage")
+                if known_usage is not None:
+                    store = await asyncio.shield(runtime.charge(user, known_usage,
+                        agent_steps=request.scope["p20.agent_steps_completed"]))
+            finally:
+                runtime.active_agent_tasks -= 1
 
         usage = completion.usage
         request.scope["p20.usage"] = usage
         response.headers["X-Tokens-In"] = str(usage.tokens_in)
         response.headers["X-Tokens-Out"] = str(usage.tokens_out)
         response.headers["X-Cost-USD"] = f"{usage.cost_usd:.6f}"
-        response.headers["X-Usage-Store"] = await runtime.charge(user, usage)
+        response.headers["X-Usage-Store"] = store
+        response.headers["X-Agent-Steps"] = str(completion.agent_steps)
+        response.headers["X-Tokenizer"] = TOKENIZER_VERSION
         return completion
 
     @api.get("/_metrics/usage", tags=["Operations"])

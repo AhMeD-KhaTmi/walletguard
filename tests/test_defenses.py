@@ -135,8 +135,8 @@ async def test_existing_external_ban_uses_same_rule(target, redis_db):
 async def test_output_policy_and_actual_token_charge(target, redis_db):
     async with client(target) as c:
         headers = await login(c)
-        assert (await c.post("/chat", headers=headers, json={"prompt": "hello", "max_output_tokens": 32000})).status_code == 400
-        response = await c.post("/chat", headers=headers, json={"prompt": "hello", "max_output_tokens": 100})
+        assert (await c.post("/chat", headers=headers, json={"prompt": "hello", "agent_steps": 1, "max_output_tokens": 32000})).status_code == 400
+        response = await c.post("/chat", headers=headers, json={"prompt": "hello", "agent_steps": 1, "max_output_tokens": 100})
         assert response.status_code == 200
         request_id = response.headers["x-request-id"]
     row = next(f for _, f in redis_db.xrange("p20:stream:waf_decisions") if f["request_id"] == request_id)
@@ -154,10 +154,10 @@ async def test_token_exhaustion_with_valid_under_cap_chat(redis_db, llm_url, pol
     app = create_app(Settings(redis_url=TEST_REDIS_URL, llm_base_url=llm_url, waf_mode="enforce"), policy)
     async with app.router.lifespan_context(app), client(app) as c:
         headers = await login(c)
-        assert (await c.post("/chat", headers=headers, json={"prompt": "hi", "max_output_tokens": 8})).status_code == 200
-        result = await c.post("/chat", headers=headers, json={"prompt": "hi", "max_output_tokens": 8})
+        assert (await c.post("/chat", headers=headers, json={"prompt": "hi", "agent_steps": 1, "max_output_tokens": 8})).status_code == 200
+        result = await c.post("/chat", headers=headers, json={"prompt": "hi", "agent_steps": 1, "max_output_tokens": 8})
         assert result.status_code == 429 and result.json()["error"] == "llm_tok"
-        assert (await c.post("/chat", headers=headers, json={"prompt": "hi", "max_output_tokens": 20})).status_code == 400
+        assert (await c.post("/chat", headers=headers, json={"prompt": "hi", "agent_steps": 1, "max_output_tokens": 20})).status_code == 400
     assert redis_db.hget("p20:app:usage:total", "requests") == "1"
 
 
@@ -175,7 +175,7 @@ async def test_reservations_refund_only_known_unused_generation(target, redis_db
             original = target.state.llm
             target.state.llm = mock
             try:
-                result = await c.post("/chat", headers=headers, json={"prompt": "hello", "max_output_tokens": 100})
+                result = await c.post("/chat", headers=headers, json={"prompt": "hello", "agent_steps": 1, "max_output_tokens": 100})
                 assert result.status_code in (502, 504)
             finally:
                 target.state.llm = original
@@ -274,7 +274,7 @@ async def test_features_count_more_than_100_and_flag_saturation(redis_async, pol
     features = FeatureStore(state)
     for _ in range(160):
         await features.record("10.0.0.8", "/products", 200)
-    values = await features.extract("10.0.0.8", "/chat", {}, {"prompt": "hello"}, 10)
+    values = await features.extract("10.0.0.8", "/chat", {}, {"prompt": "hello", "agent_steps": 1}, 10)
     assert values["req_60s"] == 150 and values["window_saturated"] == 1
     assert values["prompt_tokens"] == 1
 
@@ -282,12 +282,12 @@ async def test_features_count_more_than_100_and_flag_saturation(redis_async, pol
 async def test_cached_session_local_usage_and_outage_protection(target, redis_db):
     async with client(target) as c:
         headers = await login(c)
-        assert (await c.post("/chat", headers=headers, json={"prompt": "hi", "max_output_tokens": 8})).status_code == 200
+        assert (await c.post("/chat", headers=headers, json={"prompt": "hi", "agent_steps": 1, "max_output_tokens": 8})).status_code == 200
         state = target.state.runtime
         original = state.r
         state.r = Offline()
         try:
-            result = await c.post("/chat", headers=headers, json={"prompt": "hi", "max_output_tokens": 8})
+            result = await c.post("/chat", headers=headers, json={"prompt": "hi", "agent_steps": 1, "max_output_tokens": 8})
             assert result.status_code == 200, result.text
             assert result.headers["x-usage-store"] == "local_uncertain_redis_commit"
             assert state.outage_usage["requests"] == 1
@@ -313,7 +313,7 @@ async def test_duplicate_authorization_uses_same_account_as_app(target, redis_db
         second = await c.post("/login", json={"username": "user2", "password": "Passw0rd!2"})
         second = "Bearer "+second.json()["token"]
         result = await c.post("/chat", headers=[("authorization", first), ("authorization", second)],
-                              json={"prompt": "hello", "max_output_tokens": 10})
+                              json={"prompt": "hello", "agent_steps": 1, "max_output_tokens": 10})
         assert result.status_code == 200
     row = redis_db.xrevrange("p20:stream:waf_decisions", count=1)[0][1]
     assert row["client_id"] == "user1"
@@ -326,12 +326,12 @@ async def test_partial_generation_refund_and_actual_decision_accounting(target, 
     async with client(target) as c:
         headers = await login(c)
         def backend(request):
-            return httpx.Response(200, json={"text": "tiny", "usage": {"tokens_in": 1, "tokens_out": 5, "cost_usd": .000078}})
+            return httpx.Response(200, json={"text": "tiny tiny tiny tiny tiny", "usage": {"tokens_in": 1, "tokens_out": 5, "cost_usd": .000078}})
         async with httpx.AsyncClient(base_url="http://mock", transport=httpx.MockTransport(backend)) as mock:
             original = target.state.llm
             target.state.llm = mock
             try:
-                assert (await c.post("/chat", headers=headers, json={"prompt": "hi", "max_output_tokens": 100})).status_code == 200
+                assert (await c.post("/chat", headers=headers, json={"prompt": "hi", "agent_steps": 1, "max_output_tokens": 100})).status_code == 200
             finally:
                 target.state.llm = original
     row = redis_db.xrevrange("p20:stream:waf_decisions", count=1)[0][1]
@@ -392,7 +392,7 @@ async def test_benign_multi_ip_smoke_stays_unbanned(target, redis_db):
             login_result = await c.post("/login", json={"username": f"user{i}", "password": f"Passw0rd!{i}"})
             assert login_result.status_code == 200
             headers = {"authorization": "Bearer "+login_result.json()["token"]}
-            assert (await c.post("/chat", headers=headers, json={"prompt": "hello", "max_output_tokens": 20})).status_code == 200
+            assert (await c.post("/chat", headers=headers, json={"prompt": "hello", "agent_steps": 1, "max_output_tokens": 20})).status_code == 200
     assert not redis_db.keys("p20:ban:*")
 
 
@@ -417,7 +417,7 @@ async def test_cancelled_app_before_generation_refunds_reservation(target, redis
         raise asyncio.CancelledError()
     async with client(target) as c:
         with pytest.raises(asyncio.CancelledError):
-            await c.post("/chat", headers=headers, json={"prompt": "hi", "max_output_tokens": 10})
+            await c.post("/chat", headers=headers, json={"prompt": "hi", "agent_steps": 1, "max_output_tokens": 10})
     row = redis_db.xrevrange("p20:stream:waf_decisions", count=1)[0][1]
     assert float(row["tokens_refunded"]) == float(row["tokens_reserved"]) == 11
     assert row["llm_tokens_charged"] == "0"

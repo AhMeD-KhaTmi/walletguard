@@ -24,6 +24,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import os
 import pathlib
 import shutil
@@ -38,6 +39,9 @@ import urllib.request
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
 from eval import identities, manifest as manifest_mod, resources  # noqa: E402
+from common.agent import AGENT_VERSION, DEFAULT_AGENT_STEPS
+from common.tokens import TOKENIZER_VERSION
+from waf.features import FEATURE_VERSION
 
 REPO = pathlib.Path(__file__).resolve().parents[1]
 OVERRUN_GRACE_S = 20.0
@@ -54,10 +58,7 @@ CONFIGS = {
     "C4": {"WAF_MODE": "enforce", "WAF_BUCKETS": "1", "WAF_HONEYPOT": "1",
            "WAF_ML": "1", "WAF_EBPF_SIGNALS": "1"},
 }
-BLOCKED_CONFIGS = {"C3": "C3 is blocked until Member B trains and freezes a compatible base model; "
-                         "no model file exists in this checkout, and the application refuses "
-                         "WAF_ML=1 without one",
-                   "C4": "C4 is blocked: the eBPF sensor/XDP integration does not exist yet, "
+BLOCKED_CONFIGS = {"C4": "C4 is blocked: the eBPF sensor/XDP integration does not exist yet, "
                          "so WAF_EBPF_SIGNALS=1 is refused by the application"}
 WORKLOADS = {
     "benign": ("locust/benign.py", 5, "benign"),
@@ -132,6 +133,8 @@ def redis_client(redis_url: str):
 
 def preflight(args, data: dict) -> list[str]:
     problems: list[str] = []
+    if args.config == "C3" and not args.model.is_file():
+        problems.append(f"C3 model missing: {args.model}")
     if not port_free(args.api_port):
         problems.append(f"port {args.api_port} is already in use; stop the previous API first")
     if not port_free(args.mock_port):
@@ -274,7 +277,8 @@ def workload_command(args, entry: dict, run_dir: pathlib.Path) -> tuple[list[str
                 if gated else args.duration)
     command = [locust_bin, "-f", str(REPO / script), "--headless",
                "-u", str(per_identity), "-r", str(args.spawn_rate),
-               "-t", run_time, "--host", target, "--only-summary",
+               "-t", run_time, "--stop-timeout", str(math.ceil(args.timeout + 1)),
+               "--host", target, "--only-summary",
                "--exit-code-on-error", "0"]
     env = {
         **os.environ,
@@ -283,12 +287,13 @@ def workload_command(args, entry: dict, run_dir: pathlib.Path) -> tuple[list[str
         "P20_RUNS_DIR": str(REPO / args.runs),
         "P20_TIMEOUT": str(args.timeout),
         "P20_SEED": str(args.seed),
+        "P20_WORKER_ID": entry["ns"],
         "P20_EXPECT_IP": entry["ip"],
         "P20_ATTACKER_ACCOUNT": args.data["attacker_account"],
         "P20_DOW_PROFILE": args.profile,
         "P20_DOW_PACE_S": str(args.dow_pace),
         "P20_PER_PAGE": str(args.per_page),
-        "P20_DEADLINE_S": str(_seconds(args.duration) + 3),
+        "P20_DEADLINE_S": str(_seconds(args.duration)),
         "P20_GATE_DIR": str(pathlib.Path(args.runs, args.run_id, "gate")),
         "P20_SETUP_GATE": "1" if gated else "0",
         "P20_GATE_TIMEOUT": str(SETUP_TIMEOUT_S + 30),
@@ -352,7 +357,9 @@ def open_measured_phase(args, run_dir: pathlib.Path, expected: int) -> None:
             f"setup logins did not finish within {SETUP_TIMEOUT_S:.0f}s for {expected} identit"
             f"{'y' if expected == 1 else 'ies'}")
     reset_state(args, keep_sessions=True)
-    write_gate(gate_dir, {"measured": True, "ts_ms": int(time.time() * 1000),
+    now = time.time()
+    write_gate(gate_dir, {"measured": True, "ts_ms": int(now * 1000),
+                          "deadline_epoch_s": now + _seconds(args.duration),
                           "opened_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                           "setup_markers": expected})
     log("setup phase complete: policy state reset, sessions preserved, measured phase open")
@@ -508,6 +515,7 @@ def run(args) -> int:
         "REDIS_URL": args.redis_url,
         "LLM_BASE_URL": f"http://127.0.0.1:{args.mock_port}",
         "P20_RUN_ID": args.run_id,
+        "WAF_MODEL_PATH": str(args.model),
         **CONFIGS[args.config],
     }
     mock = api = None
@@ -528,6 +536,7 @@ def run(args) -> int:
             log("API did not become healthy (Redis and mock must both answer); see api.log")
             return 1
         (run_dir / "health.json").write_text(json.dumps(health, indent=2) + "\n", encoding="utf-8")
+        mock_health = http_json(f"http://127.0.0.1:{args.mock_port}/health")
         flags = CONFIGS[args.config]
         mismatch = []
         if health.get("waf_mode") != flags["WAF_MODE"]:
@@ -546,6 +555,7 @@ def run(args) -> int:
         log(f"readiness ok: {health['waf_mode']} / {controls}")
 
         usage_before = http_json(f"http://127.0.0.1:{args.api_port}/_metrics/usage") or {}
+        mock_usage_before = http_json(f"http://127.0.0.1:{args.mock_port}/_metrics/usage") or {}
         sampler = resources.Sampler(api.pid, interval_s=args.sample_interval)
         sampler.start()
         on_started = None
@@ -579,9 +589,20 @@ def run(args) -> int:
             sampled = sampler.stop()
         measured_ms = int(measured_started * 1000)
         measured_elapsed = round(time.time() - measured_started, 2)
+        drain_deadline = time.monotonic() + 30
+        while time.monotonic() < drain_deadline:
+            idle = http_json(f"http://127.0.0.1:{args.api_port}/health")
+            if idle is not None and idle.get("active_agent_tasks", 0) == 0:
+                break
+            time.sleep(.1)
+        else:
+            log("agent tasks failed to drain before capture")
+            return 1
         usage_after = http_json(f"http://127.0.0.1:{args.api_port}/_metrics/usage") or {}
         (run_dir / "usage.json").write_text(json.dumps(
-            {"before": usage_before, "after": usage_after}, indent=2) + "\n", encoding="utf-8")
+            {"before": usage_before, "after": usage_after,
+             "mock_before": mock_usage_before,
+             "mock_after": http_json(f"http://127.0.0.1:{args.mock_port}/_metrics/usage")}, indent=2) + "\n", encoding="utf-8")
 
         decisions = None
         if flags["WAF_MODE"] != "off":
@@ -599,6 +620,14 @@ def run(args) -> int:
         nonzero_exit = [row["ns"] for row in results
                         if row["returncode"] not in (0, None)]
         reasons = invalid_reasons(results, late_traffic)
+        app_evidence = None
+        if args.config in {"C2", "C3"}:
+            app_evidence = http_json(f"http://127.0.0.1:{args.api_port}/dashboard/evidence", timeout=20)
+            if app_evidence is not None:
+                (run_dir / "app-evidence.json").write_text(json.dumps(app_evidence) + "\n", encoding="utf-8")
+            if (not app_evidence or app_evidence.get("run_id") != args.run_id
+                    or app_evidence.get("dropped_timings") != 0):
+                reasons.append("incomplete_application_timings")
         invalid = bool(reasons)
         if reasons:
             log("run invalid: " + ", ".join(reasons))
@@ -622,7 +651,11 @@ def run(args) -> int:
             client_timeout_s=args.timeout,
             datasets=[os.environ.get("P20_CREDS", str(REPO / "locust/data/creds_seed42.json"))],
             policy_path=REPO / "waf/config.py", started_utc=started_utc,
+            model_path=args.model if args.config == "C3" else None,
             extra={"readiness": "ok",
+                   "agent_version": AGENT_VERSION, "default_agent_steps": DEFAULT_AGENT_STEPS,
+                   "tokenizer": TOKENIZER_VERSION, "feature_version": FEATURE_VERSION,
+                   "mock": mock_health,
                    # `--profile` has an argparse default, so writing it for every workload
                    # would stamp "undercap" onto benign and scraping runs. Only the
                    # profiled workload records it.
@@ -636,6 +669,7 @@ def run(args) -> int:
                    "features": features,
                    "waf_decisions_archived": decisions,
                    "bans_archived": bans,
+                   "app_evidence_archived": app_evidence is not None,
                    "resources": {
                        "sampling_interval_requested_s": args.sample_interval,
                        "cpu_count": os.cpu_count(),
@@ -656,7 +690,7 @@ def run(args) -> int:
             stop_service(mock, "mock LLM")
         _give_ownership(run_dir)
         _give_ownership(args.runs, recursive=False)
-    return 0
+    return int(invalid)
 
 
 def _give_ownership(path: pathlib.Path, recursive: bool = True) -> None:
@@ -689,6 +723,8 @@ def main() -> int:
                             help="total virtual users across identities (0 = workload default)")
     run_parser.add_argument("--spawn-rate", type=float, default=5)
     run_parser.add_argument("--timeout", type=float, default=3.0)
+    run_parser.add_argument("--model", type=pathlib.Path,
+                            default=os.getenv("WAF_MODEL_PATH", str(REPO / "ml/model_base.joblib")))
     run_parser.add_argument("--seed", type=int, default=42)
     run_parser.add_argument("--profile", default="undercap", choices=["undercap", "overcap"])
     run_parser.add_argument("--max-output", type=int, default=0)
@@ -708,6 +744,9 @@ def main() -> int:
                             help="DoW only: skip the setup -> reset -> measure split (debugging)")
     run_parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
+    args.model = args.model.resolve()
+    if not math.isfinite(args.timeout) or args.timeout <= 0:
+        parser.error("--timeout must be positive and finite")
 
     if args.config in BLOCKED_CONFIGS:
         log(BLOCKED_CONFIGS[args.config])

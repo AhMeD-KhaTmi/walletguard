@@ -8,6 +8,8 @@ import numpy as np
 import sklearn
 
 from waf.features import FEATURE_VERSION, FEATURES_BASE
+from common.agent import AGENT_VERSION
+from common.tokens import TOKENIZER_VERSION
 
 
 class Scorer:
@@ -17,6 +19,8 @@ class Scorer:
         data = joblib.load(path)  # Only load trusted, locally generated model artifacts.
         if data.get("feature_version") != FEATURE_VERSION or data.get("features") != FEATURES_BASE:
             raise ValueError("model feature manifest is incompatible with this application")
+        if data.get("agent_version") != AGENT_VERSION or data.get("tokenizer") != TOKENIZER_VERSION:
+            raise ValueError("model agent/tokenizer manifest is incompatible with this application")
         if data.get("sklearn_version") != sklearn.__version__:
             raise ValueError("model sklearn version mismatch; retrain in this environment")
         self.model = data["model"]
