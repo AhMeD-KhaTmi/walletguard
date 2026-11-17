@@ -21,7 +21,7 @@ measurements. Nothing here claims C3 or C4 results.
 | Run manifests | `eval/manifest.py` |
 | Config orchestration (C0/C1/C2) | `eval/harness.py` |
 | Result aggregation | `eval/compute_metrics.py` → `eval/results.csv` |
-| Label file for ML | `eval/labels.py` → `eval/runs/labels.json` |
+| Label file for ML | `eval/labels.py` → `eval/labels.json` (`--splits-out eval/splits.json`) |
 | Column definitions | `eval/schema.md` |
 
 ## 2. One-time setup on the lab VM
@@ -102,17 +102,28 @@ Each run writes `eval/runs/<run_id>/` (see `eval/schema.md` §4).
 ## 5. Aggregating and labelling
 
 ```bash
-.venv/bin/python eval/labels.py --runs eval/runs --out eval/runs/labels.json \
-    --splits-out eval/runs/splits.json
+# Derived artifacts live next to the results, not inside the raw-evidence directory
+# (eval/runs/ is gitignored: those records stay on the measuring host).
+.venv/bin/python eval/labels.py --runs eval/runs --out eval/labels.json \
+    --splits-out eval/splits.json
 .venv/bin/python eval/compute_metrics.py --runs eval/runs --out eval/results.csv \
-    --json eval/runs/metrics.json --labels eval/runs/labels.json \
+    --json eval/metrics.json --labels eval/labels.json \
     --summary-out eval/summary.csv
 ```
 
 `eval/summary.csv` is the plan's §7.2.6 summary: median, min and max per
-`(config, workload)` over the **valid** repetitions, with the contributing run count in
-the `repetitions` column. Per-run rows stay in `eval/results.csv`; the summary never
-replaces them and never averages an invalid run in.
+`(config, workload, profile)` over the **valid** repetitions, with the contributing run
+count in the `repetitions` column. The profile is part of the key because `dow` is run
+twice with different traffic shapes (`undercap`, `overcap`); averaging them would produce
+a median that no run ever measured. Per-run rows stay in `eval/results.csv`; the summary
+never replaces them and never averages an invalid run in.
+
+`labels.json` labels each run's source IPs `benign`, `attack` or `probe` (connection
+churn is a kernel-sensor probe, not an attack). `splits.json` proposes disjoint
+fit/calibration/test groups from **C1** runs only, because only observe mode writes
+`p20:stream:waf_features`; when no C1 attack run exists it records
+`attack_features: "unavailable"` rather than implying detector precision/recall can be
+computed from enforcement runs.
 
 Minimum grid for a reportable number: **three repetitions per (config, workload)**, with
 `--repetition 1|2|3` and varied execution order. Fewer repetitions still produce a valid
@@ -129,8 +140,10 @@ The grid reports each failed or invalid run and keeps going; its exit status is 
 of failures. Run `sudo ./eval/run_grid.sh C0 -- --dry-run` first to print the exact
 commands without touching Redis or starting a service.
 
-Aggregation needs at least three independent benign runs before `labels.py` can suggest
-disjoint fit/calibration/test groups.
+Aggregation needs at least three independent **C1** benign runs before `labels.py` can
+suggest disjoint fit/calibration/test groups: those are the only runs that produce
+`waf_features`. Benign runs at C0 or C2 are still valid evidence for the FPR and ASR
+comparison, they simply cannot train a detector.
 
 ## 6. Running a single workload without the harness
 

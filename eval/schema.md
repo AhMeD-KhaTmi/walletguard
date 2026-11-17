@@ -1,8 +1,9 @@
 # Evaluation result schema — Member A (traffic and client-side truth)
 
-Version 1 · 2026-11-16 · supersedes the earlier starter column set.
+Version 2 · 2026-11-17 · supersedes the earlier starter column set.
 Governed by `docs/MASTER_PLAN.md` section 7. Join key is **`(run_id, config, workload,
-repetition)`**; never join on `config` alone.
+profile, repetition)`**; never join on `config` alone. `profile` is empty for every
+workload except `dow`, which is run under `undercap` and `overcap`.
 
 ## 1. What this file defines
 
@@ -29,6 +30,7 @@ Rules that every column obeys:
 | `run_id` | string | manifest | Unique run identifier; also the directory name under `eval/runs/` |
 | `config` | C0–C4 | manifest | Requested configuration, confirmed through `/health` before traffic |
 | `workload` | enum | manifest | `benign`, `credential_stuffing`, `scraping`, `dow`, `honeypot`, `churn`, `mixed`, `combined` |
+| `profile` | enum/empty | manifest | Sub-profile of a workload that changes traffic shape: `undercap`/`overcap` for `dow`, empty otherwise. Part of the summary grouping key, so the two DoW profiles are never averaged into one median. The harness's `--profile` default is **not** reported for other workloads, even though pre-2026-11-17 manifests carry it. |
 | `attack` | enum/empty | manifest | `credential_stuffing`, `scraping`, `dow`, `honeypot`, `churn`, `combined`, `mixed`; empty for benign |
 | `repetition` | integer | manifest | Repetition index for the same (config, workload) pair |
 | `seed` | integer | manifest | `P20_SEED` used by the workload and dataset |
@@ -132,11 +134,18 @@ No bearer token, password or prompt text is written.
 
 ## 5. Labels for ML training
 
-`eval/labels.py` writes `run_id -> source IP -> benign|attack` from the workload each run
-actually executed and the addresses observed in its own records. It refuses to label a run
-that emitted traffic from an undeclared address.
+`eval/labels.py` writes `run_id -> source IP -> benign|attack|probe` from the workload each
+run actually executed and the addresses observed in its own records. It refuses to label a
+run that emitted traffic from an undeclared address. Connection-churn traffic is labelled
+`probe`, not `attack`: it exists to exercise the kernel sensor (`MASTER_PLAN` 3.4/IT-2),
+has no ASR objective, and must not become an attack training class.
 
 `--splits-out` additionally suggests disjoint `benign_fit`, `benign_calibration` and
-`test` run groups (attacks are test-only). B's `ml/train.py` still requires at least two
-independent benign run groups and rejects overlapping test/training run IDs; the split
-file is a proposal, not a policy override.
+`test` run groups (attacks are test-only). Only **C1** runs can appear in those groups,
+because only observe mode writes `p20:stream:waf_features`; benign traffic measured in C0
+or C2 is behaviour evidence, not training data. Probe runs are listed separately in
+`probe_runs`. When no C1 observe-mode attack run exists, the file says so explicitly
+(`attack_features: "unavailable"` plus a detail line) instead of implying that the
+enforcement attack runs can be used for detector precision/recall. B's `ml/train.py` still
+requires at least two independent benign run groups and rejects overlapping test/training
+run IDs; the split file is a proposal, not a policy override.

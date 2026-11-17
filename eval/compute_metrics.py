@@ -26,12 +26,16 @@ from eval import manifest as manifest_mod  # noqa: E402
 
 DENIAL_DECISIONS = {"throttle", "block", "ban", "would_throttle", "would_block", "would_ban"}
 ASR_WORKLOADS = {"credential_stuffing", "scraping", "dow"}
+# Workloads that are run under more than one named sub-profile. Only these fill the
+# `profile` column: `--profile` has an argparse default, so older manifests carry
+# "undercap" on runs where the flag had no effect.
+PROFILED_WORKLOADS = {"dow"}
 # `mixed` and `combined` run several attack objectives in one row: ASR is an aggregate
 # and per-attack ASR must come from the separated workloads (documented in schema.md).
 AGGREGATE_WORKLOADS = {"mixed", "combined"}
 
 COLUMNS = [
-    "run_id", "config", "workload", "attack", "repetition", "seed", "duration_s",
+    "run_id", "config", "workload", "profile", "attack", "repetition", "seed", "duration_s",
     "measured_attempts",
     "malicious_attempts", "attack_success", "unknown_outcomes", "asr",
     "unique_objectives",
@@ -109,6 +113,12 @@ def summarise(run_dir: pathlib.Path, labels: dict | None = None) -> dict:
         "run_id": run_dir.name,
         "config": (manifest or {}).get("config", ""),
         "workload": (manifest or {}).get("workload", ""),
+        # A workload can have several profiles with different traffic shapes and
+        # outcomes (`dow` runs undercap or overcap). They are separate groups: a median
+        # across both would be a number no run produced. Other workloads do not report
+        # a profile even when their manifest carries the harness's default flag value.
+        "profile": ((manifest or {}).get("profile") or "")
+        if (manifest or {}).get("workload") in PROFILED_WORKLOADS else "",
         "attack": (manifest or {}).get("attack", ""),
         "repetition": (manifest or {}).get("repetition", ""),
         "seed": (manifest or {}).get("seed", ""),
@@ -304,24 +314,28 @@ SUMMARY_METRICS = [
 
 
 def summarise_repetitions(rows: list[dict], metrics: list[str] | None = None) -> list[dict]:
-    """Median and range per (config, workload) across valid repetitions (7.2.6).
+    """Median and range per (config, workload, profile) across valid repetitions (7.2.6).
 
     Invalid runs are excluded rather than averaged in, and `repetitions` states how many
-    rows actually contributed, so a single-run group cannot masquerade as a median.
+    rows actually contributed, so a single-run group cannot masquerade as a median. The
+    profile is part of the group key because one workload can be run in configurations
+    that differ in both traffic shape and outcome (`dow` undercap vs overcap).
     """
-    groups: dict[tuple[str, str], list[dict]] = {}
+    groups: dict[tuple[str, str, str], list[dict]] = {}
     for row in rows:
         if row.get("run_valid") != "true":
             continue
-        groups.setdefault((str(row["config"]), str(row["workload"])), []).append(row)
+        key = (str(row["config"]), str(row["workload"]), str(row.get("profile") or ""))
+        groups.setdefault(key, []).append(row)
     summary = []
-    for (config, workload), group in sorted(groups.items()):
+    for (config, workload, profile), group in sorted(groups.items()):
         for metric in metrics or SUMMARY_METRICS:
             values = [float(row[metric]) for row in group if row.get(metric) not in ("", None)]
             if not values:
                 continue
             summary.append({
-                "config": config, "workload": workload, "metric": metric,
+                "config": config, "workload": workload, "profile": profile,
+                "metric": metric,
                 "repetitions": len(values),
                 "median": round(statistics.median(values), 4),
                 "min": round(min(values), 4), "max": round(max(values), 4),
@@ -369,7 +383,8 @@ def main() -> int:
         summary_path.parent.mkdir(parents=True, exist_ok=True)
         with summary_path.open("w", newline="", encoding="utf-8") as handle:
             writer = csv.DictWriter(handle, fieldnames=[
-                "config", "workload", "metric", "repetitions", "median", "min", "max"])
+                "config", "workload", "profile", "metric", "repetitions",
+                "median", "min", "max"])
             writer.writeheader()
             writer.writerows(summary)
         print(f"wrote {summary_path} with {len(summary)} row(s)")

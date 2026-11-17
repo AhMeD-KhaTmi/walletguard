@@ -223,6 +223,44 @@ def test_repetition_summary_never_invents_a_value_from_empty_cells():
     assert compute_metrics.summarise_repetitions(rows, ["time_to_redis_ban_ms"]) == []
 
 
+def test_dow_profiles_are_summarised_separately():
+    # Undercap and overcap differ in both traffic shape and outcome; a median across
+    # both would be a number no run produced (C0 median 935.5 between 90 and 1842).
+    rows = [
+        {"config": "C2", "workload": "dow", "profile": "undercap", "asr": "0.1",
+         "run_valid": "true"},
+        {"config": "C2", "workload": "dow", "profile": "undercap", "asr": "0.2",
+         "run_valid": "true"},
+        {"config": "C2", "workload": "dow", "profile": "overcap", "asr": "0.0",
+         "run_valid": "true"},
+    ]
+    summary = compute_metrics.summarise_repetitions(rows, ["asr"])
+    assert [(e["workload"], e["profile"], e["median"], e["repetitions"]) for e in summary] == [
+        ("dow", "overcap", 0.0, 1),
+        ("dow", "undercap", 0.15, 2),
+    ]
+
+
+def test_row_carries_the_dow_profile_from_the_manifest(tmp_path):
+    run = make_run(tmp_path, "dow", [attempt()], extra={"profile": "undercap"})
+    row = compute_metrics.summarise(run)
+    assert row["workload"] == "dow"
+    assert row["profile"] == "undercap"
+    # A workload without profiles leaves the column empty rather than inventing one.
+    plain = make_run(tmp_path, "scraping", [attempt()])
+    assert compute_metrics.summarise(plain)["profile"] == ""
+
+
+def test_profile_flag_on_a_non_profiled_workload_is_not_reported(tmp_path):
+    # `--profile` has an argparse default, so every pre-fix manifest says "undercap";
+    # stamping that onto benign or scraping rows would misdescribe the run.
+    run = make_run(tmp_path, "benign", [attempt(objective=False)],
+                   extra={"profile": "undercap"})
+    row = compute_metrics.summarise(run)
+    assert row["profile"] == ""
+    assert "undercap" not in row.values()
+
+
 def test_aggregate_workload_reports_asr_without_inventing_unique_objectives(tmp_path):
     run = make_run(tmp_path, "combined", [
         attempt(), attempt(outcome="blocked", status=403),

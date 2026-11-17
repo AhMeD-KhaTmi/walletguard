@@ -3,8 +3,10 @@
 Last updated: 2026-11-17 (Africa/Lagos).
 
 Latest implementation snapshot: independent C0/C1/C2 checks pass; **64 automated
-tests and 12 real-HTTP development checks**. Base ML tooling is tested, but no
-production model or realistic detector metrics exist yet. No A/kernel integration.
+tests and 12 real-HTTP development checks**. Member A delivered the measured traffic
+set on 2026-11-17 (57 runs at one revision, 82 eval tests) — see the entry of that date.
+Base ML tooling is tested, but no production model or realistic detector metrics exist
+yet, and there is no feature export. No A/kernel integration.
 See [current status](evidence/independent_status.json) and the latest work entry.
 
 Current execution authority: `MASTER_PLAN.md` and `../contract/redis_schema.md`.
@@ -913,6 +915,107 @@ Limitations and next action: the 13-run aggregation is development evidence at
 57 runs (27 C0 + 27 C2 + 3 C1 benign) at this commit, followed by `labels.py` and
 `compute_metrics.py --summary-out`; results and this journal's numbers are then
 committed separately.
+
+### 2026-11-17 — Member A: measured C0/C2/C1 set (57 runs at `71f24b9`)
+
+Scope: `member-a/traffic-handoff`. `app/`, `waf/`, `ml/`, `contract/` and `ebpf/` were
+not modified. All traffic ran on the p20 VM (Ubuntu 24.04, Python 3.12.3, 4 cores,
+`172.25.235.250`); no measurement was produced on Windows.
+
+Provenance (checked from the manifests, not asserted):
+
+```
+manifests: 57
+revisions: Counter({('71f24b9', False): 57})
+configs:   Counter({'C0': 27, 'C2': 27, 'C1': 3})
+dirty or wrong: 0
+```
+
+27 runs per config = 9 workloads × 3 repetitions with the execution order rotated per
+repetition; 3 C1 benign runs are the observe-mode collection. Grids exited `0`:
+`grid finished: 0 failed run(s)` and `exit=0` for both C0 and C2. The rows below were
+aggregated by the tooling committed with this entry from runs whose manifests record
+`71f24b9`; `eval/runs/` stays on the VM (gitignored), the derived files are in `eval/`.
+
+Median of the three valid repetitions (C0 → C2):
+
+| workload | attempts C0 → C2 | successes C0 → C2 | ASR C0 → C2 |
+|---|---|---|---|
+| scraping | 10 754 → 10 695 | 10 752 → **90** | 0.9998 → **0.0084** |
+| credential stuffing | 4 751 → 4 694 | 471 → **0** (0, 0, 1) | 0.0991 → **0.0** |
+| DoW over-cap | 90 → 4 901 | 90 → **0** | 1.0 → **0.0** |
+| DoW under-cap | 1 811 → 4 814 | 1 811 → **10** | 1.0 → **0.0021** |
+| combined | 18 431 → 21 895 | 13 850 → 100 | 0.7462 → 0.0046 |
+| mixed | 35 581 → 42 910 | 26 652 → 103 | 0.7443 → 0.0024 |
+| benign (FPR) | — | 0 denials both configs | 0.0 → 0.0 |
+
+Benign impact and cost, same medians:
+
+| metric | C0 | C2 |
+|---|---|---|
+| benign p50 / p95 | 4.755 / 32.662 ms | 7.073 / 35.294 ms |
+| WAF overhead mean | WAF off | 3.168 ms (C1 observe: 4.196 ms) |
+| combined tokens_out | 1 644 300 | 9 000 |
+| combined simulated cost | $25.18 | $0.138 |
+| app CPU, benign | 1.35 % | 2.23 % |
+| app CPU, mixed | 29.55 % | 32.29 % |
+
+Bans archived in C2 (all three repetitions identical): 0 for `benign`; 1 for
+`honeypot` (reason `honeypot`, ttl 600); 1 for `churn`; 3 for each single attack; 9 for
+`combined` and `mixed` (one per attacker address). No `anomaly` ban exists, which is
+correct because `ml` is off in C2. Honeypot timing: `time_to_redis_ban_ms` **2 ms**
+(server side, written while handling the decoy request) versus `time_to_ban_ms`
+10 068 ms, which is the client's own probe cadence and must not be quoted as defense
+latency. Budget bans land at 228–423 ms (`combined` 228, scraping 423, stuffing 262,
+DoW under 311, DoW over 969).
+
+Findings that need an owner in `waf/` (not modified here):
+
+- C2 scraping stops at exactly **90 successes in every repetition** = 3 addresses × the
+  `ip_req` capacity 30, while capacity 30 + 2/s over 45 s implies ≈120 per address. Either
+  the refill does not accrue as configured, or successes are only counted from the
+  initial burst.
+- C2 credential stuffing is 0, 0 and 1 success over ~4 700 attempts with 200/2 000 valid
+  credentials. The plausible mechanism (the `ip_req` flood consumes the allowance before
+  `login_ip` is charged) needs confirmation; the ban reason is only `budget`, so this
+  data cannot attribute it to a specific bucket.
+- C2 under-cap DoW — designed to stay under the **token** budget — is banned after
+  exactly **10 successes in all three repetitions** (311 ms). The stop is therefore the
+  request-rate/shared budget, not token accounting; the under-cap row cannot be used to
+  claim that token budgets stopped it. C2 over-cap is clean: 0 of 4 901 succeeded.
+- `mixed` (103 successes) exceeds `combined` (100 = 90 scraping + 10 under-cap DoW). The
+  aggregate row does not attribute per attack by design; per-attack ASR must come from
+  the separated workloads.
+
+Four aggregation defects were found and fixed before this entry was written; the traffic
+was not re-run:
+
+1. `dow` was summarised as one workload, mixing under-cap (1 811 attempts at C0) with
+   over-cap (90), producing C0 medians of 935.5 attempts and 5 successes that no run ever
+   produced. `profile` is now part of the result row and of the summary grouping key.
+2. Connection churn was labelled `attack` in `labels.json` while `compute_metrics.py`
+   treated it as a non-malicious probe. Churn is now labelled `probe` and kept out of the
+   ML groups, per `MASTER_PLAN.md` 3.4/IT-2 (it exists to exercise kernel signals).
+3. The suggested split drew benign fit/calibration runs from every config, including C0
+   and C2, which write no `p20:stream:waf_features`. Splits are now restricted to C1.
+4. `harness.py` wrote the `--profile` argparse default into every manifest, so 51 of 57
+   runs carried `profile: "undercap"`. Manifests are immutable evidence, so the reader
+   (`compute_metrics.py`) now reports a profile only for `dow`, and the harness no longer
+   writes it for other workloads.
+
+Still unavailable — do not plan around it:
+
+- `p20:stream:waf_features` export. The stream is B's, and its export format should be
+  specified by its owner rather than invented here; without it there is no feature
+  matrix and no IsolationForest training.
+- C1 observe-mode **attack** runs, so detector precision/recall (`MASTER_PLAN` 6.4) is
+  not computable: `eval/splits.json` states `attack_features: "unavailable"`. The three
+  C1 benign runs give fit/calibration/held-out benign groups only.
+- Every kernel column (`time_to_map_insert_ms`, `time_to_first_xdp_drop_ms`, `agent_*`,
+  `xdp_dropped_packets`): `ebpf/` is empty. C4 cannot start, and C3 needs a trained model.
+
+`eval/schema.md` is now version 2 (adds `profile`, the DoW grouping rule, the probe label
+and the C1-only split rule); `pytest eval/tests -q` → **82 passed** on the VM.
 
 ### Template for later work entries
 

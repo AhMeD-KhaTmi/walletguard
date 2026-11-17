@@ -545,7 +545,12 @@ def run(args) -> int:
             client_timeout_s=args.timeout,
             datasets=[os.environ.get("P20_CREDS", str(REPO / "locust/data/creds_seed42.json"))],
             policy_path=REPO / "waf/config.py", started_utc=started_utc,
-            extra={"readiness": "ok", "profile": args.profile, "per_identity": results,
+            extra={"readiness": "ok",
+                   # `--profile` has an argparse default, so writing it for every workload
+                   # would stamp "undercap" onto benign and scraping runs. Only the
+                   # profiled workload records it.
+                   "profile": args.profile if args.workload == "dow" else None,
+                   "per_identity": results,
                    "duration_requested": args.duration, "wall_duration_s": duration,
                    "overran": overran, "late_traffic": late_traffic,
                    "invalid": late_traffic,
