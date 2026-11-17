@@ -11,6 +11,24 @@ def test_identity_plan_is_internally_consistent():
     assert identities.management_ips(data) == {"127.0.0.1", "10.20.0.1"}
 
 
+def test_mixed_workload_covers_benign_and_every_attack_pool():
+    data = identities.load()
+    entries = identities.identities_for(data, "mixed")
+    assert len(entries) == 14
+    roles = [entry["role"] for entry in entries]
+    assert roles.count("benign") == 5
+    assert {"credential_stuffing", "scraping", "dow"} <= set(roles)
+    ips = [entry["ip"] for entry in entries]
+    assert len(ips) == len(set(ips))
+
+
+def test_combined_workload_is_attack_only():
+    data = identities.load()
+    entries = identities.identities_for(data, "combined")
+    assert len(entries) == 9
+    assert all(entry["role"] != "benign" for entry in entries)
+
+
 def test_attacker_account_is_not_in_the_benign_pool():
     data = identities.load()
     pool = {account for entry in data["benign"] for account in entry["accounts"]}

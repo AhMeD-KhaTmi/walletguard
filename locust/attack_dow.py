@@ -25,17 +25,23 @@ import sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
 from locust import between, task  # noqa: E402
+from locust.exception import StopUser  # noqa: E402
 
 from eval.clientlog import classify_chat  # noqa: E402
-from eval.workload import LoggedUser, env_int  # noqa: E402
+from eval.workload import GatedUser, LoggedUser, env_int  # noqa: E402
 
 BASE_PROMPT = "Summarize the following synthetic support transcript for the catalogue team."
 PROFILES = {"undercap": 900, "overcap": 32_000}
+# Harness sets P20_SETUP_GATE=1 for the standalone DoW workload: authenticate first,
+# then wait for the measured phase to be opened with fresh policy state.
+SETUP_GATE = os.environ.get("P20_SETUP_GATE") == "1"
 
 
-class TokenExhaustionUser(LoggedUser):
+class TokenExhaustionUser(GatedUser if SETUP_GATE else LoggedUser):  # type: ignore[misc]
     workload = "dow"
     attack = "dow"
+    abstract = False
+    gated = SETUP_GATE
     wait_time = between(0, 0.05)
 
     def on_start(self) -> None:
@@ -49,6 +55,13 @@ class TokenExhaustionUser(LoggedUser):
         self.account = account
         # Setup traffic: authenticated once at a normal rate, charged separately.
         self.login(account, password, phase="setup", objective=False)
+        if SETUP_GATE:
+            # Still announce and wait, so the harness is never left blocked on setup.
+            self.await_measured_phase()
+        if self.token is None:
+            # Without a session the measured phase would measure a login failure, not
+            # token exhaustion. Stop this user; zero measured attempts invalidates the run.
+            raise StopUser()
 
     @task
     def exhaust_tokens(self) -> None:

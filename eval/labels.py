@@ -21,7 +21,15 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 from eval import manifest as manifest_mod  # noqa: E402
 
 LABELS = {"benign": "benign", "credential_stuffing": "attack", "scraping": "attack",
-          "dow": "attack", "honeypot": "attack", "churn": "attack"}
+          "dow": "attack", "honeypot": "attack", "churn": "attack",
+          # mixed/combined carry both roles inside one run: labelled per identity below.
+          "mixed": None, "combined": "attack"}
+
+
+def label_for(workload: str, identity: dict) -> str:
+    if LABELS[workload] is not None:
+        return LABELS[workload]
+    return "benign" if identity.get("role") == "benign" else "attack"
 
 
 def collect(runs_dir: pathlib.Path) -> tuple[dict, dict]:
@@ -35,17 +43,18 @@ def collect(runs_dir: pathlib.Path) -> tuple[dict, dict]:
         workload = manifest.get("workload", "")
         if workload not in LABELS:
             raise ValueError(f"{run_dir.name}: unknown workload {workload!r}")
-        ips = {identity["ip"] for identity in manifest.get("identities", [])}
+        ips = {identity["ip"]: label_for(workload, identity)
+               for identity in manifest.get("identities", [])}
         observed = set()
         for path in run_dir.glob("attempts-*.jsonl"):
             with path.open(encoding="utf-8") as handle:
                 for line in handle:
                     if line.strip():
                         observed.add(json.loads(line)["ip"])
-        missing = observed - ips
+        missing = observed - set(ips)
         if missing:
             raise ValueError(f"{run_dir.name}: traffic from undeclared addresses {sorted(missing)}")
-        labels[run_dir.name] = {ip: LABELS[workload] for ip in sorted(ips)}
+        labels[run_dir.name] = dict(sorted(ips.items()))
         workloads[run_dir.name] = workload
     return labels, workloads
 

@@ -1,6 +1,6 @@
 # Project 20 — review and work journal
 
-Last updated: 2026-11-16 (Africa/Lagos).
+Last updated: 2026-11-17 (Africa/Lagos).
 
 Latest implementation snapshot: independent C0/C1/C2 checks pass; **64 automated
 tests and 12 real-HTTP development checks**. Base ML tooling is tested, but no
@@ -841,6 +841,78 @@ Next action: connect GitHub or configure Git HTTPS/SSH authentication, then run
 Publication: include the guide, README link and this journal entry in a
 documentation-only GitHub update; verify the remote tree matches the local commit.
 Next action: A reads the guide after cloning and submits the first traffic/data PR.
+
+### 2026-11-17 — Member A: gated DoW, §7.3 columns and grid tooling
+
+Member A's track (`member-a/traffic-handoff`). `app/`, `waf/`, `ml/`, `contract/`
+and `ebpf/` were not modified. Every traffic check ran on the p20 VM
+(`172.25.235.250`, Ubuntu 24.04, Python 3.12.3, 4 cores); no traffic was run by the
+assistant.
+
+Delivered for MASTER_PLAN §7.1/§7.2/§7.3/§8:
+
+- Gated DoW (`setup → reset → measure`): users log in once with `phase="setup"`, the
+  harness waits for one marker file per user, clears runtime policy state with
+  `scripts/reset_state.py --keep-sessions`, then opens the measured window. The gate
+  uses files in the run directory, not Redis, because workload processes run inside
+  `ip netns exec` and a network namespace has its own loopback.
+- §7.3 column contract: provenance (`code_revision`, `policy_hash`), `app_cpu_pct`/
+  `app_rss_mb` from a `/proc` sampler, `bans.json` archive with
+  `time_to_redis_ban_ms`, `waf_overhead_ms_mean`, and unavailable-not-zero semantics
+  for kernel/model fields.
+- `mixed` and `combined` workloads with per-role identities and role labels; ASR for
+  those rows is an aggregate and per-attack ASR comes from the separated workloads.
+- Three repetitions with rotated order (`eval/run_grid.sh`), plus median/range
+  summary output; a failed run is reported and re-run, never averaged in.
+
+Checks and observed results:
+
+- `.venv/bin/python -m pytest eval/tests -q` → **77 passed** (VM).
+- Gated DoW smoke, C0, 30 s requested: 3 setup logins, 1231 measured attempts,
+  `duration_s` 33.14, `wall_duration_s` 34.57, 0 bans, 0 non-zero exits,
+  `invalid false`, `gate.json` `{"measured": true}`, 3 markers.
+- C2 honeypot smoke, 20 s: 20 decisions archived, exactly one ban
+  (`10.20.0.25`, `honeypot`, ttl 600), `time_to_redis_ban_ms` **2 ms**,
+  `time_to_ban_ms` **5030 ms** (bounded by the client's 1 s probe cadence),
+  `measured_attempts` 16 excluding the `phase="followup"` probes, 0 non-zero exits.
+- Aggregating 13 development runs at `7849f3b` (dev evidence only, parked outside the
+  repository in `~/p20-runs-dev`) gave C0 → C2 ASR: stuffing 0.1002 → 0.0,
+  DoW over-cap 0.9667 → 0.0, scraping 0.9997 → 0.0081, benign FPR 0.0 in both
+  configs. `app_cpu_pct` and `time_to_redis_ban_ms` were empty there, as they should
+  be: those runs predate the sampler and `bans.json`.
+
+Five defects in this tooling were found by the smoke runs and fixed before any
+measured set was produced:
+
+1. Locust discovered the `GatedUser` base class as a runnable user (no tasks) and
+   wrote 3 × 323 MB of traceback with zero attempts; `abstract` must be declared on
+   the subclass itself. Guard test added.
+2. `deadline` existed only after `on_start` armed it, but a gated user's setup login
+   also calls `send()`; the setup phase died with `AttributeError`.
+3. The gate first used Redis at `127.0.0.1` from inside the namespaces, where nothing
+   listens; replaced by the run-directory file handshake.
+4. The setup-login count shadowed the config-flags dict in `run()`, crashing after
+   traffic and losing the manifest; both renamed.
+5. `time_to_ban_ms` was computed over `phase="measured"` while the real follow-up
+   probes are `phase="followup"`, so it could never be produced; the unit-test fixture
+   had the wrong phase and hid it. Also, the CSV dropped the manifest's `dirty` flag,
+   so an uncommitted tree was stamped as a clean commit; it now ends in `-dirty`.
+
+Open questions for Member B (not modified here):
+
+- C2 scraping stopped at exactly 90 successes = 3 IPs × the `ip_req` capacity of 30,
+  while capacity 30 + 2/s over 45 s implies ≈120 per IP. Either the bucket refill in
+  `waf/buckets.py` does not accrue as configured, or successes are only attributed to
+  the initial burst. Must be explained or reported, not smoothed over.
+- C2 stuffing reached exactly ASR 0.0 with 200/2000 valid credentials. The plausible
+  mechanism (the `ip_req` flood consumes the allowance before `login_ip` is charged)
+  needs confirmation from the owner of `waf/`.
+
+Limitations and next action: the 13-run aggregation is development evidence at
+`7849f3b`, single-repetition, without `bans.json` or resource samples. The final set is
+57 runs (27 C0 + 27 C2 + 3 C1 benign) at this commit, followed by `labels.py` and
+`compute_metrics.py --summary-out`; results and this journal's numbers are then
+committed separately.
 
 ### Template for later work entries
 

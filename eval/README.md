@@ -67,15 +67,31 @@ sudo .venv/bin/python eval/harness.py run --config C0 --workload scraping       
 sudo .venv/bin/python eval/harness.py run --config C0 --workload dow --profile undercap --duration 45s
 sudo .venv/bin/python eval/harness.py run --config C0 --workload dow --profile overcap  --duration 45s
 
-# Benign and probes
+# Benign, probes, and the two combined workloads required by the plan
 sudo .venv/bin/python eval/harness.py run --config C0 --workload benign    --duration 90s --users 10
 sudo .venv/bin/python eval/harness.py run --config C0 --workload honeypot  --duration 20s
 sudo .venv/bin/python eval/harness.py run --config C0 --workload churn     --duration 20s
+sudo .venv/bin/python eval/harness.py run --config C0 --workload combined  --duration 45s
+sudo .venv/bin/python eval/harness.py run --config C0 --workload mixed     --duration 90s
 
 # Same set against C2 (buckets + honeypot), and C1 for ML collection
 sudo .venv/bin/python eval/harness.py run --config C2 --workload scraping --duration 45s
 sudo .venv/bin/python eval/harness.py run --config C1 --workload benign   --duration 90s --users 10
 ```
+
+`dow` runs use the plan's setup → reset → measure sequence automatically: the attackers
+log in at a normal rate (`phase="setup"`), the harness then clears buckets, bans, strikes
+and streams while keeping `p20:app:session:*`, and only then does measured traffic start.
+The handshake is file-based (`<run>/gate/`): each user writes a `setup-ready-*.json`
+marker after its setup login, and the harness writes `gate.json` with `measured: true`
+once every marker exists and state is reset. Files are used rather than Redis because the
+clients run inside `ip netns exec`, whose loopback is not the host's. Use
+`--no-setup-gate` only to debug the workload, never for a reported run.
+
+`mixed` runs five benign identities concurrently with all three attack pools; `combined`
+runs the three attacks together with no setup phase. Both are single rows whose ASR is
+aggregated across attack types — per-attack ASR comes from the separated workloads, and
+`unique_objectives` is reported as unavailable in those rows rather than invented.
 
 `C3` and `C4` are refused on purpose: there is no trained model and no kernel layer yet.
 `--dry-run` prints the exact commands without resetting or starting anything.
@@ -86,11 +102,32 @@ Each run writes `eval/runs/<run_id>/` (see `eval/schema.md` §4).
 ## 5. Aggregating and labelling
 
 ```bash
-.venv/bin/python eval/compute_metrics.py --runs eval/runs --out eval/results.csv \
-    --json eval/runs/metrics.json --labels eval/runs/labels.json
 .venv/bin/python eval/labels.py --runs eval/runs --out eval/runs/labels.json \
     --splits-out eval/runs/splits.json
+.venv/bin/python eval/compute_metrics.py --runs eval/runs --out eval/results.csv \
+    --json eval/runs/metrics.json --labels eval/runs/labels.json \
+    --summary-out eval/summary.csv
 ```
+
+`eval/summary.csv` is the plan's §7.2.6 summary: median, min and max per
+`(config, workload)` over the **valid** repetitions, with the contributing run count in
+the `repetitions` column. Per-run rows stay in `eval/results.csv`; the summary never
+replaces them and never averages an invalid run in.
+
+Minimum grid for a reportable number: **three repetitions per (config, workload)**, with
+`--repetition 1|2|3` and varied execution order. Fewer repetitions still produce a valid
+row, they just cannot be summarised as a median.
+
+```bash
+# The plan-compliant grid: 9 workloads x 3 repetitions, order rotated per repetition.
+sudo ./eval/run_grid.sh C0
+sudo ./eval/run_grid.sh C2
+sudo ./eval/run_grid.sh C1 1     # C1 is benign-only data collection, not an attack grid
+```
+
+The grid reports each failed or invalid run and keeps going; its exit status is the number
+of failures. Run `sudo ./eval/run_grid.sh C0 -- --dry-run` first to print the exact
+commands without touching Redis or starting a service.
 
 Aggregation needs at least three independent benign runs before `labels.py` can suggest
 disjoint fit/calibration/test groups.

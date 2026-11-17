@@ -11,7 +11,8 @@ import json
 from pathlib import Path
 
 DEFAULT_PATH = Path(__file__).with_name("identities.json")
-WORKLOADS = ("benign", "credential_stuffing", "scraping", "dow", "honeypot", "churn")
+WORKLOADS = ("benign", "credential_stuffing", "scraping", "dow", "honeypot", "churn",
+             "mixed", "combined")
 
 
 class IdentityError(ValueError):
@@ -81,14 +82,32 @@ def probe_ips(data: dict) -> list[str]:
 
 
 def identities_for(data: dict, workload: str) -> list[dict]:
-    """Namespaces/IPs that must originate traffic for a workload."""
+    """Namespaces/IPs that must originate traffic for a workload.
+
+    ``mixed`` is benign plus every attack pool (MASTER_PLAN 7.2.4), and ``combined`` is
+    every attack pool with no setup phase (7.1). Each entry carries a ``role`` so the
+    workload file and the labels can tell them apart.
+    """
     if workload == "benign":
-        return list(data["benign"])
+        return [{**entry, "role": "benign"} for entry in data["benign"]]
+    if workload == "mixed":
+        benign = [{**entry, "role": "benign"} for entry in data["benign"]]
+        attackers = [{**entry, "role": name}
+                     for name, entries in data["attack"].items() for entry in entries]
+        return benign + attackers
+    if workload == "combined":
+        return [{**entry, "role": name}
+                for name, entries in data["attack"].items() for entry in entries]
     if workload in data["attack"]:
-        return list(data["attack"][workload])
+        return [{**entry, "role": workload} for entry in data["attack"][workload]]
     if workload in {"honeypot", "churn"}:
-        return [entry for entry in data["probe"] if workload in entry["workloads"]]
+        return [{**entry, "role": workload} for entry in data["probe"]
+                if workload in entry["workloads"]]
     raise IdentityError(f"unknown workload {workload!r}")
+
+
+def attack_workloads(data: dict) -> list[str]:
+    return sorted(data["attack"])
 
 
 def accounts_for(data: dict, ns: str) -> list[str]:
