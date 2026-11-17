@@ -99,6 +99,22 @@ aggregated across attack types — per-attack ASR comes from the separated workl
 
 Each run writes `eval/runs/<run_id>/` (see `eval/schema.md` §4).
 
+A run is valid only if readiness passed, measured attempts exist, and no invalidation
+reason was recorded. `manifest.extra.invalid_reasons` names late traffic, non-zero worker
+exits and workers terminated at the deadline; such rows stay in `results.csv` with
+`run_valid=false` and are excluded from the medians, rather than silently shortening the
+attempt denominator.
+
+C1 runs also archive `p20:stream:waf_features` to `features.jsonl` before the next reset,
+with the row count and SHA-256 in `manifest.extra.features`. `scripts/reset_state.py`
+deletes that stream, so a C1 run that is not archived leaves no recoverable feature matrix.
+Each workload process writes `worker-<ip>-<pid>.json` with the seed it actually used
+(`seed ^ pid`), not just the configured value.
+
+`latency_p50/p95/p99_ms` are benign end-to-end latencies (`objective=false`). Attack
+successes are a different route/response mix — a DoW generation is not a page fetch — so
+their latency stays in the per-attempt JSONL and is never published as a benign percentile.
+
 ## 5. Aggregating and labelling
 
 ```bash

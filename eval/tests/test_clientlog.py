@@ -138,3 +138,23 @@ def test_shutdown_interruption_is_unknown_not_a_failure(tmp_path):
     assert row["outcome"] == "unknown"
     assert row["unresolved"] is True
     log.close()
+
+
+def test_worker_meta_records_the_seed_the_process_used(tmp_path):
+    """MASTER_PLAN 6.2/7.2.1: the configured seed alone cannot reproduce a worker."""
+    log = clientlog.AttemptLog(workload="scraping", root=tmp_path,
+                               target="http://127.0.0.1:8000", run_id="r6", ip="10.20.0.19")
+    written = log.worker_meta(configured_seed=42, derived_seed=42 ^ 4321,
+                              timeout_s=3.0, target="http://127.0.0.1:8000")
+    assert written is not None
+    # Several users share one Locust process: the record is written once, not per user.
+    assert log.worker_meta(configured_seed=42, derived_seed=42 ^ 4321,
+                           timeout_s=3.0) is None
+    files = list(tmp_path.glob("worker-*.json"))
+    assert len(files) == 1
+    meta = json.loads(files[0].read_text(encoding="utf-8"))
+    assert meta["configured_seed"] == 42
+    assert meta["derived_seed"] == 42 ^ 4321
+    assert meta["ip"] == "10.20.0.19"
+    assert "token" not in files[0].read_text(encoding="utf-8").lower()
+    log.close()

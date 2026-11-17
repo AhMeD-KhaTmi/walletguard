@@ -169,9 +169,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 5.093,
-    "latency_p95_ms": 6.207,
-    "latency_p99_ms": 6.803,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -193,7 +193,7 @@
     "manifest_path": "eval/runs/c0-churn-r1/manifest.json",
     "evidence_path": "eval/runs/c0-churn-r1",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-churn-r2",
@@ -218,9 +218,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 4.847,
-    "latency_p95_ms": 6.156,
-    "latency_p99_ms": 6.524,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -242,7 +242,7 @@
     "manifest_path": "eval/runs/c0-churn-r2/manifest.json",
     "evidence_path": "eval/runs/c0-churn-r2",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-churn-r3",
@@ -267,9 +267,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 3.812,
-    "latency_p95_ms": 5.775,
-    "latency_p99_ms": 6.441,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -291,7 +291,7 @@
     "manifest_path": "eval/runs/c0-churn-r3/manifest.json",
     "evidence_path": "eval/runs/c0-churn-r3",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-combined-r1",
@@ -316,9 +316,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 1.696,
-    "latency_p95_ms": 49.793,
-    "latency_p99_ms": 51.37,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -340,7 +340,7 @@
     "manifest_path": "eval/runs/c0-combined-r1/manifest.json",
     "evidence_path": "eval/runs/c0-combined-r1",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,unique_objectives,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,unique_objectives,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-combined-r2",
@@ -365,9 +365,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 1.595,
-    "latency_p95_ms": 49.579,
-    "latency_p99_ms": 51.225,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -389,7 +389,7 @@
     "manifest_path": "eval/runs/c0-combined-r2/manifest.json",
     "evidence_path": "eval/runs/c0-combined-r2",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,unique_objectives,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,unique_objectives,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-combined-r3",
@@ -414,9 +414,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 1.616,
-    "latency_p95_ms": 49.565,
-    "latency_p99_ms": 51.074,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -438,7 +438,7 @@
     "manifest_path": "eval/runs/c0-combined-r3/manifest.json",
     "evidence_path": "eval/runs/c0-combined-r3",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,unique_objectives,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,unique_objectives,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-stuffing-r1",
@@ -463,9 +463,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 3.106,
-    "latency_p95_ms": 5.268,
-    "latency_p99_ms": 5.777,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -487,7 +487,7 @@
     "manifest_path": "eval/runs/c0-stuffing-r1/manifest.json",
     "evidence_path": "eval/runs/c0-stuffing-r1",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-stuffing-r2",
@@ -512,9 +512,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 3.079,
-    "latency_p95_ms": 5.151,
-    "latency_p99_ms": 5.919,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -536,7 +536,7 @@
     "manifest_path": "eval/runs/c0-stuffing-r2/manifest.json",
     "evidence_path": "eval/runs/c0-stuffing-r2",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-stuffing-r3",
@@ -561,9 +561,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 3.284,
-    "latency_p95_ms": 5.229,
-    "latency_p99_ms": 5.898,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -585,7 +585,7 @@
     "manifest_path": "eval/runs/c0-stuffing-r3/manifest.json",
     "evidence_path": "eval/runs/c0-stuffing-r3",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-dow-overcap-r1",
@@ -610,9 +610,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 1610.278,
-    "latency_p95_ms": 1613.32,
-    "latency_p99_ms": 1614.938,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -634,7 +634,7 @@
     "manifest_path": "eval/runs/c0-dow-overcap-r1/manifest.json",
     "evidence_path": "eval/runs/c0-dow-overcap-r1",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-dow-overcap-r2",
@@ -659,9 +659,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 1606.939,
-    "latency_p95_ms": 1612.673,
-    "latency_p99_ms": 1613.342,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -683,7 +683,7 @@
     "manifest_path": "eval/runs/c0-dow-overcap-r2/manifest.json",
     "evidence_path": "eval/runs/c0-dow-overcap-r2",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-dow-overcap-r3",
@@ -708,9 +708,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 1610.198,
-    "latency_p95_ms": 1615.665,
-    "latency_p99_ms": 1618.321,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -732,7 +732,7 @@
     "manifest_path": "eval/runs/c0-dow-overcap-r3/manifest.json",
     "evidence_path": "eval/runs/c0-dow-overcap-r3",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-dow-undercap-r1",
@@ -757,9 +757,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 53.554,
-    "latency_p95_ms": 58.448,
-    "latency_p99_ms": 60.518,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -781,7 +781,7 @@
     "manifest_path": "eval/runs/c0-dow-undercap-r1/manifest.json",
     "evidence_path": "eval/runs/c0-dow-undercap-r1",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-dow-undercap-r2",
@@ -806,9 +806,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 54.659,
-    "latency_p95_ms": 58.978,
-    "latency_p99_ms": 61.032,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -830,7 +830,7 @@
     "manifest_path": "eval/runs/c0-dow-undercap-r2/manifest.json",
     "evidence_path": "eval/runs/c0-dow-undercap-r2",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-dow-undercap-r3",
@@ -855,9 +855,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 52.272,
-    "latency_p95_ms": 56.841,
-    "latency_p99_ms": 59.726,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -879,7 +879,7 @@
     "manifest_path": "eval/runs/c0-dow-undercap-r3/manifest.json",
     "evidence_path": "eval/runs/c0-dow-undercap-r3",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-honeypot-r1",
@@ -904,9 +904,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 4.148,
-    "latency_p95_ms": 4.716,
-    "latency_p99_ms": 4.784,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -928,7 +928,7 @@
     "manifest_path": "eval/runs/c0-honeypot-r1/manifest.json",
     "evidence_path": "eval/runs/c0-honeypot-r1",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_ban_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_ban_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-honeypot-r2",
@@ -953,9 +953,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 3.016,
-    "latency_p95_ms": 4.071,
-    "latency_p99_ms": 4.105,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -977,7 +977,7 @@
     "manifest_path": "eval/runs/c0-honeypot-r2/manifest.json",
     "evidence_path": "eval/runs/c0-honeypot-r2",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_ban_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_ban_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-honeypot-r3",
@@ -1002,9 +1002,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 3.719,
-    "latency_p95_ms": 4.75,
-    "latency_p99_ms": 4.752,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -1026,7 +1026,7 @@
     "manifest_path": "eval/runs/c0-honeypot-r3/manifest.json",
     "evidence_path": "eval/runs/c0-honeypot-r3",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_ban_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_ban_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-mixed-r1",
@@ -1051,9 +1051,9 @@
     "false_positive_rate": 0.0,
     "benign_errors": 0,
     "benign_timeouts": 0,
-    "latency_p50_ms": 1.605,
-    "latency_p95_ms": 49.582,
-    "latency_p99_ms": 51.172,
+    "latency_p50_ms": 1.599,
+    "latency_p95_ms": 21.231,
+    "latency_p99_ms": 30.518,
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -1100,9 +1100,9 @@
     "false_positive_rate": 0.0,
     "benign_errors": 0,
     "benign_timeouts": 0,
-    "latency_p50_ms": 1.695,
-    "latency_p95_ms": 49.881,
-    "latency_p99_ms": 51.51,
+    "latency_p50_ms": 1.757,
+    "latency_p95_ms": 28.595,
+    "latency_p99_ms": 31.356,
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -1149,9 +1149,9 @@
     "false_positive_rate": 0.0,
     "benign_errors": 0,
     "benign_timeouts": 0,
-    "latency_p50_ms": 1.681,
-    "latency_p95_ms": 49.855,
-    "latency_p99_ms": 51.533,
+    "latency_p50_ms": 1.472,
+    "latency_p95_ms": 25.968,
+    "latency_p99_ms": 30.945,
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -1198,9 +1198,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 2.082,
-    "latency_p95_ms": 3.713,
-    "latency_p99_ms": 4.831,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -1222,7 +1222,7 @@
     "manifest_path": "eval/runs/c0-scraping-r1/manifest.json",
     "evidence_path": "eval/runs/c0-scraping-r1",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-scraping-r2",
@@ -1247,9 +1247,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 2.025,
-    "latency_p95_ms": 3.528,
-    "latency_p99_ms": 4.475,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -1271,7 +1271,7 @@
     "manifest_path": "eval/runs/c0-scraping-r2/manifest.json",
     "evidence_path": "eval/runs/c0-scraping-r2",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c0-scraping-r3",
@@ -1296,9 +1296,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 2.056,
-    "latency_p95_ms": 3.545,
-    "latency_p99_ms": 4.562,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": "",
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -1320,7 +1320,7 @@
     "manifest_path": "eval/runs/c0-scraping-r3/manifest.json",
     "evidence_path": "eval/runs/c0-scraping-r3",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,detected_malicious_requests,detection_rate,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,observation_coverage,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,time_to_redis_ban_ms,waf_overhead_ms_mean,xdp_dropped_packets"
   },
   {
     "run_id": "c1-benign-r1",
@@ -1639,9 +1639,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 4.576,
-    "latency_p95_ms": 7.327,
-    "latency_p99_ms": 8.155,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": 2.033,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -1663,7 +1663,7 @@
     "manifest_path": "eval/runs/c2-churn-r1/manifest.json",
     "evidence_path": "eval/runs/c2-churn-r1",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
   },
   {
     "run_id": "c2-churn-r2",
@@ -1688,9 +1688,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 6.122,
-    "latency_p95_ms": 7.799,
-    "latency_p99_ms": 8.15,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": 2.545,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -1712,7 +1712,7 @@
     "manifest_path": "eval/runs/c2-churn-r2/manifest.json",
     "evidence_path": "eval/runs/c2-churn-r2",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
   },
   {
     "run_id": "c2-churn-r3",
@@ -1737,9 +1737,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 6.221,
-    "latency_p95_ms": 8.402,
-    "latency_p99_ms": 8.635,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": 2.587,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -1761,7 +1761,7 @@
     "manifest_path": "eval/runs/c2-churn-r3/manifest.json",
     "evidence_path": "eval/runs/c2-churn-r3",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
   },
   {
     "run_id": "c2-combined-r1",
@@ -1786,9 +1786,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 1.897,
-    "latency_p95_ms": 49.363,
-    "latency_p99_ms": 53.834,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": 0.859,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -1810,7 +1810,7 @@
     "manifest_path": "eval/runs/c2-combined-r1/manifest.json",
     "evidence_path": "eval/runs/c2-combined-r1",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,unique_objectives,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,unique_objectives,xdp_dropped_packets"
   },
   {
     "run_id": "c2-combined-r2",
@@ -1835,9 +1835,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 2.01,
-    "latency_p95_ms": 50.965,
-    "latency_p99_ms": 54.916,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": 0.853,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -1859,7 +1859,7 @@
     "manifest_path": "eval/runs/c2-combined-r2/manifest.json",
     "evidence_path": "eval/runs/c2-combined-r2",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,unique_objectives,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,unique_objectives,xdp_dropped_packets"
   },
   {
     "run_id": "c2-combined-r3",
@@ -1884,9 +1884,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 2.083,
-    "latency_p95_ms": 49.808,
-    "latency_p99_ms": 50.97,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": 0.855,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -1908,7 +1908,7 @@
     "manifest_path": "eval/runs/c2-combined-r3/manifest.json",
     "evidence_path": "eval/runs/c2-combined-r3",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,unique_objectives,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,unique_objectives,xdp_dropped_packets"
   },
   {
     "run_id": "c2-stuffing-r1",
@@ -1933,9 +1933,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 2.082,
-    "latency_p95_ms": 2.082,
-    "latency_p99_ms": 2.082,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": 1.576,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -1957,7 +1957,7 @@
     "manifest_path": "eval/runs/c2-stuffing-r1/manifest.json",
     "evidence_path": "eval/runs/c2-stuffing-r1",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
   },
   {
     "run_id": "c2-stuffing-r2",
@@ -2227,9 +2227,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 56.79,
-    "latency_p95_ms": 58.477,
-    "latency_p99_ms": 58.736,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": 2.002,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -2251,7 +2251,7 @@
     "manifest_path": "eval/runs/c2-dow-undercap-r1/manifest.json",
     "evidence_path": "eval/runs/c2-dow-undercap-r1",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
   },
   {
     "run_id": "c2-dow-undercap-r2",
@@ -2276,9 +2276,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 54.573,
-    "latency_p95_ms": 57.026,
-    "latency_p99_ms": 57.259,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": 2.202,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -2300,7 +2300,7 @@
     "manifest_path": "eval/runs/c2-dow-undercap-r2/manifest.json",
     "evidence_path": "eval/runs/c2-dow-undercap-r2",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
   },
   {
     "run_id": "c2-dow-undercap-r3",
@@ -2325,9 +2325,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 52.775,
-    "latency_p95_ms": 58.798,
-    "latency_p99_ms": 58.912,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": 2.131,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -2349,7 +2349,7 @@
     "manifest_path": "eval/runs/c2-dow-undercap-r3/manifest.json",
     "evidence_path": "eval/runs/c2-dow-undercap-r3",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
   },
   {
     "run_id": "c2-honeypot-r1",
@@ -2374,9 +2374,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 4.814,
-    "latency_p95_ms": 6.492,
-    "latency_p99_ms": 6.872,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": 2.457,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -2398,7 +2398,7 @@
     "manifest_path": "eval/runs/c2-honeypot-r1/manifest.json",
     "evidence_path": "eval/runs/c2-honeypot-r1",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
   },
   {
     "run_id": "c2-honeypot-r2",
@@ -2423,9 +2423,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 4.461,
-    "latency_p95_ms": 6.783,
-    "latency_p99_ms": 6.984,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": 2.387,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -2447,7 +2447,7 @@
     "manifest_path": "eval/runs/c2-honeypot-r2/manifest.json",
     "evidence_path": "eval/runs/c2-honeypot-r2",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
   },
   {
     "run_id": "c2-honeypot-r3",
@@ -2472,9 +2472,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 4.962,
-    "latency_p95_ms": 6.87,
-    "latency_p99_ms": 7.072,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": 2.459,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -2496,7 +2496,7 @@
     "manifest_path": "eval/runs/c2-honeypot-r3/manifest.json",
     "evidence_path": "eval/runs/c2-honeypot-r3",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
   },
   {
     "run_id": "c2-mixed-r1",
@@ -2521,9 +2521,9 @@
     "false_positive_rate": 0.0,
     "benign_errors": 0,
     "benign_timeouts": 0,
-    "latency_p50_ms": 2.203,
-    "latency_p95_ms": 29.898,
-    "latency_p99_ms": 50.588,
+    "latency_p50_ms": 2.24,
+    "latency_p95_ms": 29.309,
+    "latency_p99_ms": 30.125,
     "waf_overhead_ms_mean": 0.833,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -2570,9 +2570,9 @@
     "false_positive_rate": 0.0,
     "benign_errors": 0,
     "benign_timeouts": 0,
-    "latency_p50_ms": 2.218,
-    "latency_p95_ms": 31.398,
-    "latency_p99_ms": 54.481,
+    "latency_p50_ms": 2.287,
+    "latency_p95_ms": 30.315,
+    "latency_p99_ms": 32.976,
     "waf_overhead_ms_mean": 0.864,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -2619,9 +2619,9 @@
     "false_positive_rate": 0.0,
     "benign_errors": 0,
     "benign_timeouts": 0,
-    "latency_p50_ms": 2.366,
-    "latency_p95_ms": 30.117,
-    "latency_p99_ms": 51.426,
+    "latency_p50_ms": 2.384,
+    "latency_p95_ms": 29.428,
+    "latency_p99_ms": 30.964,
     "waf_overhead_ms_mean": 0.848,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -2668,9 +2668,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 2.221,
-    "latency_p95_ms": 3.512,
-    "latency_p99_ms": 4.741,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": 1.177,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -2692,7 +2692,7 @@
     "manifest_path": "eval/runs/c2-scraping-r1/manifest.json",
     "evidence_path": "eval/runs/c2-scraping-r1",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
   },
   {
     "run_id": "c2-scraping-r2",
@@ -2717,9 +2717,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 2.07,
-    "latency_p95_ms": 3.281,
-    "latency_p99_ms": 3.992,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": 1.306,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -2741,7 +2741,7 @@
     "manifest_path": "eval/runs/c2-scraping-r2/manifest.json",
     "evidence_path": "eval/runs/c2-scraping-r2",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
   },
   {
     "run_id": "c2-scraping-r3",
@@ -2766,9 +2766,9 @@
     "false_positive_rate": "",
     "benign_errors": "",
     "benign_timeouts": "",
-    "latency_p50_ms": 2.264,
-    "latency_p95_ms": 3.731,
-    "latency_p99_ms": 4.717,
+    "latency_p50_ms": "",
+    "latency_p95_ms": "",
+    "latency_p99_ms": "",
     "waf_overhead_ms_mean": 1.233,
     "scoring_p50_ms": "",
     "scoring_p95_ms": "",
@@ -2790,6 +2790,6 @@
     "manifest_path": "eval/runs/c2-scraping-r3/manifest.json",
     "evidence_path": "eval/runs/c2-scraping-r3",
     "run_valid": "true",
-    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
+    "unavailable_fields": "agent_cpu_pct,agent_rss_mb,latency_p50_ms,latency_p95_ms,latency_p99_ms,model_hash,scoring_p50_ms,scoring_p95_ms,time_to_first_xdp_drop_ms,time_to_map_insert_ms,xdp_dropped_packets"
   }
 ]

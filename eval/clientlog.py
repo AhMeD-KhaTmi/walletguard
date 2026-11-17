@@ -90,6 +90,26 @@ class AttemptLog:
         self.path = base / f"attempts-{workload}-{self.ip}-{os.getpid()}.jsonl"
         self._handle = self.path.open("a", encoding="utf-8")
 
+    def worker_meta(self, *, configured_seed: int, derived_seed: int,
+                    timeout_s: float, target: str | None = None) -> pathlib.Path | None:
+        """Record the seed this process really used, once per worker process.
+
+        Locust runs many users as greenlets inside one process per namespace, and the
+        RNG is seeded with ``configured_seed ^ pid``. A manifest that only repeats
+        ``--seed`` therefore cannot reproduce a worker's stream; this file states how
+        the configured seed was expanded. It contains no session, password or prompt.
+        """
+        path = self.path.parent / f"worker-{self.ip}-{os.getpid()}.json"
+        if path.exists():
+            return None
+        path.write_text(json.dumps({
+            "workload": self.workload, "attack": self.attack, "ip": self.ip,
+            "pid": os.getpid(), "configured_seed": configured_seed,
+            "derived_seed": derived_seed, "client_timeout_s": timeout_s,
+            "target": target,
+        }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        return path
+
     def begin(self, *, route: str, method: str, intent: str, objective: bool,
               phase: str = "measured", **extra: Any) -> dict:
         return {

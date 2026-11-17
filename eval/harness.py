@@ -22,6 +22,7 @@ from the host address.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import pathlib
@@ -208,6 +209,56 @@ def snapshot_bans(redis_url: str, path: pathlib.Path) -> int:
     entries.sort(key=lambda entry: (entry.get("ts_ms") or 0, entry.get("ip") or ""))
     path.write_text(json.dumps(entries, indent=2) + "\n", encoding="utf-8")
     return len(entries)
+
+
+def read_worker_meta(run_dir: pathlib.Path) -> list[dict]:
+    """Per-process seeds actually used, written by each workload worker."""
+    workers = []
+    for path in sorted(run_dir.glob("worker-*.json")):
+        try:
+            workers.append(json.loads(path.read_text(encoding="utf-8")))
+        except ValueError:
+            workers.append({"status": "unreadable", "file": path.name})
+    workers.sort(key=lambda worker: (str(worker.get("ip")), int(worker.get("pid") or 0)))
+    return workers
+
+
+def snapshot_features(redis_url: str, path: pathlib.Path) -> dict:
+    """Archive the C1 observe-mode feature stream before the next reset deletes it.
+
+    `scripts/reset_state.py` removes ``p20:stream:waf_features``; without this copy a
+    C1 run leaves no feature matrix behind and B cannot train or evaluate a detector.
+    The row count and SHA-256 are recorded in the manifest so the export is checkable.
+    """
+    client = redis_client(redis_url)
+    try:
+        entries = client.xrange("p20:stream:waf_features", min="-", max="+", count=500_000)
+    finally:
+        client.close()
+    with path.open("w", encoding="utf-8") as handle:
+        for entry_id, fields in entries:
+            handle.write(json.dumps({"stream_id": entry_id, **fields}) + "\n")
+    return {"status": "ok", "file": path.name, "rows": len(entries),
+            "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+            "stream": "p20:stream:waf_features"}
+
+
+def invalid_reasons(results: list[dict], late_traffic: bool) -> list[str]:
+    """MASTER_PLAN 7.2.5: missing measured evidence invalidates the run.
+
+    A worker that exited non-zero may have stopped part-way through its budget; one
+    that had to be terminated at the deadline has an unknown tail. Either way the
+    attempt denominator is incomplete, so the row must not be summarised as valid.
+    """
+    reasons = ["late_traffic"] if late_traffic else []
+    for row in results:
+        name = row.get("ns")
+        if row.get("overran"):
+            reasons.append(f"overran:{name}")
+        code = row.get("returncode")
+        if code is not None and code != 0:
+            reasons.append(f"exit:{name}:{code}")
+    return reasons
 
 
 def workload_command(args, entry: dict, run_dir: pathlib.Path) -> tuple[list[str], dict, pathlib.Path]:
@@ -427,6 +478,7 @@ def run(args) -> int:
                 run_id=args.run_id, config=args.config, workload=args.workload,
                 attack=args.workload if args.workload != "benign" else None,
                 repetition=args.repetition, repo_root=REPO, target=args.target,
+                seed=args.seed,
                 flags=CONFIGS[args.config],
                 identities=identities.identities_for(args.data, args.workload),
                 accounts={"attacker": args.data["attacker_account"]},
@@ -503,6 +555,7 @@ def run(args) -> int:
                 run_id=args.run_id, config=args.config, workload=args.workload,
                 attack=args.workload if args.workload != "benign" else None,
                 repetition=args.repetition, repo_root=REPO, target=args.target,
+                seed=args.seed,
                 flags=CONFIGS[args.config],
                 identities=identities.identities_for(args.data, args.workload),
                 accounts={"attacker": args.data["attacker_account"]},
@@ -534,10 +587,25 @@ def run(args) -> int:
         if late_traffic:
             log(f"WARNING: traffic continued {(last_ms - budget_ms) / 1000:.1f}s past the budget")
         overran = [row["ns"] for row in results if row["overran"]]
+        nonzero_exit = [row["ns"] for row in results
+                        if row["returncode"] not in (0, None)]
+        reasons = invalid_reasons(results, late_traffic)
+        invalid = bool(reasons)
+        if reasons:
+            log("run invalid: " + ", ".join(reasons))
+        if flags["WAF_MODE"] == "observe":
+            features = snapshot_features(args.redis_url, run_dir / "features.jsonl")
+            log(f"archived {features['rows']} C1 feature row(s)")
+        else:
+            # C0/C2 never write the stream, so this is not a zero-row measurement.
+            features = {"status": "not_applicable", "rows": None, "file": None,
+                        "reason": f"WAF_MODE={flags['WAF_MODE']} does not write "
+                                  "p20:stream:waf_features"}
         manifest = manifest_mod.build(
             run_id=args.run_id, config=args.config, workload=args.workload,
             attack=args.workload if args.workload != "benign" else None,
             repetition=args.repetition, repo_root=REPO, target=args.target,
+            seed=args.seed,
             flags=CONFIGS[args.config], identities=identities.identities_for(args.data, args.workload),
             accounts={"attacker": args.data["attacker_account"],
                       "benign_pool": args.data["benign_accounts"]["accounts"]},
@@ -553,7 +621,10 @@ def run(args) -> int:
                    "per_identity": results,
                    "duration_requested": args.duration, "wall_duration_s": duration,
                    "overran": overran, "late_traffic": late_traffic,
-                   "invalid": late_traffic,
+                   "nonzero_exit": nonzero_exit,
+                   "invalid": invalid, "invalid_reasons": reasons,
+                   "workers": read_worker_meta(run_dir),
+                   "features": features,
                    "waf_decisions_archived": decisions,
                    "bans_archived": bans,
                    "resources": {
@@ -567,7 +638,7 @@ def run(args) -> int:
                    }},
         )
         manifest_mod.write(run_dir / "manifest.json", manifest)
-        nonzero = sum(row["returncode"] != 0 for row in results)
+        nonzero = len(nonzero_exit)
         log(f"run complete: {run_dir} ({duration}s, {nonzero} non-zero exit(s))")
     finally:
         if api is not None:

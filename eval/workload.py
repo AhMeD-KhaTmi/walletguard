@@ -94,7 +94,11 @@ class LoggedUser(HttpUser):
                 f"source address is {self.log.ip}, expected {expected}; "
                 "run inside the matching namespace"
             )
-        self.rng = random.Random(env_int("P20_SEED", 42) ^ os.getpid())
+        configured_seed = env_int("P20_SEED", 42)
+        self.rng = random.Random(configured_seed ^ os.getpid())
+        self.log.worker_meta(configured_seed=configured_seed,
+                             derived_seed=configured_seed ^ os.getpid(),
+                             timeout_s=self.client.timeout, target=self.host)
         self.token: str | None = None
         # Independent stop condition: Locust's own --run-time has proved unreliable
         # here, so the client also refuses to start an attempt after its budget.

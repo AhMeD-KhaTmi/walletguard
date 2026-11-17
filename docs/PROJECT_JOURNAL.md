@@ -4,9 +4,10 @@ Last updated: 2026-11-17 (Africa/Lagos).
 
 Latest implementation snapshot: independent C0/C1/C2 checks pass; **64 automated
 tests and 12 real-HTTP development checks**. Member A delivered the measured traffic
-set on 2026-11-17 (57 runs at one revision, 82 eval tests) — see the entry of that date.
-Base ML tooling is tested, but no production model or realistic detector metrics exist
-yet, and there is no feature export. No A/kernel integration.
+set on 2026-11-17 (57 runs at one revision, 94 eval tests after the evidence fixes) -
+see the entries of that date. Base ML tooling is tested, but no production model or
+realistic detector metrics exist yet, and no C1 feature file has been exported from a
+run that used the new archive step. No A/kernel integration.
 See [current status](evidence/independent_status.json) and the latest work entry.
 
 Current execution authority: `MASTER_PLAN.md` and `../contract/redis_schema.md`.
@@ -1034,6 +1035,65 @@ Still unavailable — do not plan around it:
 
 `eval/schema.md` is now version 2 (adds `profile`, the DoW grouping rule, the probe label
 and the C1-only split rule); `pytest eval/tests -q` → **82 passed** on the VM.
+
+### 2026-11-17 — Member A: evidence fixes from B's review (no new traffic)
+
+Scope: `member-a/traffic-handoff`; `app/`, `waf/`, `ml/`, `contract/`, `ebpf/` untouched.
+B asked for four harness corrections, a C1 feature export, raw logs and an `llm_tok`
+denial run. This entry covers the part that needs no new traffic; the rest is listed
+below as still open.
+
+Implemented, with `pytest eval/tests -q` → **94 passed** on the VM (12 new tests):
+
+1. **A crashed or overrunning worker now invalidates the run.** `invalid_reasons()`
+   combines late traffic, a non-zero exit and a worker terminated at the deadline;
+   `manifest.extra.invalid_reasons` names the worker, and `run_valid` follows it
+   (MASTER_PLAN 7.2.5). Previously only `late_traffic` set `invalid`, so a worker that
+   died mid-budget could still produce a "valid" row with a short denominator.
+2. **The seed actually used is recorded.** `manifest.build(seed=...)` is now passed
+   `--seed` instead of reading `P20_SEED` from the environment, which the harness only
+   exported to the child processes — a `--seed 7` run would have been stamped 42. Each
+   workload process also writes `worker-<ip>-<pid>.json` with `configured_seed` and
+   `derived_seed = seed ^ pid`, collected into `manifest.extra.workers`.
+3. **Benign latency uses benign requests only** (MASTER_PLAN 7.3). `latency_p50/p95/p99_ms`
+   now filter `objective=false`, so `combined`, `dow`, `scraping`, stuffing and the probe
+   workloads report the latency columns as unavailable instead of publishing attack
+   latency as a benign percentile. Attack latency remains in the per-attempt JSONL.
+4. **C1 features are archived before the reset.** `snapshot_features()` copies
+   `p20:stream:waf_features` to `<run>/features.jsonl` with `rows` and `sha256` in
+   `manifest.extra.features`. C0/C2 record `status: not_applicable`, which is not the
+   same claim as an empty export. Rows already carry the WAF's `run_id` and `ip`, so
+   they join to `labels.json` without re-deriving identities.
+
+`eval/schema.md` is now version 3 (seed provenance, benign-only latency, the invalidation
+rule, `features.jsonl`/`worker-*.json` in the run directory). No traffic was re-run: the
+three derived artifacts were regenerated from the same 57 run directories, all still
+stamped `71f24b9` and `run_valid=true`:
+
+```
+rows 57   valid {'true': 57}   configs {'C0': 27, 'C1': 3, 'C2': 27}
+latency present for ['benign', 'mixed']; unavailable for the other six workloads
+summary rows 159 (was 198; the removed rows are the three latency metrics for
+attack-only/probe groups, not changed ASR, FPR, ban or cost values)
+```
+
+Still open, and not claimed as done:
+
+- **No C1 feature file exists yet.** The archive step is new, and the three existing C1
+  runs were reset before it existed, so their features cannot be recovered. New C1
+  benign runs (three, for fit/calibration/test) plus labeled C1 attack runs are required
+  before C3.
+- **No `llm_tok` denial run exists.** The under-cap DoW is stopped by `ip_req` after
+  10 successes, so token accounting never runs; a paced run under the request-rate
+  capacity is needed, and the bucket attribution remains B's to confirm.
+- **Raw per-run logs are not shared yet.** They stay on the VM under `eval/runs/`; the
+  handoff needs a tar with a manifest, not a commit of runtime logs.
+- The 57 existing manifests have `workers: []` because they predate the per-process
+  seed record. Their derived seeds cannot be reconstructed.
+
+Limitation to keep visible: `worker-*.json` and `features.jsonl` are inside the run
+directory, so a run copied out without them loses that provenance — the manifest records
+the counts and hashes, not the rows themselves.
 
 ### Template for later work entries
 

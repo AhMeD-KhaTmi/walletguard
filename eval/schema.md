@@ -1,6 +1,6 @@
 # Evaluation result schema — Member A (traffic and client-side truth)
 
-Version 2 · 2026-11-17 · supersedes the earlier starter column set.
+Version 3 · 2026-11-17 · supersedes the earlier starter column set.
 Governed by `docs/MASTER_PLAN.md` section 7. Join key is **`(run_id, config, workload,
 profile, repetition)`**; never join on `config` alone. `profile` is empty for every
 workload except `dow`, which is run under `undercap` and `overcap`.
@@ -33,7 +33,7 @@ Rules that every column obeys:
 | `profile` | enum/empty | manifest | Sub-profile of a workload that changes traffic shape: `undercap`/`overcap` for `dow`, empty otherwise. Part of the summary grouping key, so the two DoW profiles are never averaged into one median. The harness's `--profile` default is **not** reported for other workloads, even though pre-2026-11-17 manifests carry it. |
 | `attack` | enum/empty | manifest | `credential_stuffing`, `scraping`, `dow`, `honeypot`, `churn`, `combined`, `mixed`; empty for benign |
 | `repetition` | integer | manifest | Repetition index for the same (config, workload) pair |
-| `seed` | integer | manifest | `P20_SEED` used by the workload and dataset |
+| `seed` | integer | manifest | `--seed` passed to the harness. `manifest.extra.workers` lists each workload process with its **derived** seed (`seed ^ pid`), because the configured value alone does not reproduce a worker's RNG stream |
 | `duration_s` | seconds | manifest | Wall-clock duration of the measured phase (the setup/gated phase is excluded; total run time is `wall_duration_s` in the manifest) |
 | `measured_attempts` | count | attempts | **All** attempts the client actually sent (`phase="measured"`), any outcome and any workload. Zero means the run is invalid |
 | `malicious_attempts` | count | attempts | Measured attempts with `objective=true` |
@@ -51,7 +51,7 @@ Rules that every column obeys:
 | `benign_policy_denials` | count | attempts | Benign attempts answered 403/429 (a real denial, not a shadow verdict) |
 | `false_positive_rate` | ratio | derived | `benign_policy_denials / benign_attempts` |
 | `benign_errors`/`benign_timeouts` | count | attempts | Kept separate from policy denials |
-| `latency_p50_ms`,`p95`,`p99` | ms | attempts | **Client** end-to-end latency of successful measured responses only |
+| `latency_p50_ms`,`p95`,`p99` | ms | attempts | **Client** end-to-end latency of successful **benign** attempts (`objective=false`, `phase="measured"`) only. Attack successes have a different route/response mix (a DoW generation is not a page fetch) and are not published as a benign percentile; their latency stays in the per-attempt JSONL. An attack-only run therefore reports these columns as unavailable |
 | `waf_overhead_ms_mean` | ms | decisions stream | Mean `latency_ms` of WAF decisions. That field excludes downstream app/mock time, so it is WAF overhead, not client latency |
 | `scoring_p50_ms`,`p95` | ms | — | IsolationForest scoring duration per request. Unavailable until a model runs (C3+) and the decision record carries a scoring duration |
 | `time_to_ban_ms` | ms | attempts | Honeypot workload, **client-observed**: first decoy hit → first follow-up answered 403 |
@@ -66,7 +66,7 @@ Rules that every column obeys:
 | `policy_hash` | sha256 | manifest | Hash of `waf/config.py`, so bucket/ban policy cannot drift silently between runs |
 | `model_hash` | sha256/empty | manifest | Hash of the model file; empty when no model ran (C0–C2) |
 | `manifest_path` | path | — | `eval/runs/<run_id>/manifest.json` |
-| `run_valid` | bool | manifest | `true` only when readiness passed and evidence exists |
+| `run_valid` | bool | manifest | `true` only when readiness passed, measured attempts exist, and `manifest.extra.invalid_reasons` is empty. Late traffic, a non-zero worker exit and a worker terminated at the deadline each invalidate the run (MASTER_PLAN 7.2.5); the reason list is kept in the manifest |
 | `evidence_path` | path | — | Run directory holding attempts, manifest, logs, decisions and bans |
 | `unavailable_fields` | csv | — | Names of columns with no evidence for this run |
 
@@ -113,6 +113,8 @@ Fields above that are empty in a given run are empty **with a status**, never ze
 eval/runs/<run_id>/
   manifest.json             # config, flags, seeds, identities, hashes, versions, revision, resources
   attempts-<workload>-<ip>-<pid>.jsonl   # one line per attempt, one file per process
+  worker-<ip>-<pid>.json    # configured seed, derived seed (seed ^ pid), timeout, target
+  features.jsonl            # C1 only: p20:stream:waf_features archived before reset
   decisions.jsonl           # p20:stream:waf_decisions captured during the run (C1/C2+)
   bans.json                 # p20:ban:<ip> records at end of run (empty list = no ban)
   gate/gate.json            # gated DoW: {"measured": true, "ts_ms", "opened_utc"} once setup ended
@@ -122,6 +124,12 @@ eval/runs/<run_id>/
   api.log, mock.log         # process output
   locust-<ns>-<ip>.log      # per-identity workload output
 ```
+
+`manifest.extra.features` records `{status, file, rows, sha256}` for C1. `scripts/reset_state.py`
+deletes `p20:stream:waf_features`, so this export is the only copy that survives the next run.
+For C0/C2 the status is `not_applicable` — those modes never write the observe-mode stream —
+which is not the same claim as an empty export. Rows keep the WAF's own `run_id` and `ip`
+fields, so a feature file can be joined to `labels.json` without re-deriving identities.
 
 Attempt record fields: `run_id, workload, attack, phase, objective, ip, pid, route,
 method, intent, attempt_id, started_ms, ended_ms, latency_ms, status, outcome, reason,

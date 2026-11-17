@@ -230,9 +230,16 @@ def summarise(run_dir: pathlib.Path, labels: dict | None = None) -> dict:
         row["benign_errors"] = sum(1 for a in benign_attempts if a.get("outcome") == "error")
         row["benign_timeouts"] = sum(1 for a in benign_attempts if a.get("outcome") == "timeout")
 
-    # --- client-side latency: successful measured responses only ---
+    # --- benign end-to-end latency: benign requests only (MASTER_PLAN 7.3) ---
+    # Attack successes have a different route/response mix, and mixing them into a
+    # "benign" percentile would compare unlike traffic — a DoW success is one long
+    # generation while a benign page fetch is not. Churn and decoy probes are
+    # objective=True, so they stay out as well. Attack latency remains in the raw
+    # per-attempt records. No benign successes means unavailable, not zero.
     latencies = [float(a["latency_ms"]) for a in measured
-                 if a.get("outcome") == "success" and a.get("latency_ms") is not None]
+                 if a.get("objective") is False
+                 and a.get("outcome") == "success"
+                 and a.get("latency_ms") is not None]
     if latencies:
         row["latency_p50_ms"] = _round(percentile(latencies, 0.50), 3)
         row["latency_p95_ms"] = _round(percentile(latencies, 0.95), 3)

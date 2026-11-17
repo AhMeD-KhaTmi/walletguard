@@ -92,6 +92,7 @@ def build(*, run_id: str, config: str, workload: str, attack: str | None, repeti
           repo_root: pathlib.Path, target: str, flags: dict, identities: list[dict],
           accounts: dict, duration_s: float, users: int, spawn_rate: float,
           client_timeout_s: float, datasets: list[str | pathlib.Path],
+          seed: int | None = None,
           policy_path: str | pathlib.Path | None = None,
           model_path: str | pathlib.Path | None = None,
           started_utc: str | None = None, ended_utc: str | None = None,
@@ -107,7 +108,11 @@ def build(*, run_id: str, config: str, workload: str, attack: str | None, repeti
         "started_utc": started_utc or utc_now(),
         "ended_utc": ended_utc,
         "duration_s": duration_s,
-        "seed": int(os.environ.get("P20_SEED", "42")),
+        # The caller passes the seed it actually used. Reading `P20_SEED` from the
+        # environment silently stamped the default 42 on runs started with another
+        # `--seed`, because the harness only exports that variable into the child
+        # workload processes.
+        "seed": int(seed if seed is not None else os.environ.get("P20_SEED", "42")),
         "target": target,
         "users": users,
         "spawn_rate": spawn_rate,

@@ -122,13 +122,38 @@ def test_failed_readiness_invalidates_the_run(tmp_path):
 
 
 def test_percentiles_ignore_blocked_and_failed_attempts(tmp_path):
-    run = make_run(tmp_path, "scraping", [
-        attempt(latency_ms=10.0), attempt(latency_ms=20.0), attempt(latency_ms=30.0),
-        attempt(outcome="blocked", status=429, latency_ms=1.0),
+    run = make_run(tmp_path, "benign", [
+        attempt(objective=False, latency_ms=10.0), attempt(objective=False, latency_ms=20.0),
+        attempt(objective=False, latency_ms=30.0),
+        attempt(objective=False, outcome="blocked", status=429, latency_ms=1.0),
     ])
     row = compute_metrics.summarise(run)
     assert row["latency_p50_ms"] == 20.0
     assert row["latency_p95_ms"] == 29.0
+
+
+def test_latency_uses_benign_requests_only(tmp_path):
+    """MASTER_PLAN 7.3: the published latency is benign end-to-end latency.
+
+    Attack successes are a different traffic mix (and a long DoW generation is tens
+    of seconds), so including them would describe no real user experience.
+    """
+    run = make_run(tmp_path, "mixed", [
+        attempt(objective=False, latency_ms=10.0),
+        attempt(objective=False, latency_ms=30.0),
+        attempt(objective=True, latency_ms=5_000.0),
+        attempt(objective=True, outcome="blocked", status=429, latency_ms=1.0),
+    ])
+    row = compute_metrics.summarise(run)
+    assert row["latency_p50_ms"] == 20.0
+    assert row["latency_p99_ms"] == 29.8
+
+
+def test_attack_only_run_reports_latency_as_unavailable(tmp_path):
+    run = make_run(tmp_path, "dow", [attempt(objective=True, latency_ms=1_600.0)])
+    row = compute_metrics.summarise(run)
+    assert row["latency_p50_ms"] == ""
+    assert "latency_p50_ms" in row["unavailable_fields"].split(",")
 
 
 def test_run_with_no_attempts_is_never_valid(tmp_path):
