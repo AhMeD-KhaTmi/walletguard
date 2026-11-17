@@ -1047,21 +1047,21 @@ Implemented, with `pytest eval/tests -q` → **94 passed** on the VM (12 new tes
 
 1. **A crashed or overrunning worker now invalidates the run.** `invalid_reasons()`
    combines late traffic, a non-zero exit and a worker terminated at the deadline;
-   `manifest.extra.invalid_reasons` names the worker, and `run_valid` follows it
+   `manifest.invalid_reasons` names the worker, and `run_valid` follows it
    (MASTER_PLAN 7.2.5). Previously only `late_traffic` set `invalid`, so a worker that
    died mid-budget could still produce a "valid" row with a short denominator.
 2. **The seed actually used is recorded.** `manifest.build(seed=...)` is now passed
    `--seed` instead of reading `P20_SEED` from the environment, which the harness only
    exported to the child processes — a `--seed 7` run would have been stamped 42. Each
    workload process also writes `worker-<ip>-<pid>.json` with `configured_seed` and
-   `derived_seed = seed ^ pid`, collected into `manifest.extra.workers`.
+   `derived_seed = seed ^ pid`, collected into `manifest.workers`.
 3. **Benign latency uses benign requests only** (MASTER_PLAN 7.3). `latency_p50/p95/p99_ms`
    now filter `objective=false`, so `combined`, `dow`, `scraping`, stuffing and the probe
    workloads report the latency columns as unavailable instead of publishing attack
    latency as a benign percentile. Attack latency remains in the per-attempt JSONL.
 4. **C1 features are archived before the reset.** `snapshot_features()` copies
    `p20:stream:waf_features` to `<run>/features.jsonl` with `rows` and `sha256` in
-   `manifest.extra.features`. C0/C2 record `status: not_applicable`, which is not the
+   `manifest.features`. C0/C2 record `status: not_applicable`, which is not the
    same claim as an empty export. Rows already carry the WAF's `run_id` and `ip`, so
    they join to `labels.json` without re-deriving identities.
 
@@ -1094,6 +1094,51 @@ Still open, and not claimed as done:
 Limitation to keep visible: `worker-*.json` and `features.jsonl` are inside the run
 directory, so a run copied out without them loses that provenance — the manifest records
 the counts and hashes, not the rows themselves.
+
+### 2026-11-17 — Member A: paced DoW, feature-gated splits, handoff packaging (no new traffic)
+
+Scope: `member-a/traffic-handoff`; `app/`, `waf/`, `ml/`, `contract/`, `ebpf/` untouched.
+Second part of B's request, still without traffic: the three runs he needs cannot be
+produced until the harness can reach `llm_tok`, can exclude featureless runs from splits,
+and can hand over runtime evidence without committing it.
+
+Implemented, with `pytest eval/tests -q` → **99 passed** on the VM (5 new tests):
+
+1. **`llm_tok` is reachable with a paced DoW.** `locust/attack_dow.py` reads
+   `P20_DOW_PACE_S` and uses `constant(pace)` instead of `between(0, 0.05)` when it is
+   non-zero; `eval/harness.py` exposes `--dow-pace`, default `0` so the existing
+   enforcement runs are unchanged. At the default burst the attacker account spends its
+   10 `chat_req` tokens in under a second, so `ip_req`/`chat_req` throttle and
+   strike-ban before `llm_tok` accounting runs; a paced run stays inside the request-rate
+   bucket while it drains tokens.
+2. **Splits only name runs that can train.** `labels.feature_runs()` requires
+   `manifest.features.rows > 0` *and* the referenced file to exist. `suggest_splits()`
+   filters both benign and attack candidates through it, so a C1 run recorded before the
+   archive step can no longer land in fit or calibration. `attack_features` is now always
+   written — a list when C1 attack features exist, `"unavailable"` plus a detail line
+   otherwise — instead of being omitted on the successful path. `attack_runs` keeps the
+   full inventory; `test` includes only runs that carry features.
+3. **The handoff is reproducible.** `eval/package_handoff.sh` builds
+   `features/<run_id>.jsonl`, `manifests/`, `raw/<run_id>/` (attempts, decisions, bans,
+   logs), `labels.json`, `splits.json`, `results.csv`, `summary.csv` and a generated
+   `HANDOFF.md` with per-file row counts and SHA-256, then prints the archive SHA-256. It
+   exits non-zero when no run has a feature export, because such an archive cannot start
+   C3.
+4. **Manifest documentation corrected.** `manifest.build` merges `extra` at the top
+   level, so the real keys are `manifest.features`, `manifest.workers` and
+   `manifest.invalid_reasons`. `eval/README.md`, `eval/schema.md` and the previous journal
+   entry said `manifest.extra.*`; the code was already right and only the docs changed.
+
+Two of the five new tests initially failed on the VM for test-side reasons, both fixed:
+`attack_features` was only set on the unavailable path, and Locust stores
+`constant(7)`/`between(...)` as `lambda instance: ...`, so the tests must call
+`wait_time(None)` rather than `wait_time()`. `bash -n eval/package_handoff.sh` →
+`shell-ok` (bash is not installed on the Windows authoring machine, so the script is
+syntax-checked only on the VM).
+
+No artifacts were regenerated in this commit: the existing 57 runs are unchanged, and
+`splits.json` must not be rewritten until C1 runs with archived features exist — as of
+this commit it would correctly report `insufficient_benign_runs`.
 
 ### Template for later work entries
 

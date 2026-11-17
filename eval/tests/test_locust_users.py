@@ -58,6 +58,27 @@ def test_each_workload_exposes_runnable_users_with_tasks(filename, monkeypatch):
             "mark it abstract = True")
 
 
+def test_dow_pace_is_a_fixed_per_user_gap(monkeypatch):
+    """A paced under-cap run is what lets the WAF reach llm_tok (B's request)."""
+    monkeypatch.setenv("P20_SETUP_GATE", "1")
+    monkeypatch.setenv("P20_DOW_PACE_S", "7")
+    module = load("attack_dow.py", "p20_test_attack_dow_paced")
+    assert module.PACE_S == 7.0
+    wait = module.TokenExhaustionUser.wait_time
+    # Locust stores `constant(7)` as `lambda instance: 7.0`: the instance argument is
+    # required but unused, so call it the way Locust does.
+    assert wait(None) == 7.0
+
+
+def test_dow_pace_defaults_to_the_unpaced_burst(monkeypatch):
+    monkeypatch.setenv("P20_SETUP_GATE", "1")
+    monkeypatch.delenv("P20_DOW_PACE_S", raising=False)
+    module = load("attack_dow.py", "p20_test_attack_dow_unpaced")
+    assert module.PACE_S == 0.0
+    # `between(0, 0.05)` is not a fixed wait: it still yields values in its range.
+    assert 0.0 <= module.TokenExhaustionUser.wait_time(None) <= 0.05
+
+
 @pytest.mark.parametrize("role", MIXED_ROLES)
 def test_mixed_workload_selects_exactly_one_runnable_user(role, monkeypatch):
     monkeypatch.setenv("P20_ROLE", role)

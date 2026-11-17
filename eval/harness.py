@@ -286,6 +286,7 @@ def workload_command(args, entry: dict, run_dir: pathlib.Path) -> tuple[list[str
         "P20_EXPECT_IP": entry["ip"],
         "P20_ATTACKER_ACCOUNT": args.data["attacker_account"],
         "P20_DOW_PROFILE": args.profile,
+        "P20_DOW_PACE_S": str(args.dow_pace),
         "P20_PER_PAGE": str(args.per_page),
         "P20_DEADLINE_S": str(_seconds(args.duration) + 3),
         "P20_GATE_DIR": str(pathlib.Path(args.runs, args.run_id, "gate")),
@@ -683,6 +684,10 @@ def main() -> int:
     run_parser.add_argument("--seed", type=int, default=42)
     run_parser.add_argument("--profile", default="undercap", choices=["undercap", "overcap"])
     run_parser.add_argument("--max-output", type=int, default=0)
+    run_parser.add_argument("--dow-pace", type=float, default=0.0,
+                            help="DoW only: fixed seconds between chat attempts per user "
+                                 "(0 = unpaced burst). A paced under-cap run is what lets "
+                                 "the WAF reach llm_tok instead of ip_req")
     run_parser.add_argument("--per-page", type=int, default=100)
     run_parser.add_argument("--target", default="http://10.20.0.1:8000")
     run_parser.add_argument("--api-port", type=int, default=8000)

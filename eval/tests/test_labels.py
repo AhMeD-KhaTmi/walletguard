@@ -81,3 +81,51 @@ def test_splits_use_only_feature_producing_runs_and_keep_probes_out():
     assert splits["probe_runs"] == ["churn-r1"]
     # The attack runs exist, but none of them produced features.
     assert splits["attack_features"] == "unavailable"
+
+
+def test_splits_exclude_c1_runs_without_an_archived_export():
+    """A C1 run recorded before the feature archive existed must not train a model."""
+    workloads = {
+        "c1-benign-r1": "benign",          # old run, features deleted by the reset
+        "c1-benign-f1": "benign", "c1-benign-f2": "benign", "c1-benign-f3": "benign",
+        "c1-scraping-f1": "scraping", "c2-scraping-r1": "scraping",
+    }
+    configs = {run_id: ("C1" if "-f" in run_id or run_id == "c1-benign-r1" else "C2")
+               for run_id in workloads}
+    features = {"c1-benign-f1", "c1-benign-f2", "c1-benign-f3", "c1-scraping-f1"}
+    splits = labels.suggest_splits(workloads, configs, features)
+    assert splits["status"] == "ok"
+    assert splits["benign_fit"] == ["c1-benign-f1"]
+    assert splits["benign_calibration"] == ["c1-benign-f2"]
+    assert splits["test"] == ["c1-benign-f3", "c1-scraping-f1"]
+    assert splits["attack_features"] == ["c1-scraping-f1"]
+    # The inventory still lists every attack run; only the split groups are filtered.
+    assert splits["attack_runs"] == ["c1-scraping-f1", "c2-scraping-r1"]
+    assert "c1-benign-r1" not in splits["benign_fit"]
+
+
+def test_splits_without_enough_archived_benign_exports_are_insufficient():
+    workloads = {"c1-benign-f1": "benign", "c1-benign-f2": "benign"}
+    configs = {run_id: "C1" for run_id in workloads}
+    splits = labels.suggest_splits(workloads, configs, set(workloads))
+    assert splits["status"] == "insufficient_benign_runs"
+    assert splits["benign_runs"] == ["c1-benign-f1", "c1-benign-f2"]
+
+
+def test_feature_runs_requires_a_non_empty_archived_file(tmp_path):
+    def make(run_id, *, rows=3, file="features.jsonl", write=True, info=True):
+        run = tmp_path / run_id
+        run.mkdir()
+        manifest = {"run_id": run_id, "config": "C1", "workload": "benign"}
+        if info:
+            manifest["features"] = {"status": "ok", "rows": rows, "file": file}
+        (run / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+        if write and file:
+            (run / file).write_text('{"ip": "10.20.0.11"}\n', encoding="utf-8")
+
+    make("good")
+    make("empty", rows=0)
+    make("missing-file", write=False)
+    make("not-applicable", rows=None, file=None, write=False)
+    make("pre-archive", info=False)
+    assert labels.feature_runs(tmp_path) == {"good"}

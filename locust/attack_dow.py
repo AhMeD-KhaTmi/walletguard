@@ -12,6 +12,12 @@ timeout is recorded as an unknown outcome because the backend may still have
 generated tokens. Setup login uses the reserved attacker account and is excluded
 from the malicious denominator (`phase="setup"`).
 
+``P20_DOW_PACE_S`` is the fixed gap between chat attempts per user (0 = the default
+unpaced burst, used for the enforcement ASR runs). A paced under-cap run stays inside
+`ip_req`/`chat_req` while it drains `llm_tok`, which is the only way the WAF can reach
+token accounting and log an `llm_tok` throttle; the unpaced burst is stopped by the
+request-rate bucket first, so it can never exercise that path.
+
     P20_DOW_PROFILE=overcap locust -f locust/attack_dow.py --headless \
         -u 2 -r 2 -t 40s --host http://10.20.0.1:8000
 """
@@ -24,7 +30,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
-from locust import between, task  # noqa: E402
+from locust import between, constant, task  # noqa: E402
 from locust.exception import StopUser  # noqa: E402
 
 from eval.clientlog import classify_chat  # noqa: E402
@@ -32,6 +38,8 @@ from eval.workload import GatedUser, LoggedUser, env_int  # noqa: E402
 
 BASE_PROMPT = "Summarize the following synthetic support transcript for the catalogue team."
 PROFILES = {"undercap": 900, "overcap": 32_000}
+# Fixed per-user spacing for the token-accounting run; 0 keeps the original burst.
+PACE_S = max(0.0, float(os.environ.get("P20_DOW_PACE_S") or 0.0))
 # Harness sets P20_SETUP_GATE=1 for the standalone DoW workload: authenticate first,
 # then wait for the measured phase to be opened with fresh policy state.
 SETUP_GATE = os.environ.get("P20_SETUP_GATE") == "1"
@@ -42,7 +50,7 @@ class TokenExhaustionUser(GatedUser if SETUP_GATE else LoggedUser):  # type: ign
     attack = "dow"
     abstract = False
     gated = SETUP_GATE
-    wait_time = between(0, 0.05)
+    wait_time = constant(PACE_S) if PACE_S > 0 else between(0, 0.05)
 
     def on_start(self) -> None:
         super().on_start()

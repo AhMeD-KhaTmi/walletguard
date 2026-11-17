@@ -33,7 +33,7 @@ Rules that every column obeys:
 | `profile` | enum/empty | manifest | Sub-profile of a workload that changes traffic shape: `undercap`/`overcap` for `dow`, empty otherwise. Part of the summary grouping key, so the two DoW profiles are never averaged into one median. The harness's `--profile` default is **not** reported for other workloads, even though pre-2026-11-17 manifests carry it. |
 | `attack` | enum/empty | manifest | `credential_stuffing`, `scraping`, `dow`, `honeypot`, `churn`, `combined`, `mixed`; empty for benign |
 | `repetition` | integer | manifest | Repetition index for the same (config, workload) pair |
-| `seed` | integer | manifest | `--seed` passed to the harness. `manifest.extra.workers` lists each workload process with its **derived** seed (`seed ^ pid`), because the configured value alone does not reproduce a worker's RNG stream |
+| `seed` | integer | manifest | `--seed` passed to the harness. `manifest.workers` lists each workload process with its **derived** seed (`seed ^ pid`), because the configured value alone does not reproduce a worker's RNG stream |
 | `duration_s` | seconds | manifest | Wall-clock duration of the measured phase (the setup/gated phase is excluded; total run time is `wall_duration_s` in the manifest) |
 | `measured_attempts` | count | attempts | **All** attempts the client actually sent (`phase="measured"`), any outcome and any workload. Zero means the run is invalid |
 | `malicious_attempts` | count | attempts | Measured attempts with `objective=true` |
@@ -66,7 +66,7 @@ Rules that every column obeys:
 | `policy_hash` | sha256 | manifest | Hash of `waf/config.py`, so bucket/ban policy cannot drift silently between runs |
 | `model_hash` | sha256/empty | manifest | Hash of the model file; empty when no model ran (C0–C2) |
 | `manifest_path` | path | — | `eval/runs/<run_id>/manifest.json` |
-| `run_valid` | bool | manifest | `true` only when readiness passed, measured attempts exist, and `manifest.extra.invalid_reasons` is empty. Late traffic, a non-zero worker exit and a worker terminated at the deadline each invalidate the run (MASTER_PLAN 7.2.5); the reason list is kept in the manifest |
+| `run_valid` | bool | manifest | `true` only when readiness passed, measured attempts exist, and `manifest.invalid_reasons` is empty. Late traffic, a non-zero worker exit and a worker terminated at the deadline each invalidate the run (MASTER_PLAN 7.2.5); the reason list is kept in the manifest |
 | `evidence_path` | path | — | Run directory holding attempts, manifest, logs, decisions and bans |
 | `unavailable_fields` | csv | — | Names of columns with no evidence for this run |
 
@@ -125,7 +125,7 @@ eval/runs/<run_id>/
   locust-<ns>-<ip>.log      # per-identity workload output
 ```
 
-`manifest.extra.features` records `{status, file, rows, sha256}` for C1. `scripts/reset_state.py`
+`manifest.features` records `{status, file, rows, sha256}` for C1. `scripts/reset_state.py`
 deletes `p20:stream:waf_features`, so this export is the only copy that survives the next run.
 For C0/C2 the status is `not_applicable` — those modes never write the observe-mode stream —
 which is not the same claim as an empty export. Rows keep the WAF's own `run_id` and `ip`
@@ -150,10 +150,14 @@ has no ASR objective, and must not become an attack training class.
 
 `--splits-out` additionally suggests disjoint `benign_fit`, `benign_calibration` and
 `test` run groups (attacks are test-only). Only **C1** runs can appear in those groups,
-because only observe mode writes `p20:stream:waf_features`; benign traffic measured in C0
-or C2 is behaviour evidence, not training data. Probe runs are listed separately in
-`probe_runs`. When no C1 observe-mode attack run exists, the file says so explicitly
+because only observe mode writes `p20:stream:waf_features`, and only C1 runs with a
+**non-empty archived export** qualify: `manifest.features.rows > 0` and the referenced
+file present. A C1 run recorded before the archive step existed is excluded rather than
+silently used for fit or calibration. Benign traffic measured in C0 or C2 is behaviour
+evidence, not training data. Probe runs are listed separately in `probe_runs`. When no
+feature-carrying C1 attack run exists, the file says so explicitly
 (`attack_features: "unavailable"` plus a detail line) instead of implying that the
-enforcement attack runs can be used for detector precision/recall. B's `ml/train.py` still
-requires at least two independent benign run groups and rejects overlapping test/training
-run IDs; the split file is a proposal, not a policy override.
+enforcement attack runs can be used for detector precision/recall. `attack_runs` keeps
+the full inventory; `test` only includes runs that actually carry features. B's
+`ml/train.py` still requires at least two independent benign run groups and rejects
+overlapping test/training run IDs; the split file is a proposal, not a policy override.

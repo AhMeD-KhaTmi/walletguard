@@ -77,6 +77,12 @@ sudo .venv/bin/python eval/harness.py run --config C0 --workload mixed     --dur
 # Same set against C2 (buckets + honeypot), and C1 for ML collection
 sudo .venv/bin/python eval/harness.py run --config C2 --workload scraping --duration 45s
 sudo .venv/bin/python eval/harness.py run --config C1 --workload benign   --duration 90s --users 10
+
+# Paced under-cap DoW: the only traffic shape that reaches llm_tok. The default burst
+# spends the account's 10 chat_req tokens in under a second, so ip_req/chat_req throttle
+# and strike-ban before token accounting runs.
+sudo .venv/bin/python eval/harness.py run --config C2 --workload dow --profile undercap \
+    --dow-pace 7 --duration 150s
 ```
 
 `dow` runs use the plan's setup → reset → measure sequence automatically: the attackers
@@ -100,13 +106,13 @@ aggregated across attack types — per-attack ASR comes from the separated workl
 Each run writes `eval/runs/<run_id>/` (see `eval/schema.md` §4).
 
 A run is valid only if readiness passed, measured attempts exist, and no invalidation
-reason was recorded. `manifest.extra.invalid_reasons` names late traffic, non-zero worker
+reason was recorded. `manifest.invalid_reasons` names late traffic, non-zero worker
 exits and workers terminated at the deadline; such rows stay in `results.csv` with
 `run_valid=false` and are excluded from the medians, rather than silently shortening the
 attempt denominator.
 
 C1 runs also archive `p20:stream:waf_features` to `features.jsonl` before the next reset,
-with the row count and SHA-256 in `manifest.extra.features`. `scripts/reset_state.py`
+with the row count and SHA-256 in `manifest.features`. `scripts/reset_state.py`
 deletes that stream, so a C1 run that is not archived leaves no recoverable feature matrix.
 Each workload process writes `worker-<ip>-<pid>.json` with the seed it actually used
 (`seed ^ pid`), not just the configured value.
@@ -136,10 +142,12 @@ never replaces them and never averages an invalid run in.
 
 `labels.json` labels each run's source IPs `benign`, `attack` or `probe` (connection
 churn is a kernel-sensor probe, not an attack). `splits.json` proposes disjoint
-fit/calibration/test groups from **C1** runs only, because only observe mode writes
-`p20:stream:waf_features`; when no C1 attack run exists it records
-`attack_features: "unavailable"` rather than implying detector precision/recall can be
-computed from enforcement runs.
+fit/calibration/test groups from **C1** runs that also have a **non-empty archived
+feature export** (`manifest.features.rows > 0` and the file present). A C1 run recorded
+before the archive step existed, or one whose export is empty, is excluded instead of
+silently landing in fit or calibration. When no feature-carrying C1 attack run exists,
+the file records `attack_features: "unavailable"` rather than implying detector
+precision/recall can be computed from enforcement runs.
 
 Minimum grid for a reportable number: **three repetitions per (config, workload)**, with
 `--repetition 1|2|3` and varied execution order. Fewer repetitions still produce a valid
@@ -156,10 +164,23 @@ The grid reports each failed or invalid run and keeps going; its exit status is 
 of failures. Run `sudo ./eval/run_grid.sh C0 -- --dry-run` first to print the exact
 commands without touching Redis or starting a service.
 
-Aggregation needs at least three independent **C1** benign runs before `labels.py` can
-suggest disjoint fit/calibration/test groups: those are the only runs that produce
-`waf_features`. Benign runs at C0 or C2 are still valid evidence for the FPR and ASR
-comparison, they simply cannot train a detector.
+Aggregation needs at least three independent **C1** benign runs **with an archived
+feature export** before `labels.py` can suggest disjoint fit/calibration/test groups:
+those are the only runs that produce `waf_features`. Benign runs at C0 or C2 are still
+valid evidence for the FPR and ASR comparison, they simply cannot train a detector.
+
+## 5a. Packaging the handoff
+
+```bash
+bash eval/package_handoff.sh                       # -> eval/handoff/p20-handoff-<commit>-<utc>.tar.gz
+```
+
+The archive contains `features/<run_id>.jsonl`, `manifests/`, `raw/<run_id>/`
+(attempts, decisions, bans, logs), `labels.json`, `splits.json`, `results.csv`,
+`summary.csv` and a generated `HANDOFF.md` with row counts and per-file SHA-256. It
+exits non-zero if no run has a feature export, because an archive without features
+cannot start C3. Runtime evidence stays out of git; the archive path and its SHA-256
+are what get shared.
 
 ## 6. Running a single workload without the harness
 
