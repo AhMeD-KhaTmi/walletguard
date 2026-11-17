@@ -40,11 +40,17 @@ for run in "$runs"/*/; do
     feature_count=$((feature_count + 1))
   fi
   mkdir -p "$stage/raw/$id"
-  shopt -s nullglob
-  files=("$run"attempts-*.jsonl "$run"decisions.jsonl "$run"bans.json \
-         "$run"usage.json "$run"worker-*.json "$run"api.log "$run"mock.log \
-         "$run"locust-*.log)
-  shopt -u nullglob
+  # Glob entries that match nothing disappear under `nullglob`, but literal names do
+  # not: test every candidate so a run without (say) decisions.jsonl is skipped instead
+  # of passing a nonexistent path to cp.
+  files=()
+  for candidate in "$run"attempts-*.jsonl "$run"decisions.jsonl "$run"bans.json \
+                   "$run"usage.json "$run"worker-*.json "$run"api.log "$run"mock.log \
+                   "$run"locust-*.log; do
+    if [ -f "$candidate" ]; then
+      files+=("$candidate")
+    fi
+  done
   if [ ${#files[@]} -gt 0 ]; then
     cp "${files[@]}" "$stage/raw/$id/"
   fi

@@ -1175,3 +1175,19 @@ Date and task:
 - Resolved finding IDs:
 - Remaining issues / external dependencies:
 - Next action:
+
+### 2026-11-17 — Member A: 63-run handoff checkpoint
+
+- Added six measured runs: three C1 benign, C1 stuffing, C1 scraping,
+  and C2 paced under-cap DoW. Aggregation reports 63 rows, 63 valid.
+- Five archived C1 feature exports; C1 DoW collection remains pending.
+- Paced C2 DoW: 29 successful attempts, 37 blocked, no unknown outcomes;
+  first llm_tok throttle at 56537 ms, first Redis ban at 91642 ms.
+- Fixed packaging of absent optional raw files; ignored eval/handoff/.
+- VM checks: 102 pytest tests passed; shell syntax passed; packaging
+  completed with 63 runs and five feature exports.
+- Limitations: paced and unpaced under-cap runs currently share a summary
+  group; pacing is absent from the measured run's manifest. Older C0/C2
+  runs predate the latest harness fixes. These remain open.
+- Next: collect C1 DoW, correct summary separation and finish benchmark
+  reruns before producing the final handoff. No push authorized here.

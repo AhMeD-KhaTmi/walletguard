@@ -11,5 +11,6 @@ __pycache__/
 
 # Member A: generated traffic data and raw run evidence
 eval/runs/
+eval/handoff/
 locust/data/creds_seed*.json
 locust/data/*.jsonl
