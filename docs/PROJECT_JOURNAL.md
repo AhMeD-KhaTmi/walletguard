@@ -1229,3 +1229,8 @@ Date and task:
   groups; f1 alone must not be represented as a sufficient training input.
 - User authorized branch push and final archive Release upload. Publication is
   the next action; no merge to main, no B-owned code changes, no C3/C4 claims.
+- Publication completed: delivery commit 351a0cd pushed to
+  member-a/traffic-handoff; Release traffic-handoff-20261117 published at that
+  commit with the archive and .sha256 attachment. GitHub reports the expected
+  asset size and matching SHA-256 digest. The code/data release is marked
+  prerelease, not a completed C3/C4 system release. Main was not modified.
