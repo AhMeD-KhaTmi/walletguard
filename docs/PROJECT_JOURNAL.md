@@ -1208,3 +1208,24 @@ Date and task:
   pacing separation. User reports 106 passed on the Linux VM.
 - Only eval/ and shared docs changed. Next: user runs eval tests on VM, commit and
   synchronize clean revision before corrected C0/C2 benchmark reruns. No push.
+
+### 2026-11-17 — Final PR #1 data and corrected benchmark delivery
+
+- User completed 54 corrected C0/C2 runs at clean 4764f4b, three repetitions per
+  each of nine workload/profile shapes per config, with varied execution order.
+- User ran final aggregation/validation (FINAL-DATA-CHECK-OK) and verified the
+  downloaded archive SHA-256. Artifact review shows 118 result rows, 118 valid;
+  six complete labeled feature CSVs and matching JSONL exports, including C1 DoW.
+- Archive labels/splits/results/summary match the working artifacts after line
+  ending normalization. C0 intentionally has no decisions stream; C1/C2 decision
+  records and all configs' usage/bans are included. Historical provenance remains
+  unchanged, with unavailable pacing/worker metadata explicitly disclosed.
+- Delivery asset: p20-handoff-4764f4be4548-20261117T152204Z.tar.gz,
+  141492605 bytes; SHA-256
+  84d0ab8c5b6f176ecab76fbcd9e422feeeca78d0ee0183a353c90f16d35cd55f.
+- Added docs/TRAFFIC_HANDOFF_2026-11-17.md with B's requested deliverables,
+  corrected benchmark selection, token-budget evidence, limitations and next steps.
+  Current ml/train.py internally selects fit/calibration from at least two benign
+  groups; f1 alone must not be represented as a sufficient training input.
+- User authorized branch push and final archive Release upload. Publication is
+  the next action; no merge to main, no B-owned code changes, no C3/C4 claims.
