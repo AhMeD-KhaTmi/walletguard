@@ -42,7 +42,8 @@ for run in "$runs"/*/; do
   mkdir -p "$stage/raw/$id"
   shopt -s nullglob
   files=("$run"attempts-*.jsonl "$run"decisions.jsonl "$run"bans.json \
-         "$run"api.log "$run"mock.log "$run"locust-*.log)
+         "$run"usage.json "$run"worker-*.json "$run"api.log "$run"mock.log \
+         "$run"locust-*.log)
   shopt -u nullglob
   if [ ${#files[@]} -gt 0 ]; then
     cp "${files[@]}" "$stage/raw/$id/"
@@ -54,6 +55,15 @@ for shared in labels.json splits.json results.csv summary.csv; do
     cp "$root/eval/$shared" "$stage/$shared"
   fi
 done
+
+# B's ml/train.py reads CSV, so render the same archived rows with the label joined.
+if [ "$feature_count" -gt 0 ]; then
+  py=${PYTHON:-"$root/.venv/bin/python"}
+  [ -x "$py" ] || py=python3
+  "$py" "$root/eval/export_features.py" --runs "$runs" \
+    --labels "$root/eval/labels.json" --out-dir "$stage/features-csv" > "$stage/csv.log" \
+    || { cat "$stage/csv.log" >&2; echo "ERROR: labelled CSV rendering failed" >&2; exit 1; }
+fi
 
 {
   echo "# WalletGuard traffic / C1 handoff"
@@ -67,8 +77,9 @@ done
   echo
   echo '```'
   echo "features/<run_id>.jsonl   # p20:stream:waf_features, one JSON object per line"
+  echo "features-csv/<run_id>.csv # same rows + label joined from labels.json (for ml/train.py)"
   echo "manifests/<run_id>.json   # config, flags, seed(s), identities, hashes, features count"
-  echo "raw/<run_id>/             # attempts-*.jsonl, decisions.jsonl, bans.json, logs"
+  echo "raw/<run_id>/             # attempts, decisions, bans, usage, worker seeds, logs"
   echo "labels.json               # run_id -> source IP -> benign/attack/probe"
   echo "splits.json               # fit/calibration/test run IDs (only feature-carrying runs)"
   echo "results.csv, summary.csv  # the measured rows and the per-group medians"
@@ -76,7 +87,8 @@ done
   echo
   echo "Feature rows already carry the WAF's own \`run_id\` and \`ip\`, so they join to"
   echo "\`labels.json\` without re-deriving identities. \`manifest.features\` records the"
-  echo "row count and SHA-256 that this archive was built from."
+  echo "row count and SHA-256 that this archive was built from. The CSV rendering is the"
+  echo "same rows, so a run appears in both or in neither."
   echo
   echo "## Feature exports"
   echo

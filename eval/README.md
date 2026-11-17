@@ -22,6 +22,7 @@ measurements. Nothing here claims C3 or C4 results.
 | Config orchestration (C0/C1/C2) | `eval/harness.py` |
 | Result aggregation | `eval/compute_metrics.py` → `eval/results.csv` |
 | Label file for ML | `eval/labels.py` → `eval/labels.json` (`--splits-out eval/splits.json`) |
+| Labeled feature CSV for `ml/` | `eval/export_features.py` → `features-csv/<run_id>.csv` |
 | Column definitions | `eval/schema.md` |
 
 ## 2. One-time setup on the lab VM
@@ -149,6 +150,15 @@ silently landing in fit or calibration. When no feature-carrying C1 attack run e
 the file records `attack_features: "unavailable"` rather than implying detector
 precision/recall can be computed from enforcement runs.
 
+`eval/export_features.py` renders the archived rows as CSV with a `label` column joined
+from `labels.json` (`unknown` when the address is not listed, never guessed), which is the
+format `ml/train.py` and `ml/evaluate.py` read:
+
+```bash
+.venv/bin/python eval/export_features.py --runs eval/runs --labels eval/labels.json \
+    --out-dir eval/handoff/features-csv
+```
+
 Minimum grid for a reportable number: **three repetitions per (config, workload)**, with
 `--repetition 1|2|3` and varied execution order. Fewer repetitions still produce a valid
 row, they just cannot be summarised as a median.
@@ -175,10 +185,12 @@ valid evidence for the FPR and ASR comparison, they simply cannot train a detect
 bash eval/package_handoff.sh                       # -> eval/handoff/p20-handoff-<commit>-<utc>.tar.gz
 ```
 
-The archive contains `features/<run_id>.jsonl`, `manifests/`, `raw/<run_id>/`
-(attempts, decisions, bans, logs), `labels.json`, `splits.json`, `results.csv`,
-`summary.csv` and a generated `HANDOFF.md` with row counts and per-file SHA-256. It
-exits non-zero if no run has a feature export, because an archive without features
+The archive contains `features/<run_id>.jsonl` (exact Redis rows),
+`features-csv/<run_id>.csv` (same rows plus the joined `label`, for `ml/train.py`),
+`manifests/`, `raw/<run_id>/` (attempts, decisions, bans, `usage.json`, worker seeds,
+logs), `labels.json`, `splits.json`, `results.csv`, `summary.csv` and a generated
+`HANDOFF.md` with row counts and per-file SHA-256. It exits non-zero if no run has a
+feature export, because an archive without features
 cannot start C3. Runtime evidence stays out of git; the archive path and its SHA-256
 are what get shared.
 

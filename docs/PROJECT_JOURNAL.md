@@ -1140,6 +1140,30 @@ No artifacts were regenerated in this commit: the existing 57 runs are unchanged
 `splits.json` must not be rewritten until C1 runs with archived features exist — as of
 this commit it would correctly report `insufficient_benign_runs`.
 
+### 2026-11-17 — Member A: labeled feature CSVs and usage records in the handoff (no new traffic)
+
+B's checklist asks for the feature exports as **CSV** next to manifests, `labels.json` and
+`splits.json`, and for the raw records to include usage data. The archive was JSONL-only,
+so the same rows are now also rendered to CSV:
+
+- `eval/export_features.py` reads each `<run>/features.jsonl`, joins the label from
+  `labels.json` (`run_id -> ip -> benign/attack`), and writes
+  `features-csv/<run_id>.csv` with identity columns first (`stream_id`, `run_id`, `ip`,
+  `label`, `feature_version`, `ts_ms`, `method`, `route`) and then the feature columns.
+  An address absent from the labels file is written as `unknown`, matching
+  `ml/export.py`; it is never guessed benign. A run with an empty or missing export
+  produces no CSV, and the command exits non-zero when no run has features.
+- The result has every column `ml/train.py` validates (`FEATURES_BASE` plus `run_id`,
+  `label`, `feature_version`), so it can be passed to `--csv` without conversion.
+- `eval/package_handoff.sh` now runs that rendering when at least one export exists and
+  fails loudly if it cannot, and copies `usage.json` (`/_metrics/usage` before/after) and
+  `worker-*.json` (derived seeds) into `raw/<run_id>/` alongside attempts, decisions,
+  bans and logs.
+
+Three new tests cover the CSV join, the `unknown` fallback and the skip/no-export case.
+No traffic was run and no artifact was regenerated; `bash -n eval/package_handoff.sh` is
+checked on the VM because bash is not installed on the Windows authoring machine.
+
 ### Template for later work entries
 
 Date and task:

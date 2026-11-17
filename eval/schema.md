@@ -161,3 +161,14 @@ enforcement attack runs can be used for detector precision/recall. `attack_runs`
 the full inventory; `test` only includes runs that actually carry features. B's
 `ml/train.py` still requires at least two independent benign run groups and rejects
 overlapping test/training run IDs; the split file is a proposal, not a policy override.
+
+### 5a. Labeled feature CSV (`features-csv/<run_id>.csv`)
+
+`eval/export_features.py` renders each archived `features.jsonl` as CSV for
+`ml/train.py` and `ml/evaluate.py`. Identity columns come first (`stream_id`, `run_id`,
+`ip`, `label`, `feature_version`, `ts_ms`, `method`, `route`), then the feature columns,
+so the file is readable without opening the JSONL. `label` is joined from `labels.json`;
+an address that is not listed becomes `unknown`, matching `ml/export.py`, rather than a
+guessed benign label. A run with an empty or missing `features.jsonl` produces no CSV, so
+a file's presence always means rows exist. The CSV and JSONL come from the same archive
+and a run appears in both or neither.
