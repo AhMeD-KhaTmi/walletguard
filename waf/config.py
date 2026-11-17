@@ -64,4 +64,5 @@ class Config:
             use_ebpf_signals=flag("WAF_EBPF_SIGNALS", "0"),
             run_id=os.getenv("P20_RUN_ID", "development"),
             model_path=os.getenv("WAF_MODEL_PATH", "ml/model_base.joblib"),
+            telemetry_limit=int(os.getenv("WAF_TELEMETRY_LIMIT", "10000")),
         )

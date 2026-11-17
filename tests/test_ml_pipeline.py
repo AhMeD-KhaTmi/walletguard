@@ -1,4 +1,5 @@
-from dataclasses import replace
+import json
+import joblib
 
 import httpx
 import numpy as np
@@ -11,7 +12,7 @@ from conftest import TEST_REDIS_URL
 from ml.evaluate import evaluate
 from ml.train import train
 from waf.config import Config
-from waf.features import FEATURES_BASE
+from waf.features import FEATURE_VERSION, FEATURES_BASE
 from waf.scoring import Scorer
 
 
@@ -24,7 +25,7 @@ def fixture_data(groups, *, attack=False):
             values = dict(zip(FEATURES_BASE, rng.uniform(0, 10, len(FEATURES_BASE))))
             if attack:
                 values = {k: v+10000 for k, v in values.items()}
-            rows.append({**values, "run_id": group, "feature_version": 2, "label": "attack" if attack else "benign"})
+            rows.append({**values, "run_id": group, "feature_version": FEATURE_VERSION, "label": "attack" if attack else "benign"})
     return pd.DataFrame(rows)
 
 
@@ -59,6 +60,42 @@ def test_training_rejects_unlabeled_mixed_or_single_run_data(tmp_path):
         train(csv, tmp_path/"model.joblib")
 
 
+def test_model_from_the_previous_feature_version_is_rejected(tmp_path):
+    csv, model = tmp_path / "benign.csv", tmp_path / "model.joblib"
+    fixture_data(["a", "b"]).to_csv(csv, index=False)
+    train(csv, model, trees=10)
+    data = joblib.load(model)
+    data["feature_version"] = 2
+    joblib.dump(data, model)
+    with pytest.raises(ValueError, match="incompatible"):
+        Scorer(model)
+
+
+def test_declared_handoff_splits_and_per_run_metrics(tmp_path):
+    csv, test = tmp_path / "benign.csv", tmp_path / "test.csv"
+    splits, model = tmp_path / "splits.json", tmp_path / "model.joblib"
+    fixture_data(["fit", "cal"]).to_csv(csv, index=False)
+    groups = {"benign_fit": ["fit"], "benign_calibration": ["cal"], "test": ["benign", "attack"]}
+    splits.write_text(json.dumps(groups))
+    manifest = train(csv, model, trees=10, splits_path=splits)
+    assert manifest["training_runs"] == ["fit"]
+    assert manifest["calibration_runs"] == ["cal"]
+    assert set(manifest["feature_units"]) == set(FEATURES_BASE)
+    fixture_data(["benign"]).to_csv(test, index=False)
+    with pytest.raises(ValueError, match="declared held-out"):
+        evaluate(model, test, splits_path=splits)
+    pd.concat([fixture_data(["benign"]), fixture_data(["attack"], attack=True)]).to_csv(test, index=False)
+    result = evaluate(model, test, splits_path=splits)
+    assert result["by_run"]["attack"]["tp"] == result["tp"]
+    assert result["by_run"]["benign"]["false_positive_rate"] == result["false_positive_rate"]
+    groups["test"].append("fit")
+    splits.write_text(json.dumps(groups))
+    with pytest.raises(ValueError, match="disjoint"):
+        train(csv, model, trees=10, splits_path=splits)
+    with pytest.raises(ValueError, match="training manifest"):
+        evaluate(model, test, splits_path=splits)
+
+
 async def test_real_model_can_load_in_application(tmp_path, redis_db, llm_url):
     data = tmp_path/"benign.csv"
     model = tmp_path/"model.joblib"
@@ -90,7 +127,7 @@ async def test_anomaly_alone_allows_but_corroboration_bans_and_refunds(redis_db,
         login = await c.post("/login", json={"username": "user1", "password": "Passw0rd!1"})
         token = login.json()["token"]
         await app.state.runtime.waf.bans.strike("10.20.0.21", "budget")
-        result = await c.post("/chat", json={"prompt": "hi", "max_output_tokens": 8}, headers={"authorization": f"Bearer {token}"})
+        result = await c.post("/chat", json={"prompt": "hi", "agent_steps": 1, "max_output_tokens": 8}, headers={"authorization": f"Bearer {token}"})
         assert result.status_code == 403
     row = redis_db.xrevrange("p20:stream:waf_decisions", count=1)[0][1]
     assert row["reason"] == "anomaly"

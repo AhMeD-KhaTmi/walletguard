@@ -1,37 +1,33 @@
 # Project 20: Member B Plan ("Application & Intelligence" track)
 
-> Execution update — 2026-11-16: follow [the coordinated master plan](docs/MASTER_PLAN.md)
-> and [Redis Bridge schema v2](contract/redis_schema.md) for current decisions.
-> This original plan is retained as background and starter examples. The master
-> plan supersedes conflicting snippets, metrics, failure behavior and ML policy.
-> Key updates: local HTTP mock in every configuration; calibrated byte/token
-> cross-check; complete non-enforcing observation; corroborated ML bans; explicit
-> outage/recovery behavior; labeled run-based evaluation. C0–C4 meanings and flag
-> names remain unchanged. Track implementation evidence in
-> [the project journal](docs/PROJECT_JOURNAL.md).
-> Visual scope now includes a demo app and read-only management dashboard; see
-> master-plan section 4 for staged delivery and access/testing requirements.
-> Independent implementation update: C0/C1/C2 application checks, cached-auth/local
-> budget outage handling, and base ML tooling are implemented. Production model
-> training, realistic detector metrics, A's attack validation and C4 remain pending.
-> See `docs/evidence/independent_status.json` and the latest journal entry.
+> Current execution plan, 2026-11-17. Follow [master plan v1.3](docs/MASTER_PLAN.md)
+> and the [professor's feedback](docs/masterplan_vs_professor_diff.pdf).
+> The original snippets below are reference material. Current code uses a bounded
+> agent loop, exact synthetic tokens and feature version 3. Prior feature-version-2
+> model and C2/C3 results remain historical. Current evidence is tracked in
+> [the journal](docs/PROJECT_JOURNAL.md).
 
-Project: **eBPF / Behavioral Runtime Intrusion Detection & Automated Token-Bucket ASGI WAF Against LLM "Denial-of-Wallet"** (Pillar IV: API Security, ISG Tunis, Master SSI 2026-2027).
-
-You are **Member B**. This file is your personal plan and starting guide. It uses the defaults below (nothing has been confirmed by the professor yet). The code is a **starter**: it is meant to run and to be extended, not to be submitted as-is.
+You are **Member B**, responsible for application, intelligence and benign-impact
+measurements. The professor approved the mock backend, Linux VM, sensor/enforcement
+architecture, ASR and deterministic runs with the conditions below.
 
 ---
 
-## 0. Assumptions (defaults, to confirm with the professor)
+## 0. Professor-approved requirements
 
-| # | Assumption | If the professor says otherwise |
-|---|---|---|
-| 1 | eBPF is part of the project: Member A builds a kernel sensor + XDP drop and connects it to your WAF through Redis | If eBPF is sensor-only, you drop the "bans go down" part. If optional, the bridge shrinks |
-| 2 | Everything runs on a **Linux VM** | Affects only how you run Redis/app |
-| 3 | The LLM is a **mock** with token counting | If a real LLM is required, you replace `mock_llm.py` with a client and keep the same usage headers |
-| 4 | "Agent Harness" = a simple API app with a `/chat` endpoint calling the LLM | If it must be a real agent with tools, you add a tool loop to the app and extra budgets (tool calls per task) |
-| 5 | ASR = successful malicious requests / total malicious requests, per attack | Changes only A's harness and how you present results |
-| 6 | "Deterministic" = scripted, seeded, reproducible runs | Adds a reset script and fixed seeds (already in this plan) |
+- Use Ubuntu 22.04/24.04, kernel >=5.15 and BTF. Record environment checks.
+- The chat route runs a simulated agent with growing context and repeated local
+  HTTP calls. Default three steps, bounded to eight. Report each iteration and total usage.
+- Count synthetic tokens exactly through common/tokens.py, and keep latency
+  deterministic and configurable. A real provider demonstration is optional.
+- Reserve/refund the entire agent task, including repeated context and all outputs.
+  Preserve known partial usage and retain reservations on uncertain generation.
+- Train the feature-version-3 model on fresh disjoint C1 groups. Keep the old
+  model and measurements as historical evidence. Never relabel old feature rows.
+- Measure attack-specific ASR, benign enforcement FPR, and p50/p95 client latency.
+  Compare to matched C0 and report finalized WAF-only p50/p95 separately.
+- A owns app-scoped connect/exec sensor events and XDP with documented fallbacks.
+  B integrates real fresh signals after that handoff.
 
 ---
 
@@ -964,23 +960,28 @@ sequenceDiagram
 
 ## 13. Definition of done (your checklist)
 
-Updated: **2026-11-16**. Checked items have independent implementation/test
+Updated: **2026-11-17**. Checked items have independent implementation/test
 evidence. An unchecked item marked **partial** already has work completed, but
 the complete deliverable is not finished. Joint attack/kernel acceptance is
 separate from the local checks below.
 
-**Your position:** baseline and C2 application defenses are implemented; ML tooling
-is prepared. Next is the traffic/data handoff with A, then real model training and
-joint validation. Your entire Member B track is not finished yet.
+**Your position:** Member A's traffic handoff is integrated locally. The C3 base
+model is trained, calibrated and scored on separate real C1 run groups. C4 and
+the final benchmark remain pending.
 
 - [x] **B0:** workspace, Python 3.11 virtualenv, Redis connectivity and passing test command verified.
-- [ ] **B1 — partial:** baseline API, HTTP mock, usage accounting and OpenAPI are implemented/tested. H1 is prepared in [the API handoff](contract/api_handoff.md); delivery to A and their baseline attack validation are not confirmed.
-- [x] **B2 — independent implementation:** request/login/account/token buckets, reserve/refund, concurrency and cancellation checks, 429 + `Retry-After`. Validation with A's actual Locust attacks is still pending.
+- [x] **B1:** baseline API, HTTP mock, usage accounting and [OpenAPI handoff](contract/api_handoff.md). All three of A's attack workloads reached their objectives against C0 in local checks.
+- [x] **B2:** request/login/account/token buckets, reserve/refund, concurrency and cancellation checks, 429 + `Retry-After`. A's traffic exercises the controls in C2/C3; final repeated measurements remain in B5.
 - [x] **B3 — independent implementation:** honeypot + `robots.txt`, strikes, ban key/TTL/pubsub and allowlist tested. Redis-to-XDP enforcement is part of the pending joint tests.
-- [ ] **B4 — partial:** observe collection, feature extraction, grouped training/evaluation and model-loading code tested. Real labeled data, production base/augmented models, calibrated thresholds and realistic precision/recall/FPR/scoring results remain pending.
+- [x] **B4 — C3 base model:** collected fresh version-3 C1 agent runs, enforced disjoint fit/calibration/test groups, and retrained the base model. Current counts and detector limitations are in the [professor update](docs/PROFESSOR_UPDATE.md). Original version-2 evidence is historical.
+- [ ] **B4 — C4 augmented model:** collect real fresh sensor features, then train, calibrate and measure on independent run groups after the kernel handoff.
 - [ ] **Redis Bridge deliverable — partial:** schema-v2 decision writer and ban notifications tested; `contract/fake_ebpf.py` is committed and published in walletguard. Real signal consumption and joint contract acceptance remain pending.
 - [ ] **IT-1 to IT-6:** joint tests with A, including real sensor/XDP and calibrated traffic/token cross-check. Independent outage/ban tests do not replace these.
-- [ ] **B5:** final matched C0–C4 results CSV with latency/FPR/overhead and repeated runs. Development timings exist; final benchmark results do not.
+- [x] **B5 — C2/C3 benchmark preparation:** app timing collector, source-labeled benign metrics and a local mixed-traffic rehearsal. The [benchmark handoff](docs/C3_BENCHMARK_HANDOFF.md) lists the changes and captures needed from A before the matched VM run.
+- [x] **B5 — historical C2/C3 benchmark:** 54 version-2 single-call runs passed. [Results and limitations](docs/C23_BENCHMARK_RESULTS.md) are preserved.
+- [x] **B5 — current agent benchmark:** completed 81 valid matched C0/C2/C3 runs, with finalized WAF p50/p95 and baseline-relative client deltas. [Current results and limitations](docs/PROFESSOR_BENCHMARK_RESULTS.md).
+- [ ] **B2/B4/B5 — acceptance and calibration:** current benign enforcement FPR is 2.350% in C2 and 2.271% in C3, with one benign budget auto-ban in each. Calibrate whole-agent budgets using new calibration runs, investigate the low detector recall and C3 scoring cost, then use fresh held-out tests. Do not tune on the existing held-out set or 81-run campaign.
+- [ ] **B5:** final matched C0–C4 results CSV with latency/FPR/overhead and repeated runs. Current C0/C2/C3 measurements exist; the complete kernel comparison remains pending.
 - [ ] **B6:** slides 1, 5, 6, 10, 11, 14, 16, 18 and joint slides 8/17.
 - [ ] **Reproduction/demo — partial:** one-command local C0/C1/C2 launch and developer checks work. Full-stack reproduction, rehearsal and backup demo video remain pending.
 - [ ] **Oral readiness:** you and A can each explain the whole project, including the other layer. This needs your walkthrough/rehearsal; code tests cannot establish it.
@@ -990,17 +991,19 @@ joint validation. Your entire Member B track is not finished yet.
 - [x] Visual demo: login/logout, product pagination, chat and simulated token/cost display.
 - [x] Read-only, source-IP-restricted dashboard with real application decisions/usage and explicit missing-integration states.
 - [x] Redis outage handling: local budgets, bounded cached sessions, local usage/event evidence, expiring bans and conservative recovery.
-- [x] Full available automated suite: **64 tests passed**; **12 real-HTTP development checks passed**; C2 browser checks passed.
+- [x] Regression checks: **75 application/contract tests**, **109 evaluation tests**, and **12 C0/C1/C2 HTTP development checks** passed. Six C0/C2/C3 namespace smoke runs passed; browser testing confirmed the three-step trace and exact aggregate usage.
 
 Evidence: [full test report](docs/evidence/application_defenses_tests.xml),
 [HTTP checks](docs/evidence/application_http_checks.json),
-[current status](docs/evidence/independent_status.json), and
-[work journal](docs/PROJECT_JOURNAL.md). No production ML model or final ASR/FPR is claimed.
+[current model and test evidence](docs/evidence/professor_update.json),
+[current benchmark](docs/PROFESSOR_BENCHMARK_RESULTS.md), and
+[work journal](docs/PROJECT_JOURNAL.md). The older XML/HTTP reports above describe
+earlier checks. Current acceptance failures and pending joint tests are explicit
+in the current benchmark report.
 
 ### Next actions, in order
 
-1. Give A `contract/openapi.json`, `contract/api_handoff.md`, and `contract/redis_schema.md`.
-2. Get A's three attack scripts, multi-IP benign generator and per-run source/account labels.
-3. Replay C0/C2 attacks, collect multiple labeled C1 runs and train/evaluate the base model on separate run groups.
-4. Integrate real sensor/XDP signals, train the augmented model, and complete IT-1–6 together.
-5. Run final matched measurements; finish slides, full reproduction and demo rehearsal/video.
+1. Share the [professor update](docs/PROFESSOR_UPDATE.md), current plans, model and [81-run results](docs/PROFESSOR_BENCHMARK_RESULTS.md) with A. Keep the existing test split and benchmark frozen.
+2. Independently calibrate agent budgets on new data and investigate detector recall/scoring cost; retest on new held-out runs. This work can proceed while A develops the kernel layer.
+3. Integrate real sensor/enforcement signals, train the augmented model, and complete IT-1–6 together.
+4. Run final matched measurements and finish slides, full reproduction and demo rehearsal/video.

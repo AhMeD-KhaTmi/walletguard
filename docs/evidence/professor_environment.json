@@ -1,0 +1,11 @@
+{
+  "os": "Ubuntu 22.04.5 LTS",
+  "kernel": "6.8.0-149-generic",
+  "btf_path": "/sys/kernel/btf/vmlinux",
+  "checks": {
+    "ubuntu_lts": true,
+    "kernel_5_15_or_newer": true,
+    "btf_available": true
+  },
+  "ready": true
+}

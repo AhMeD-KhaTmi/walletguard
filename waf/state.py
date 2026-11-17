@@ -16,12 +16,13 @@ class State:
         self.allowed = OrderedDict()
         self.timings = deque(maxlen=config.telemetry_limit)
         self.outage_events = deque(maxlen=config.telemetry_limit)
-        self.outage_usage = {"requests": 0, "tokens_in": 0, "tokens_out": 0, "cost_usd": 0.0}
+        self.outage_usage = {"requests": 0, "agent_steps": 0, "tokens_in": 0, "tokens_out": 0, "cost_usd": 0.0}
         self.dropped_events = 0
         self.dropped_timings = 0
         self.cache_evictions = 0
         self.scorer = None
         self.waf = None
+        self.active_agent_tasks = 0
 
     async def eval(self, *args):
         return await self.r.eval(*args)
@@ -89,10 +90,11 @@ class State:
         self.sessions.pop(token, None)
         await self.r.delete(f"p20:app:session:{token}")
 
-    async def charge(self, user, usage):
+    async def charge(self, user, usage, *, agent_steps=1):
         pipe = self.r.pipeline()
         for key in ("p20:app:usage:total", f"p20:app:usage:{user}"):
-            for field, value in (("requests", 1), ("tokens_in", usage.tokens_in), ("tokens_out", usage.tokens_out)):
+            for field, value in (("requests", 1), ("agent_steps", agent_steps),
+                                 ("tokens_in", usage.tokens_in), ("tokens_out", usage.tokens_out)):
                 pipe.hincrby(key, field, value)
             pipe.hincrbyfloat(key, "cost_usd", usage.cost_usd)
         try:
@@ -100,6 +102,7 @@ class State:
             return "redis"
         except (RedisError, asyncio.CancelledError) as exc:
             self.outage_usage["requests"] += 1
+            self.outage_usage["agent_steps"] += agent_steps
             for field in ("tokens_in", "tokens_out", "cost_usd"):
                 self.outage_usage[field] += getattr(usage, field)
             self.event("usage", {"ts_ms": int(time.time()*1000), "client_id": user,

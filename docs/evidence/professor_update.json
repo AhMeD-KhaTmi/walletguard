@@ -1,0 +1,238 @@
+{
+  "runtime": "context-loop-v1",
+  "feature_version": 3,
+  "tokenizer": "synthetic-whitespace-v1",
+  "feedback_sha256": "b727ecc618e88646c467e4e0b56b2fb8e0edad939d4d852319a3fc0a97542687",
+  "environment": {
+    "os": "Ubuntu 22.04.5 LTS",
+    "kernel": "6.8.0-149-generic",
+    "btf_path": "/sys/kernel/btf/vmlinux",
+    "checks": {
+      "ubuntu_lts": true,
+      "kernel_5_15_or_newer": true,
+      "btf_available": true
+    },
+    "ready": true
+  },
+  "c1_runs": {
+    "agent3-benign-1": {
+      "rows": 187,
+      "features_sha256": "312918026d92fb5287155c8da1aba3ffa026a4b623ad304d6f806aa2fcfd8344",
+      "config": "C1",
+      "tokenizer": "synthetic-whitespace-v1"
+    },
+    "agent3-benign-2": {
+      "rows": 187,
+      "features_sha256": "f7d405e731d067f83944e82ea24f87f8bcaa9ff00f1b62a8493a926af168e01f",
+      "config": "C1",
+      "tokenizer": "synthetic-whitespace-v1"
+    },
+    "agent3-benign-3": {
+      "rows": 191,
+      "features_sha256": "eb7e074dcf92ca6661fb97823167cb5d9569771d2fcbc424a8e584d789912765",
+      "config": "C1",
+      "tokenizer": "synthetic-whitespace-v1"
+    },
+    "agent3-dow": {
+      "rows": 737,
+      "features_sha256": "0b477d97fc51ab4ef85e0b23334dc80250b7605f6f14424cdfeeaf982f1dffb6",
+      "config": "C1",
+      "tokenizer": "synthetic-whitespace-v1"
+    },
+    "agent3-scraping": {
+      "rows": 5503,
+      "features_sha256": "7bb3deb71345fb154528d284928b747d730a26caf32c3c76dc10d5fb172773d8",
+      "config": "C1",
+      "tokenizer": "synthetic-whitespace-v1"
+    },
+    "agent3-stuffing": {
+      "rows": 3845,
+      "features_sha256": "95a05d33a3a39d358f511a317d75b041a01e82ede10b99a0f35528756645ee65",
+      "config": "C1",
+      "tokenizer": "synthetic-whitespace-v1"
+    }
+  },
+  "splits": {
+    "benign_fit": [
+      "agent3-benign-1"
+    ],
+    "benign_calibration": [
+      "agent3-benign-2"
+    ],
+    "test": [
+      "agent3-benign-3",
+      "agent3-stuffing",
+      "agent3-scraping",
+      "agent3-dow"
+    ]
+  },
+  "model_manifest": {
+    "features": [
+      "is_chat",
+      "is_login",
+      "is_products",
+      "is_other",
+      "body_size",
+      "prompt_tokens",
+      "max_out_tokens",
+      "prompt_entropy",
+      "has_ua",
+      "has_accept_lang",
+      "req_10s",
+      "req_60s",
+      "distinct_paths_60s",
+      "fail_ratio_60s",
+      "mean_gap_s",
+      "std_gap_s",
+      "window_saturated",
+      "agent_steps",
+      "task_token_budget"
+    ],
+    "feature_version": 3,
+    "agent_version": "context-loop-v1",
+    "tokenizer": "synthetic-whitespace-v1",
+    "feature_units": {
+      "is_chat": "indicator",
+      "is_login": "indicator",
+      "is_products": "indicator",
+      "is_other": "indicator",
+      "body_size": "bytes",
+      "prompt_tokens": "tokens",
+      "max_out_tokens": "tokens",
+      "prompt_entropy": "bits per character",
+      "has_ua": "indicator",
+      "has_accept_lang": "indicator",
+      "req_10s": "requests",
+      "req_60s": "requests",
+      "distinct_paths_60s": "paths",
+      "fail_ratio_60s": "fraction",
+      "mean_gap_s": "seconds",
+      "std_gap_s": "seconds",
+      "window_saturated": "indicator",
+      "agent_steps": "iterations",
+      "task_token_budget": "tokens"
+    },
+    "sklearn_version": "1.9.1",
+    "dependencies": {
+      "python": "3.11.18",
+      "numpy": "2.4.6",
+      "pandas": "3.1.1",
+      "scikit-learn": "1.9.1",
+      "joblib": "1.6.0"
+    },
+    "code_revision": "414a9a59ad577e85d5749e71cca62689d65629bb",
+    "trainer_sha256": "8fa2433ba355d45629f7084327750201f00ff8ab4de01813646f6dd04ad0dbb6",
+    "threshold": -0.7149966528383122,
+    "calibration_percentile": 0.5,
+    "seed": 42,
+    "trees": 100,
+    "dataset_sha256": "fd39c9ba8bbc79adfcdc44d309136680f031ce788a25036319ba56d95844c026",
+    "training_runs": [
+      "agent3-benign-1"
+    ],
+    "calibration_runs": [
+      "agent3-benign-2"
+    ],
+    "training_rows": 187,
+    "calibration_rows": 187,
+    "splits_sha256": "b0963f18252b43ce6fdbabc5772cb09d4bcafe96a7d91a0cd06f05b14aed1c5d"
+  },
+  "detector_evaluation": {
+    "kind": "detector_evaluation_not_combined_waf_evaluation",
+    "rows": 10276,
+    "tp": 4,
+    "fp": 2,
+    "fn": 10081,
+    "tn": 189,
+    "precision": 0.6666666666666666,
+    "recall": 0.00039662865642042637,
+    "false_positive_rate": 0.010471204188481676,
+    "by_run": {
+      "agent3-benign-3": {
+        "rows": 191,
+        "tp": 0,
+        "fp": 2,
+        "fn": 0,
+        "tn": 189,
+        "precision": 0.0,
+        "recall": null,
+        "false_positive_rate": 0.010471204188481676
+      },
+      "agent3-dow": {
+        "rows": 737,
+        "tp": 4,
+        "fp": 0,
+        "fn": 733,
+        "tn": 0,
+        "precision": 1.0,
+        "recall": 0.005427408412483039,
+        "false_positive_rate": null
+      },
+      "agent3-scraping": {
+        "rows": 5503,
+        "tp": 0,
+        "fp": 0,
+        "fn": 5503,
+        "tn": 0,
+        "precision": null,
+        "recall": 0.0,
+        "false_positive_rate": null
+      },
+      "agent3-stuffing": {
+        "rows": 3845,
+        "tp": 0,
+        "fp": 0,
+        "fn": 3845,
+        "tn": 0,
+        "precision": null,
+        "recall": 0.0,
+        "false_positive_rate": null
+      }
+    },
+    "scoring_p50_ms": 3.844881999611971,
+    "scoring_p95_ms": 4.502003249399422,
+    "model_sha256": "bb0116a167318df1749a0edf5cf5b95362ccde59f6b8580d732ed82d05722ca1",
+    "test_sha256": "315f9963558e87bd9e74e9c845fc0a973dcefb77cc804f2750d7b0f8c4ddb062"
+  },
+  "checks": {
+    "application_and_contract_passed": 75,
+    "evaluation_passed": 109,
+    "http_passed": 12,
+    "namespace_smoke_runs": 6,
+    "browser": {
+      "mode": "C3",
+      "prompt": "hello world",
+      "agent_steps": 3,
+      "output_cap_per_step": 8,
+      "step_input_tokens": [
+        2,
+        19,
+        36
+      ],
+      "step_output_tokens": [
+        8,
+        8,
+        8
+      ],
+      "total_input_tokens": 57,
+      "total_output_tokens": 24,
+      "simulated_cost_usd": 0.000531
+    }
+  },
+  "benchmark": {
+    "revision": "aa51185caa87307672e4042683a9e6ccfbbfe59d",
+    "runs": 81,
+    "accepted": true,
+    "evidence": "professor_benchmark/validated.json",
+    "security_acceptance_complete": false,
+    "benign_fpr_C2": 0.023501762632197415,
+    "benign_fpr_C3": 0.022713321055862493,
+    "benign_bans_C2": 1,
+    "benign_bans_C3": 1,
+    "pending": [
+      "Independent whole-agent budget calibration and retest",
+      "Base detector recall and scoring performance investigation",
+      "Real sensor/enforcement integration and C0-C4 acceptance"
+    ]
+  }
+}

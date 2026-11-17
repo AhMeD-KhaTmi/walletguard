@@ -26,7 +26,8 @@ async def test_demo_and_assets_are_public_but_dashboard_html_is_not_static(web_a
     async with client(web_api, "10.20.0.12") as c:
         page = await c.get("/")
         assert page.status_code == 200
-        assert "Mock LLM playground" in page.text
+        assert "Simulated agent playground" in page.text
+        assert 'id="agent-trace"' in page.text
         assert "frame-ancestors 'none'" in page.headers["content-security-policy"]
         for path in ("/assets/style.css", "/assets/demo.js", "/assets/dashboard.js"):
             assert (await c.get(path)).status_code == 200

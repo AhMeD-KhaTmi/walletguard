@@ -71,17 +71,21 @@ $("chat-form").addEventListener("submit", async (event) => {
   $("logout-button").disabled = true;
   $("response-state").textContent = "GENERATING";
   $("chat-output").textContent = "Waiting for a response…";
+  $("agent-trace").textContent = "";
   ["tokens-in", "tokens-out", "chat-cost"].forEach((id) => { $(id).textContent = "—"; });
-  status("chat-status", "Calling the local mock LLM…");
+  status("chat-status", "Running the simulated agent…");
   const start = performance.now();
   try {
-    const result = await api("/chat", {method: "POST", headers: {"content-type": "application/json", authorization: `Bearer ${token}`}, body: JSON.stringify({prompt: $("prompt").value, max_output_tokens: Number($("max-output").value)})});
+    const result = await api("/chat", {method: "POST", headers: {"content-type": "application/json", authorization: `Bearer ${token}`}, body: JSON.stringify({prompt: $("prompt").value, max_output_tokens: Number($("max-output").value), agent_steps: Number($("agent-steps").value)})});
     $("chat-output").textContent = result.text.slice(0, 8000) + (result.text.length > 8000 ? "\n[Display truncated; usage reflects the full response.]" : "");
     $("tokens-in").textContent = result.usage.tokens_in.toLocaleString();
     $("tokens-out").textContent = result.usage.tokens_out.toLocaleString();
     $("chat-cost").textContent = `$${result.usage.cost_usd.toFixed(6)}`;
     $("response-state").textContent = "COMPLETE";
-    status("chat-status", `Response received in ${((performance.now() - start) / 1000).toFixed(2)}s · Cost is simulated.`);
+    status("chat-status", `${result.agent_steps} agent steps in ${((performance.now() - start) / 1000).toFixed(2)}s · Total usage includes every step · Cost is simulated.`);
+    $("agent-trace").textContent = result.iterations.map((step) =>
+      `Step ${step.iteration} · ${step.tool} · ${step.usage.tokens_in} input + ${step.usage.tokens_out} output tokens`
+    ).join("\n");
   } catch (error) {
     $("response-state").textContent = "REQUEST FAILED";
     $("chat-output").textContent = "No successful response for this request. A timeout can leave usage uncertain.";

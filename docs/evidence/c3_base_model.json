@@ -1,0 +1,279 @@
+{
+  "kind": "c3_base_model_and_development_evidence",
+  "traffic_handoff": {
+    "git_revision": "414a9a59ad577e85d5749e71cca62689d65629bb",
+    "release": "https://github.com/AhMeD-KhaTmi/walletguard/releases/tag/traffic-handoff-20261117",
+    "release_sha256_reported_by_github": "84d0ab8c5b6f176ecab76fbcd9e422feeeca78d0ee0183a353c90f16d35cd55f",
+    "labels_sha256": "8d1646aaf12cc45d9b706cf8e36ea9841bdb9b2e905d6b27989fa87be9f6a1e7",
+    "verified_c1_exports": {
+      "c1-benign-f1": {
+        "rows": 364,
+        "capture_revision": "0eecf8832736325a2ce5b345f8fd19ae6856d864",
+        "features_jsonl_sha256": "fec61fbee3c204a9e3f79594102dd4d779b8d826d13e4d092861a7cd8819a04b",
+        "labeled_csv_sha256": "a9dc94f9c55f61c945adeb167df1c5167429271919554de964628b3ceb027ba9"
+      },
+      "c1-benign-f2": {
+        "rows": 401,
+        "capture_revision": "0eecf8832736325a2ce5b345f8fd19ae6856d864",
+        "features_jsonl_sha256": "a5ace7ef95b5ce59b880a1c9df3eadde3247b75ea41794029fbc4fa36be28291",
+        "labeled_csv_sha256": "dcf32dcb5828bf203542a300cfa25fb25422861c1d4272ae99e7c4e9c063f94e"
+      },
+      "c1-benign-f3": {
+        "rows": 387,
+        "capture_revision": "0eecf8832736325a2ce5b345f8fd19ae6856d864",
+        "features_jsonl_sha256": "9f90f0bf5d8e9f8dd29cbc895d7de388f9dfa4fd06108fe9c2fa0f2e520dd308",
+        "labeled_csv_sha256": "e083d0c65757cf2e85ba5d45165ec4db6d7dd2f391d5ccf40502cab91dcb5a97"
+      },
+      "c1-credential-stuffing-f1": {
+        "rows": 4171,
+        "capture_revision": "0eecf8832736325a2ce5b345f8fd19ae6856d864",
+        "features_jsonl_sha256": "89f3ffd2a914e91e0950a85ba340efe861b0c81ad854ac79be351cff6e064059",
+        "labeled_csv_sha256": "e22b461ac294886c2ec2883e5c5284cbd1cd640b6d8ce1f303d2cb1d94c0a9dd"
+      },
+      "c1-dow-undercap-f1": {
+        "rows": 3290,
+        "capture_revision": "bf681ed9fc081db9280e2b5ccb3f93ccad1db6a8",
+        "features_jsonl_sha256": "8a5a21f4d7dd80c1423fdaca10f6155575dc1356760126c526d7b817693b2d6f",
+        "labeled_csv_sha256": "439144d2878a042fcf4c5c9675c6f9ef7650fd857b1b4a077a58e13ab4074920"
+      },
+      "c1-scraping-f1": {
+        "rows": 7000,
+        "capture_revision": "0eecf8832736325a2ce5b345f8fd19ae6856d864",
+        "features_jsonl_sha256": "9eb023e6306271ab4307d9b8bd22d2def2ac0e5e677e5127a0237abdeea0a30f",
+        "labeled_csv_sha256": "427b742559dc0ceee8f60deabb196dcd5700cbe8c5861f34897dca94351273b8"
+      }
+    }
+  },
+  "model_manifest": "ml/model_base.json",
+  "detector_evaluation": {
+    "kind": "detector_evaluation_not_combined_waf_evaluation",
+    "rows": 14848,
+    "tp": 3299,
+    "fp": 3,
+    "fn": 11162,
+    "tn": 384,
+    "precision": 0.999091459721381,
+    "recall": 0.2281308346587373,
+    "false_positive_rate": 0.007751937984496124,
+    "by_run": {
+      "c1-benign-f3": {
+        "rows": 387,
+        "tp": 0,
+        "fp": 3,
+        "fn": 0,
+        "tn": 384,
+        "precision": 0.0,
+        "recall": null,
+        "false_positive_rate": 0.007751937984496124
+      },
+      "c1-credential-stuffing-f1": {
+        "rows": 4171,
+        "tp": 3,
+        "fp": 0,
+        "fn": 4168,
+        "tn": 0,
+        "precision": 1.0,
+        "recall": 0.0007192519779429394,
+        "false_positive_rate": null
+      },
+      "c1-dow-undercap-f1": {
+        "rows": 3290,
+        "tp": 3290,
+        "fp": 0,
+        "fn": 0,
+        "tn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "false_positive_rate": null
+      },
+      "c1-scraping-f1": {
+        "rows": 7000,
+        "tp": 6,
+        "fp": 0,
+        "fn": 6994,
+        "tn": 0,
+        "precision": 1.0,
+        "recall": 0.0008571428571428571,
+        "false_positive_rate": null
+      }
+    },
+    "scoring_p50_ms": 4.286818999389652,
+    "scoring_p95_ms": 6.6369957497954575,
+    "model_sha256": "591afffd16bac2bb45a13d5bf83fda7f2e10f09315df90f2bb15dc754fc4ddad",
+    "test_sha256": "864dfce933995d5608d5d052ef3eee3ec68d01d6bd3fb1cbca17cc67e42d7c2c"
+  },
+  "runtime_development_checks": {
+    "scope": "loopback development smoke; one source, 3s attacks and 6s benign workloads",
+    "controls": {
+      "C0": {
+        "buckets": false,
+        "honeypot": false,
+        "ml": false,
+        "kernel": false
+      },
+      "C2": {
+        "buckets": true,
+        "honeypot": true,
+        "ml": false,
+        "kernel": false
+      },
+      "C3": {
+        "buckets": true,
+        "honeypot": true,
+        "ml": true,
+        "kernel": false
+      }
+    },
+    "runs": {
+      "C0-stuffing": {
+        "outcomes": {
+          "fail": 42,
+          "success": 7
+        },
+        "decision_reasons": {}
+      },
+      "C0-scraping": {
+        "outcomes": {
+          "success": 53
+        },
+        "decision_reasons": {}
+      },
+      "C0-dow-undercap": {
+        "outcomes": {
+          "success": 25
+        },
+        "decision_reasons": {},
+        "usage": {
+          "requests": "25",
+          "tokens_in": "2546",
+          "tokens_out": "22500",
+          "cost_usd": "0.345138"
+        }
+      },
+      "C0-benign": {
+        "outcomes": {
+          "success": 3
+        },
+        "decision_reasons": {}
+      },
+      "C2-stuffing": {
+        "outcomes": {
+          "fail": 5,
+          "blocked": 45
+        },
+        "decision_reasons": {
+          "allow": 5,
+          "login_ip": 4,
+          "budget": 1,
+          "banned": 40
+        }
+      },
+      "C2-scraping": {
+        "outcomes": {
+          "success": 34,
+          "blocked": 17
+        },
+        "decision_reasons": {
+          "allow": 34,
+          "ip_req": 4,
+          "budget": 1,
+          "banned": 12
+        }
+      },
+      "C2-dow-undercap": {
+        "outcomes": {
+          "success": 10,
+          "blocked": 33
+        },
+        "decision_reasons": {
+          "allow": 11,
+          "chat_req": 4,
+          "budget": 1,
+          "banned": 28
+        },
+        "usage": {
+          "requests": "10",
+          "tokens_in": "903",
+          "tokens_out": "9000",
+          "cost_usd": "0.137709"
+        }
+      },
+      "C2-benign": {
+        "outcomes": {
+          "success": 3
+        },
+        "decision_reasons": {
+          "allow": 4
+        }
+      },
+      "C3-stuffing": {
+        "outcomes": {
+          "fail": 5,
+          "blocked": 40
+        },
+        "decision_reasons": {
+          "allow": 4,
+          "anomalous_strike": 1,
+          "login_ip": 4,
+          "budget": 1,
+          "banned": 35
+        },
+        "scored_requests": 45,
+        "scoring_p95_ms": 17.25063759986368
+      },
+      "C3-scraping": {
+        "outcomes": {
+          "success": 35,
+          "blocked": 11
+        },
+        "decision_reasons": {
+          "anomalous_strike": 2,
+          "allow": 33,
+          "ip_req": 4,
+          "budget": 1,
+          "banned": 6
+        },
+        "scored_requests": 46,
+        "scoring_p95_ms": 14.500588500595768
+      },
+      "C3-dow-undercap": {
+        "outcomes": {
+          "success": 10,
+          "blocked": 21
+        },
+        "decision_reasons": {
+          "allow": 1,
+          "anomalous_strike": 10,
+          "chat_req": 4,
+          "budget": 1,
+          "banned": 16
+        },
+        "scored_requests": 32,
+        "scoring_p95_ms": 24.720565650022756,
+        "usage": {
+          "requests": "10",
+          "tokens_in": "1072",
+          "tokens_out": "9000",
+          "cost_usd": "0.138216"
+        }
+      },
+      "C3-benign": {
+        "outcomes": {
+          "success": 3
+        },
+        "decision_reasons": {
+          "allow": 3,
+          "anomalous_strike": 1
+        },
+        "scored_requests": 4,
+        "scoring_p95_ms": 20.47058119978828
+      }
+    }
+  },
+  "regression_checks": {
+    "application_tests_passed": 65,
+    "evaluation_tests_passed": 106,
+    "c0_c1_c2_http_development_checks_passed": 12
+  },
+  "runtime_status": "historical_single_call_feature_v2"
+}

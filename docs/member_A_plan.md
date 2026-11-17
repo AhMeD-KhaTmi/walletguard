@@ -1,133 +1,64 @@
 # Project 20: Member A Plan ("Attack & Kernel" track)
 
-> Execution update — 2026-11-16: follow [the coordinated master plan](MASTER_PLAN.md)
-> and [Redis Bridge schema v2](../contract/redis_schema.md) for current decisions.
-> The original plan below is background and starter examples; conflicting snippets
-> are superseded. Implement objective-specific counters, real config switching,
-> concurrent event capture, scoped sensor signals, expiring XDP map entries and
-> the calibrated HTTP-mock cross-check specified there. C0–C4 meanings and flag
-> names remain unchanged. Version 2 adds availability/correlation fields and
-> shadow decision values; update readers before claiming integration readiness.
-> A owns updates to `eval/schema.md` and evaluation code using master-plan section 7.
-> Track evidence in [the project journal](PROJECT_JOURNAL.md).
-> B also owns a demo app and read-only management dashboard. Dashboard telemetry
-> must use real signals; polling is separated from measured traffic (master plan §4).
-> Handoff update: B's C2 writer now emits the documented schema-v2 decisions and
-> ban notifications. Independent checks pass; your Locust/benign labels, actual
-> signal producer, XDP consumer and joint acceptance runs are still required.
+> Current execution plan, 2026-11-17. Follow [master plan v1.3](MASTER_PLAN.md)
+> and the [professor's feedback](masterplan_vs_professor_diff.pdf).
+> Original starter snippets below are superseded where they conflict.
+> A owns ebpf/, locust/ and eval/. B owns app/, waf/ and ml/.
 
-## Current handoff — read this before the original starter plan
+## Current handoff
 
-Updated **2026-11-16**. B's independent application work has passed **64 automated
-tests and 12 real-HTTP C0/C1/C2 developer checks**. These are not your Locust ASR
-results and do not establish any kernel integration. This section and the linked
-master plan/contracts override conflicting examples later in this document.
+- The traffic handoff and 54-run C2/C3 benchmark exist. They describe the previous
+  single-call runtime and feature version 2. Preserve them as historical evidence.
+- The chat route now runs 1–8 agent steps, default 3, with a deterministic catalogue
+  observation between calls. Each step makes a real HTTP call to the local mock
+  with connection close, growing context and exact synthetic token accounting.
+- API usage headers sum every iteration. X-Agent-Steps and the response
+  iterations explain amplification. Check [the API handoff](../contract/api_handoff.md)
+  and [OpenAPI](../contract/openapi.json) before traffic changes.
+- Current features are version 3. B completed six fresh C1 runs and 81 matched
+  C0/C2/C3 runs under the new runtime. Read the [current results](PROFESSOR_BENCHMARK_RESULTS.md)
+  and [professor update](PROFESSOR_UPDATE.md); preserve old rows and manifests.
+  Current benign FPR/bans and detector recall/scoring cost require B's independent
+  calibration and retest. These measurements do not complete IT-1–IT-6 or C4.
+- The shared harness now enables compatible C3 models, records their hashes,
+  propagates client timeouts, rejects failed workers, and saves app timing snapshots.
 
-### What B has ready for you
+## A's tasks and acceptance
 
-- One FastAPI target with `/login`, `/logout`, `/products`, `/chat`, usage metrics,
-  dependency health, demo UI and restricted management dashboard.
-- A separate **local HTTP mock LLM** on port 8001, called by the API on port 8000.
-  The in-process-only mock design has been replaced before final baseline runs.
-- C2 request/login/account/token budgets, reserve/refund, honeypot/strikes/bans,
-  schema-v2 decisions and bounded Redis-outage handling.
-- C1 complete observation with separate shadow state and `would_*` decisions.
-- Base-model export/training/evaluation tooling. **No production model exists:**
-  your realistic multi-IP benign traffic and labels are needed first.
+- [ ] Record Ubuntu 22.04/24.04, kernel >=5.15, BTF and BCC interpreter/tooling.
+  Use scripts/check_environment.py. Passing that check does not load an eBPF program.
+- [ ] Capture app-scoped connect and execve as the initial syscall set.
+  Attribute outbound connections to API-to-mock port 8001, including loopback,
+  and unexpected process execution to the target process/cgroup. Measure accepted
+  connections, SYNs, failures and bytes independently.
+- [ ] Validate agent amplification by varying agent_steps and input length.
+  Record the selected steps, per-iteration tokens, total tokens, cost and actual
+  backend calls. Use only synthetic local data and fixed run seeds.
+- [ ] Supply real schema-v2 signals with TTLs, timestamps and availability flags.
+  Test freshness and missing signals jointly with B before C4.
+- [ ] Attempt native XDP, then generic/skb. If XDP is unusable, document and test
+  tc/nftables enforcement using the same Redis bans, or the allowed WAF fallback
+  with the sensor. Record backend, interface, attach mode, fallback reason and
+  what was actually blocked. Kernel drop claims require measured kernel drops.
+- [ ] Preserve remaining Redis TTL, expiry when the agent dies, dynamic allowlist
+  handling, missed-pubsub reconciliation and per-IP enforcement telemetry.
+- [x] B ran the current matched C0/C2/C3 campaign using A's workloads and updated
+  harness on the Linux VM: 81 valid runs at clean source revision aa51185.
+- [ ] After B's calibration and the kernel handoff, run the final matched C0–C4
+  campaign with three repetitions, fixed seeds,
+  identical agent/tokenizer/latency settings and real namespace source addresses.
+  Keep setup and measured traffic separate.
+- [ ] Report ASR and token/cost outcomes per attack. Join B's benign FPR, p50/p95
+  latency and finalized WAF timing. Report p50/p95 differences against matched C0.
+- [ ] Complete IT-1–IT-6 with B, plus slides 2, 3, 4, 7, 9, 12, 13 and 15,
+  shared slides 8/17, two rehearsals and the backup demo.
 
-### Deliver these first — do not wait for XDP
+## Next integration point
 
-1. Three runnable Locust scenarios plus a synthetic credential dataset and fixed
-   seeds. Pass the API target explicitly with `--host`; validate imports from the
-   repository root rather than assuming the local `locust/` folder is importable
-   as part of the installed package.
-2. A realistic benign generator from multiple **actual source IPv4 addresses**.
-   Record distinct management/benign/attacker addresses and separate account pools.
-   Neither measured benign nor attacker addresses belong on the allowlist.
-3. Multiple independent, uniquely named traffic runs for training, calibration and
-   testing. Supply a JSON label mapping `run_id -> IP -> benign/attack`, along with
-   account roles, dataset hashes, seeds, rates, duration and concurrency. Set
-   `P20_RUN_ID` on the API for each collection run. B's tools reject unknown labels
-   for training and overlapping test/training run IDs.
-4. Client-side per-attempt objective logs and baseline results. Keep setup logins
-   separate from malicious `/chat` attempts; record timeouts/errors and unknown
-   generation outcomes. Do not save bearer sessions, passwords or raw prompts in
-   shared evidence.
-
-This first handoff lets B validate C2 against your attacks and train the base
-detector while you finish the sensor/XDP layer.
-
-### Required corrections to your evaluation design
-
-- **ASR is objective-specific**, not Locust's generic success/failure count:
-  valid login token, requested product data, or accounted malicious generation.
-  Track unique compromised accounts/products and actual tokens/simulated cost too.
-- Restart/reconfigure the API for each config and verify `/health` and effective
-  flags. Merely looping over C0–C4 names does not switch defenses. C3 requires a
-  compatible real model; **C4 currently rejects startup as integration pending**.
-  Do not try a final C3/C4 run until the corresponding B handoff is ready.
-- Define result rows by `(run_id, config, workload, repetition)`; use these keys
-  for joining both members' measurements, not just `config`.
-- Use labels for benign FPR. `would_*` is hypothetical detection, not actual
-  denial. Client records provide denominators in C0 and for XDP timeouts, because
-  those requests cannot all appear in the WAF decision stream.
-- Capture Redis ban, map insertion and first attributable per-IP XDP drop **while
-  traffic runs**. Use actual source IPs and UTC timestamps; missing events are
-  null/status values, not zero. Separate each timing endpoint.
-- Read actual `llm_tokens_charged` separately from reserved/refunded tokens.
-  `latency_ms` is WAF overhead, never end-to-end latency. Full finalized timings
-  are available through restricted `/dashboard/evidence` before process shutdown.
-- Reset/restart Redis runtime keys, local histories and owned kernel state in a
-  coordinated procedure; preserve the allowlist/schema. B's reset helper clears
-  Redis state only, and does not stop/reset your agent or XDP map.
-- Test both oversized-output DoW and repeated **under-cap** chat. Authenticate
-  measured chat clients during a labeled setup phase so a login limit does not
-  accidentally replace the token-budget experiment. Add explicit honeypot and
-  connection-churn probes; ordinary scraping does not guarantee either event.
-
-### Required corrections to the kernel design
-
-- Implement [Redis schema v2](../contract/redis_schema.md), including signal
-  `available_fields` and correlation metadata. `conn_rate_10s` retains its name
-  but means accepted connections in the rolling 10s window, not requests/sec.
-  Measure SYNs/failures/bytes independently; placeholders are not measurements.
-- Check actual kernel function signatures/return values and source attribution
-  against the target VM and official tooling docs. Scope connections to the API
-  and exec events to the app process/cgroup. The snippets below are unvalidated
-  examples, not a completed sensor.
-- Observe API-to-mock port 8001 traffic, including loopback when deployed locally.
-  Keep attacker-facing XDP on the verified ingress interface, not loopback. HTTP
-  keep-alive means request rate and connection count need separate experiments.
-- For IT-3, measure directional TCP payload traffic and calibrate protocol/JSON
-  overhead against mock input/output usage. **Bytes do not equal tokens or money.**
-  Validate on separate traffic before applying the planned tolerance.
-- Read remaining Redis PTTL when populating the map. Store an expiry checked by
-  XDP itself, so bans expire even if your agent dies. Do not restart a full ban TTL
-  on every resync. Reconcile at startup, on events and every 2s; remove newly
-  allowlisted IPs as well as deleted/expired bans.
-- Implement per-IP drop/event telemetry, safe counters and cleanup of your owned
-  attachment. Explicitly select/check and report the actual XDP interface/mode;
-  do not assume the starter flags imply generic/SKB mode or universal support.
-- Keep the WAF as normal ban decision-maker; optional kernel hard-threshold bans
-  use `ebpf_conn_flood` with the same JSON/TTL/allowlist rules. Jointly test agent
-  loss, Redis loss, expiry and recovery before asserting IT-1–6 pass.
-
-### Files to receive with this plan
-
-- [Master plan](MASTER_PLAN.md) — current design and acceptance gates.
-- [API handoff](../contract/api_handoff.md) and [OpenAPI](../contract/openapi.json).
-- [Redis schema v2](../contract/redis_schema.md) — exact keys, units, TTLs and fields.
-- [README](../README.md) — current startup/reset/test instructions.
-- [Independent status](evidence/independent_status.json) — implemented versus pending.
-
-Use the shared repository or send these files together with their relative folder
-structure. Sending only this Markdown file omits the contracts it depends on.
-For namespace traffic, B's API must bind to `0.0.0.0` on the isolated VM; the local
-demo launcher binds loopback and is for local preview. Always keep
-`--no-proxy-headers` on the target. Keep the HTTP mock on loopback. Pause dashboard
-polling during measured runs. No teammate implementation was changed by this update.
-
----
+Deliver the tested sensor and selected enforcement backend with launch commands,
+readiness evidence, Redis signal samples, expiry/allowlist tests and per-IP drop
+records. B will consume the real signals, collect augmented C1 data, train the
+augmented model and enable C4. The current API rejects unfinished C4 readiness.
 
 ## Original plan and starter examples — reference only where not superseded
 

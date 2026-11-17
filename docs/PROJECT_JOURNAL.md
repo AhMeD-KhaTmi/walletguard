@@ -1,10 +1,13 @@
 # Project 20 — review and work journal
 
-Last updated: 2026-11-16 (Africa/Lagos).
+Last updated: 2026-11-17 (Africa/Lagos).
 
 Latest implementation snapshot: independent C0/C1/C2 checks pass; **64 automated
-tests and 12 real-HTTP development checks**. Base ML tooling is tested, but no
-production model or realistic detector metrics exist yet. No A/kernel integration.
+tests and 12 real-HTTP development checks**. Member A delivered the measured traffic
+set on 2026-11-17 (57 runs at one revision, 94 eval tests after the evidence fixes) -
+see the entries of that date. Base ML tooling is tested, but no production model or
+realistic detector metrics exist yet, and no C1 feature file has been exported from a
+run that used the new archive step. No A/kernel integration.
 See [current status](evidence/independent_status.json) and the latest work entry.
 
 Current execution authority: `MASTER_PLAN.md` and `../contract/redis_schema.md`.
@@ -860,6 +863,402 @@ Next action: A reads the guide after cloning and submits the first traffic/data 
 
 Publication: include README and journal in a documentation-only GitHub update,
 checking the remote head and resulting tree before synchronizing local main.
+### 2026-11-17 — Member A: gated DoW, §7.3 columns and grid tooling
+
+Member A's track (`member-a/traffic-handoff`). `app/`, `waf/`, `ml/`, `contract/`
+and `ebpf/` were not modified. Every traffic check ran on the p20 VM
+(`172.25.235.250`, Ubuntu 24.04, Python 3.12.3, 4 cores); no traffic was run by the
+assistant.
+
+Delivered for MASTER_PLAN §7.1/§7.2/§7.3/§8:
+
+- Gated DoW (`setup → reset → measure`): users log in once with `phase="setup"`, the
+  harness waits for one marker file per user, clears runtime policy state with
+  `scripts/reset_state.py --keep-sessions`, then opens the measured window. The gate
+  uses files in the run directory, not Redis, because workload processes run inside
+  `ip netns exec` and a network namespace has its own loopback.
+- §7.3 column contract: provenance (`code_revision`, `policy_hash`), `app_cpu_pct`/
+  `app_rss_mb` from a `/proc` sampler, `bans.json` archive with
+  `time_to_redis_ban_ms`, `waf_overhead_ms_mean`, and unavailable-not-zero semantics
+  for kernel/model fields.
+- `mixed` and `combined` workloads with per-role identities and role labels; ASR for
+  those rows is an aggregate and per-attack ASR comes from the separated workloads.
+- Three repetitions with rotated order (`eval/run_grid.sh`), plus median/range
+  summary output; a failed run is reported and re-run, never averaged in.
+
+Checks and observed results:
+
+- `.venv/bin/python -m pytest eval/tests -q` → **77 passed** (VM).
+- Gated DoW smoke, C0, 30 s requested: 3 setup logins, 1231 measured attempts,
+  `duration_s` 33.14, `wall_duration_s` 34.57, 0 bans, 0 non-zero exits,
+  `invalid false`, `gate.json` `{"measured": true}`, 3 markers.
+- C2 honeypot smoke, 20 s: 20 decisions archived, exactly one ban
+  (`10.20.0.25`, `honeypot`, ttl 600), `time_to_redis_ban_ms` **2 ms**,
+  `time_to_ban_ms` **5030 ms** (bounded by the client's 1 s probe cadence),
+  `measured_attempts` 16 excluding the `phase="followup"` probes, 0 non-zero exits.
+- Aggregating 13 development runs at `7849f3b` (dev evidence only, parked outside the
+  repository in `~/p20-runs-dev`) gave C0 → C2 ASR: stuffing 0.1002 → 0.0,
+  DoW over-cap 0.9667 → 0.0, scraping 0.9997 → 0.0081, benign FPR 0.0 in both
+  configs. `app_cpu_pct` and `time_to_redis_ban_ms` were empty there, as they should
+  be: those runs predate the sampler and `bans.json`.
+
+Five defects in this tooling were found by the smoke runs and fixed before any
+measured set was produced:
+
+1. Locust discovered the `GatedUser` base class as a runnable user (no tasks) and
+   wrote 3 × 323 MB of traceback with zero attempts; `abstract` must be declared on
+   the subclass itself. Guard test added.
+2. `deadline` existed only after `on_start` armed it, but a gated user's setup login
+   also calls `send()`; the setup phase died with `AttributeError`.
+3. The gate first used Redis at `127.0.0.1` from inside the namespaces, where nothing
+   listens; replaced by the run-directory file handshake.
+4. The setup-login count shadowed the config-flags dict in `run()`, crashing after
+   traffic and losing the manifest; both renamed.
+5. `time_to_ban_ms` was computed over `phase="measured"` while the real follow-up
+   probes are `phase="followup"`, so it could never be produced; the unit-test fixture
+   had the wrong phase and hid it. Also, the CSV dropped the manifest's `dirty` flag,
+   so an uncommitted tree was stamped as a clean commit; it now ends in `-dirty`.
+
+Open questions for Member B (not modified here):
+
+- C2 scraping stopped at exactly 90 successes = 3 IPs × the `ip_req` capacity of 30,
+  while capacity 30 + 2/s over 45 s implies ≈120 per IP. Either the bucket refill in
+  `waf/buckets.py` does not accrue as configured, or successes are only attributed to
+  the initial burst. Must be explained or reported, not smoothed over.
+- C2 stuffing reached exactly ASR 0.0 with 200/2000 valid credentials. The plausible
+  mechanism (the `ip_req` flood consumes the allowance before `login_ip` is charged)
+  needs confirmation from the owner of `waf/`.
+
+Limitations and next action: the 13-run aggregation is development evidence at
+`7849f3b`, single-repetition, without `bans.json` or resource samples. The final set is
+57 runs (27 C0 + 27 C2 + 3 C1 benign) at this commit, followed by `labels.py` and
+`compute_metrics.py --summary-out`; results and this journal's numbers are then
+committed separately.
+
+### 2026-11-17 — Member A: measured C0/C2/C1 set (57 runs at `71f24b9`)
+
+Scope: `member-a/traffic-handoff`. `app/`, `waf/`, `ml/`, `contract/` and `ebpf/` were
+not modified. All traffic ran on the p20 VM (Ubuntu 24.04, Python 3.12.3, 4 cores,
+`172.25.235.250`); no measurement was produced on Windows.
+
+Provenance (checked from the manifests, not asserted):
+
+```
+manifests: 57
+revisions: Counter({('71f24b9', False): 57})
+configs:   Counter({'C0': 27, 'C2': 27, 'C1': 3})
+dirty or wrong: 0
+```
+
+27 runs per config = 9 workloads × 3 repetitions with the execution order rotated per
+repetition; 3 C1 benign runs are the observe-mode collection. Grids exited `0`:
+`grid finished: 0 failed run(s)` and `exit=0` for both C0 and C2. The rows below were
+aggregated by the tooling committed with this entry from runs whose manifests record
+`71f24b9`; `eval/runs/` stays on the VM (gitignored), the derived files are in `eval/`.
+
+Median of the three valid repetitions (C0 → C2):
+
+| workload | attempts C0 → C2 | successes C0 → C2 | ASR C0 → C2 |
+|---|---|---|---|
+| scraping | 10 754 → 10 695 | 10 752 → **90** | 0.9998 → **0.0084** |
+| credential stuffing | 4 751 → 4 694 | 471 → **0** (0, 0, 1) | 0.0991 → **0.0** |
+| DoW over-cap | 90 → 4 901 | 90 → **0** | 1.0 → **0.0** |
+| DoW under-cap | 1 811 → 4 814 | 1 811 → **10** | 1.0 → **0.0021** |
+| combined | 18 431 → 21 895 | 13 850 → 100 | 0.7462 → 0.0046 |
+| mixed | 35 581 → 42 910 | 26 652 → 103 | 0.7443 → 0.0024 |
+| benign (FPR) | — | 0 denials both configs | 0.0 → 0.0 |
+
+Benign impact and cost, same medians:
+
+| metric | C0 | C2 |
+|---|---|---|
+| benign p50 / p95 | 4.755 / 32.662 ms | 7.073 / 35.294 ms |
+| WAF overhead mean | WAF off | 3.168 ms (C1 observe: 4.196 ms) |
+| combined tokens_out | 1 644 300 | 9 000 |
+| combined simulated cost | $25.18 | $0.138 |
+| app CPU, benign | 1.35 % | 2.23 % |
+| app CPU, mixed | 29.55 % | 32.29 % |
+
+Bans archived in C2 (all three repetitions identical): 0 for `benign`; 1 for
+`honeypot` (reason `honeypot`, ttl 600); 1 for `churn`; 3 for each single attack; 9 for
+`combined` and `mixed` (one per attacker address). No `anomaly` ban exists, which is
+correct because `ml` is off in C2. Honeypot timing: `time_to_redis_ban_ms` **2 ms**
+(server side, written while handling the decoy request) versus `time_to_ban_ms`
+10 068 ms, which is the client's own probe cadence and must not be quoted as defense
+latency. Budget bans land at 228–423 ms (`combined` 228, scraping 423, stuffing 262,
+DoW under 311, DoW over 969).
+
+Findings that need an owner in `waf/` (not modified here):
+
+- C2 scraping stops at exactly **90 successes in every repetition** = 3 addresses × the
+  `ip_req` capacity 30, while capacity 30 + 2/s over 45 s implies ≈120 per address. Either
+  the refill does not accrue as configured, or successes are only counted from the
+  initial burst.
+- C2 credential stuffing is 0, 0 and 1 success over ~4 700 attempts with 200/2 000 valid
+  credentials. The plausible mechanism (the `ip_req` flood consumes the allowance before
+  `login_ip` is charged) needs confirmation; the ban reason is only `budget`, so this
+  data cannot attribute it to a specific bucket.
+- C2 under-cap DoW — designed to stay under the **token** budget — is banned after
+  exactly **10 successes in all three repetitions** (311 ms). The stop is therefore the
+  request-rate/shared budget, not token accounting; the under-cap row cannot be used to
+  claim that token budgets stopped it. C2 over-cap is clean: 0 of 4 901 succeeded.
+- `mixed` (103 successes) exceeds `combined` (100 = 90 scraping + 10 under-cap DoW). The
+  aggregate row does not attribute per attack by design; per-attack ASR must come from
+  the separated workloads.
+
+Four aggregation defects were found and fixed before this entry was written; the traffic
+was not re-run:
+
+1. `dow` was summarised as one workload, mixing under-cap (1 811 attempts at C0) with
+   over-cap (90), producing C0 medians of 935.5 attempts and 5 successes that no run ever
+   produced. `profile` is now part of the result row and of the summary grouping key.
+2. Connection churn was labelled `attack` in `labels.json` while `compute_metrics.py`
+   treated it as a non-malicious probe. Churn is now labelled `probe` and kept out of the
+   ML groups, per `MASTER_PLAN.md` 3.4/IT-2 (it exists to exercise kernel signals).
+3. The suggested split drew benign fit/calibration runs from every config, including C0
+   and C2, which write no `p20:stream:waf_features`. Splits are now restricted to C1.
+4. `harness.py` wrote the `--profile` argparse default into every manifest, so 51 of 57
+   runs carried `profile: "undercap"`. Manifests are immutable evidence, so the reader
+   (`compute_metrics.py`) now reports a profile only for `dow`, and the harness no longer
+   writes it for other workloads.
+
+Still unavailable — do not plan around it:
+
+- `p20:stream:waf_features` export. The stream is B's, and its export format should be
+  specified by its owner rather than invented here; without it there is no feature
+  matrix and no IsolationForest training.
+- C1 observe-mode **attack** runs, so detector precision/recall (`MASTER_PLAN` 6.4) is
+  not computable: `eval/splits.json` states `attack_features: "unavailable"`. The three
+  C1 benign runs give fit/calibration/held-out benign groups only.
+- Every kernel column (`time_to_map_insert_ms`, `time_to_first_xdp_drop_ms`, `agent_*`,
+  `xdp_dropped_packets`): `ebpf/` is empty. C4 cannot start, and C3 needs a trained model.
+
+`eval/schema.md` is now version 2 (adds `profile`, the DoW grouping rule, the probe label
+and the C1-only split rule); `pytest eval/tests -q` → **82 passed** on the VM.
+
+### 2026-11-17 — Member A: evidence fixes from B's review (no new traffic)
+
+Scope: `member-a/traffic-handoff`; `app/`, `waf/`, `ml/`, `contract/`, `ebpf/` untouched.
+B asked for four harness corrections, a C1 feature export, raw logs and an `llm_tok`
+denial run. This entry covers the part that needs no new traffic; the rest is listed
+below as still open.
+
+Implemented, with `pytest eval/tests -q` → **94 passed** on the VM (12 new tests):
+
+1. **A crashed or overrunning worker now invalidates the run.** `invalid_reasons()`
+   combines late traffic, a non-zero exit and a worker terminated at the deadline;
+   `manifest.invalid_reasons` names the worker, and `run_valid` follows it
+   (MASTER_PLAN 7.2.5). Previously only `late_traffic` set `invalid`, so a worker that
+   died mid-budget could still produce a "valid" row with a short denominator.
+2. **The seed actually used is recorded.** `manifest.build(seed=...)` is now passed
+   `--seed` instead of reading `P20_SEED` from the environment, which the harness only
+   exported to the child processes — a `--seed 7` run would have been stamped 42. Each
+   workload process also writes `worker-<ip>-<pid>.json` with `configured_seed` and
+   `derived_seed = seed ^ pid`, collected into `manifest.workers`.
+3. **Benign latency uses benign requests only** (MASTER_PLAN 7.3). `latency_p50/p95/p99_ms`
+   now filter `objective=false`, so `combined`, `dow`, `scraping`, stuffing and the probe
+   workloads report the latency columns as unavailable instead of publishing attack
+   latency as a benign percentile. Attack latency remains in the per-attempt JSONL.
+4. **C1 features are archived before the reset.** `snapshot_features()` copies
+   `p20:stream:waf_features` to `<run>/features.jsonl` with `rows` and `sha256` in
+   `manifest.features`. C0/C2 record `status: not_applicable`, which is not the
+   same claim as an empty export. Rows already carry the WAF's `run_id` and `ip`, so
+   they join to `labels.json` without re-deriving identities.
+
+`eval/schema.md` is now version 3 (seed provenance, benign-only latency, the invalidation
+rule, `features.jsonl`/`worker-*.json` in the run directory). No traffic was re-run: the
+three derived artifacts were regenerated from the same 57 run directories, all still
+stamped `71f24b9` and `run_valid=true`:
+
+```
+rows 57   valid {'true': 57}   configs {'C0': 27, 'C1': 3, 'C2': 27}
+latency present for ['benign', 'mixed']; unavailable for the other six workloads
+summary rows 159 (was 198; the removed rows are the three latency metrics for
+attack-only/probe groups, not changed ASR, FPR, ban or cost values)
+```
+
+Still open, and not claimed as done:
+
+- **No C1 feature file exists yet.** The archive step is new, and the three existing C1
+  runs were reset before it existed, so their features cannot be recovered. New C1
+  benign runs (three, for fit/calibration/test) plus labeled C1 attack runs are required
+  before C3.
+- **No `llm_tok` denial run exists.** The under-cap DoW is stopped by `ip_req` after
+  10 successes, so token accounting never runs; a paced run under the request-rate
+  capacity is needed, and the bucket attribution remains B's to confirm.
+- **Raw per-run logs are not shared yet.** They stay on the VM under `eval/runs/`; the
+  handoff needs a tar with a manifest, not a commit of runtime logs.
+- The 57 existing manifests have `workers: []` because they predate the per-process
+  seed record. Their derived seeds cannot be reconstructed.
+
+Limitation to keep visible: `worker-*.json` and `features.jsonl` are inside the run
+directory, so a run copied out without them loses that provenance — the manifest records
+the counts and hashes, not the rows themselves.
+
+### 2026-11-17 — Member A: paced DoW, feature-gated splits, handoff packaging (no new traffic)
+
+Scope: `member-a/traffic-handoff`; `app/`, `waf/`, `ml/`, `contract/`, `ebpf/` untouched.
+Second part of B's request, still without traffic: the three runs he needs cannot be
+produced until the harness can reach `llm_tok`, can exclude featureless runs from splits,
+and can hand over runtime evidence without committing it.
+
+Implemented, with `pytest eval/tests -q` → **99 passed** on the VM (5 new tests):
+
+1. **`llm_tok` is reachable with a paced DoW.** `locust/attack_dow.py` reads
+   `P20_DOW_PACE_S` and uses `constant(pace)` instead of `between(0, 0.05)` when it is
+   non-zero; `eval/harness.py` exposes `--dow-pace`, default `0` so the existing
+   enforcement runs are unchanged. At the default burst the attacker account spends its
+   10 `chat_req` tokens in under a second, so `ip_req`/`chat_req` throttle and
+   strike-ban before `llm_tok` accounting runs; a paced run stays inside the request-rate
+   bucket while it drains tokens.
+2. **Splits only name runs that can train.** `labels.feature_runs()` requires
+   `manifest.features.rows > 0` *and* the referenced file to exist. `suggest_splits()`
+   filters both benign and attack candidates through it, so a C1 run recorded before the
+   archive step can no longer land in fit or calibration. `attack_features` is now always
+   written — a list when C1 attack features exist, `"unavailable"` plus a detail line
+   otherwise — instead of being omitted on the successful path. `attack_runs` keeps the
+   full inventory; `test` includes only runs that carry features.
+3. **The handoff is reproducible.** `eval/package_handoff.sh` builds
+   `features/<run_id>.jsonl`, `manifests/`, `raw/<run_id>/` (attempts, decisions, bans,
+   logs), `labels.json`, `splits.json`, `results.csv`, `summary.csv` and a generated
+   `HANDOFF.md` with per-file row counts and SHA-256, then prints the archive SHA-256. It
+   exits non-zero when no run has a feature export, because such an archive cannot start
+   C3.
+4. **Manifest documentation corrected.** `manifest.build` merges `extra` at the top
+   level, so the real keys are `manifest.features`, `manifest.workers` and
+   `manifest.invalid_reasons`. `eval/README.md`, `eval/schema.md` and the previous journal
+   entry said `manifest.extra.*`; the code was already right and only the docs changed.
+
+Two of the five new tests initially failed on the VM for test-side reasons, both fixed:
+`attack_features` was only set on the unavailable path, and Locust stores
+`constant(7)`/`between(...)` as `lambda instance: ...`, so the tests must call
+`wait_time(None)` rather than `wait_time()`. `bash -n eval/package_handoff.sh` →
+`shell-ok` (bash is not installed on the Windows authoring machine, so the script is
+syntax-checked only on the VM).
+
+No artifacts were regenerated in this commit: the existing 57 runs are unchanged, and
+`splits.json` must not be rewritten until C1 runs with archived features exist — as of
+this commit it would correctly report `insufficient_benign_runs`.
+
+### 2026-11-17 — Member A: labeled feature CSVs and usage records in the handoff (no new traffic)
+
+B's checklist asks for the feature exports as **CSV** next to manifests, `labels.json` and
+`splits.json`, and for the raw records to include usage data. The archive was JSONL-only,
+so the same rows are now also rendered to CSV:
+
+- `eval/export_features.py` reads each `<run>/features.jsonl`, joins the label from
+  `labels.json` (`run_id -> ip -> benign/attack`), and writes
+  `features-csv/<run_id>.csv` with identity columns first (`stream_id`, `run_id`, `ip`,
+  `label`, `feature_version`, `ts_ms`, `method`, `route`) and then the feature columns.
+  An address absent from the labels file is written as `unknown`, matching
+  `ml/export.py`; it is never guessed benign. A run with an empty or missing export
+  produces no CSV, and the command exits non-zero when no run has features.
+- The result has every column `ml/train.py` validates (`FEATURES_BASE` plus `run_id`,
+  `label`, `feature_version`), so it can be passed to `--csv` without conversion.
+- `eval/package_handoff.sh` now runs that rendering when at least one export exists and
+  fails loudly if it cannot, and copies `usage.json` (`/_metrics/usage` before/after) and
+  `worker-*.json` (derived seeds) into `raw/<run_id>/` alongside attempts, decisions,
+  bans and logs.
+
+Three new tests cover the CSV join, the `unknown` fallback and the skip/no-export case.
+No traffic was run and no artifact was regenerated; `bash -n eval/package_handoff.sh` is
+checked on the VM because bash is not installed on the Windows authoring machine.
+
+### 2026-11-17 — reviewed Member A's traffic and evaluation handoff
+
+- Reviewed [draft PR #1](https://github.com/AhMeD-KhaTmi/walletguard/pull/1) at
+  `5895cc44a4eb02dc8b374ffaf80a350bddce9bef` in a detached checkout based on
+  `ca1375eb4879883cb6687672e1fb70e5fc89afab`. The PR adds Locust scenarios,
+  an evaluation harness, namespace setup helpers, labels and split metadata,
+  and 57 reported aggregate runs (27 C0, 3 C1, 27 C2). The eBPF track is a
+  later handoff. Local `main` stayed on its original commit.
+- Diff whitespace, Python compilation and shell syntax checks passed. The
+  detached evaluation suite passed all 82 tests with one Locust/gevent import
+  warning. All 64 existing application and contract tests passed with test
+  Redis URLs redirected to the disposable instance in the detached checkout
+  and `P20_PYTHON` pointed to the existing environment. The temporary changes
+  to the two test files were reverted. Loopback runs used the real mock LLM,
+  API and Locust workloads with `--no-netns`. Namespace and C4 verification
+  remain pending. The 57 reported runs lack their per-run artifacts in the PR,
+  so their source records could not be independently audited.
+- Short loopback scraping runs succeeded on 854 of 856 C0 attempts and 30 of
+  1,040 C2 attempts. C2 decisions recorded 30 allows, four `ip_req` throttles,
+  one `budget` ban and 1,002 subsequent `banned` blocks. The quick ban explains
+  why an abusive IP cannot keep using the bucket refill during this run. The
+  over-cap chat probe recorded 12 of 12 C0 objective successes and 0 of 502
+  in C2, where the decision stream included `max_output_exceeds_policy`.
+  Credential stuffing, using the verified synthetic seed-42 dataset, went
+  from 24 of 289 to 1 of 403. Its first C2 throttles were `login_ip`. Under-cap
+  chat went from 196 of 196 to 10 of 487, with `chat_req` throttles and a
+  `budget` ban in C2. A separate workload must elicit `llm_tok` denials to
+  demonstrate the token budget under traffic.
+- **Run validity.** `eval/harness.py` only sets `invalid` on late traffic and
+  exits zero after it logs worker failures. A fault injection made one of three
+  scraping workers exit 71. The harness returned 0 and `eval/compute_metrics.py`
+  marked the partial run valid. Require every identity to finish and contribute
+  the expected traffic before accepting a benchmark row.
+- **C1 training input.** A loopback C1 run left 15 feature rows in Redis and no
+  feature archive. The next run's reset clears `p20:stream:waf_features`. Export
+  each C1 stream before reset and share it with its run/IP labels. Preserve
+  disjoint benign fit, calibration and test runs and collect labeled C1 attack
+  features for held-out detector evaluation. C0 and C2 attack rows supply ASR
+  evidence. `eval/splits.json` records the absence of corresponding C1 features.
+- **Measurement fidelity.** The smoke runs requested seed `53` and recorded
+  `42`. Traffic RNG also incorporates the process ID. A simulated Locust read
+  timeout passed through its HTTP client and was recorded as `http_0` with
+  `unresolved=false`. The request calls do not consume the configured client
+  timeout. A gated DoW run requested for two seconds ran for roughly five due
+  to the client deadline grace. In a mixed fixture the evaluator included
+  attack traffic in benign latency (190.5 ms p95 versus 10 ms benign-only)
+  and counted a non-objective request from an attack-labeled IP as benign.
+- Next action is to request these fixes and evidence from Member A before
+  merging or using the run aggregates as final results. Review artifacts live
+  under `/tmp/walletguard-review-runs.mns1p3z0` and
+  `/tmp/walletguard-review-runs.b_jx6ujj` for this session.
+
+### 2026-11-17 — verified Member A's updated traffic handoff and C1 data
+
+- Reviewed PR #1 at `414a9a59ad577e85d5749e71cca62689d65629bb` in a detached
+  worktree. Read A's new `docs/TRAFFIC_HANDOFF_2026-11-17.md` and journal.
+  GitHub lists `traffic-handoff-20261117` as a prerelease. Its asset size and
+  GitHub-reported SHA-256 match A's handoff. The full 141 MB archive transfer
+  timed out locally. Verified the downloaded feature exports directly against
+  their manifest hashes and audited the benchmark evidence available in the
+  downloaded portion. Local `main` stayed at `ca1375e`.
+- All six C1 CSVs match their feature JSONL exports and committed run/IP
+  labels. Verified feature version, finite model inputs, disjoint groups and
+  **15,613 rows**. The three benign runs contain 364, 401 and 387 rows from five
+  IPs per run. The attack runs contain 4,171 stuffing, 7,000 scraping and
+  3,290 under-cap DoW rows. The dataset unblocks B4 base-model work.
+- Ran the existing `ml/train.py` and `ml/evaluate.py` logic on the delivered
+  data in `/tmp/walletguard-c1-verified.qbf51j4u`, with a temporary model.
+  Seed 42 selected `c1-benign-f1` for fitting and `c1-benign-f2` for calibration.
+  On 14,848 held-out rows, detector precision was 99.91%, recall 22.81%, and
+  FPR 0.78% (3 of 387 benign rows). DoW recall was 3,290 of 3,290, stuffing
+  3 of 4,171, and scraping 6 of 7,000. These are detector-only results from
+  the initial model. Preserve the held-out groups and use separate calibration
+  data for any threshold tuning. No model was installed in the project.
+- Archive metadata matched Git's labels, splits, results and summary after
+  newline normalization. Inspected all 118 manifests, including 54 clean
+  `4764f4b` runs with three repetitions per C0/C2 workload/profile. Recomputed
+  eight corrected rows from their raw records and matched the published values.
+  A's separate paced C2 probe reports 12 `llm_tok` throttles. Its committed
+  row corroborates 29 of 66 successful attempts and a first Redis ban at
+  91,642 ms. The paced probe's decision trace was outside the data audited.
+- All 106 evaluation tests and 64 application/contract regression tests passed.
+  The app tests used temporary Redis fixture URLs and `P20_PYTHON` in the review
+  worktree. C1 loopback runs recorded the requested seed `53` and archived all
+  feature rows (15 and 16). An injected worker exit 71 produced `invalid=true`
+  and the aggregator excluded it. The CLI still returned 0, which the grid uses
+  for failure counts. With Locust 2.47.0 the configured `timeout` was
+  absent from the Requests call and an injected `ReadTimeout` still became
+  `http_0` with `unresolved=false`. Gated DoW still adds three seconds to the
+  client deadline. Benign metrics select `objective=false`; the source labels
+  do not control that selection. Treat benchmark handling and timing as review
+  findings before final acceptance.
+- Next action for B is base-model work using the verified C1 files. A can fix
+  the remaining harness issues and submit the separate eBPF/XDP handoff.
+  Keep full C4 and IT-1–IT-6 verification pending.
 
 ### Template for later work entries
 
@@ -872,3 +1271,366 @@ Date and task:
 - Resolved finding IDs:
 - Remaining issues / external dependencies:
 - Next action:
+
+### 2026-11-17 — Member A: 63-run handoff checkpoint
+
+- Added six measured runs: three C1 benign, C1 stuffing, C1 scraping,
+  and C2 paced under-cap DoW. Aggregation reports 63 rows, 63 valid.
+- Five archived C1 feature exports; C1 DoW collection remains pending.
+- Paced C2 DoW: 29 successful attempts, 37 blocked, no unknown outcomes;
+  first llm_tok throttle at 56537 ms, first Redis ban at 91642 ms.
+- Fixed packaging of absent optional raw files; ignored eval/handoff/.
+- VM checks: 102 pytest tests passed; shell syntax passed; packaging
+  completed with 63 runs and five feature exports.
+- Limitations: paced and unpaced under-cap runs currently share a summary
+  group; pacing is absent from the measured run's manifest. Older C0/C2
+  runs predate the latest harness fixes. These remain open.
+- Next: collect C1 DoW, correct summary separation and finish benchmark
+  reruns before producing the final handoff. No push authorized here.
+
+### 2026-11-17 — C1 DoW received; pacing and summary comparability corrections
+
+- Fast-forwarded the Windows branch to VM checkpoint bf681ed. The seven Windows
+  working changes matched that checkpoint exactly; preserved them in a named stash.
+- User verified C1 DoW at clean bf681ed: valid, no invalid reasons, 3290 feature
+  rows, SHA-256 8a5a21f4d7dd80c1423fdaca10f6155575dc1356760126c526d7b817693b2d6f.
+  This completes collection for all three C1 attack types; final aggregation pending.
+- Harness now records effective dow_pace_s for future standalone DoW manifests.
+  Historical manifests are not edited or assigned inferred pace values.
+- Result schema v4 adds dow_pace_s. Summary grouping additionally separates code
+  revision and pacing, preventing the 0eecf88 paced probe from joining the 71f24b9
+  burst benchmark. Missing pacing stays unavailable, not zero.
+- Four regression tests added for metadata, legacy missing values, revision and
+  pacing separation. User reports 106 passed on the Linux VM.
+- Only eval/ and shared docs changed. Next: user runs eval tests on VM, commit and
+  synchronize clean revision before corrected C0/C2 benchmark reruns. No push.
+
+### 2026-11-17 — Final PR #1 data and corrected benchmark delivery
+
+- User completed 54 corrected C0/C2 runs at clean 4764f4b, three repetitions per
+  each of nine workload/profile shapes per config, with varied execution order.
+- User ran final aggregation/validation (FINAL-DATA-CHECK-OK) and verified the
+  downloaded archive SHA-256. Artifact review shows 118 result rows, 118 valid;
+  six complete labeled feature CSVs and matching JSONL exports, including C1 DoW.
+- Archive labels/splits/results/summary match the working artifacts after line
+  ending normalization. C0 intentionally has no decisions stream; C1/C2 decision
+  records and all configs' usage/bans are included. Historical provenance remains
+  unchanged, with unavailable pacing/worker metadata explicitly disclosed.
+- Delivery asset: p20-handoff-4764f4be4548-20261117T152204Z.tar.gz,
+  141492605 bytes; SHA-256
+  84d0ab8c5b6f176ecab76fbcd9e422feeeca78d0ee0183a353c90f16d35cd55f.
+- Added docs/TRAFFIC_HANDOFF_2026-11-17.md with B's requested deliverables,
+  corrected benchmark selection, token-budget evidence, limitations and next steps.
+  Current ml/train.py internally selects fit/calibration from at least two benign
+  groups; f1 alone must not be represented as a sufficient training input.
+- User authorized branch push and final archive Release upload. Publication is
+  the next action; no merge to main, no B-owned code changes, no C3/C4 claims.
+- Publication completed: delivery commit 351a0cd pushed to
+  member-a/traffic-handoff; Release traffic-handoff-20261117 published at that
+  commit with the archive and .sha256 attachment. GitHub reports the expected
+  asset size and matching SHA-256 digest. The code/data release is marked
+  prerelease, not a completed C3/C4 system release. Main was not modified.
+
+### 2026-11-17 — integrated the traffic handoff and completed the C3 base model
+
+- Fetched Member A's branch from GitHub and fast-forwarded local `main` from
+  `ca1375e` to the reviewed `414a9a5`. Preserved A's journal entries and both B
+  review entries. Continued locally in `ml/`, the demo launcher, tests and shared
+  docs. GitHub publication was outside this update.
+- Copied the six verified C1 CSVs to `ml/data/c1/` and assembled 765 benign
+  fit/calibration rows and 14,848 held-out rows. `ml/train.py` and `ml/evaluate.py`
+  now accept `--splits eval/splits.json`, enforce exact assignments and report
+  counts by run. Verified the dataset, split, trainer and model hashes before
+  saving [C3 evidence](evidence/c3_base_model.json). A second training run
+  reproduced the manifest and model binary byte for byte. The adjacent manifest
+  records dependency versions, feature units, the checked-out revision and the
+  exact trainer source hash for the local edits.
+- Trained 100 IsolationForest trees with seed 42 using `c1-benign-f1` and froze
+  the 0.5th percentile threshold (`-0.6766539020512408`) on `c1-benign-f2`.
+  On the separate held-out groups, precision was **99.91%** (3,299/3,302), recall
+  **22.81%** (3,299/14,461) and benign detector FPR **0.78%** (3/387). DoW recall
+  was 3,290/3,290, stuffing 3/4,171, and scraping 6/7,000. Held-out rows were
+  used only for measurement. Any threshold tuning needs independent calibration
+  data and a fresh held-out evaluation.
+- Added `scripts/run_demo.py --mode enforce --model ml/model_base.joblib`.
+  Rapid stop/start during testing exposed a local port reuse issue. Set
+  `SO_REUSEADDR` for the reserved loopback sockets and verified consecutive
+  launches on the same pair of ports.
+- Ran 65 app/contract tests, 106 eval tests and 12 existing HTTP checks. App
+  tests and original HTTP checks ran against a separate disposable Redis with
+  fixture URLs redirected in a temporary copy. The split regression covers
+  exact grouping, overlap rejection and run-level metrics.
+- Ran A's three attack scripts and benign workload over loopback in each of
+  C0/C2/C3. Used a clean disposable Redis reset before each run, one Locust user,
+  three-second attack deadlines and six-second benign deadlines, with Locust
+  2.47.0. Explicit per-user deadlines were needed after Locust's process shutdown
+  stalled in a trial. C3 exposed real anomaly scores, logged ten anomaly strikes
+  during the DoW run, and showed scoring timings in `/dashboard/evidence`. The
+  three measured benign requests succeeded. These short checks confirm the app
+  path and do not establish an enforcement FPR or improved attack ASR over C2.
+- B4's C3 base-model work is complete. A's pending harness corrections and
+  matched multi-IP VM repetitions remain required for final measurements. C4
+  and augmented training require A's real sensor/XDP handoff and joint IT-1–6.
+
+### 2026-11-17 — prepared the C2/C3 benchmark up to Member A's handoff
+
+- Confirmed the remote traffic PR remains at `414a9a5`. Its CLI still rejects
+  C3, and the worker exit-status, effective HTTP timeout and measured-window
+  findings above remain open. Kept the frozen model, threshold and held-out
+  split; SHA-256 of the model remains
+  `591afffd16bac2bb45a13d5bf83fda7f2e10f09315df90f2bb15dc754fc4ddad`.
+- Added `scripts/summarize_app_run.py`. It joins measured client requests to
+  final timings by request ID, uses the run's source-IP labels for benign
+  enforcement metrics, and reports coverage, benign latency, WAF overhead and
+  scoring latency. It rejects marked-invalid runs, timing retention loss and
+  unjoinable HTTP responses. TCP-only probes do not count as missing app timing.
+- Added `WAF_TELEMETRY_LIMIT`, preserving the existing 10,000-row default and
+  allowing a larger bounded buffer on both benchmark configurations. The
+  [benchmark handoff](C3_BENCHMARK_HANDOFF.md) records the model fingerprint,
+  required harness changes, matched run order, and how to capture and join
+  the app snapshot while the API is still up.
+- Ran three paired mixed-traffic rehearsals over real HTTP against disposable
+  Redis. Each run used five distinct loopback source IPs, 83 measured requests,
+  separate login setup and matched request counts. Confirmed all 498 measured
+  HTTP requests joined to finalized app timings and that Redis saw the actual
+  client source IPs. C2 and C3 each denied 0 of 54 benign requests. These
+  fixed-count rehearsals verify the pipeline. The matched Linux namespace run
+  is the benchmark. Summaries are in [C3 rehearsal evidence](evidence/c3_benchmark_rehearsal.json).
+  Raw local records are under `/tmp/walletguard-c3-rehearsal.qq0b84_k`.
+- `pytest -q tests contract` passed 68 tests, `pytest -q eval/tests` passed
+  106 tests, and `scripts/check_application.py` passed all 12 HTTP checks.
+  The app suite and HTTP checks used temporary fixture URLs and disposable
+  Redis. Verified the handoff links, trial evidence and model hash.
+- Member B's benchmark preparation is complete. The next step needs Member A
+  to enable C3 and add the after-drain capture to the harness, resolve the
+  worker/timeout/window findings, and deliver the paired VM run artifacts.
+  The separate C4 work still awaits the real kernel handoff.
+
+### 2026-11-17 — added the shared team checklist
+
+- Added [TEAM_CHECKLIST.md](TEAM_CHECKLIST.md) with current status, owners,
+  and the two points where A and B need to combine their work for C2/C3 and C4.
+- Checked the checklist against the two member plans and the master plan,
+  including integration order and slide ownership. Verified the local links.
+
+### 2026-11-17 — verified C3 can run on this VM without kernel handoff
+
+- Host `sudo -n` requires a password. A private user, network and mount
+  namespace created all 15 client namespaces with `scripts/make_netns.sh` and
+  verified their addresses with `eval/netns.py check`. `/run/netns` was mounted
+  on a private tmpfs and the host network was outside the experiment.
+- Used the existing harness in a disposable Python process with the old C3
+  availability guard bypassed for the smoke run. Captured `/dashboard/evidence`
+  before teardown. Application readiness confirmed C3 with the frozen model,
+  and all eight measured benign requests from five declared client namespaces
+  joined to app timing records. No requests were denied. Raw smoke evidence is
+  in `/tmp/walletguard-rootless-c3.zbAGyR`.
+- The C2/C3 grid can run independently of A's kernel work on this VM. The shared
+  harness still needs the durable C3, failure, timeout and timing-capture changes
+  before a full matched run. The smoke did not edit A-owned files or complete a
+  benchmark checklist item.
+
+### 2026-11-17 — started the full C2/C3 benchmark in an isolated checkout
+
+- User authorized completing the harness fixes and matched runs. Created local
+  branch `codex/c3-benchmark` at `/tmp/walletguard-c3-grid` and committed the
+  benchmark source as `193bddcc9f9d97e76f663c9bf34016ceed7a095f`. Main retains
+  its independent app changes. The benchmark uses the frozen C3 model hash
+  `591afffd16bac2bb45a13d5bf83fda7f2e10f09315df90f2bb15dc754fc4ddad`.
+- Harness changes include model loading and hashing, nonzero exit for invalid
+  runs, effective Locust timeouts and status-zero error classification,
+  stable worker seeds, and capture of the final app timing snapshot before
+  shutdown. Gated chat now uses a shared fixed deadline. TCP-only churn
+  records represent successful connections without an HTTP response.
+- The eval and app-metrics suites passed 111 tests. Six namespace smoke runs
+  passed across C2/C3 for under-cap DoW, churn and mixed workloads. Verified
+  the same worker seeds and timeout in the paired smoke manifests and that
+  only C3 recorded a model hash. Started the full sequential grid at the
+  plan's workload durations under `eval/runs/c23-193bddc/`.
+
+### 2026-11-17 — completed the 54-run C2/C3 Linux benchmark
+
+- All 54 runs were accepted on their first attempt, with three repetitions
+  per workload/profile/config and 291,096 measured attempts. Verified the clean
+  benchmark revision `193bddc`, model hash, matched per-pair policy, namespaces,
+  durations, rate/concurrency, stable worker seeds and timeouts. Raw evidence is
+  under `eval/runs/c23-193bddc/`. Captured all HTTP responses' finalized timings;
+  minimum HTTP timing coverage was 99.92% including transport-failed attempts.
+- Archived raw evidence locally at `eval/handoff/c23-193bddc.tar.gz`, SHA-256
+  `f32b530796e8ecc19e286a60d0def303680fdcf0939c00614c9900f0563f73b7`.
+  The standalone eval suite passed 108 tests, plus the 68 application/contract
+  tests and 12 real HTTP checks above.
+- Copied the tested harness changes and runner from the isolated branch into
+  the working checkout with pre-copy checks against each file's original
+  contents. A-owned source changes are explicitly authorized by this task.
+  The branch retains the exact measured code. Full application/contract
+  regression passed 68 tests and the 12 HTTP checks passed. Eval/app-metrics
+  regression passed 111 tests. A failed-worker injection verified both the
+  nonzero CLI result and `exit:ns9:71` in the invalid manifest.
+- Saved [per-run CSV](evidence/c23/results.csv),
+  [median/range CSV](evidence/c23/summary.csv),
+  [validated metadata](evidence/c23_benchmark.json) and
+  [interpretation/reproduction](C23_BENCHMARK_RESULTS.md). Model, threshold,
+  input features, and C1 test split remain frozen.
+- Zero benign policy denials across 1,705 C2 and 1,653 C3 requests in the
+  benign-only and mixed runs. Median benign-only p95 latency was 33.60 ms in
+  C2 and 51.65 ms in C3. Mixed benign p95 was 36.96 versus 396.01 ms. Mixed
+  finalized mean WAF overhead was 2.71 versus 132.30 ms. Median under-cap DoW
+  successes were 10 for both configs, with 9,000 output tokens in both.
+- C3 did not reduce successful abuse in the measured workloads. Closed-loop
+  clients sent fewer attempts when responses were slower, so report the
+  attempt counts and successful-request totals alongside ASR. No tuning was
+  performed after measuring the held-out data or benchmark outcomes.
+- Both checklist tasks are complete locally. The next collaboration with A is
+  review/sharing of the benchmark branch and delivery of sensor/XDP code for
+  C4. Final C0–C4 results and IT-1–IT-6 remain pending. No remote branch was
+  changed during the local benchmark.
+
+### 2026-11-17 — adopted the professor's agent and measurement requirements
+
+- Read and visually checked all four pages of the user-supplied
+  `docs/masterplan_vs_professor_diff.pdf`. Updated master plan to v1.3 and
+  replaced both members' current execution instructions. The PDF reports the
+  approval conditions and offers implementation suggestions. Optional live
+  OpenAI/Ollama compatibility remains optional.
+- Implemented a bounded simulated catalogue loop for `/chat`, default three
+  steps and strict range 1–8. Each step grows context and opens a new local
+  HTTP mock connection. Responses contain each step's usage and aggregate
+  headers. The app charges confirmed partial usage on a later failure.
+- Chose exact synthetic whitespace tokenization, version
+  `synthetic-whitespace-v1`. The common estimator entry point now counts actual
+  words in synthetic input/output. It has no provider-tokenizer equivalence.
+  Seeded configurable latency and independent mock usage counters are recorded
+  in run evidence. Whole-task WAF reservation accounts for repeated inputs,
+  all outputs and deterministic tool markers. Uncertain generation retains the
+  reservation, and known failures refund the unused balance.
+- Moved features to version 3 with agent step and task-budget fields. Old
+  models are rejected at readiness. Preserved the old binary under local
+  `ml/data/historical/` and its manifest in
+  `docs/evidence/model_base_v2_manifest.json`. Old C1/benchmark results are
+  explicitly historical. Updated OpenAPI, API/Redis docs, the demo trace, and
+  repository instructions so future work follows the professor's conditions.
+- Environment check passed Ubuntu 22.04.5, kernel 6.8.0-149-generic and BTF.
+  A's plan specifies app-scoped connect/execve and native-to-generic XDP with
+  tc/nftables/WAF fallback recorded by backend and actual evidence. Real
+  sensor/enforcement implementation remains the upcoming A handoff.
+- Collected six fresh C1 runs with 10,650 feature rows. A missing generated
+  credential file stopped the first attack capture at readiness. Generated the
+  synthetic seed-42 file, preserved the failed manifest under the collection's
+  excluded directory, and resumed after the three valid benign captures.
+  Fit/calibration each used 187 rows and the held-out set used 10,276 rows.
+  Base model precision was 66.67%, recall 0.0397%, benign detector FPR 1.047%
+  (2/191). The low recall is recorded without tuning against held-out data.
+- Application/contract tests passed 75 cases, eval tests passed 109, and all
+  12 original HTTP checks passed. Six C0/C2/C3 namespace smoke runs passed.
+  Created the clean measured snapshot `aa51185` on local branch
+  `codex/professor-agent-update` and started 81 matched C0/C2/C3 runs at the
+  existing workload durations. Current raw output is
+  `eval/runs/professor-aa51185/`. Final validation follows completion.
+
+### 2026-11-17 — finalized the professor-update campaign and current plans
+
+- Completed **81 valid runs**, 27 per configuration C0/C2/C3, over nine profiles
+  and three repetitions with seeds 42/43/44. No invalid attempts or retries.
+  Verified all 27 matched triplets have identical policy, seed, source roles,
+  timeout, duration and mock settings. All manifests identify clean measured
+  source `aa51185caa87307672e4042683a9e6ccfbbfe59d`.
+- Added `scripts/validate_professor_benchmark.py` and ran it against every raw
+  manifest and usage snapshot. Independent API/mock steps, input/output tokens
+  and cost agree in all 81 runs. Enforced-run finalized timing coverage exceeds
+  98%. This post-run validator is the only Python/script addition after the
+  measured snapshot; app/WAF/model/eval runtime source still matches it exactly.
+- Published `docs/PROFESSOR_BENCHMARK_RESULTS.md` and per-run/aggregate/validated
+  evidence under `docs/evidence/professor_benchmark/`. C0 over-cap clients time out
+  on all 45 attempts per run, while server counters prove 4.32 million output
+  tokens and simulated cost $77.79105. Its client ASR 0% is an unknown-outcome
+  lower bound, not evidence of prevention. C2/C3 generate zero tokens for that
+  profile. Kept the timeout and workload unchanged across configurations.
+- Safety targets remain **unmet**: C2 denies 40/1,702 benign requests (2.350%),
+  C3 denies 37/1,629 (2.271%); each has one benign budget auto-ban. No benign
+  errors, timeouts or unknown outcomes. C3's new model has only 0.0397% held-out
+  detector recall, and mixed-load client p95 is 645.329 ms versus C0's 96.847 ms.
+  Recorded independent budget calibration, detector investigation and fresh
+  held-out retesting as B's remaining work. No tuning used these held-out results.
+- Verified the C3 browser interface with synthetic user1: prompt `hello world`,
+  three steps and eight output tokens per step. Visible inputs were 2/19/36,
+  output 8/8/8, totals 57 input and 24 output, simulated cost $0.000531.
+  Stopped the disposable preview API/mock/Redis after inspection. An initial
+  preview approval request hit a usage-limit rejection; after the user's
+  continuation, the approved retry and browser check completed successfully.
+- Preserved current 12 HTTP checks in `docs/evidence/professor_http_checks.json`;
+  updated the professor metadata with 75 app/contract tests, 109 eval tests,
+  six namespace smoke runs and the browser result. One known Locust/gevent
+  monkeypatch warning occurred during eval tests; all cases passed.
+- Updated master plan, both current member checklists, README and simple team
+  checklist. The 81-run measurement task is checked; final security acceptance,
+  independent calibration, real sensor/enforcement and C0–C4 integration remain
+  unchecked. Original starter examples and version-2 evidence remain historical.
+- Packaged source aa51185, fresh C1 data, frozen model and all 81 raw runs in local
+  `eval/handoff/professor-agent3-aa51185.tar.gz`, 80,172,140 bytes, SHA-256
+  `96059c0be3a11ba0eb9a77a8043bb8f7bfb04b9c06efc83e3f5b90dbaa9e753a`.
+  Inventory/checksum: `docs/evidence/professor_handoff.json`. Nothing was pushed
+  or sent to A during this session.
+- Final checks: benchmark validator passes, pooled benign denominators and zero
+  benign errors/timeouts/unknowns rechecked, current plan/report local links resolve,
+  `git diff --check` passes. No source runtime changes followed the completed
+  regression suites or campaign.
+
+Next: share the prepared update with A; B can independently calibrate budgets
+and investigate detector performance. The next joint integration consumes A's
+real sensor and tested enforcement backend, followed by augmented training and
+IT-1–IT-6. Current acceptance failures must remain visible until fresh tests pass.
+
+### 2026-11-17 — prepared the parallel-work publication
+
+- The user authorized publishing the current work so A can develop in parallel.
+  Checked the remote main head before pushing; it remains `ca1375eb`. The clean
+  local review branch contains the integrated traffic work and professor update.
+- Updated `docs/MEMBER_A_AGENT_HANDOFF.md` to start from the professor-update branch
+  and proceed to kernel work. Its original first-PR instructions are now explicitly
+  historical. A reads the current professor report and team checklist before work.
+- Included the repository-generated frozen C3 model and manifest in `ml/artifacts/`
+  so a fresh clone can run C3. Verified SHA-256
+  `bb0116a167318df1749a0edf5cf5b95362ccde59f6b8580d732ed82d05722ca1` and successful
+  runtime loader validation with 19 features. Documented dependency compatibility,
+  startup commands and known detector limitations. No model retraining or runtime
+  behavior changed. Large raw datasets/campaign archives remain outside Git history.
+- Publishing on `codex/professor-agent-update` preserves remote main and lets A
+  create an independent kernel branch from the shared tested source. Push outcome
+  will be recorded after remote verification.
+
+- Terminal push could not authenticate (no GitHub username/credential available).
+  The connected GitHub app reports repository push permission. Publishing an
+  equivalent complete source tree through that app instead; preserving original
+  local commits including aa51185 in `docs/evidence/professor_source.bundle`.
+  `git bundle verify` passes, and checksum/prerequisite metadata is saved beside it.
+  This changes publication commit IDs, not the measured runtime file contents.
+
+- Automatic approval review rejected uploading the Git history bundle because it
+  could expose unreviewed historical files beyond the requested project-file push.
+  Excluded that bundle and its metadata from the publication; it remains only in
+  /tmp locally. Continuing with reviewed current files, the frozen model and
+  explicit runtime provenance. No workaround is used to publish the rejected archive.
+
+### 2026-11-17 — published the professor update for parallel work
+
+- Published reviewed current files through the connected GitHub app on
+  `codex/professor-agent-update`, initial commit
+  `f053386d3cd2e7d8076cfca4785ec08b7ca37a50`. Remote tree
+  `36d898fa9b15ab120eaea1f1c0bd503db99b21ba` exactly matches local checkpoint
+  `e99aec6`; GitHub publication commit IDs differ because app-based commits were
+  used instead of an authenticated terminal push.
+- Fetched the remote branch and verified its frozen model's SHA-256 matches
+  `bb0116a167318df1749a0edf5cf5b95362ccde59f6b8580d732ed82d05722ca1`.
+  Confirmed remote main stayed at `ca1375eb`. No force push or merge was performed.
+- Opened draft coordination PR #2:
+  https://github.com/AhMeD-KhaTmi/walletguard/pull/2 . It explicitly lists the
+  already-integrated A traffic handoff, professor changes, checks and open safety/
+  model issues. A starts a separate kernel branch from the published update and
+  reads `docs/MEMBER_A_AGENT_HANDOFF.md` first. No message was sent to A directly.
+- Checked off the sharing task. The current source, model/manifest, plans, journal
+  and summarized benchmark evidence are on GitHub. The 80 MB full raw-run package
+  stays local. The rejected history bundle was excluded from the published tree.
+- This final publication follow-up changes only the journal, checklist and
+  publication provenance. Earlier application/eval tests and the frozen campaign
+  remain applicable; no runtime source or model was changed after those checks.

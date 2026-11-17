@@ -1,0 +1,16 @@
+# Normalize line endings: shell scripts must stay LF for Linux execution, and the
+# evaluation inputs/outputs must diff cleanly across the Windows authoring copy and
+# the Linux lab VM.
+* text=auto
+*.sh text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+*.md text eol=lf
+*.csv text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.service text eol=lf
+*.jpg binary
+*.png binary
+*.pdf binary

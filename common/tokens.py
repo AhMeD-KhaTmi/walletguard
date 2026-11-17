@@ -1,3 +1,6 @@
+TOKENIZER_VERSION = "synthetic-whitespace-v1"
+
+
 def estimate_tokens(text: str) -> int:
-    """About 4 characters per token. Same function in the app and the WAF."""
-    return max(1, len(text) // 4)
+    """Exact synthetic tokens: Unicode whitespace-delimited words, empty input = 0."""
+    return len(text.split())

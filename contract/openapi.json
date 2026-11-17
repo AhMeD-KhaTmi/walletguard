@@ -240,7 +240,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Completion"
+                  "$ref": "#/components/schemas/AgentCompletion"
                 }
               }
             }
@@ -280,6 +280,66 @@
   },
   "components": {
     "schemas": {
+      "AgentCompletion": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "usage": {
+            "$ref": "#/components/schemas/Usage"
+          },
+          "iterations": {
+            "items": {
+              "$ref": "#/components/schemas/AgentStep"
+            },
+            "type": "array",
+            "title": "Iterations"
+          },
+          "agent_steps": {
+            "type": "integer",
+            "maximum": 8.0,
+            "minimum": 1.0,
+            "title": "Agent Steps"
+          },
+          "tokenizer": {
+            "type": "string",
+            "title": "Tokenizer"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text",
+          "usage",
+          "iterations",
+          "agent_steps",
+          "tokenizer"
+        ],
+        "title": "AgentCompletion"
+      },
+      "AgentStep": {
+        "properties": {
+          "iteration": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Iteration"
+          },
+          "tool": {
+            "type": "string",
+            "title": "Tool"
+          },
+          "usage": {
+            "$ref": "#/components/schemas/Usage"
+          }
+        },
+        "type": "object",
+        "required": [
+          "iteration",
+          "tool",
+          "usage"
+        ],
+        "title": "AgentStep"
+      },
       "ChatIn": {
         "properties": {
           "prompt": {
@@ -291,6 +351,13 @@
             "minimum": 1.0,
             "title": "Max Output Tokens",
             "default": 256
+          },
+          "agent_steps": {
+            "type": "integer",
+            "maximum": 8.0,
+            "minimum": 1.0,
+            "title": "Agent Steps",
+            "default": 3
           }
         },
         "type": "object",
@@ -298,23 +365,6 @@
           "prompt"
         ],
         "title": "ChatIn"
-      },
-      "Completion": {
-        "properties": {
-          "text": {
-            "type": "string",
-            "title": "Text"
-          },
-          "usage": {
-            "$ref": "#/components/schemas/Usage"
-          }
-        },
-        "type": "object",
-        "required": [
-          "text",
-          "usage"
-        ],
-        "title": "Completion"
       },
       "HTTPValidationError": {
         "properties": {
@@ -351,12 +401,11 @@
         "properties": {
           "tokens_in": {
             "type": "integer",
-            "minimum": 1.0,
+            "minimum": 0.0,
             "title": "Tokens In"
           },
           "tokens_out": {
             "type": "integer",
-            "maximum": 32000.0,
             "minimum": 1.0,
             "title": "Tokens Out"
           },

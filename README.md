@@ -42,14 +42,14 @@ are synthetic; the LLM is a local HTTP mock. All displayed costs are simulated.
 | C1 observation and C2 application defenses | Implemented and independently tested |
 | Demo application and restricted dashboard | Implemented; browser-checked on desktop/mobile |
 | Redis outage handling and conservative recovery | Implemented; includes disposable-Redis outage tests |
-| Base IsolationForest training/evaluation tooling | Tested with temporary synthetic fixtures |
-| Production models and realistic detector metrics | Awaiting labeled traffic |
-| Member A's attack/benign workloads and joint validation | Pending handoff |
+| Base IsolationForest (C3) | Uses the current agent-loop feature version and disjoint C1 run groups |
+| Held-out detector evaluation | See the current feature-version-3 model evidence |
+| C0/C2/C3 namespace benchmark | 81 valid agent-loop runs; benign FPR and detector limitations remain open |
 | eBPF sensor, XDP and C4 integration | Pending; C4 startup is explicitly blocked |
 
-The last recorded validation passed **64 automated tests** and **12 real-HTTP
-C0/C1/C2 development checks**. These are saved local results, not a live CI badge
-or final attack benchmark. See the [status manifest](docs/evidence/independent_status.json).
+The latest local C3 evidence includes model provenance, per-run detector results,
+and C0/C2/C3 HTTP smoke runs with Member A's attacks. Earlier application evidence
+remains available in the [status manifest](docs/evidence/independent_status.json).
 
 ## Preview
 
@@ -159,7 +159,7 @@ forwarded headers must not replace the true source IP. Use one Uvicorn worker.
 | **C0** | Vulnerable baseline; `WAF_MODE=off` | Available |
 | **C1** | Observe only; `WAF_MODE=observe WAF_ML=0` | Available |
 | **C2** | Enforce buckets + honeypot; ML off | Available |
-| **C3** | C2 + base IsolationForest | Requires a compatible trained model |
+| **C3** | C2 + base IsolationForest | Available locally with the trained model |
 | **C4** | C3 + kernel signals, augmented model and XDP | Integration pending |
 
 For C2–C4, keep `WAF_BUCKETS=1 WAF_HONEYPOT=1`; C3 adds `WAF_ML=1`, and C4 adds
@@ -187,6 +187,9 @@ Redis process. HTTP developer probes own their API/mock processes and clean up a
 | [12 HTTP checks](docs/evidence/application_http_checks.json) | Real HTTP C0/C1/C2 development scenarios |
 | [C2 process evidence](docs/evidence/c2_local_evidence.json) | Bounded local timing/outage records |
 | [Status + source hashes](docs/evidence/independent_status.json) | Provenance and pending dependencies |
+| [C3 base-model evidence](docs/evidence/c3_base_model.json) | Historical version-2 dataset hashes and detector results |
+| [C2/C3 benchmark](docs/C23_BENCHMARK_RESULTS.md) | 54 matched namespace runs, attack outcomes, benign latency and scoring overhead |
+| [Current agent benchmark](docs/PROFESSOR_BENCHMARK_RESULTS.md) | 81 matched C0/C2/C3 runs, exact token evidence, baseline latency differences and open acceptance issues |
 
 These checks do not replace A's Locust workloads, realistic benign false-positive
 evaluation, joint IT-1–6 or final repeated ASR/latency/resource measurements.
@@ -206,23 +209,45 @@ state while an experiment is running. Pause dashboard polling during benchmarks.
 
 ## ML workflow
 
-Real labeled traffic is the next prerequisite. Collect multiple C1 runs with distinct
-`P20_RUN_ID` values, actual client IPs and a label mapping of run ID → IP → role.
+Current training uses freshly collected feature-version-3 agent traffic, with
+separate fitting, calibration and held-out runs. The earlier traffic handoff
+contains version-2 single-call data and is preserved for historical comparison.
+The [professor update](docs/PROFESSOR_UPDATE.md) records the changed runtime.
+The [81-run benchmark](docs/PROFESSOR_BENCHMARK_RESULTS.md) records its measured
+behavior. Current benign enforcement FPR is 2.350% in C2 and 2.271% in C3;
+budget calibration and detector improvements remain open before final acceptance.
+
+After collecting the current C1 data, the training inputs are local generated files:
 
 ```bash
-.venv/bin/python ml/export.py --labels ml/data/labels.json --output ml/data/all.csv
-.venv/bin/python ml/train.py --set base --csv ml/data/benign.csv --output ml/model_base.joblib
-.venv/bin/python ml/evaluate.py --model ml/model_base.joblib --csv ml/data/test.csv --output ml/model_base_evaluation.json
+.venv/bin/python ml/train.py --csv ml/data/professor-agent3/benign.csv \
+  --splits ml/data/professor-agent3/splits.json
+.venv/bin/python ml/evaluate.py --model ml/model_base.joblib \
+  --csv ml/data/professor-agent3/test.csv --splits ml/data/professor-agent3/splits.json \
+  --output ml/data/professor-agent3/evaluation.json
 ```
 
-Those dataset paths are inputs to prepare, not included production datasets. Use
-benign-only fitting/calibration groups and a separate labeled test set; overlapping
-run IDs are rejected. Required fields include the feature columns, `feature_version=2`,
-`run_id` and `label`. Preserve manifests and exclude invalid/truncated collection samples.
+Start the C3 demo with Redis reachable:
 
-Artifacts record feature order, threshold, seed, dataset hashes and sklearn version.
-Load only trusted local joblib files. No production detector accuracy is claimed;
-`--set ebpf` remains unavailable until real sensor integration.
+```bash
+.venv/bin/python scripts/run_demo.py --mode enforce --model ml/model_base.joblib
+```
+
+Open the app at `http://127.0.0.1:8000/` and the management dashboard at
+`http://127.0.0.1:8000/dashboard`. The model manifest records feature order and
+units, threshold, seed, dataset and split hashes, dependency versions and source
+provenance. The model binary and input CSVs are generated locally. Use the
+[professor update](docs/PROFESSOR_UPDATE.md) for current per-run detector results and
+keep the held-out set separate from any future tuning. The augmented model awaits
+real sensor data.
+
+For a fresh clone, the frozen comparison model is also included under
+[`ml/artifacts/`](ml/artifacts/README.md), with its manifest and SHA-256. Start C3
+with `--model ml/artifacts/model_base_agent_v3.joblib`. Its recorded scikit-learn
+version must match; preserve this binary while calibrating candidate models.
+
+The [earlier C2/C3 results](docs/C23_BENCHMARK_RESULTS.md) describe the single-call runtime. The [benchmark handoff](docs/C3_BENCHMARK_HANDOFF.md) records how application
+timings are captured and summarized.
 
 <details>
 <summary><strong>Operational boundaries and failure behavior</strong></summary>

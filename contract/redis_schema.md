@@ -1,5 +1,14 @@
 # Redis Bridge — operational schema version 2
 
+Agent/runtime revision, 2026-11-17. Key names, ban shapes and TTLs stay at
+operational schema v2. Feature payloads now declare `feature_version=3`, adding
+`agent_steps` and `task_token_budget`. Models and CSVs must match that version.
+Decision records add optional `tokenizer` and `agent_steps_completed` fields.
+`llm_tokens_charged` aggregates every confirmed agent step and is a lower bound
+when accounting is marked uncertain. Private usage hashes add `agent_steps`.
+Each client `/chat` with confirmed usage increments `requests` once, including
+a task that fails after some completed steps. Mock usage counts backend calls.
+
 Operational target, 2026-11-16. The WAF decision writer is implemented and tested
 independently; the kernel side and joint contract acceptance remain pending.
 See `../docs/MASTER_PLAN.md` for policy and experiment definitions.

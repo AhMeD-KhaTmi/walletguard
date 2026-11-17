@@ -10,13 +10,15 @@ from collections import Counter, OrderedDict, deque
 from redis.exceptions import RedisError
 
 from common.tokens import estimate_tokens
+from common.agent import DEFAULT_AGENT_STEPS, MAX_AGENT_STEPS, reserve_tokens
 
-FEATURE_VERSION = 2
+FEATURE_VERSION = 3
 FEATURES_BASE = [
     "is_chat", "is_login", "is_products", "is_other", "body_size",
     "prompt_tokens", "max_out_tokens", "prompt_entropy", "has_ua",
     "has_accept_lang", "req_10s", "req_60s", "distinct_paths_60s",
     "fail_ratio_60s", "mean_gap_s", "std_gap_s", "window_saturated",
+    "agent_steps", "task_token_budget",
 ]
 FEATURES_EBPF = FEATURES_BASE + ["ebpf_conn_rate_10s", "ebpf_egress_bytes_60s", "ebpf_ip_available", "ebpf_host_available"]
 RECORD_LUA = """
@@ -71,6 +73,8 @@ class FeatureStore:
         prompt = prompt if isinstance(prompt, str) else ""
         output = body.get("max_output_tokens", 256 if path == "/chat" else 0)
         output = output if type(output) is int and output >= 0 else 0
+        steps = body.get("agent_steps", DEFAULT_AGENT_STEPS) if path == "/chat" else 0
+        steps = min(steps, MAX_AGENT_STEPS + 1) if type(steps) is int and steps > 0 else 0
         return {
             "is_chat": int(path == "/chat"), "is_login": int(path == "/login"),
             "is_products": int(path == "/products"),
@@ -85,5 +89,7 @@ class FeatureStore:
             "mean_gap_s": statistics.mean(gaps) if gaps else 60.0,
             "std_gap_s": statistics.pstdev(gaps) if len(gaps) > 1 else 0.0,
             "window_saturated": int(len(events) >= self.cfg.max_events),
+            "agent_steps": steps,
+            "task_token_budget": reserve_tokens(prompt, output, steps) if steps else 0,
             "history_source": source,
         }

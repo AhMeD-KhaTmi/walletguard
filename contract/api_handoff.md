@@ -1,5 +1,26 @@
 # API handoff — Member B to Member A
 
+Updated 2026-11-17 for master plan v1.3 and the professor's conditions.
+`POST /chat` accepts `agent_steps` (strict integer, 1–8, default 3) in addition
+to prompt and per-step `max_output_tokens`. It simulates catalogue lookups,
+grows context, and makes one new local mock HTTP connection per step. Response
+`iterations` contains each step's exact usage, and `usage` sums all completed
+steps. `text` is the last completion. `X-Agent-Steps` and `X-Tokenizer` expose
+the step count and tokenizer identity. Counters include completed `agent_steps`.
+
+`synthetic-whitespace-v1` counts Unicode whitespace-delimited words exactly,
+including zero for empty input. Generated words match output counts. Mock latency
+is deterministic and configurable through `MOCK_TOKENS_PER_S`, `MOCK_BASE_MS`,
+`MOCK_JITTER_MS`, `MOCK_DELAY_CAP_S` and `MOCK_SEED`. Record the mock health
+configuration in every run. `/_metrics/usage` on the mock supplies independent
+call/token totals for cross-checks. Real-provider compatibility is optional.
+
+WAF reservation covers all repeated inputs, outputs and tool markers before
+any agent call. If later steps fail, counters retain confirmed earlier usage.
+Timeouts leave the remaining generation uncertain and keep the reservation.
+Features are version 3. Use freshly collected C1 data and matching models.
+The earlier single-call data and benchmarks are retained as historical evidence.
+
 Independent application handoff, 2026-11-16. See `../README.md` for launch/reset steps
 and `../docs/MASTER_PLAN.md` for experiment rules. `openapi.json` is exported from
 the current baseline app. It does not certify completed WAF or kernel integration.
@@ -9,7 +30,7 @@ the current baseline app. It does not certify completed WAF or kernel integratio
 | `POST /login` | JSON username/password; returns `token`; unknown user and wrong password both 401 with deliberately distinct messages |
 | `POST /logout` | Bearer session; deletes the server session; idempotent with an already-expired token |
 | `GET /products?page=1&per_page=100` | 5,000 synthetic products; per_page capped at 100; no C0 request throttle |
-| `POST /chat` | Bearer session plus JSON prompt/max_output_tokens; calls the HTTP mock; returns text and usage |
+| `POST /chat` | Bearer session plus prompt/max_output_tokens/agent_steps; repeated mock calls; returns text, total usage and iteration trace |
 | `GET /_metrics/usage` | Redis total requests, tokens_in, tokens_out, cost_usd; empty object before use; numbers are Redis strings |
 | `GET /health` | 200 when Redis and mock respond; 503 otherwise; reports mode and simulated-cost label |
 | `GET /openapi.json`, `/docs` | Machine contract and interactive docs |
@@ -23,8 +44,8 @@ Never use real credentials. Tokens are random and must not enter logs/artifacts.
 
 `max_output_tokens` defaults to 256 and must be a positive JSON integer (not bool,
 float or string). The baseline mock generates at most 32,000 output tokens per
-call, with no per-user token budget. The hardened output cap is a WAF policy,
-not a different API/backend. Token estimation uses `common/tokens.py`.
+call, with no per-user token budget in C0. The hardened output cap applies per
+step in the same API/backend. Exact synthetic counting uses `common/tokens.py`.
 
 Headers `X-Tokens-In`, `X-Tokens-Out`, `X-Cost-USD` match response usage; header
 cost is rounded to six decimal places. JSON cost/counters retain more precision.
@@ -56,5 +77,6 @@ the response has a server-generated `X-Request-ID` for non-management WAF reques
 WAF reserves/refunds and actual charged usage are distinct fields. Local timing
 artifacts include logging/finalization overhead and exclude downstream execution.
 
-Attack scripts, seeded labels, namespace setup and the evaluation harness are not
-present in this checkout. Locust C0/C2/C3 and XDP validation remain pending with A.
+Attack scripts and the namespace harness are present. Preserve older benchmark
+evidence and rerun the current agent runtime before presenting final results.
+Real sensor/enforcement and XDP validation remain pending with A.
