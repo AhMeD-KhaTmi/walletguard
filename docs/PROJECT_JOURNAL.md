@@ -1634,3 +1634,20 @@ IT-1–IT-6. Current acceptance failures must remain visible until fresh tests p
 - This final publication follow-up changes only the journal, checklist and
   publication provenance. Earlier application/eval tests and the frozen campaign
   remain applicable; no runtime source or model was changed after those checks.
+
+### 2026-11-17 — merged the shared update into main
+
+- The user clarified that the current project should be on main for parallel work.
+  Rechecked remote main/head and verified main was an ancestor of the tested
+  publication branch; there were no newer main changes or conflicts.
+- Compared every saved measured runtime file and the frozen model hash to the
+  published branch; all match the tested source. GitHub reports no commit status
+  checks; the earlier local test/campaign evidence remains the validation basis.
+- Marked PR #2 ready and merged it with expected head
+  `76a5dc27224d381875d8eac04ab7bae303328b94`, without force. Merge commit:
+  `f0c8f120780712a6b0f7facc49b40244bf146ace`.
+- Updated A's current handoff and the sharing checklist to start from origin/main.
+  Both members should create separate work branches from main and submit PRs.
+  Budget/model calibration, sensor/enforcement and joint acceptance remain pending.
+- This follow-up changes documentation/provenance only. No model/runtime changes
+  require a new benchmark. Verify the final main tree and model after publication.

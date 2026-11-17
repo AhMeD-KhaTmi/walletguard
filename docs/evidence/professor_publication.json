@@ -363,5 +363,9 @@
   "verified_initial_remote_tree": "36d898fa9b15ab120eaea1f1c0bd503db99b21ba",
   "branch": "codex/professor-agent-update",
   "pull_request": "https://github.com/AhMeD-KhaTmi/walletguard/pull/2",
-  "frozen_model_sha256": "bb0116a167318df1749a0edf5cf5b95362ccde59f6b8580d732ed82d05722ca1"
+  "frozen_model_sha256": "bb0116a167318df1749a0edf5cf5b95362ccde59f6b8580d732ed82d05722ca1",
+  "main_merge_commit": "f0c8f120780712a6b0f7facc49b40244bf146ace",
+  "main_merge_expected_head": "76a5dc27224d381875d8eac04ab7bae303328b94",
+  "current_shared_branch": "main",
+  "pull_request_merged": true
 }

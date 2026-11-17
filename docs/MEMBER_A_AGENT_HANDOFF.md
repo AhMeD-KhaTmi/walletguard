@@ -5,12 +5,12 @@ Prepared 2026-11-16 for the **Attack & Kernel** track.
 
 ## Current handoff — professor update, 2026-11-17
 
-Start from branch `codex/professor-agent-update`. Fetch it, then create your own
+PR #2 is merged. Start from `main`. Fetch it, then create your own
 work branch from that remote branch; keep any existing local work committed first.
 
 ```bash
 git fetch origin
-git switch -c codex/member-a-kernel origin/codex/professor-agent-update
+git switch -c codex/member-a-kernel origin/main
 ```
 
 The first traffic/data handoff described below has already been integrated.
