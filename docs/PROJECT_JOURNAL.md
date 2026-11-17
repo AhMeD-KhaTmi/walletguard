@@ -1611,3 +1611,26 @@ IT-1–IT-6. Current acceptance failures must remain visible until fresh tests p
   Excluded that bundle and its metadata from the publication; it remains only in
   /tmp locally. Continuing with reviewed current files, the frozen model and
   explicit runtime provenance. No workaround is used to publish the rejected archive.
+
+### 2026-11-17 — published the professor update for parallel work
+
+- Published reviewed current files through the connected GitHub app on
+  `codex/professor-agent-update`, initial commit
+  `f053386d3cd2e7d8076cfca4785ec08b7ca37a50`. Remote tree
+  `36d898fa9b15ab120eaea1f1c0bd503db99b21ba` exactly matches local checkpoint
+  `e99aec6`; GitHub publication commit IDs differ because app-based commits were
+  used instead of an authenticated terminal push.
+- Fetched the remote branch and verified its frozen model's SHA-256 matches
+  `bb0116a167318df1749a0edf5cf5b95362ccde59f6b8580d732ed82d05722ca1`.
+  Confirmed remote main stayed at `ca1375eb`. No force push or merge was performed.
+- Opened draft coordination PR #2:
+  https://github.com/AhMeD-KhaTmi/walletguard/pull/2 . It explicitly lists the
+  already-integrated A traffic handoff, professor changes, checks and open safety/
+  model issues. A starts a separate kernel branch from the published update and
+  reads `docs/MEMBER_A_AGENT_HANDOFF.md` first. No message was sent to A directly.
+- Checked off the sharing task. The current source, model/manifest, plans, journal
+  and summarized benchmark evidence are on GitHub. The 80 MB full raw-run package
+  stays local. The rejected history bundle was excluded from the published tree.
+- This final publication follow-up changes only the journal, checklist and
+  publication provenance. Earlier application/eval tests and the frozen campaign
+  remain applicable; no runtime source or model was changed after those checks.

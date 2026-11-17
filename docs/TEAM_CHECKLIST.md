@@ -9,7 +9,7 @@
 ## Next — C2/C3 benchmark
 
 - [x] **B:** Apply the professor's agent-loop, exact-token, latency and environment requirements. Refresh C1 data and the version-3 model. [Current update](PROFESSOR_UPDATE.md)
-- [ ] **B:** Share the current agent app, version-3 model, and updated plans with A.
+- [x] **B:** Publish the current agent app, frozen version-3 model, updated plans, journal and reports on `codex/professor-agent-update`. [Coordination PR #2](https://github.com/AhMeD-KhaTmi/walletguard/pull/2). A can branch from it now.
 - [x] **B, authorized on A's track:** Enable C3 in the harness, fix failure and timeout handling, and save the app timing snapshot for each run. Tested on local branch `codex/c3-benchmark`.
 - [x] **Both — integrate here:** Combined A's workloads and B's frozen model on the Linux VM. All 54 matched C2/C3 runs passed, with three repetitions per workload and configuration. [Results](C23_BENCHMARK_RESULTS.md)
 - [x] **B, using A's metrics:** Report attack success, token usage, cost, benign false positives, latency, WAF overhead, and scoring time for C2/C3. Share these results and source changes with A.
