@@ -1986,3 +1986,18 @@ IT-1–IT-6. Current acceptance failures must remain visible until fresh tests p
   from zero observed policy denials. These are short, synthetic workload-family
   checks; no production/C4/final joint benchmark claim. A's sensor/enforcement and
   joint real-signal data/augmented training remain the next integration point.
+
+### 2026-11-18 — verified model publication
+
+- Published qualified model, runtime, plans and compact evidence on main at
+  `fa95a240e7e1d6159b81a7e68f054845df639249`, expected-head checked, no force.
+  Fetched remote tree `fe02f29af9aaa3165b66e327a022e7b34599eacb` exactly matches
+  tested local checkpoint0d5f0a6. Uploaded model Git blob SHA also matches locally.
+  Original model remains bb0116…ca1; new artifact remains1eb842…829e3.
+- GitHub recreates commit metadata; original measured source816145e/b152787 IDs
+  and runtime/source hash evidence remain explicit.
+  Raw CSVs/captures remain local/ignored; included binary and manifest let A run
+  current C3 from a fresh clone without training on B's local files.
+- Task complete for this B phase. Next: A pulls main, delivers real app-scoped
+  sensor/enforcement telemetry, then both collect real-signal C1 data for augmented
+  training and C4/IT-1–IT-6/final C0–C4 runs. Do not retune on the opened test groups.

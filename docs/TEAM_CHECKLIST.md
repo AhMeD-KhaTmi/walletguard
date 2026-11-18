@@ -21,6 +21,8 @@
 
 - [x] **B:** Publish budget calibration, validated batching, model rejection evidence and updated plans on `main` ([01d21d9](https://github.com/AhMeD-KhaTmi/walletguard/commit/01d21d934c7e6077afa713b1d4c707bc9655d68d)).
 
+- [x] **B:** Publish the qualified volume model, lifecycle fix, evidence and master v1.5 on `main` ([fa95a24](https://github.com/AhMeD-KhaTmi/walletguard/commit/fa95a240e7e1d6159b81a7e68f054845df639249)).
+
 ## In parallel — C4 kernel work
 
 - [ ] **A:** Deliver the app-scoped connect/execve sensor and Redis signals, plus expiring XDP enforcement or a documented generic/skb, tc/nftables/WAF fallback and its measured telemetry.
