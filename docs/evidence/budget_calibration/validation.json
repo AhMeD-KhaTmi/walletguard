@@ -1,0 +1,1593 @@
+{
+  "kind": "independent_application_budget_validation",
+  "runs": 36,
+  "triplets": 12,
+  "model_sha256": "bb0116a167318df1749a0edf5cf5b95362ccde59f6b8580d732ed82d05722ca1",
+  "summary": {
+    "normal-benign": {
+      "C0": {
+        "benign_attempts": 1115,
+        "benign_policy_denials": 0,
+        "benign_auto_bans": 0,
+        "benign_errors": 0,
+        "benign_timeouts": 0,
+        "benign_unknown": 0,
+        "token_budget_throttles": 0,
+        "benign_anomaly_scored": 0,
+        "benign_anomaly_flags": 0,
+        "benign_model_flag_rate": null,
+        "pooled_false_positive_rate": 0.0,
+        "worst_case_policy_denial_rate": 0.0,
+        "run_metrics": {
+          "false_positive_rate": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "latency_p50_ms": {
+            "median": 6.387,
+            "min": 4.9505,
+            "max": 7.021000000000001
+          },
+          "latency_p95_ms": {
+            "median": 97.20964999999998,
+            "min": 94.23345,
+            "max": 104.78559999999995
+          },
+          "latency_delta_p50_ms": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "latency_delta_p95_ms": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "server_tokens_out_total": {
+            "median": 98664.0,
+            "min": 96216.0,
+            "max": 106272.0
+          },
+          "server_cost_usd_total": {
+            "median": 1.8015569999999992,
+            "min": 1.7568630000000007,
+            "max": 1.940886
+          }
+        },
+        "policy_safety_target_passed": true,
+        "client_outcomes_complete": true,
+        "application_safety_target_passed": true
+      },
+      "C2": {
+        "benign_attempts": 1117,
+        "benign_policy_denials": 0,
+        "benign_auto_bans": 0,
+        "benign_errors": 0,
+        "benign_timeouts": 0,
+        "benign_unknown": 1,
+        "token_budget_throttles": 0,
+        "benign_anomaly_scored": 0,
+        "benign_anomaly_flags": 0,
+        "benign_model_flag_rate": null,
+        "pooled_false_positive_rate": 0.0,
+        "worst_case_policy_denial_rate": 0.0008952551477170994,
+        "run_metrics": {
+          "false_positive_rate": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "latency_p50_ms": {
+            "median": 11.4095,
+            "min": 7.196,
+            "max": 11.532
+          },
+          "latency_p95_ms": {
+            "median": 109.44869999999997,
+            "min": 101.1933,
+            "max": 111.19890000000001
+          },
+          "latency_delta_p50_ms": {
+            "median": 4.388499999999999,
+            "min": 0.8090000000000002,
+            "max": 6.5815
+          },
+          "latency_delta_p95_ms": {
+            "median": 12.239049999999992,
+            "min": -3.592299999999952,
+            "max": 16.965450000000004
+          },
+          "waf_overhead_p50_ms": {
+            "median": 3.3457279932918027,
+            "min": 2.8084279983886518,
+            "max": 4.44879000497167
+          },
+          "waf_overhead_p95_ms": {
+            "median": 11.870931396697417,
+            "min": 10.207536099187564,
+            "max": 15.13594680218375
+          },
+          "server_tokens_out_total": {
+            "median": 99480.0,
+            "min": 94500.0,
+            "max": 105132.0
+          },
+          "server_cost_usd_total": {
+            "median": 1.8160739999999986,
+            "min": 1.7248500000000002,
+            "max": 1.9175850000000012
+          }
+        },
+        "policy_safety_target_passed": true,
+        "client_outcomes_complete": false,
+        "application_safety_target_passed": false
+      },
+      "C3": {
+        "benign_attempts": 1119,
+        "benign_policy_denials": 0,
+        "benign_auto_bans": 0,
+        "benign_errors": 0,
+        "benign_timeouts": 0,
+        "benign_unknown": 0,
+        "token_budget_throttles": 0,
+        "benign_anomaly_scored": 1119,
+        "benign_anomaly_flags": 0,
+        "benign_model_flag_rate": 0.0,
+        "pooled_false_positive_rate": 0.0,
+        "worst_case_policy_denial_rate": 0.0,
+        "run_metrics": {
+          "false_positive_rate": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "latency_p50_ms": {
+            "median": 29.4905,
+            "min": 28.1455,
+            "max": 41.482
+          },
+          "latency_p95_ms": {
+            "median": 127.64365,
+            "min": 118.05405,
+            "max": 149.17579999999998
+          },
+          "latency_delta_p50_ms": {
+            "median": 23.195,
+            "min": 23.1035,
+            "max": 34.461
+          },
+          "latency_delta_p95_ms": {
+            "median": 23.8206,
+            "min": 22.85805000000005,
+            "max": 51.96615
+          },
+          "waf_overhead_p50_ms": {
+            "median": 20.709099000669084,
+            "min": 19.329137499880744,
+            "max": 28.901168996526394
+          },
+          "waf_overhead_p95_ms": {
+            "median": 51.7254436490475,
+            "min": 49.45112444875121,
+            "max": 60.44885560258986
+          },
+          "scoring_p95_ms": {
+            "median": 38.56789345263678,
+            "min": 33.48694149935903,
+            "max": 39.296409799135276
+          },
+          "server_tokens_out_total": {
+            "median": 102840.0,
+            "min": 92928.0,
+            "max": 106152.0
+          },
+          "server_cost_usd_total": {
+            "median": 1.878426,
+            "min": 1.6959870000000006,
+            "max": 1.9372229999999997
+          }
+        },
+        "policy_safety_target_passed": true,
+        "client_outcomes_complete": true,
+        "application_safety_target_passed": true
+      }
+    },
+    "normal-dow": {
+      "C0": {
+        "benign_attempts": 0,
+        "benign_policy_denials": 0,
+        "benign_auto_bans": 0,
+        "benign_errors": 0,
+        "benign_timeouts": 0,
+        "benign_unknown": 0,
+        "token_budget_throttles": 0,
+        "benign_anomaly_scored": 0,
+        "benign_anomaly_flags": 0,
+        "benign_model_flag_rate": null,
+        "pooled_false_positive_rate": null,
+        "worst_case_policy_denial_rate": null,
+        "run_metrics": {
+          "asr": {
+            "median": 1.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "server_tokens_out_total": {
+            "median": 162000.0,
+            "min": 162000.0,
+            "max": 162000.0
+          },
+          "server_cost_usd_total": {
+            "median": 2.9604149999999994,
+            "min": 2.958741,
+            "max": 2.9629709999999996
+          },
+          "unknown_outcomes": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "C2": {
+        "benign_attempts": 0,
+        "benign_policy_denials": 0,
+        "benign_auto_bans": 0,
+        "benign_errors": 0,
+        "benign_timeouts": 0,
+        "benign_unknown": 0,
+        "token_budget_throttles": 12,
+        "benign_anomaly_scored": 0,
+        "benign_anomaly_flags": 0,
+        "benign_model_flag_rate": null,
+        "pooled_false_positive_rate": null,
+        "worst_case_policy_denial_rate": null,
+        "run_metrics": {
+          "asr": {
+            "median": 0.4127,
+            "min": 0.4032,
+            "max": 0.4127
+          },
+          "waf_overhead_p50_ms": {
+            "median": 6.409453002561349,
+            "min": 5.0791469984687865,
+            "max": 7.829544501873897
+          },
+          "waf_overhead_p95_ms": {
+            "median": 22.599839848771794,
+            "min": 13.998005696339531,
+            "max": 23.76656049891608
+          },
+          "server_tokens_out_total": {
+            "median": 70200.0,
+            "min": 67500.0,
+            "max": 70200.0
+          },
+          "server_cost_usd_total": {
+            "median": 1.2782249999999997,
+            "min": 1.234323,
+            "max": 1.2842010000000004
+          },
+          "unknown_outcomes": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      },
+      "C3": {
+        "benign_attempts": 0,
+        "benign_policy_denials": 0,
+        "benign_auto_bans": 0,
+        "benign_errors": 0,
+        "benign_timeouts": 0,
+        "benign_unknown": 0,
+        "token_budget_throttles": 12,
+        "benign_anomaly_scored": 0,
+        "benign_anomaly_flags": 0,
+        "benign_model_flag_rate": null,
+        "pooled_false_positive_rate": null,
+        "worst_case_policy_denial_rate": null,
+        "run_metrics": {
+          "asr": {
+            "median": 0.4032,
+            "min": 0.4032,
+            "max": 0.4032
+          },
+          "waf_overhead_p50_ms": {
+            "median": 25.713382499816362,
+            "min": 21.434839003632078,
+            "max": 29.881400500016753
+          },
+          "waf_overhead_p95_ms": {
+            "median": 54.39454575171112,
+            "min": 51.675838644223404,
+            "max": 71.91840805571701
+          },
+          "scoring_p95_ms": {
+            "median": 42.12060769859817,
+            "min": 32.120268053040476,
+            "max": 42.13496099910117
+          },
+          "server_tokens_out_total": {
+            "median": 67500.0,
+            "min": 67500.0,
+            "max": 67500.0
+          },
+          "server_cost_usd_total": {
+            "median": 1.2348720000000002,
+            "min": 1.2334859999999999,
+            "max": 1.23561
+          },
+          "unknown_outcomes": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        }
+      }
+    },
+    "normal-mixed": {
+      "C0": {
+        "benign_attempts": 558,
+        "benign_policy_denials": 0,
+        "benign_auto_bans": 0,
+        "benign_errors": 0,
+        "benign_timeouts": 0,
+        "benign_unknown": 0,
+        "token_budget_throttles": 0,
+        "benign_anomaly_scored": 0,
+        "benign_anomaly_flags": 0,
+        "benign_model_flag_rate": null,
+        "pooled_false_positive_rate": 0.0,
+        "worst_case_policy_denial_rate": 0.0,
+        "run_metrics": {
+          "asr": {
+            "median": 0.7106,
+            "min": 0.709,
+            "max": 0.7131
+          },
+          "false_positive_rate": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "latency_p50_ms": {
+            "median": 4.082,
+            "min": 4.004,
+            "max": 4.8905
+          },
+          "latency_p95_ms": {
+            "median": 98.39504999999996,
+            "min": 91.85,
+            "max": 103.92535
+          },
+          "latency_delta_p50_ms": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "latency_delta_p95_ms": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "server_tokens_out_total": {
+            "median": 3782592.0,
+            "min": 3758292.0,
+            "max": 3791880.0
+          },
+          "server_cost_usd_total": {
+            "median": 69.10180200000045,
+            "min": 68.65224300000052,
+            "max": 69.26021100000075
+          },
+          "unknown_outcomes": {
+            "median": 3.0,
+            "min": 2.0,
+            "max": 5.0
+          }
+        },
+        "policy_safety_target_passed": true,
+        "client_outcomes_complete": true,
+        "application_safety_target_passed": true
+      },
+      "C2": {
+        "benign_attempts": 558,
+        "benign_policy_denials": 0,
+        "benign_auto_bans": 0,
+        "benign_errors": 0,
+        "benign_timeouts": 0,
+        "benign_unknown": 0,
+        "token_budget_throttles": 9,
+        "benign_anomaly_scored": 0,
+        "benign_anomaly_flags": 0,
+        "benign_model_flag_rate": null,
+        "pooled_false_positive_rate": 0.0,
+        "worst_case_policy_denial_rate": 0.0,
+        "run_metrics": {
+          "asr": {
+            "median": 0.0029,
+            "min": 0.0029,
+            "max": 0.0029
+          },
+          "false_positive_rate": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "latency_p50_ms": {
+            "median": 6.496,
+            "min": 6.1895,
+            "max": 6.8885
+          },
+          "latency_p95_ms": {
+            "median": 94.7229,
+            "min": 78.17675,
+            "max": 98.34449999999991
+          },
+          "latency_delta_p50_ms": {
+            "median": 2.1855,
+            "min": 1.6055000000000001,
+            "max": 2.8064999999999998
+          },
+          "latency_delta_p95_ms": {
+            "median": -9.202449999999999,
+            "min": -13.673249999999996,
+            "max": -0.05055000000004384
+          },
+          "waf_overhead_p50_ms": {
+            "median": 2.692044996365439,
+            "min": 2.5796385016292334,
+            "max": 2.8416790009941906
+          },
+          "waf_overhead_p95_ms": {
+            "median": 7.410555001115426,
+            "min": 7.3903479031287125,
+            "max": 7.984786003362387
+          },
+          "server_tokens_out_total": {
+            "median": 67392.0,
+            "min": 61992.0,
+            "max": 71280.0
+          },
+          "server_cost_usd_total": {
+            "median": 1.2298229999999999,
+            "min": 1.132407,
+            "max": 1.3027139999999993
+          },
+          "unknown_outcomes": {
+            "median": 4.0,
+            "min": 2.0,
+            "max": 4.0
+          }
+        },
+        "policy_safety_target_passed": true,
+        "client_outcomes_complete": true,
+        "application_safety_target_passed": true
+      },
+      "C3": {
+        "benign_attempts": 502,
+        "benign_policy_denials": 0,
+        "benign_auto_bans": 0,
+        "benign_errors": 0,
+        "benign_timeouts": 0,
+        "benign_unknown": 0,
+        "token_budget_throttles": 10,
+        "benign_anomaly_scored": 502,
+        "benign_anomaly_flags": 1,
+        "benign_model_flag_rate": 0.00199203187250996,
+        "pooled_false_positive_rate": 0.0,
+        "worst_case_policy_denial_rate": 0.0,
+        "run_metrics": {
+          "asr": {
+            "median": 0.0294,
+            "min": 0.0272,
+            "max": 0.0309
+          },
+          "false_positive_rate": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "latency_p50_ms": {
+            "median": 191.92200000000003,
+            "min": 188.654,
+            "max": 194.585
+          },
+          "latency_p95_ms": {
+            "median": 722.3069999999999,
+            "min": 698.6011,
+            "max": 739.2387999999999
+          },
+          "latency_delta_p50_ms": {
+            "median": 187.03150000000002,
+            "min": 184.65,
+            "max": 190.50300000000001
+          },
+          "latency_delta_p95_ms": {
+            "median": 618.3816499999999,
+            "min": 600.20605,
+            "max": 647.3887999999998
+          },
+          "waf_overhead_p50_ms": {
+            "median": 144.314144999953,
+            "min": 141.70766399911372,
+            "max": 154.1417120024562
+          },
+          "waf_overhead_p95_ms": {
+            "median": 234.5885513037501,
+            "min": 225.36444079887588,
+            "max": 245.4159493991028
+          },
+          "scoring_p95_ms": {
+            "median": 135.4198678032844,
+            "min": 126.71089600044066,
+            "max": 144.17440114775673
+          },
+          "server_tokens_out_total": {
+            "median": 65112.0,
+            "min": 60756.0,
+            "max": 65604.0
+          },
+          "server_cost_usd_total": {
+            "median": 1.189970999999999,
+            "min": 1.109889,
+            "max": 1.1976569999999993
+          },
+          "unknown_outcomes": {
+            "median": 2.0,
+            "min": 2.0,
+            "max": 3.0
+          }
+        },
+        "policy_safety_target_passed": true,
+        "client_outcomes_complete": true,
+        "application_safety_target_passed": true
+      }
+    },
+    "varied-benign": {
+      "C0": {
+        "benign_attempts": 1145,
+        "benign_policy_denials": 0,
+        "benign_auto_bans": 0,
+        "benign_errors": 0,
+        "benign_timeouts": 0,
+        "benign_unknown": 0,
+        "token_budget_throttles": 0,
+        "benign_anomaly_scored": 0,
+        "benign_anomaly_flags": 0,
+        "benign_model_flag_rate": null,
+        "pooled_false_positive_rate": 0.0,
+        "worst_case_policy_denial_rate": 0.0,
+        "run_metrics": {
+          "false_positive_rate": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "latency_p50_ms": {
+            "median": 7.7035,
+            "min": 6.4455,
+            "max": 7.92
+          },
+          "latency_p95_ms": {
+            "median": 139.293,
+            "min": 111.2895,
+            "max": 165.77979999999988
+          },
+          "latency_delta_p50_ms": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "latency_delta_p95_ms": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "server_tokens_out_total": {
+            "median": 129224.0,
+            "min": 100844.0,
+            "max": 145412.0
+          },
+          "server_cost_usd_total": {
+            "median": 2.8211850000000007,
+            "min": 2.2048589999999986,
+            "max": 3.237113999999998
+          }
+        },
+        "policy_safety_target_passed": true,
+        "client_outcomes_complete": true,
+        "application_safety_target_passed": true
+      },
+      "C2": {
+        "benign_attempts": 1129,
+        "benign_policy_denials": 0,
+        "benign_auto_bans": 0,
+        "benign_errors": 0,
+        "benign_timeouts": 0,
+        "benign_unknown": 1,
+        "token_budget_throttles": 0,
+        "benign_anomaly_scored": 0,
+        "benign_anomaly_flags": 0,
+        "benign_model_flag_rate": null,
+        "pooled_false_positive_rate": 0.0,
+        "worst_case_policy_denial_rate": 0.0008857395925597874,
+        "run_metrics": {
+          "false_positive_rate": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "latency_p50_ms": {
+            "median": 9.369,
+            "min": 7.3405000000000005,
+            "max": 10.826
+          },
+          "latency_p95_ms": {
+            "median": 129.16045000000003,
+            "min": 125.05479999999987,
+            "max": 147.79820000000004
+          },
+          "latency_delta_p50_ms": {
+            "median": 1.6654999999999998,
+            "min": 0.8950000000000005,
+            "max": 2.9060000000000006
+          },
+          "latency_delta_p95_ms": {
+            "median": -14.238200000000134,
+            "min": -17.981599999999844,
+            "max": 17.870950000000022
+          },
+          "waf_overhead_p50_ms": {
+            "median": 3.792159004660789,
+            "min": 2.892482498282334,
+            "max": 3.9468050017603673
+          },
+          "waf_overhead_p95_ms": {
+            "median": 12.037087497446924,
+            "min": 10.208828251415982,
+            "max": 14.269606400921473
+          },
+          "server_tokens_out_total": {
+            "median": 125024.0,
+            "min": 95664.0,
+            "max": 137412.0
+          },
+          "server_cost_usd_total": {
+            "median": 2.7355080000000003,
+            "min": 2.1286289999999988,
+            "max": 3.0565499999999974
+          }
+        },
+        "policy_safety_target_passed": true,
+        "client_outcomes_complete": false,
+        "application_safety_target_passed": false
+      },
+      "C3": {
+        "benign_attempts": 1128,
+        "benign_policy_denials": 0,
+        "benign_auto_bans": 0,
+        "benign_errors": 0,
+        "benign_timeouts": 0,
+        "benign_unknown": 0,
+        "token_budget_throttles": 0,
+        "benign_anomaly_scored": 1128,
+        "benign_anomaly_flags": 0,
+        "benign_model_flag_rate": 0.0,
+        "pooled_false_positive_rate": 0.0,
+        "worst_case_policy_denial_rate": 0.0,
+        "run_metrics": {
+          "false_positive_rate": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "latency_p50_ms": {
+            "median": 29.1625,
+            "min": 28.6635,
+            "max": 32.9705
+          },
+          "latency_p95_ms": {
+            "median": 153.78810000000004,
+            "min": 151.5861000000001,
+            "max": 187.26909999999992
+          },
+          "latency_delta_p50_ms": {
+            "median": 22.218,
+            "min": 21.459000000000003,
+            "max": 25.0505
+          },
+          "latency_delta_p95_ms": {
+            "median": 42.49860000000004,
+            "min": -14.19369999999978,
+            "max": 47.97609999999992
+          },
+          "waf_overhead_p50_ms": {
+            "median": 19.988661995739676,
+            "min": 19.406492996495217,
+            "max": 20.62619749631267
+          },
+          "waf_overhead_p95_ms": {
+            "median": 53.60621319814527,
+            "min": 47.67299114791969,
+            "max": 58.69172455168141
+          },
+          "scoring_p95_ms": {
+            "median": 36.315062003268395,
+            "min": 33.37266899907263,
+            "max": 40.927175997057915
+          },
+          "server_tokens_out_total": {
+            "median": 115088.0,
+            "min": 97768.0,
+            "max": 129964.0
+          },
+          "server_cost_usd_total": {
+            "median": 2.5461899999999993,
+            "min": 2.145080999999999,
+            "max": 2.854109999999999
+          }
+        },
+        "policy_safety_target_passed": true,
+        "client_outcomes_complete": true,
+        "application_safety_target_passed": true
+      }
+    }
+  },
+  "server_usage": {
+    "budget-validation-normal-benign-c0-r1": {
+      "before": {},
+      "after": {
+        "requests": "126",
+        "agent_steps": "378",
+        "tokens_in": "115602",
+        "tokens_out": "106272",
+        "cost_usd": "1.940886"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 378,
+        "tokens_in": 115602,
+        "tokens_out": 106272,
+        "cost_usd": 1.940886
+      }
+    },
+    "budget-validation-normal-benign-c2-r1": {
+      "before": {},
+      "after": {
+        "requests": "125",
+        "agent_steps": "375",
+        "tokens_in": "113535",
+        "tokens_out": "105132",
+        "cost_usd": "1.917585"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 375,
+        "tokens_in": 113535,
+        "tokens_out": 105132,
+        "cost_usd": 1.9175850000000012
+      }
+    },
+    "budget-validation-normal-benign-c3-r1": {
+      "before": {},
+      "after": {
+        "requests": "124",
+        "agent_steps": "372",
+        "tokens_in": "114981",
+        "tokens_out": "106152",
+        "cost_usd": "1.937223"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 372,
+        "tokens_in": 114981,
+        "tokens_out": 106152,
+        "cost_usd": 1.9372229999999997
+      }
+    },
+    "budget-validation-varied-benign-c0-r1": {
+      "before": {},
+      "after": {
+        "requests": "139",
+        "agent_steps": "527",
+        "tokens_in": "294275",
+        "tokens_out": "129224",
+        "cost_usd": "2.82118499999999999"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 527,
+        "tokens_in": 294275,
+        "tokens_out": 129224,
+        "cost_usd": 2.8211850000000007
+      }
+    },
+    "budget-validation-varied-benign-c2-r1": {
+      "before": {},
+      "after": {
+        "requests": "137",
+        "agent_steps": "531",
+        "tokens_in": "286716",
+        "tokens_out": "125024",
+        "cost_usd": "2.73550799999999999"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 531,
+        "tokens_in": 286716,
+        "tokens_out": 125024,
+        "cost_usd": 2.7355080000000003
+      }
+    },
+    "budget-validation-varied-benign-c3-r1": {
+      "before": {},
+      "after": {
+        "requests": "134",
+        "agent_steps": "525",
+        "tokens_in": "273290",
+        "tokens_out": "115088",
+        "cost_usd": "2.54618999999999999"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 525,
+        "tokens_in": 273290,
+        "tokens_out": 115088,
+        "cost_usd": 2.5461899999999993
+      }
+    },
+    "budget-validation-normal-mixed-c0-r1": {
+      "before": {},
+      "after": {
+        "requests": "1436",
+        "agent_steps": "4308",
+        "tokens_in": "4092621",
+        "tokens_out": "3758292",
+        "cost_usd": "68.65224299999999922"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 4308,
+        "tokens_in": 4092621,
+        "tokens_out": 3758292,
+        "cost_usd": 68.65224300000052
+      }
+    },
+    "budget-validation-normal-mixed-c2-r1": {
+      "before": {},
+      "after": {
+        "requests": "69",
+        "agent_steps": "207",
+        "tokens_in": "72981",
+        "tokens_out": "67392",
+        "cost_usd": "1.229823"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 207,
+        "tokens_in": 72981,
+        "tokens_out": 67392,
+        "cost_usd": 1.2298229999999999
+      }
+    },
+    "budget-validation-normal-mixed-c3-r1": {
+      "before": {},
+      "after": {
+        "requests": "64",
+        "agent_steps": "192",
+        "tokens_in": "71199",
+        "tokens_out": "65604",
+        "cost_usd": "1.197657"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 192,
+        "tokens_in": 71199,
+        "tokens_out": 65604,
+        "cost_usd": 1.1976569999999993
+      }
+    },
+    "budget-validation-normal-dow-c0-r1": {
+      "before": {},
+      "after": {
+        "requests": "60",
+        "agent_steps": "180",
+        "tokens_in": "176805",
+        "tokens_out": "162000",
+        "cost_usd": "2.96041499999999999"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 180,
+        "tokens_in": 176805,
+        "tokens_out": 162000,
+        "cost_usd": 2.9604149999999994
+      }
+    },
+    "budget-validation-normal-dow-c2-r1": {
+      "before": {},
+      "after": {
+        "requests": "26",
+        "agent_steps": "78",
+        "tokens_in": "75075",
+        "tokens_out": "70200",
+        "cost_usd": "1.27822499999999999"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 78,
+        "tokens_in": 75075,
+        "tokens_out": 70200,
+        "cost_usd": 1.2782249999999997
+      }
+    },
+    "budget-validation-normal-dow-c3-r1": {
+      "before": {},
+      "after": {
+        "requests": "25",
+        "agent_steps": "75",
+        "tokens_in": "74124",
+        "tokens_out": "67500",
+        "cost_usd": "1.23487200000000001"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 75,
+        "tokens_in": 74124,
+        "tokens_out": 67500,
+        "cost_usd": 1.2348720000000002
+      }
+    },
+    "budget-validation-normal-benign-c3-r2": {
+      "before": {},
+      "after": {
+        "requests": "127",
+        "agent_steps": "381",
+        "tokens_in": "111942",
+        "tokens_out": "102840",
+        "cost_usd": "1.878426"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 381,
+        "tokens_in": 111942,
+        "tokens_out": 102840,
+        "cost_usd": 1.878426
+      }
+    },
+    "budget-validation-normal-benign-c2-r2": {
+      "before": {},
+      "after": {
+        "requests": "125",
+        "agent_steps": "375",
+        "tokens_in": "107958",
+        "tokens_out": "99480",
+        "cost_usd": "1.816074"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 375,
+        "tokens_in": 107958,
+        "tokens_out": 99480,
+        "cost_usd": 1.8160739999999986
+      }
+    },
+    "budget-validation-normal-benign-c0-r2": {
+      "before": {},
+      "after": {
+        "requests": "125",
+        "agent_steps": "375",
+        "tokens_in": "107199",
+        "tokens_out": "98664",
+        "cost_usd": "1.801557"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 375,
+        "tokens_in": 107199,
+        "tokens_out": 98664,
+        "cost_usd": 1.8015569999999992
+      }
+    },
+    "budget-validation-varied-benign-c3-r2": {
+      "before": {},
+      "after": {
+        "requests": "134",
+        "agent_steps": "503",
+        "tokens_in": "301550",
+        "tokens_out": "129964",
+        "cost_usd": "2.85410999999999996"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 503,
+        "tokens_in": 301550,
+        "tokens_out": 129964,
+        "cost_usd": 2.854109999999999
+      }
+    },
+    "budget-validation-varied-benign-c2-r2": {
+      "before": {},
+      "after": {
+        "requests": "130",
+        "agent_steps": "523",
+        "tokens_in": "331790",
+        "tokens_out": "137412",
+        "cost_usd": "3.05654999999999994"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 523,
+        "tokens_in": 331790,
+        "tokens_out": 137412,
+        "cost_usd": 3.0565499999999974
+      }
+    },
+    "budget-validation-varied-benign-c0-r2": {
+      "before": {},
+      "after": {
+        "requests": "133",
+        "agent_steps": "542",
+        "tokens_in": "351978",
+        "tokens_out": "145412",
+        "cost_usd": "3.23711399999999997"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 542,
+        "tokens_in": 351978,
+        "tokens_out": 145412,
+        "cost_usd": 3.237113999999998
+      }
+    },
+    "budget-validation-normal-mixed-c3-r2": {
+      "before": {},
+      "after": {
+        "requests": "69",
+        "agent_steps": "207",
+        "tokens_in": "71097",
+        "tokens_out": "65112",
+        "cost_usd": "1.189971"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 207,
+        "tokens_in": 71097,
+        "tokens_out": 65112,
+        "cost_usd": 1.189970999999999
+      }
+    },
+    "budget-validation-normal-mixed-c2-r2": {
+      "before": {},
+      "after": {
+        "requests": "76",
+        "agent_steps": "228",
+        "tokens_in": "77838",
+        "tokens_out": "71280",
+        "cost_usd": "1.302714"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 228,
+        "tokens_in": 77838,
+        "tokens_out": 71280,
+        "cost_usd": 1.3027139999999993
+      }
+    },
+    "budget-validation-normal-mixed-c0-r2": {
+      "before": {},
+      "after": {
+        "requests": "1454",
+        "agent_steps": "4362",
+        "tokens_in": "4127337",
+        "tokens_out": "3791880",
+        "cost_usd": "69.26021099999999917"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 4362,
+        "tokens_in": 4127337,
+        "tokens_out": 3791880,
+        "cost_usd": 69.26021100000075
+      }
+    },
+    "budget-validation-normal-dow-c3-r2": {
+      "before": {},
+      "after": {
+        "requests": "25",
+        "agent_steps": "75",
+        "tokens_in": "74370",
+        "tokens_out": "67500",
+        "cost_usd": "1.23561"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 75,
+        "tokens_in": 74370,
+        "tokens_out": 67500,
+        "cost_usd": 1.23561
+      }
+    },
+    "budget-validation-normal-dow-c2-r2": {
+      "before": {},
+      "after": {
+        "requests": "26",
+        "agent_steps": "78",
+        "tokens_in": "77067",
+        "tokens_out": "70200",
+        "cost_usd": "1.28420100000000001"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 78,
+        "tokens_in": 77067,
+        "tokens_out": 70200,
+        "cost_usd": 1.2842010000000004
+      }
+    },
+    "budget-validation-normal-dow-c0-r2": {
+      "before": {},
+      "after": {
+        "requests": "60",
+        "agent_steps": "180",
+        "tokens_in": "177657",
+        "tokens_out": "162000",
+        "cost_usd": "2.96297099999999998"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 180,
+        "tokens_in": 177657,
+        "tokens_out": 162000,
+        "cost_usd": 2.9629709999999996
+      }
+    },
+    "budget-validation-normal-benign-c0-r3": {
+      "before": {},
+      "after": {
+        "requests": "110",
+        "agent_steps": "330",
+        "tokens_in": "104541",
+        "tokens_out": "96216",
+        "cost_usd": "1.756863"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 330,
+        "tokens_in": 104541,
+        "tokens_out": 96216,
+        "cost_usd": 1.7568630000000007
+      }
+    },
+    "budget-validation-normal-benign-c2-r3": {
+      "before": {},
+      "after": {
+        "requests": "108",
+        "agent_steps": "324",
+        "tokens_in": "102450",
+        "tokens_out": "94500",
+        "cost_usd": "1.72485"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 324,
+        "tokens_in": 102450,
+        "tokens_out": 94500,
+        "cost_usd": 1.7248500000000002
+      }
+    },
+    "budget-validation-normal-benign-c3-r3": {
+      "before": {},
+      "after": {
+        "requests": "110",
+        "agent_steps": "330",
+        "tokens_in": "100689",
+        "tokens_out": "92928",
+        "cost_usd": "1.695987"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 330,
+        "tokens_in": 100689,
+        "tokens_out": 92928,
+        "cost_usd": 1.6959870000000006
+      }
+    },
+    "budget-validation-varied-benign-c0-r3": {
+      "before": {},
+      "after": {
+        "requests": "112",
+        "agent_steps": "430",
+        "tokens_in": "230733",
+        "tokens_out": "100844",
+        "cost_usd": "2.20485899999999998"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 430,
+        "tokens_in": 230733,
+        "tokens_out": 100844,
+        "cost_usd": 2.2048589999999986
+      }
+    },
+    "budget-validation-varied-benign-c2-r3": {
+      "before": {},
+      "after": {
+        "requests": "109",
+        "agent_steps": "408",
+        "tokens_in": "231223",
+        "tokens_out": "95664",
+        "cost_usd": "2.12862899999999998"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 408,
+        "tokens_in": 231223,
+        "tokens_out": 95664,
+        "cost_usd": 2.1286289999999988
+      }
+    },
+    "budget-validation-varied-benign-c3-r3": {
+      "before": {},
+      "after": {
+        "requests": "111",
+        "agent_steps": "425",
+        "tokens_in": "226187",
+        "tokens_out": "97768",
+        "cost_usd": "2.14508099999999998"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 425,
+        "tokens_in": 226187,
+        "tokens_out": 97768,
+        "cost_usd": 2.145080999999999
+      }
+    },
+    "budget-validation-normal-mixed-c0-r3": {
+      "before": {},
+      "after": {
+        "requests": "1440",
+        "agent_steps": "4320",
+        "tokens_in": "4120974",
+        "tokens_out": "3782592",
+        "cost_usd": "69.10180199999999914"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 4320,
+        "tokens_in": 4120974,
+        "tokens_out": 3782592,
+        "cost_usd": 69.10180200000045
+      }
+    },
+    "budget-validation-normal-mixed-c2-r3": {
+      "before": {},
+      "after": {
+        "requests": "62",
+        "agent_steps": "186",
+        "tokens_in": "67509",
+        "tokens_out": "61992",
+        "cost_usd": "1.13240700000000001"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 186,
+        "tokens_in": 67509,
+        "tokens_out": 61992,
+        "cost_usd": 1.132407
+      }
+    },
+    "budget-validation-normal-mixed-c3-r3": {
+      "before": {},
+      "after": {
+        "requests": "57",
+        "agent_steps": "171",
+        "tokens_in": "66183",
+        "tokens_out": "60756",
+        "cost_usd": "1.10988900000000001"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 171,
+        "tokens_in": 66183,
+        "tokens_out": 60756,
+        "cost_usd": 1.109889
+      }
+    },
+    "budget-validation-normal-dow-c0-r3": {
+      "before": {},
+      "after": {
+        "requests": "60",
+        "agent_steps": "180",
+        "tokens_in": "176247",
+        "tokens_out": "162000",
+        "cost_usd": "2.95874099999999995"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 180,
+        "tokens_in": 176247,
+        "tokens_out": 162000,
+        "cost_usd": 2.958741
+      }
+    },
+    "budget-validation-normal-dow-c2-r3": {
+      "before": {},
+      "after": {
+        "requests": "25",
+        "agent_steps": "75",
+        "tokens_in": "73941",
+        "tokens_out": "67500",
+        "cost_usd": "1.234323"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 75,
+        "tokens_in": 73941,
+        "tokens_out": 67500,
+        "cost_usd": 1.234323
+      }
+    },
+    "budget-validation-normal-dow-c3-r3": {
+      "before": {},
+      "after": {
+        "requests": "25",
+        "agent_steps": "75",
+        "tokens_in": "73662",
+        "tokens_out": "67500",
+        "cost_usd": "1.23348599999999998"
+      },
+      "mock_before": {
+        "calls": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "cost_usd": 0.0
+      },
+      "mock_after": {
+        "calls": 75,
+        "tokens_in": 73662,
+        "tokens_out": 67500,
+        "cost_usd": 1.2334859999999999
+      }
+    }
+  },
+  "mixed_per_attack": {
+    "C0-credential_stuffing": {
+      "attempts": 26801,
+      "success": 2626,
+      "unknown": 5,
+      "asr": 0.09798141860378344
+    },
+    "C0-dow": {
+      "attempts": 4144,
+      "success": 4144,
+      "unknown": 0,
+      "asr": 1.0
+    },
+    "C0-scraping": {
+      "attempts": 52702,
+      "success": 52697,
+      "unknown": 5,
+      "asr": 0.9999051269401541
+    },
+    "C2-credential_stuffing": {
+      "attempts": 26631,
+      "success": 6,
+      "unknown": 5,
+      "asr": 0.00022530134054297624
+    },
+    "C2-dow": {
+      "attempts": 26031,
+      "success": 21,
+      "unknown": 2,
+      "asr": 0.0008067304367869079
+    },
+    "C2-scraping": {
+      "attempts": 53853,
+      "success": 279,
+      "unknown": 3,
+      "asr": 0.005180769873544649
+    },
+    "C3-credential_stuffing": {
+      "attempts": 4791,
+      "success": 6,
+      "unknown": 2,
+      "asr": 0.0012523481527864746
+    },
+    "C3-dow": {
+      "attempts": 4298,
+      "success": 23,
+      "unknown": 5,
+      "asr": 0.005351326198231736
+    },
+    "C3-scraping": {
+      "attempts": 5332,
+      "success": 391,
+      "unknown": 0,
+      "asr": 0.07333083270817704
+    }
+  },
+  "validator_sha256": "b035d991ef96869265a7d0e724755cbb0cc801582fbe49b782ed0a845653057e",
+  "joint_IT6_complete": false,
+  "kernel_integrated": false
+}

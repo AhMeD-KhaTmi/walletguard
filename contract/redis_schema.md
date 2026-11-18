@@ -116,6 +116,14 @@ These are not cross-layer input APIs. Document new private prefixes here before
 use if they could be confused with shared state. No new Lua bucket math outside
 `waf/buckets.py`; the only non-Redis implementation is its explicit outage backend.
 
+The validated agent-budget calibration changes only B's private `llm_tok` policy:
+40,000 capacity and 2,400 tokens/s. The existing
+private bucket expiry formula stays `ceil(capacity/refill_per_s*2000)+1000` ms;
+it yields 34,334ms for this token bucket, versus 401,000ms for the initial policy.
+This is idle bucket cleanup after more than two full refill intervals. Shared ban,
+signal, session and stream shapes/TTLs do not change; operational schema remains 2.
+See `../docs/BUDGET_CALIBRATION.md`; A must record the effective policy per run.
+
 Reset run state only while traffic is stopped. Coordinate clearing runtime streams,
 signals, usage, local histories and kernel maps/counters; preserve schema version
 and management allowlist. Keep archived run artifacts outside reset scope. A schema

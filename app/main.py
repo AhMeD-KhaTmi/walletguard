@@ -65,7 +65,10 @@ def create_app(settings: Settings | None = None, waf_config: Config | None = Non
                 except RedisError:
                     runtime.event("startup", {"status": "redis_unavailable", "ts_ms": int(time.time()*1000)})
             api.state.llm = llm_client
-            yield
+            try:
+                yield
+            finally:
+                await runtime.close_scoring()
 
     api = FastAPI(title="P20 target API", version="1.0.0", lifespan=lifespan)
     api.state.settings = cfg

@@ -1,6 +1,12 @@
 # Project 20: Member A Plan ("Attack & Kernel" track)
 
-> Current execution plan, 2026-11-17. Follow [master plan v1.3](MASTER_PLAN.md)
+> Model research update, 2026-11-18: the final replacement candidate failed fresh
+> acceptance (6.77% recall / 88.20% precision). The original forest remains active.
+> See [research record](MODEL_CALIBRATION_REVISIONS.md) for the preserved outcomes.
+> Further model selection requires new independent test groups. Twelve matched scoring runs
+> validate batching with the unchanged forest (mixed benign p95 median 712→291ms).
+
+> Current execution plan, 2026-11-17. Follow [master plan v1.4](MASTER_PLAN.md)
 > and the [professor's feedback](masterplan_vs_professor_diff.pdf).
 > Original starter snippets below are superseded where they conflict.
 > A owns ebpf/, locust/ and eval/. B owns app/, waf/ and ml/.
@@ -22,6 +28,12 @@
   calibration and retest. These measurements do not complete IT-1–IT-6 or C4.
 - The shared harness now enables compatible C3 models, records their hashes,
   propagates client timeouts, rejects failed workers, and saves app timing snapshots.
+- B's calibration fits a 40,000-token burst / 2,400 tokens/s policy from fresh
+  benign runs. [36 independent runs meet the policy safety targets](BUDGET_VALIDATION_RESULTS.md),
+  with two client shutdown interruptions explicitly retained as unknowns.
+  Only the private token-bucket allowance/derived idle expiry changes; ban/signal
+  TTLs and Redis schema v2 remain. Record effective policy hashes when comparing
+  runs and preserve the original 81-run evidence/model.
 
 ## A's tasks and acceptance
 

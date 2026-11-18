@@ -105,7 +105,7 @@ class WAFMiddleware:
             extracted = await self.features.extract(ip, path, headers, parsed, len(body))
             if self.state.scorer:
                 before = time.perf_counter()
-                score = await asyncio.to_thread(self.state.scorer.score, extracted)
+                score = await self.state.score_features(extracted)
                 scoring_ms = (time.perf_counter()-before)*1000
         if cfg.mode == "observe":
             await self.state.log(cfg.features_stream, {

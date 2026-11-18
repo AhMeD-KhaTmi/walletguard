@@ -10,7 +10,7 @@ behavioral detection, and a planned Linux kernel enforcement layer.
 [![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](requirements.txt)
 [![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?logo=fastapi&logoColor=white)](app/main.py)
 [![Redis](https://img.shields.io/badge/State-Redis%207-DC382D?logo=redis&logoColor=white)](contract/redis_schema.md)
-[![Validation](https://img.shields.io/badge/Recorded%20tests-64%20passed-76A946)](docs/evidence/application_defenses_tests.xml)
+[![Validation](https://img.shields.io/badge/App%20tests-91%20passed-76A946)](docs/evidence/model_calibration/prototype_application.xml)
 [![Status](https://img.shields.io/badge/Stage-Before%20kernel%20integration-D4A24C)](docs/evidence/independent_status.json)
 
 [Overview](#overview) · [Quick start](#quick-start) · [Validation](#validation) · [Documentation](#documentation) · [Team](#team)
@@ -43,8 +43,8 @@ are synthetic; the LLM is a local HTTP mock. All displayed costs are simulated.
 | Demo application and restricted dashboard | Implemented; browser-checked on desktop/mobile |
 | Redis outage handling and conservative recovery | Implemented; includes disposable-Redis outage tests |
 | Base IsolationForest (C3) | Uses the current agent-loop feature version and disjoint C1 run groups |
-| Held-out detector evaluation | See the current feature-version-3 model evidence |
-| C0/C2/C3 namespace benchmark | 81 valid agent-loop runs; benign FPR and detector limitations remain open |
+| Held-out detector evaluation | Replacement rejected on fresh tests; original forest retained, recall improvement pending |
+| C0/C2/C3 namespace benchmark | 81 frozen agent runs plus 36 budget-validation and 12 scoring runs; detector recall remains open |
 | eBPF sensor, XDP and C4 integration | Pending; C4 startup is explicitly blocked |
 
 The latest local C3 evidence includes model provenance, per-run detector results,
@@ -183,7 +183,7 @@ Redis process. HTTP developer probes own their API/mock processes and clean up a
 
 | Saved evidence | Scope |
 |---|---|
-| [64-test report](docs/evidence/application_defenses_tests.xml) | Baseline, UI access, budgets, refunds, bans, observation, recovery and ML tooling |
+| [64-test report](docs/evidence/model_calibration/prototype_application.xml) | Baseline, UI access, budgets, refunds, bans, observation, recovery and ML tooling |
 | [12 HTTP checks](docs/evidence/application_http_checks.json) | Real HTTP C0/C1/C2 development scenarios |
 | [C2 process evidence](docs/evidence/c2_local_evidence.json) | Bounded local timing/outage records |
 | [Status + source hashes](docs/evidence/independent_status.json) | Provenance and pending dependencies |
@@ -214,8 +214,10 @@ separate fitting, calibration and held-out runs. The earlier traffic handoff
 contains version-2 single-call data and is preserved for historical comparison.
 The [professor update](docs/PROFESSOR_UPDATE.md) records the changed runtime.
 The [81-run benchmark](docs/PROFESSOR_BENCHMARK_RESULTS.md) records its measured
-behavior. Current benign enforcement FPR is 2.350% in C2 and 2.271% in C3;
-budget calibration and detector improvements remain open before final acceptance.
+behavior under the initial policy. The [independent budget update](docs/BUDGET_VALIDATION_RESULTS.md)
+reports zero observed benign policy denials/bans across 36 fresh runs, with two
+client-shutdown interruptions retained as unknowns. Detector improvements and
+real kernel integration remain open before final acceptance.
 
 After collecting the current C1 data, the training inputs are local generated files:
 

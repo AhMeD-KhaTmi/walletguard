@@ -85,7 +85,7 @@ async def test_agent_task_budget_precedes_any_generation(redis_db, llm_url):
             transport=httpx.ASGITransport(app=api, client=("10.20.0.21", 1234))) as client:
         token = (await client.post("/login", json={"username": "user1", "password": "Passw0rd!1"})).json()["token"]
         response = await client.post("/chat", headers={"authorization": f"Bearer {token}"},
-                                     json={"prompt": "hi", "agent_steps": 8, "max_output_tokens": 900})
+                                     json={"prompt": "catalogue " * 10_000, "agent_steps": 8, "max_output_tokens": 900})
         assert response.status_code == 400 and response.json()["error"] == "token_cost_exceeds_capacity"
         invalid = await client.post("/chat", headers={"authorization": f"Bearer {token}"},
                                     json={"prompt": "hi", "agent_steps": True})

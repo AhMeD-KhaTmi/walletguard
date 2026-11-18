@@ -1,0 +1,4 @@
+{
+  "reason": "Environment restart lost /tmp checkout and left empty JSON snapshots in mixed direct r2; exclude and rerun same frozen source/seed. r3 never started successfully.",
+  "ordering_deviation": "Mixed direct r2 rerun follows original batch r2; reverse order retained. Restart separates repetitions 1/2 from 3."
+}

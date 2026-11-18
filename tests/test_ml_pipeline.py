@@ -60,6 +60,34 @@ def test_training_rejects_unlabeled_mixed_or_single_run_data(tmp_path):
         train(csv, tmp_path/"model.joblib")
 
 
+@pytest.mark.parametrize("profile,count", [("behavior", 7), ("rate", 3)])
+def test_behavior_inputs_transform_and_vectorized_legacy_compatibility(tmp_path, profile, count):
+    csv, model = tmp_path / "benign.csv", tmp_path / "behavior.joblib"
+    data = fixture_data(["a", "b", "c"])
+    data.to_csv(csv, index=False)
+    train(csv, model, trees=10, feature_set=profile)
+    scorer = Scorer(model)
+    rows = fixture_data(["new"]).to_dict("records")
+    assert scorer.transform == "log1p" and len(scorer.model_features) == count
+    assert np.allclose(scorer.score_many(rows), [scorer.score(r) for r in rows], rtol=0, atol=1e-15)
+    bad = {**rows[0], "req_10s": -1}
+    with pytest.raises(ValueError, match="negative"):
+        scorer.score(bad)
+    legacy = tmp_path / "legacy.joblib"
+    train(csv, legacy, trees=10)
+    artifact = joblib.load(legacy)
+    artifact.pop("model_features")
+    artifact.pop("model_transform")
+    joblib.dump(artifact, legacy)
+    old = Scorer(legacy)
+    x = np.array([[r[f] for f in FEATURES_BASE] for r in rows])
+    assert np.array_equal(old.score_many(rows), old.model.score_samples(x))
+    artifact["model_features"] = ["req_10s", "req_10s"]
+    joblib.dump(artifact, legacy)
+    with pytest.raises(ValueError, match="input selection"):
+        Scorer(legacy)
+
+
 def test_model_from_the_previous_feature_version_is_rejected(tmp_path):
     csv, model = tmp_path / "benign.csv", tmp_path / "model.joblib"
     fixture_data(["a", "b"]).to_csv(csv, index=False)

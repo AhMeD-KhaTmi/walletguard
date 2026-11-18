@@ -14,7 +14,10 @@
 - [x] **Both — integrate here:** Combined A's workloads and B's frozen model on the Linux VM. All 54 matched C2/C3 runs passed, with three repetitions per workload and configuration. [Results](C23_BENCHMARK_RESULTS.md)
 - [x] **B, using A's metrics:** Report attack success, token usage, cost, benign false positives, latency, WAF overhead, and scoring time for C2/C3. Share these results and source changes with A.
 - [x] **B:** Complete the current agent benchmark: 81 valid matched C0/C2/C3 runs, three repetitions per workload/configuration, with p50/p95 baseline differences. [Results](PROFESSOR_BENCHMARK_RESULTS.md). The previous 54 runs remain historical single-call evidence.
-- [ ] **B:** Calibrate whole-agent budgets on new data and retest independently: the current campaign exceeds the 1% benign FPR target and includes benign budget bans. Investigate very low detector recall and C3 scoring overhead before final acceptance.
+- [x] **B:** Calibrate whole-agent budgets on new data and complete 36 independent runs: zero observed benign denials/bans, with two shutdown-interrupted requests retained as unknowns. [Results](BUDGET_VALIDATION_RESULTS.md).
+- [x] **B:** Collect nine fresh detector test groups and assess new profiles. Reject the final candidate (6.77% recall / 88.20% precision); preserve the original forest and all results. [Research record](MODEL_CALIBRATION_REVISIONS.md).
+- [x] **B:** Validate scoring latency with twelve matched direct/batched runs using the original model. Mixed benign p95 median 712→291ms; one direct shutdown outcome remains unknown. [Results](SCORING_PERFORMANCE_RESULTS.md).
+- [ ] **B:** Improve base detector recall under a new research protocol and new independent test groups before final model acceptance. Do not tune against the now-opened fresh tests.
 
 ## In parallel — C4 kernel work
 

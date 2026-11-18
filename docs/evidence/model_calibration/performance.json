@@ -1,0 +1,210 @@
+{
+  "kind": "matched_original_model_scoring_performance",
+  "runs": 12,
+  "pairs": 6,
+  "model_sha256": "bb0116a167318df1749a0edf5cf5b95362ccde59f6b8580d732ed82d05722ca1",
+  "summary": {
+    "benign": {
+      "batch": {
+        "benign_attempts": 558,
+        "benign_policy_denials": 0,
+        "benign_unknown": 0,
+        "benign_auto_bans": 0,
+        "metrics": {
+          "latency_p50_ms": {
+            "median": 26.479,
+            "min": 17.8495,
+            "max": 29.828
+          },
+          "latency_p95_ms": {
+            "median": 120.17549999999997,
+            "min": 103.87685,
+            "max": 129.8196
+          },
+          "waf_overhead_p95_ms": {
+            "median": 37.84377595038677,
+            "min": 25.295701249970655,
+            "max": 45.62970160113765
+          },
+          "scoring_p95_ms": {
+            "median": 26.152784698206233,
+            "min": 17.238965399985773,
+            "max": 29.514021451541335
+          },
+          "app_cpu_pct": {
+            "median": 8.26,
+            "min": 5.66,
+            "max": 8.76
+          },
+          "app_rss_mb": {
+            "median": 192.5,
+            "min": 192.3,
+            "max": 193.0
+          },
+          "server_tokens_out_total": {
+            "median": 58668.0,
+            "min": 50028.0,
+            "max": 63180.0
+          }
+        },
+        "benign_safety_passed": true
+      },
+      "direct": {
+        "benign_attempts": 554,
+        "benign_policy_denials": 0,
+        "benign_unknown": 1,
+        "benign_auto_bans": 0,
+        "metrics": {
+          "latency_p50_ms": {
+            "median": 29.1535,
+            "min": 22.277500000000003,
+            "max": 37.944
+          },
+          "latency_p95_ms": {
+            "median": 128.56419999999997,
+            "min": 113.31925,
+            "max": 130.9808
+          },
+          "waf_overhead_p95_ms": {
+            "median": 56.19015900301745,
+            "min": 52.476231499980486,
+            "max": 64.89142945247293
+          },
+          "scoring_p95_ms": {
+            "median": 39.50711985125961,
+            "min": 29.13731624998661,
+            "max": 40.13296819903188
+          },
+          "app_cpu_pct": {
+            "median": 10.74,
+            "min": 8.02,
+            "max": 11.4
+          },
+          "app_rss_mb": {
+            "median": 192.7,
+            "min": 192.3,
+            "max": 192.9
+          },
+          "server_tokens_out_total": {
+            "median": 55296.0,
+            "min": 47460.0,
+            "max": 59472.0
+          }
+        },
+        "benign_safety_passed": true
+      }
+    },
+    "mixed": {
+      "batch": {
+        "benign_attempts": 530,
+        "benign_policy_denials": 0,
+        "benign_unknown": 0,
+        "benign_auto_bans": 0,
+        "metrics": {
+          "latency_p50_ms": {
+            "median": 86.898,
+            "min": 79.994,
+            "max": 87.716
+          },
+          "latency_p95_ms": {
+            "median": 291.497,
+            "min": 284.9605,
+            "max": 292.2068
+          },
+          "waf_overhead_p95_ms": {
+            "median": 96.47107940108984,
+            "min": 94.52149499629738,
+            "max": 101.53795399996852
+          },
+          "scoring_p95_ms": {
+            "median": 52.986742205393966,
+            "min": 51.204238797072314,
+            "max": 58.240708749974594
+          },
+          "app_cpu_pct": {
+            "median": 96.75,
+            "min": 83.61,
+            "max": 97.8
+          },
+          "app_rss_mb": {
+            "median": 199.2,
+            "min": 198.4,
+            "max": 199.3
+          },
+          "asr": {
+            "median": 0.0107,
+            "min": 0.0106,
+            "max": 0.0112
+          },
+          "unknown_outcomes": {
+            "median": 1.0,
+            "min": 0.0,
+            "max": 2.0
+          },
+          "server_tokens_out_total": {
+            "median": 71784.0,
+            "min": 66108.0,
+            "max": 83112.0
+          }
+        },
+        "benign_safety_passed": true
+      },
+      "direct": {
+        "benign_attempts": 490,
+        "benign_policy_denials": 0,
+        "benign_unknown": 0,
+        "benign_auto_bans": 0,
+        "metrics": {
+          "latency_p50_ms": {
+            "median": 210.014,
+            "min": 192.113,
+            "max": 259.426
+          },
+          "latency_p95_ms": {
+            "median": 712.0527,
+            "min": 693.6785,
+            "max": 952.0673999999998
+          },
+          "waf_overhead_p95_ms": {
+            "median": 258.4705715499892,
+            "min": 255.2159907499969,
+            "max": 287.0226901035494
+          },
+          "scoring_p95_ms": {
+            "median": 165.3914576499743,
+            "min": 163.9896906000075,
+            "max": 166.87390635015615
+          },
+          "app_cpu_pct": {
+            "median": 91.12,
+            "min": 90.92,
+            "max": 92.47
+          },
+          "app_rss_mb": {
+            "median": 196.6,
+            "min": 196.2,
+            "max": 196.8
+          },
+          "asr": {
+            "median": 0.031,
+            "min": 0.0303,
+            "max": 0.0349
+          },
+          "unknown_outcomes": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 1.0
+          },
+          "server_tokens_out_total": {
+            "median": 68556.0,
+            "min": 65028.0,
+            "max": 79896.0
+          }
+        },
+        "benign_safety_passed": true
+      }
+    }
+  },
+  "kernel_integrated": false,
+  "validator_sha256": "020854da67d102c781d68edd15c75a5c914e9f3ae90e9672547251d17c93c1ad"
+}

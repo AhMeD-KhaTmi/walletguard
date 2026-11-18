@@ -144,7 +144,8 @@ async def test_output_policy_and_actual_token_charge(target, redis_db):
     assert float(row["tokens_reserved"]) == 101
     assert float(row["tokens_refunded"]) == 0
     assert row["accounting_status"] == "known"
-    assert 19899 <= float(redis_db.hget("p20:bkt:llm_tok:user1", "tokens")) < 20000
+    capacity = target.state.waf_config.budgets["llm_tok"][0]
+    assert capacity-101 <= float(redis_db.hget("p20:bkt:llm_tok:user1", "tokens")) < capacity
     assert target.state.runtime.timings[-1]["waf_overhead_ms"] >= float(row["latency_ms"])
 
 
@@ -393,6 +394,26 @@ async def test_benign_multi_ip_smoke_stays_unbanned(target, redis_db):
             assert login_result.status_code == 200
             headers = {"authorization": "Bearer "+login_result.json()["token"]}
             assert (await c.post("/chat", headers=headers, json={"prompt": "hello", "agent_steps": 1, "max_output_tokens": 20})).status_code == 200
+    assert not redis_db.keys("p20:ban:*")
+
+
+async def test_two_large_agent_tasks_share_an_account_without_a_false_ban(redis_db, llm_url, policy):
+    # Two normal users share one account. Negligible refill makes the burst test
+    # independent of machine speed; the candidate keeps the calibrated capacity.
+    policy = replace(policy, budgets={**policy.budgets, "llm_tok": (policy.budgets["llm_tok"][0], .001)})
+    app = create_app(Settings(redis_url=TEST_REDIS_URL, llm_base_url=llm_url, waf_mode="enforce"), policy)
+    payload = {"prompt": "catalogue " * 100, "max_output_tokens": 500, "agent_steps": 8}
+    async with app.router.lifespan_context(app), client(app, "10.20.0.11") as one, client(app, "10.20.0.12") as two:
+        headers = await login(one)
+        replies = await asyncio.gather(one.post("/chat", headers=headers, json=payload),
+                                       two.post("/chat", headers=headers, json=payload))
+        assert [r.status_code for r in replies] == [200, 200]
+        denied = await one.post("/chat", headers=headers, json=payload)
+        assert denied.status_code == 429 and denied.json()["error"] == "llm_tok"
+        assert int(denied.headers["retry-after"]) > 0
+        assert (await one.get("/products")).status_code == 200
+    assert redis_db.hget("p20:app:usage:total", "requests") == "2"
+    assert redis_db.hget("p20:app:usage:total", "agent_steps") == "16"
     assert not redis_db.keys("p20:ban:*")
 
 

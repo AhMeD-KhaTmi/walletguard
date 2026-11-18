@@ -22,7 +22,7 @@ A two-person Red-vs-Blue security project. We attack a deliberately vulnerable F
 
 I own `app/`, `waf/`, `ml/`. My teammate (Member A, "Attack & Kernel" track) owns `ebpf/`, `locust/`, `eval/`. `contract/` and `docs/` are shared. Full plans: `member_B_plan.md` (mine) and `docs/member_A_plan.md` (teammate's) — read both before making non-trivial changes, since this system only works as the two halves together.
 
-**Professor-approved execution requirements (2026-11-17, master plan v1.3):**
+**Professor-approved execution requirements (2026-11-17, master plan v1.4):**
 Use Ubuntu 22.04/24.04, kernel >=5.15 and BTF. `/chat` runs a bounded simulated
 agent loop over the local mock with growing context, exact synthetic token counts,
 configurable deterministic latency and aggregate/per-step usage. Features are
@@ -31,6 +31,11 @@ and execve activity. Native XDP may fall back to generic/skb, tc/nftables or WAF
 enforcement with an explicit backend/mode and evidence. Report per-attack ASR,
 benign FPR, p50/p95 client deltas from matched C0 and finalized WAF p50/p95.
 See `docs/masterplan_vs_professor_diff.pdf` and both updated member plans.
+The independent B calibration uses 40,000 LLM tokens/account and 2,400 tokens/s.
+Its 36-run policy validation reports zero benign denials/bans, with two client
+shutdown interruptions retained as unknowns. Protocol and frozen hashes are in
+`docs/BUDGET_CALIBRATION.md`; results are in `docs/BUDGET_VALIDATION_RESULTS.md`.
+Preserve the original 81-run campaign and model. Model research remains separate.
 
 ## Repository layout
 

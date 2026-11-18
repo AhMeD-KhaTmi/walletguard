@@ -1,0 +1,6 @@
+{
+  "candidate_sha256": "8332d8a41b9a347eff8b9231680adc93c4c4f7e3b0b7eea6fd59432fa1e38d76",
+  "reason": "historical benign flag rate 25/191 (13.09%) exceeds the new compatibility bar; candidate not deployed",
+  "fresh_test_data_used": false,
+  "next_candidate": "v2 broadens only independent training/calibration coverage; selected features and percentile unchanged"
+}

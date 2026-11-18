@@ -1,0 +1,83 @@
+{
+  "kind": "token_budget_calibration",
+  "rule": "60s peak x1.25; two-task burst; round 50/s and 5000",
+  "legacy": {
+    "capacity": 20000,
+    "refill_per_s": 100
+  },
+  "candidate": {
+    "capacity": 40000,
+    "refill_per_s": 2400,
+    "largest_task_tokens": 19044,
+    "largest_account_60s_tokens": 113550,
+    "measured_chat_tasks": 1035
+  },
+  "calibration_runs": [
+    {
+      "run_id": "budget-calibration-normal-benign-c1-r1-retry",
+      "seed": 101,
+      "scenario": "normal",
+      "files": {
+        "manifest.json": "dcf8ee9448b29a12fd2df200d7202cf4e38fc5e4219d8dde33ccaceb730ac33d",
+        "features.jsonl": "c5ba85fd05b1964f49d016e9e56ccf1d7f086de03b6be566deadc5509e235e64",
+        "decisions.jsonl": "280f731824a5247932f36d44cf773d36080feefa1b0aaa0acb0e1825a631a63e"
+      }
+    },
+    {
+      "run_id": "budget-calibration-normal-benign-c1-r2",
+      "seed": 102,
+      "scenario": "normal",
+      "files": {
+        "manifest.json": "f87b2a13c9c16f6b04069213c98540bcd7474f0478f07cec0d7eb3fecc702d9d",
+        "features.jsonl": "901f277cea87992ed67f2797a99368913fdd1e61dddf3d2d532fe0e3803fc0d1",
+        "decisions.jsonl": "8eebc4dfc4bad954672e6d90cd817b56c8901b6b13dadd0bc679f5f09ebed779"
+      }
+    },
+    {
+      "run_id": "budget-calibration-normal-benign-c1-r3",
+      "seed": 103,
+      "scenario": "normal",
+      "files": {
+        "manifest.json": "5713675cc6bbbe4e0d280cfbfeafbe820c98ed927e2fafad92a9abdac38913dc",
+        "features.jsonl": "b4fe900d431eb34b08db8b02393b7d6a99ee55faa33d2979c008febc73754ac4",
+        "decisions.jsonl": "a1ce353ccf026ada7e6f5be8eb9c2d1b849e34d3dd866335aa5ef6bb088c407b"
+      }
+    },
+    {
+      "run_id": "budget-calibration-varied-benign-c1-r1",
+      "seed": 101,
+      "scenario": "varied",
+      "files": {
+        "manifest.json": "403aa79042b575fd0f55745da8eb0babca2947260834a7098fc9d6891ed7ff22",
+        "features.jsonl": "c0703c6d96f10e67fc3ee1da8a65c609103ba6f30effa08e855cdb50c6feeacc",
+        "decisions.jsonl": "6db5f37428dcd52d7c88b120c6a7ddd49cfe6e7af09f1253b916c6301b1ef30e"
+      }
+    },
+    {
+      "run_id": "budget-calibration-varied-benign-c1-r2",
+      "seed": 102,
+      "scenario": "varied",
+      "files": {
+        "manifest.json": "f669f05346d5d58bf74b7df5744f849cfd2bd71eb8e83ecf5db924409f24f3b8",
+        "features.jsonl": "6c6326f121fb79cbd151aed27e2f17fa50e1af55a3228476a9b79eef40b4372d",
+        "decisions.jsonl": "e175cc062cdf0d732099da3946e4aec32c079c594817a2bd8ce9993c67087c60"
+      }
+    },
+    {
+      "run_id": "budget-calibration-varied-benign-c1-r3",
+      "seed": 103,
+      "scenario": "varied",
+      "files": {
+        "manifest.json": "7f60cc5f1e23956a32f1121892a3bd91ced1cf8a7f909c2d4d9c22b5146e3b6c",
+        "features.jsonl": "dd3a278ad52e17dd7d87aaa9ba51731aa11767a23131ea90d2d6523ad98adf03",
+        "decisions.jsonl": "59907230b301724b2029a6d15cfee420acac212fef76ab949794b6b61b22f78f"
+      }
+    }
+  ],
+  "validation_seeds": [
+    201,
+    202,
+    203
+  ],
+  "frozen_before_validation": true
+}

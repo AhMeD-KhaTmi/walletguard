@@ -1,0 +1,1161 @@
+{
+  "kind": "development_http_checks_not_final_asr",
+  "kernel_integrated": false,
+  "runs": [
+    {
+      "config": "C0",
+      "workload": "logins",
+      "response_codes": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "observe_samples": 0,
+      "decision_records": 0,
+      "timings": [],
+      "passed": true
+    },
+    {
+      "config": "C0",
+      "workload": "catalogue",
+      "response_codes": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "observe_samples": 0,
+      "decision_records": 0,
+      "timings": [],
+      "passed": true
+    },
+    {
+      "config": "C0",
+      "workload": "chat_output_policy",
+      "response_codes": [
+        200
+      ],
+      "observe_samples": 0,
+      "decision_records": 0,
+      "timings": [],
+      "passed": true
+    },
+    {
+      "config": "C0",
+      "workload": "honeypot",
+      "response_codes": [
+        404,
+        200
+      ],
+      "observe_samples": 0,
+      "decision_records": 0,
+      "timings": [],
+      "passed": true
+    },
+    {
+      "config": "C1",
+      "workload": "logins",
+      "response_codes": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "observe_samples": 12,
+      "decision_records": 12,
+      "timings": [
+        {
+          "request_id": "2d74267ff6b64ef3ae4a1f1796d27b1b",
+          "run_id": "dev-C1-logins",
+          "waf_overhead_ms": 3.153487999952631,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "02c187d9488644de9f214a1f81698666",
+          "run_id": "dev-C1-logins",
+          "waf_overhead_ms": 3.0129180013318546,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "8eef52ebb1d74d448c5b1e80c5b431f0",
+          "run_id": "dev-C1-logins",
+          "waf_overhead_ms": 3.6673540016636252,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "aba3a56cb3f4497db6eaef6cdd2d9b7c",
+          "run_id": "dev-C1-logins",
+          "waf_overhead_ms": 3.271093995863339,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "270c805d17e9495ea34bee1712536be2",
+          "run_id": "dev-C1-logins",
+          "waf_overhead_ms": 3.7398700005724095,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "69b6d96cbb8d4177836cc8b34c280c9b",
+          "run_id": "dev-C1-logins",
+          "waf_overhead_ms": 5.231688999629114,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "81c059198db1441a98624e481361e4f5",
+          "run_id": "dev-C1-logins",
+          "waf_overhead_ms": 3.049440998438513,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "999cf91f57754acfa04acc65a6204ea6",
+          "run_id": "dev-C1-logins",
+          "waf_overhead_ms": 3.2086430001072586,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "94594047053a45a7af41a586559093c5",
+          "run_id": "dev-C1-logins",
+          "waf_overhead_ms": 5.688644003384979,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "989ef7bf44c5459ab6ed13a3dcaee546",
+          "run_id": "dev-C1-logins",
+          "waf_overhead_ms": 4.368873003841145,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "8f657be6f9bb47f2844aac37c3d0ff46",
+          "run_id": "dev-C1-logins",
+          "waf_overhead_ms": 3.72063199756667,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "bc5656cadd3e45a4bd2feaf3c51b4872",
+          "run_id": "dev-C1-logins",
+          "waf_overhead_ms": 7.743466001556953,
+          "scoring_ms": 0,
+          "degraded": false
+        }
+      ],
+      "passed": true
+    },
+    {
+      "config": "C1",
+      "workload": "catalogue",
+      "response_codes": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "observe_samples": 45,
+      "decision_records": 45,
+      "timings": [
+        {
+          "request_id": "c6a3b13c6b434ed692828d30edee7cca",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 1.6358220018446445,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "6eb68c79903a408c97e6ebef64a6bbf6",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 1.200552000227617,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "fb7bbebab12d4bcba84d8cba037d1956",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 2.3823230003472418,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "48ead44bc85f472ab989ce2391ced963",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 1.789737998478813,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "e4600c44ef1b40e49d90fb23e2461b14",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 4.18725100098527,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "124c6531e35c45f599692195e300fa91",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 1.2369299984129611,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "89af34496b47415da091c9cdaa4c378d",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 2.5334670026495587,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "284d0136098f4a53b6a739c1755d9b06",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 1.851287997851614,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "dd61e94cf20444fa8fa1fc75c4941990",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 4.471058000490302,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "c4dd6000d48e4f719a68a2904f3286d4",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 4.953685998771107,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "1a3d0816bd9d4742a8a04d9b54b8bd64",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 9.286803997383686,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "2adb2473047245ae85de6208ed1b1666",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 4.852270998526365,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "1ed40007d2d547888d040a34d917c23d",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 3.263761002017418,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "c6fe8e8856cb4b38a8b08cf135c52723",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 3.756212998268893,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "b7793c544acc480f9ee276ddd1e4699e",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 6.4776359977258835,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "ad01d06b3fb14743a29301dda85eedda",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 2.997961000801297,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "78dd02d102b249fc8d776c066c9a28ef",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 4.097713001101511,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "e794809838e94d33a6a86a8105dbb6e8",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 3.723416000866564,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "11348b36b4d148d994b4648b570c0038",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 3.0406059995584656,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "6ba0dfffbddb4c25bb75ed0971288436",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 5.046823003794998,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "417fed20bd56419190c039d10b591491",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 2.8352439985610545,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "7c9ffaa4e5c94598a392a1fc8b65512e",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 3.724705002241535,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "aa8a28c34d724c8bac3eded604218de0",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 4.921722000290174,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "2e77787b9f594dd6bef33640dd5a8fc3",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 4.562050999084022,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "f1e2050383fb4258a6676c76a3664cd4",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 3.0393919951166026,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "3545e4294baa4195930a8b043d761d25",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 3.0164749987307005,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "36562e3e04d444c68e3971daff0d4baa",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 1.7323760002909694,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "f039da26ce6844398b81cf13f330d4e8",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 1.6034510008466896,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "28a6ef8a699146fca1adc66b0b9e5a70",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 2.115209001203766,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "3344b84241d7479e992c3eb3010acb86",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 1.893032000225503,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "27f3966f077b471989c458408b46bae8",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 2.8597279997484293,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "e885dea44174451faa54cecdb890de92",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 2.430743999866536,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "69a441c975ee449db6d20424f66609c6",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 1.5280469997378532,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "8e89c89714134299a533febce3c10539",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 2.356842000153847,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "d1015f17c66a4041b2f71997211fcb5a",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 3.3640870024100877,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "e2fe4faf82854457a048021f6918058e",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 1.4335899977595545,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "ac9bf756d47f4d3ca8a18ae6badc9b1f",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 1.2982139996893238,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "e1715db68e774b18b2190182a49167d8",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 1.7076660005841404,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "573b641cd26b45b88e4ad18dbf272c91",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 3.989030996308429,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "f4fa03f5b48c4a32a6a362d84f8079e5",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 3.251033998822095,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "96a64470d7a94e0b8c38102a5552c6cc",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 8.451774003333412,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "90321933e74e4b72a9446361595f7cee",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 4.927070996927796,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "f9a1746ffb8046f9b2d771a52cba4099",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 3.186922000168124,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "a74ad0c2660147238d2a24011641d875",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 3.9287289982894436,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "8d26b20dcf704f3e8e5a80c89c2e22f5",
+          "run_id": "dev-C1-catalogue",
+          "waf_overhead_ms": 3.637402998720063,
+          "scoring_ms": 0,
+          "degraded": false
+        }
+      ],
+      "passed": true
+    },
+    {
+      "config": "C1",
+      "workload": "chat_output_policy",
+      "response_codes": [
+        200
+      ],
+      "observe_samples": 2,
+      "decision_records": 2,
+      "timings": [
+        {
+          "request_id": "21afedc590914f0fbf51a50e63344489",
+          "run_id": "dev-C1-chat_output_policy",
+          "waf_overhead_ms": 2.3593789992446546,
+          "scoring_ms": 0,
+          "degraded": false
+        }
+      ],
+      "passed": true
+    },
+    {
+      "config": "C1",
+      "workload": "honeypot",
+      "response_codes": [
+        404,
+        200
+      ],
+      "observe_samples": 2,
+      "decision_records": 2,
+      "timings": [
+        {
+          "request_id": "a2450d737b68477991cd939c5f177990",
+          "run_id": "dev-C1-honeypot",
+          "waf_overhead_ms": 2.2626410027442034,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "2724beafe16b4706af89a85f3e379915",
+          "run_id": "dev-C1-honeypot",
+          "waf_overhead_ms": 2.0386779979162384,
+          "scoring_ms": 0,
+          "degraded": false
+        }
+      ],
+      "passed": true
+    },
+    {
+      "config": "C2",
+      "workload": "logins",
+      "response_codes": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        429,
+        429,
+        429,
+        429,
+        429,
+        403,
+        403
+      ],
+      "observe_samples": 0,
+      "decision_records": 12,
+      "timings": [
+        {
+          "request_id": "5cd91a5633ff4c1ab7088786d7868f4d",
+          "run_id": "dev-C2-logins",
+          "waf_overhead_ms": 4.3452329991851,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "abaf4855491f4b969662383d704afb83",
+          "run_id": "dev-C2-logins",
+          "waf_overhead_ms": 3.1963250003173016,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "bc8353d873394299b130bda457adeb3d",
+          "run_id": "dev-C2-logins",
+          "waf_overhead_ms": 3.7855129994568415,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "660cb2c02ef74680bd020d9aa2476053",
+          "run_id": "dev-C2-logins",
+          "waf_overhead_ms": 2.7661589992931113,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "7e8f416fa77b44e8a96ba3539c45f4e7",
+          "run_id": "dev-C2-logins",
+          "waf_overhead_ms": 5.5251199955819175,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "28a2ffca1e664319a14997ff5526ab20",
+          "run_id": "dev-C2-logins",
+          "waf_overhead_ms": 4.547635002381867,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "17e4f4a764b549fab1e909ebe4c8bde0",
+          "run_id": "dev-C2-logins",
+          "waf_overhead_ms": 3.492572002869565,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "ac8a0ea68c854dd79846ab6cdb94a8b8",
+          "run_id": "dev-C2-logins",
+          "waf_overhead_ms": 3.2594279982731678,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "9d90fb2ec03748ffbe08b9e77b472c17",
+          "run_id": "dev-C2-logins",
+          "waf_overhead_ms": 4.995274000975769,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "a30ec88c5cb744558ff43857f7defb60",
+          "run_id": "dev-C2-logins",
+          "waf_overhead_ms": 5.242085000645602,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "5a17c5555ff9461680cf7d056ae1bcd7",
+          "run_id": "dev-C2-logins",
+          "waf_overhead_ms": 2.394561997789424,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "e7e2267d66fa4dc790384041ef034177",
+          "run_id": "dev-C2-logins",
+          "waf_overhead_ms": 2.5004659983096644,
+          "scoring_ms": 0,
+          "degraded": false
+        }
+      ],
+      "passed": true
+    },
+    {
+      "config": "C2",
+      "workload": "catalogue",
+      "response_codes": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        429,
+        429,
+        429,
+        200,
+        429,
+        429,
+        403,
+        403,
+        403,
+        403,
+        403,
+        403,
+        403
+      ],
+      "observe_samples": 0,
+      "decision_records": 45,
+      "timings": [
+        {
+          "request_id": "e1d405c2a99f463981df865bdab470aa",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.7329420008754823,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "953fb3f961bd4c428e6516ad46d51edc",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.392127997154603,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "ac18888e4c4c4e01803261feceb13fd6",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 3.5089870034425985,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "9683721f126b4518a924015b9e51c785",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 3.895802998158615,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "590c3326e8c14705bda58abe38e47695",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.479321999999229,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "0448711d196344cfbba8de2023c77731",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.4948249993030913,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "28508787e01646baac644c52b4c4f571",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.301548000104958,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "d8ccad4ded06469abd2783253fa123a2",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 4.453312998521142,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "37a530eba79449cc8b3d689470fbe671",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.9267549980431795,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "71743b6e2ff74bb6b76f18f6bb588873",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 3.023170000233222,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "d46ce765adda4600b536f70e60a8fe29",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 5.2127080016362015,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "7b37b634c9044c24b7753c59e911b498",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.6920299969788175,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "5a4086d52483411895f0f493ef9de7f8",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 6.20557600268512,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "2fd57fc3e40540da8019e34c90251197",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.935805998276919,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "a90d3a570bef41eeae738242415498b3",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 1.512146001914516,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "c47bace279e94675958e3156762ddc93",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 1.309798997681355,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "2e47b10b613e4cabbb135b64645647f7",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 9.185351998894475,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "e332eaf0c76740c98466895f7a5d3726",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 1.4483819977613166,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "dee5fe4202cd460cbe52531d0f4e3fc9",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.6533999953244347,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "ec2e3ff5eeda4082b3d82e50a8e07930",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 1.7596610014152247,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "060aa3e36cd44861bee1d4c3d21af99a",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 3.1804320024093613,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "5d43277bd31141f9b97ab0523991e4ec",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 1.4002249990880955,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "c48353b651dc4195b9dd64b161b6ce0f",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 3.27051299973391,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "6ececdc9c40f4b0ab0e05b67f6f79a3f",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 4.280803997971816,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "15ef9e4af1e5428d9626079fe0191a3c",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 3.8571220029552933,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "4effc329a16f4188aac9f39eb35ba1df",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 3.0846859990560915,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "df30234a8f3346a9b7fc6ca7ecdd1448",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 1.996141996642109,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "4ad4d25905dc48da814dda8e5f7475da",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.0459189981920645,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "b435675aa3084c898827b87890149f29",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.7549660007935017,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "6e4bc049299c42ca9e1c2324395b2fd8",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.458795002894476,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "eba1b82fffbc49b0957de346ff77f189",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.9381560016190633,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "9ba5d69c283d4a3d8fb1e0cac37392c1",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.0797040015168022,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "c1328769892b460393e778d81ed8a155",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.5131209986284375,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "2053b80af57b4f1495ffb39192d83f1a",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 3.4145810022891965,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "73d944e1cc0c42c7944ca943cd7de4a9",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 4.256623997207498,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "a7152e01b36744b58eee52e38245b100",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.3686870008532424,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "0bc9e677adc04d4eb7b5c7512152621a",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 3.1800129982002545,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "618fa45d56ca432fa8b456d9486deb5e",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 3.721616001712391,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "37fcc4e890f649768bc9bd089a21211c",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.155365000362508,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "54749084d006457a9dfe86c90d81492d",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.7524610013642814,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "78dead37c1eb41e4868d3ffecf101b96",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.33944300271105,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "0cf67eb4b32b40eeb4c45aeb4183014f",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 3.2768510027381126,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "648ebe34be4c4e23b68b7a164f0d2e25",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 3.4703639976214617,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "fd5ea5f86aa54f37a7f31f37e96e2e8e",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 5.381646002206253,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "0cf51b1e0300429585b281104cfe590a",
+          "run_id": "dev-C2-catalogue",
+          "waf_overhead_ms": 2.1887209986743983,
+          "scoring_ms": 0,
+          "degraded": false
+        }
+      ],
+      "passed": true
+    },
+    {
+      "config": "C2",
+      "workload": "chat_output_policy",
+      "response_codes": [
+        400
+      ],
+      "observe_samples": 0,
+      "decision_records": 2,
+      "timings": [
+        {
+          "request_id": "6c6b8761eeb340b29da2a57c1552e3ec",
+          "run_id": "dev-C2-chat_output_policy",
+          "waf_overhead_ms": 5.864643000677461,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "afbaffa9c77843b6b75914975ec68a4b",
+          "run_id": "dev-C2-chat_output_policy",
+          "waf_overhead_ms": 5.790010996861383,
+          "scoring_ms": 0,
+          "degraded": false
+        }
+      ],
+      "passed": true
+    },
+    {
+      "config": "C2",
+      "workload": "honeypot",
+      "response_codes": [
+        404,
+        403
+      ],
+      "observe_samples": 0,
+      "decision_records": 2,
+      "timings": [
+        {
+          "request_id": "7b89cbae803b440da3acac0298e9e358",
+          "run_id": "dev-C2-honeypot",
+          "waf_overhead_ms": 5.9887719980906695,
+          "scoring_ms": 0,
+          "degraded": false
+        },
+        {
+          "request_id": "df240591176c466895523bf88e4fce6a",
+          "run_id": "dev-C2-honeypot",
+          "waf_overhead_ms": 1.8066029988403898,
+          "scoring_ms": 0,
+          "degraded": false
+        }
+      ],
+      "passed": true
+    }
+  ]
+}

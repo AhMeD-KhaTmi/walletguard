@@ -25,16 +25,38 @@ class Scorer:
             raise ValueError("model sklearn version mismatch; retrain in this environment")
         self.model = data["model"]
         self.features = data["features"]
+        self.model_features = data.get("model_features", self.features)
+        if (not isinstance(self.model_features, list) or not self.model_features
+                or any(not isinstance(f, str) for f in self.model_features)
+                or len(set(self.model_features)) != len(self.model_features)
+                or not set(self.model_features) <= set(self.features)
+                or getattr(self.model, "n_features_in_", None) != len(self.model_features)):
+            raise ValueError("model input selection is incompatible")
+        self.transform = data.get("model_transform", "identity")
+        if self.transform not in {"identity", "log1p"}:
+            raise ValueError("unsupported model transformation")
         self.threshold = float(data["threshold"])
         self.manifest = {k: v for k, v in data.items() if k != "model"}
         if not math.isfinite(self.threshold):
             raise ValueError("invalid anomaly threshold")
 
     def score(self, features):
-        x = np.array([[features[f] for f in self.features]], dtype=float)
+        return float(self.score_many([features])[0])
+
+    def score_many(self, rows):
+        if not rows:
+            return np.empty(0, dtype=float)
+        x = np.array([[row[f] for f in self.model_features] for row in rows], dtype=float)
         if not np.isfinite(x).all():
             raise ValueError("nonfinite model input")
-        return float(self.model.score_samples(x)[0])
+        if self.transform == "log1p":
+            if (x < 0).any():
+                raise ValueError("negative model input for log1p")
+            x = np.log1p(x)
+        scores = self.model.score_samples(x)
+        if not np.isfinite(scores).all():
+            raise ValueError("nonfinite model scores")
+        return scores
 
     def is_anomalous(self, score):
         return score < self.threshold

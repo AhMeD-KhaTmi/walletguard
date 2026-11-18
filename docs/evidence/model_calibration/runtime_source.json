@@ -1,0 +1,28 @@
+{
+  "kind": "measured_runtime_source_equivalence",
+  "local_measured_revision": "c2203195b4ecd4a43d46ce157ac7e901537e4ce0",
+  "budget_measured_revision": "9cd6f4a",
+  "note": "GitHub publication may recreate commit metadata. These SHA-256 hashes identify the unchanged measured runtime files. Raw captures are local ignored artifacts, not uploaded history.",
+  "files": {
+    "app/agent.py": "f421a1a3e1b9730a6f27a3b912b9421a6809ca809549a671b02ebb2d8117ca68",
+    "app/llm_service.py": "a11c1aee82cd44e7243a8e0ca6e991fa21b9c077974cc66ee09a5b2d7d172f00",
+    "app/main.py": "054a5147e0f880ba67b8d2de651a6556470a55dcba3c9523f7b3dc5c3b3799c1",
+    "app/mock_llm.py": "f1dc9b20ba12fc27f9c1a95b45301682a940f1e42d717914e1e0044237c10f78",
+    "app/schemas.py": "aea145a704b6a29347944257c542abc9157cf5cfe91c2eafa28c9ee6d8155d07",
+    "app/settings.py": "034da26748afb8d6ffbb06a0a24d60104592599d0a32d37ce0380e414742b4fc",
+    "app/web.py": "016a568ca21ac22d697ce43fa2d2386267cd0cefb7d8e592331ae2be02f0c5a6",
+    "common/agent.py": "2304dd7379b75baca5cd0b536387a59412846e7e09ab9a9ed80b7bc7c955624b",
+    "common/tokens.py": "7e40f28c37302689ae50104bfbf5c5b99b8d6a47b3bd4a42646e4b0c3e9defe6",
+    "ml/evaluate.py": "ed6aae183c59300fadeb3bca97f7d41651daa6a4e883b24dd8ab19b4c8bc6852",
+    "ml/export.py": "34944bdade5d1e4965dba81981cd58e34ad4a792b51994ae1333f00334fbd9e3",
+    "ml/train.py": "b030989a9c229d11c657614a65989e4e3d447ce6ccdc323916733e301b3397d9",
+    "waf/bans.py": "a2a149b8eb8cb8a759cdf8be07d00f320aa1ca8749181e6925f2880e4fca3088",
+    "waf/buckets.py": "cf15e86fcefc8e7f5e70e4c7f4277e77be9840a20e1c03d4a8eab1a687b5355d",
+    "waf/config.py": "522ff84f83b365194e3648b27280bff68f0af0a42da003b06a406eb04711c26c",
+    "waf/features.py": "ac271a94c9ae075e606af631536d9300d71969ac0720a33c085f84cee5f63106",
+    "waf/middleware.py": "0b382a6e77e9b3c6b88f3876776d5bc21c1ffcd0c5f3a5c14a5a64284eec8393",
+    "waf/scoring.py": "465bbb6831f5d8f84018fb8b37ee81e9b90b15a502c253e64fb64e00d6478d97",
+    "waf/scoring_queue.py": "be7845a7125157aaf39d6cb75a95b0317aabaec52152cdd73669ce189164c17c",
+    "waf/state.py": "44ba029d238ee72872237f839d9fd76ff55963634312f750526b78d521bba640"
+  }
+}

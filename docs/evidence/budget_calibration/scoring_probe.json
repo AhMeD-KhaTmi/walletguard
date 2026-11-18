@@ -1,0 +1,11 @@
+{
+  "kind": "offline_calibration_feature_profile_not_live_latency",
+  "model_sha256": "bb0116a167318df1749a0edf5cf5b95362ccde59f6b8580d732ed82d05722ca1",
+  "feature_source": "ml/data/budget-calibration-v1/runs/budget-calibration-normal-benign-c1-r1/features.jsonl",
+  "feature_source_sha256": "166567e31d32ff2d3800292bfb1f848cade24b502f7157e3ef182cd5ab4837b2",
+  "samples": 32,
+  "single_total_ms": 177.110274998995,
+  "batch_total_ms": 7.004166996921413,
+  "max_score_difference": 0.0,
+  "conclusion": "Batch scoring is a future optimization candidate; no model/scoring change is part of this budget validation."
+}

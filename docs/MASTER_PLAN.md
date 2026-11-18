@@ -1,6 +1,12 @@
 # Project 20 — coordinated execution plan
 
-Version: 1.3 · 2026-11-17 · Owners: Member B (user) and Member A.
+> Model research update, 2026-11-18: the final replacement candidate failed fresh
+> acceptance (6.77% recall / 88.20% precision). The original forest remains active.
+> See [research record](MODEL_CALIBRATION_REVISIONS.md) for the preserved outcomes.
+> Further model selection requires new independent test groups. Twelve matched scoring runs
+> validate batching with the unchanged forest (mixed benign p95 median 712→291ms).
+
+Version: 1.4 · 2026-11-18 · Owners: Member B (user) and Member A.
 
 ## 1. How to use this plan
 
@@ -20,10 +26,14 @@ Current progress: C0/C1/C2 application checks and outage handling are implemente
 The agent-loop revision uses fresh feature-version-3 C1 data and model training.
 See [the professor update](PROFESSOR_UPDATE.md) for current verification.
 The [current agent benchmark](PROFESSOR_BENCHMARK_RESULTS.md) contains 81 valid
-C0/C2/C3 runs. Its measurements are complete, but the initial benign FPR and
-zero-benign-ban acceptance targets are unmet. B must calibrate budgets on fresh
-data and retest independently; the current base detector also has very low recall
-and substantial scoring overhead. Preserve these results before further tuning.
+C0/C2/C3 runs. Its initial benign FPR and zero-ban targets were unmet. Preserve
+those frozen findings. Fresh [budget calibration](BUDGET_CALIBRATION.md) and
+[36 independent runs](BUDGET_VALIDATION_RESULTS.md) now verify the calibrated
+40,000-token capacity / 2,400-token/s policy: zero observed benign policy denials
+and zero bans in C2/C3. Two client-shutdown interruptions remain unknown; their
+worst-case denial rate is still below 1%. The original base detector's very low
+recall and substantial scoring overhead remain separate B work. No budget values
+were selected using the frozen campaign or the new validation outcomes.
 The earlier [54-run benchmark](C23_BENCHMARK_RESULTS.md) remains historical.
 The full C0–C4 comparison awaits the real kernel integration and joint acceptance.
 
@@ -124,8 +134,9 @@ Never equate a WAF-only fallback with a working kernel drop path.
 
 ### 3.3 WAF policy
 
-All values below are initial policy settings, not measured optimal thresholds.
-Keep settings in `waf/config.py::Config`, then freeze them before final evaluation.
+Keep settings in `waf/config.py::Config`, then freeze them before evaluation.
+The token allowance below is the independently fitted and validated lab policy;
+other entries retain the initial settings. None is a universal optimal threshold.
 
 | Control | Initial policy |
 |---|---|
@@ -133,7 +144,7 @@ Keep settings in `waf/config.py::Config`, then freeze them before final evaluati
 | Login per IP | Capacity 5, refill 5/minute |
 | Login per account | Capacity 5, refill 5/15 minutes |
 | Chat requests per account | Capacity 10, refill 0.5/s |
-| LLM tokens per account | Capacity 20,000, refill 100/s |
+| LLM tokens per account | Capacity 40,000, refill 2,400/s; [calibration and status](BUDGET_CALIBRATION.md) |
 | Hardened output cap | 1,024 tokens; baseline mock hard cap remains 32,000 |
 | Request body limit in WAF | 1,000,000 bytes |
 | Strikes / ban | 5 qualifying strikes in a fixed 300s window; ban 600s |

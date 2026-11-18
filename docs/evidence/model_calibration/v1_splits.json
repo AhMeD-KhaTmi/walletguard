@@ -1,0 +1,23 @@
+{
+  "benign_fit": [
+    "budget-calibration-normal-benign-c1-r1-retry",
+    "budget-calibration-normal-benign-c1-r2",
+    "budget-calibration-varied-benign-c1-r1",
+    "budget-calibration-varied-benign-c1-r2"
+  ],
+  "benign_calibration": [
+    "budget-calibration-normal-benign-c1-r3",
+    "budget-calibration-varied-benign-c1-r3"
+  ],
+  "test": [
+    "model-test-normal-benign-r1",
+    "model-test-varied-benign-r1",
+    "model-test-normal-benign-r2",
+    "model-test-varied-benign-r2",
+    "model-test-normal-benign-r3",
+    "model-test-varied-benign-r3",
+    "model-test-credential_stuffing",
+    "model-test-scraping",
+    "model-test-dow"
+  ]
+}

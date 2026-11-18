@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="1.080" timestamp="2026-11-17T23:06:47.526022+01:00" hostname="VirtualBox"><testcase classname="tests.test_defenses" name="test_two_large_agent_tasks_share_an_account_without_a_false_ban" time="0.778"><failure message="assert [200, 429] == [200, 200]&#10;  &#10;  At index 1 diff: 429 != 200&#10;  Use -v to get more diff">redis_db = &lt;redis.client.Redis(&lt;redis.connection.ConnectionPool(&lt;redis.connection.Connection(decode_responses=True,socket_connect_timeout=2,socket_timeout=2,host=127.0.0.1,port=38157,db=15)&gt;)&gt;)&gt;
+llm_url = 'http://127.0.0.1:43293'
+policy = Config(mode='enforce', redis_url='redis://127.0.0.1:38157/15', enable_buckets=True, enable_honeypot=True, enable_ml=Fa...: (5, 0.08333333333333333), 'login_acct': (5, 0.005555555555555556), 'chat_req': (10, 0.5), 'llm_tok': (20000, 0.001)})
+
+    async def test_two_large_agent_tasks_share_an_account_without_a_false_ban(redis_db, llm_url, policy):
+        # Two normal users share one account. Negligible refill makes the burst test
+        # independent of machine speed; the candidate keeps the calibrated capacity.
+        policy = replace(policy, budgets={**policy.budgets, "llm_tok": (policy.budgets["llm_tok"][0], .001)})
+        app = create_app(Settings(redis_url=TEST_REDIS_URL, llm_base_url=llm_url, waf_mode="enforce"), policy)
+        payload = {"prompt": "catalogue " * 100, "max_output_tokens": 500, "agent_steps": 8}
+        async with app.router.lifespan_context(app), client(app, "10.20.0.11") as one, client(app, "10.20.0.12") as two:
+            headers = await login(one)
+            replies = await asyncio.gather(one.post("/chat", headers=headers, json=payload),
+                                           two.post("/chat", headers=headers, json=payload))
+&gt;           assert [r.status_code for r in replies] == [200, 200]
+E           assert [200, 429] == [200, 200]
+E             
+E             At index 1 diff: 429 != 200
+E             Use -v to get more diff
+
+tests/test_defenses.py:409: AssertionError</failure></testcase></testsuite></testsuites>

@@ -58,3 +58,9 @@ unmet. B can collect independent calibration data and improve budgets/model
 performance while A develops the kernel layer. Keep the existing held-out set
 and benchmark frozen. The measured application work does not establish final
 security acceptance or C4 readiness.
+
+Update, 2026-11-18: [independent budget calibration and validation](BUDGET_VALIDATION_RESULTS.md)
+now meet the application policy blocking/ban targets: zero observed benign denials
+or bans in 36 fresh C0/C2/C3 runs, with two client shutdown interruptions retained
+as unknowns. The original measurements above stay historical; model quality,
+scoring overhead and real kernel integration remain separate open work.

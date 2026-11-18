@@ -1,6 +1,12 @@
 # Project 20: Member B Plan ("Application & Intelligence" track)
 
-> Current execution plan, 2026-11-17. Follow [master plan v1.3](docs/MASTER_PLAN.md)
+> Model research update, 2026-11-18: the final replacement candidate failed fresh
+> acceptance (6.77% recall / 88.20% precision). The original forest remains active.
+> See [research record](docs/MODEL_CALIBRATION_REVISIONS.md) for the preserved outcomes.
+> Further model selection requires new independent test groups. Twelve matched scoring runs
+> validate batching with the unchanged forest (mixed benign p95 median 712→291ms).
+
+> Current execution plan, 2026-11-17. Follow [master plan v1.4](docs/MASTER_PLAN.md)
 > and the [professor's feedback](docs/masterplan_vs_professor_diff.pdf).
 > The original snippets below are reference material. Current code uses a bounded
 > agent loop, exact synthetic tokens and feature version 3. Prior feature-version-2
@@ -26,6 +32,11 @@ architecture, ASR and deterministic runs with the conditions below.
   model and measurements as historical evidence. Never relabel old feature rows.
 - Measure attack-specific ASR, benign enforcement FPR, and p50/p95 client latency.
   Compare to matched C0 and report finalized WAF-only p50/p95 separately.
+- The fresh benign budget calibration selects a 40,000-token burst /
+  2,400 tokens/s. [Independent policy validation passed](docs/BUDGET_VALIDATION_RESULTS.md);
+  two client shutdown interruptions remain explicit unknowns. The frozen model, request
+  limits, output cap, five-strike escalation and shared Redis contract remain.
+  See [calibration protocol and evidence](docs/BUDGET_CALIBRATION.md).
 - A owns app-scoped connect/exec sensor events and XDP with documented fallbacks.
   B integrates real fresh signals after that handoff.
 
@@ -980,7 +991,8 @@ the final benchmark remain pending.
 - [x] **B5 — C2/C3 benchmark preparation:** app timing collector, source-labeled benign metrics and a local mixed-traffic rehearsal. The [benchmark handoff](docs/C3_BENCHMARK_HANDOFF.md) lists the changes and captures needed from A before the matched VM run.
 - [x] **B5 — historical C2/C3 benchmark:** 54 version-2 single-call runs passed. [Results and limitations](docs/C23_BENCHMARK_RESULTS.md) are preserved.
 - [x] **B5 — current agent benchmark:** completed 81 valid matched C0/C2/C3 runs, with finalized WAF p50/p95 and baseline-relative client deltas. [Current results and limitations](docs/PROFESSOR_BENCHMARK_RESULTS.md).
-- [ ] **B2/B4/B5 — acceptance and calibration:** current benign enforcement FPR is 2.350% in C2 and 2.271% in C3, with one benign budget auto-ban in each. Calibrate whole-agent budgets using new calibration runs, investigate the low detector recall and C3 scoring cost, then use fresh held-out tests. Do not tune on the existing held-out set or 81-run campaign.
+- [x] **B2/B5 — agent budget calibration:** fitted only on fresh calibration data, then completed 36 independent C0/C2/C3 runs. Zero observed benign denials/bans (0/2,804 C2, 0/2,749 C3); two C2 shutdown interruptions remain unknown. [Results and tradeoffs](docs/BUDGET_VALIDATION_RESULTS.md).
+- [ ] **B4/B5 — model improvement:** investigate low detector recall and C3 scoring overhead on separate training/calibration groups; freeze candidates before new held-out/live tests. Existing model and campaigns stay immutable.
 - [ ] **B5:** final matched C0–C4 results CSV with latency/FPR/overhead and repeated runs. Current C0/C2/C3 measurements exist; the complete kernel comparison remains pending.
 - [ ] **B6:** slides 1, 5, 6, 10, 11, 14, 16, 18 and joint slides 8/17.
 - [ ] **Reproduction/demo — partial:** one-command local C0/C1/C2 launch and developer checks work. Full-stack reproduction, rehearsal and backup demo video remain pending.
@@ -991,7 +1003,7 @@ the final benchmark remain pending.
 - [x] Visual demo: login/logout, product pagination, chat and simulated token/cost display.
 - [x] Read-only, source-IP-restricted dashboard with real application decisions/usage and explicit missing-integration states.
 - [x] Redis outage handling: local budgets, bounded cached sessions, local usage/event evidence, expiring bans and conservative recovery.
-- [x] Regression checks: **75 application/contract tests**, **109 evaluation tests**, and **12 C0/C1/C2 HTTP development checks** passed. Six C0/C2/C3 namespace smoke runs passed; browser testing confirmed the three-step trace and exact aggregate usage.
+- [x] Budget-update regression checks: **82 application/contract tests**, **109 evaluation tests**, and **12 C0/C1/C2 HTTP development checks** passed. Six C0/C2/C3 namespace smoke runs passed; earlier browser testing confirmed the three-step trace and exact aggregate usage.
 
 Evidence: [full test report](docs/evidence/application_defenses_tests.xml),
 [HTTP checks](docs/evidence/application_http_checks.json),

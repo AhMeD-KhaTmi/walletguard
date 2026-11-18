@@ -32,13 +32,17 @@ class Config:
     max_clients: int = 4096
     allowlist_cache_s: int = 60
     telemetry_limit: int = 10_000
+    scoring_batch_size: int = 32
+    scoring_batch_wait_ms: float = 2.0
+    scoring_queue_capacity: int = 256
     decisions_stream: str = "p20:stream:waf_decisions"
     features_stream: str = "p20:stream:waf_features"
     allowlist_key: str = "p20:allowlist"
     budgets: dict = field(default_factory=lambda: {
         "ip_req": (30, 2.0), "login_ip": (5, 5/60),
         "login_acct": (5, 5/900), "chat_req": (10, .5),
-        "llm_tok": (20_000, 100.0),
+        # Frozen benign agent calibration; see docs/BUDGET_CALIBRATION.md.
+        "llm_tok": (40_000, 2_400.0),
     })
 
     def __post_init__(self):
@@ -46,9 +50,13 @@ class Config:
             raise ValueError("invalid WAF mode")
         for value in (self.ban_ttl_s, self.strike_limit, self.strike_window_s,
                       self.max_output_cap, self.max_body_bytes, self.max_events,
-                      self.max_clients, self.allowlist_cache_s, self.telemetry_limit):
+                      self.max_clients, self.allowlist_cache_s, self.telemetry_limit,
+                      self.scoring_batch_size, self.scoring_queue_capacity):
             if type(value) is not int or value <= 0:
                 raise ValueError("policy bounds must be positive integers")
+        if (not math.isfinite(self.scoring_batch_wait_ms) or not 0 <= self.scoring_batch_wait_ms <= 50
+                or self.scoring_batch_size > 64):
+            raise ValueError("invalid scoring batch bounds")
         if set(self.budgets) != {"ip_req", "login_ip", "login_acct", "chat_req", "llm_tok"}:
             raise ValueError("missing or unknown bucket policy")
         if any(not math.isfinite(float(v)) or v <= 0 for pair in self.budgets.values() for v in pair):
@@ -65,4 +73,6 @@ class Config:
             run_id=os.getenv("P20_RUN_ID", "development"),
             model_path=os.getenv("WAF_MODEL_PATH", "ml/model_base.joblib"),
             telemetry_limit=int(os.getenv("WAF_TELEMETRY_LIMIT", "10000")),
+            scoring_batch_size=int(os.getenv("WAF_SCORE_BATCH_SIZE", "32")),
+            scoring_batch_wait_ms=float(os.getenv("WAF_SCORE_BATCH_WAIT_MS", "2")),
         )

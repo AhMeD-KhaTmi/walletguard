@@ -21,8 +21,23 @@ class State:
         self.dropped_timings = 0
         self.cache_evictions = 0
         self.scorer = None
+        self.scoring_queue = None
         self.waf = None
         self.active_agent_tasks = 0
+
+    async def score_features(self, features):
+        if self.config.scoring_batch_size == 1 or not hasattr(self.scorer, "score_many"):
+            return await asyncio.to_thread(self.scorer.score, features)
+        if self.scoring_queue is None:
+            from waf.scoring_queue import ScoringQueue
+            self.scoring_queue = ScoringQueue(self.scorer, batch_size=self.config.scoring_batch_size,
+                wait_ms=self.config.scoring_batch_wait_ms, capacity=self.config.scoring_queue_capacity)
+        return await self.scoring_queue.score(features)
+
+    async def close_scoring(self):
+        if self.scoring_queue is not None:
+            await self.scoring_queue.close()
+            self.scoring_queue = None
 
     async def eval(self, *args):
         return await self.r.eval(*args)

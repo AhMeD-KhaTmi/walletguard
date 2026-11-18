@@ -1,14 +1,14 @@
 # Project 20 — review and work journal
 
-Last updated: 2026-11-17 (Africa/Lagos).
+Last updated: 2026-11-18 (Africa/Lagos).
 
-Latest implementation snapshot: independent C0/C1/C2 checks pass; **64 automated
-tests and 12 real-HTTP development checks**. Member A delivered the measured traffic
-set on 2026-11-17 (57 runs at one revision, 94 eval tests after the evidence fixes) -
-see the entries of that date. Base ML tooling is tested, but no production model or
-realistic detector metrics exist yet, and no C1 feature file has been exported from a
-run that used the new archive step. No A/kernel integration.
-See [current status](evidence/independent_status.json) and the latest work entry.
+Latest snapshot: calibrated agent budgets pass 36 independent C0/C2/C3 runs
+with zero observed benign policy denials/bans (two C2 shutdown interruptions
+remain unknown). Model/scoring code passes 91 app/contract tests, 109 evaluation
+tests and 12 HTTP checks. Fresh detector acceptance rejected the replacement
+model; the original forest stays active. Twelve matched scoring runs validate bounded batching; mixed benign p95
+median falls from 712ms to 291ms. One direct shutdown outcome remains unknown. Real kernel/C4 integration remains pending. See the latest dated entry,
+`BUDGET_VALIDATION_RESULTS.md` and `MODEL_CALIBRATION_REVISIONS.md`.
 
 Current execution authority: `MASTER_PLAN.md` and `../contract/redis_schema.md`.
 The user authorized resolving the planning choices on 2026-11-16. The initial
@@ -1651,3 +1651,225 @@ IT-1–IT-6. Current acceptance failures must remain visible until fresh tests p
   Budget/model calibration, sensor/enforcement and joint acceptance remain pending.
 - This follow-up changes documentation/provenance only. No model/runtime changes
   require a new benchmark. Verify the final main tree and model after publication.
+
+### 2026-11-17 — started independent Member B token-budget calibration
+
+- Created `codex/b-budget-calibration` from synchronized main `a05542a`, leaving
+  A free to develop the kernel layer. Main and the frozen model/81-run campaign
+  stay unchanged during this work.
+- Diagnosed the existing benign failures: `llm_tok` 429s for a legitimate shared
+  account accumulated five budget strikes, then its IP ban also blocked catalogue
+  requests. The initial 20,000-token capacity / 100-token-per-second refill predates
+  repeated agent context. Existing failures identify the mechanism only; they do
+  not select the replacement values.
+- Wrote `docs/BUDGET_CALIBRATION.md` before new collection: C1 seeds 101/102/103,
+  normal and varied-agent benign traffic, 120s each. Fixed the fitting rule in
+  advance (125% peak 60s per-account demand and two-task burst). Independent
+  validation uses seeds 201/202/203, C0/C2/C3, with normal/varied benign traffic,
+  mixed traffic and paced under-cap DoW. Freeze the candidate before validation.
+- Added B-owned scripts for a varied-step benign workload, explicit harness
+  adaptation/metadata, private namespace orchestration, campaign execution and
+  calibration fitting. A's `locust/`, `eval/` and `ebpf/` files were not edited.
+  The adapter explicitly records the selected workload file/hash and effective
+  policy; it uses A's original capture, timeout, invalidation and reset behavior.
+- Calibration fitting rejects held-out/untagged/non-C1 runs and requires unique
+  client/feature/decision joins with exact whole-task usage. Four new focused
+  tests pass; the private launcher passes shell syntax checking. Next: namespace
+  smoke check, six fresh C1 captures, fit/freeze and separate validation.
+
+- Smoke attempt `budget-smoke-v1` stopped at readiness before traffic because
+  Locust was missing from the virtualenv. Preserved its failed manifest/log.
+  Installed the project's workload requirements with Locust 2.47.0; its Redis
+  constraint moved the client from 8.1.0 to 6.4.0. Saved environment metadata and
+  reran the full checks using an owned disposable Redis/DB 15: 79 app/contract,
+  109 eval tests (one existing gevent warning), and 12 HTTP probes passed.
+- All six clean-source C0/C2/C3 namespace smoke runs in `budget-smoke-v2` passed.
+  API/mock step and token counts agree for both benign scenarios. Evidence for
+  these baseline checks is under `docs/evidence/budget_calibration/`.
+- Starting six 120s C1 calibration captures from a clean dedicated worktree;
+  source is isolated from any subsequent report/helper edits. No policy values
+  or model thresholds have changed yet.
+
+- Collected all six C1 worker-valid captures (2,985 feature rows initially), with
+  clean source `3cbb1f2` and exact API/mock totals. The stricter fitting gate
+  rejected normal seed-101 run 1: nine client ReadTimeouts and one ConnectionError
+  prevent complete request-ID joins. Server logs show no corresponding app
+  exception; the cause of that transport interval is not established. Preserved
+  the entire capture under `ml/data/budget-calibration-v1/excluded/`, including
+  a rejection record, and started a full same-seed repetition with a new retry ID.
+  No candidate was fitted from the incomplete run and no validation data was used.
+- Added a regression for two concurrent eight-step normal tasks on one account.
+  It reproduces `[200, 429]` under the original capacity, where the desired
+  calibrated burst is `[200, 200]` with a later over-budget task still throttled.
+  The expected old-policy failure XML is preserved. Six calibration/helper tests
+  pass, including rejection of fractional costs and separation of normal/varied
+  C0 baseline references. The validation summarizer now verifies all 36 planned
+  runs, matched triplets, labeled benign bans and independent usage totals.
+- A small offline probe on 32 calibration feature rows found identical scores
+  when batched (max difference 0), with 177.11ms total single scoring versus
+  7.00ms in one vectorized call. Saved it as an offline optimization lead, not a
+  live latency claim. The frozen model/scoring path remains unchanged in this
+  budget campaign so the allowance's effect can be measured independently.
+
+- The same-seed replacement completed without chat transport failures. The six
+  accepted calibration captures now contain 3,046 feature rows and 1,035 measured
+  chats. The largest task costs 19,044 tokens; peak per-account 60s demand is
+  113,550 tokens. The predeclared rule selects **40,000 capacity / 2,400 tokens/s**.
+  Saved accepted run hashes and the fixed rule in
+  `docs/evidence/budget_calibration/frozen_policy.json` before validation.
+- Applied only those default token values in `waf/config.py`. Request/login/chat
+  request limits, output cap, strike thresholds, ban expiry and scoring/model are
+  unchanged. Updated capacity-sensitive tests and documented the derived private
+  bucket cleanup TTL (34,334ms); shared TTLs/schema remain unchanged. Master plan
+  v1.4 and both member plans explicitly mark independent validation as pending.
+
+- Candidate regressions passed **82 app/contract tests**, **109 eval tests** and
+  **12 HTTP probes**, all against owned disposable Redis/DB 15. The shared-account
+  burst reproducer now passes: two large tasks succeed and a third is throttled
+  without banning ordinary browsing. Saved candidate XML/HTTP evidence under
+  `docs/evidence/budget_calibration/`. Frozen model SHA-256 is unchanged.
+- Freezing the candidate source for the 36 independent validation runs: three
+  repetitions at seeds 201/202/203, normal/varied benign, mixed and paced DoW,
+  matched C0/C2/C3. No adjustment may use these results as calibration data.
+
+- Independent validation is running from clean source `9cd6f4a` in
+  `/tmp/walletguard-budget-validation`; artifacts are under
+  `eval/runs/budget-validation-v1/`. After 24/36 runs, normal/varied benign-only
+  C2 has 0 denials/0 bans over 1,498 requests and C3 has 0/0 over 1,495. These
+  are interim counts, not final acceptance. First paced DoW server outputs are
+  162,000 C0 / 70,200 C2 / 67,500 C3 tokens, with explicit token throttles in both
+  enforced modes. The higher allowance supports normal agents but permits more
+  residual abuse; do not describe it as complete attack prevention.
+- Added post-run reporting for explicit token throttles, mixed per-attack outcomes
+  and benign model flags separate from policy denials. No runtime/model changes
+  enter the frozen budget campaign. Six accepted calibration CSVs are exported
+  with labels for future independently split model work.
+- Prepared a separate `codex/b-model-calibration` checkout at
+  `/tmp/walletguard-model-work` for the next B phase. Its protocol is fixed before
+  training: seven behavioral/cost inputs with log1p, 100-tree IsolationForest,
+  seed 42, benign 101/102 fit and 103 calibration, a 5th-percentile flag threshold
+  behind the unchanged corroboration gate, plus fresh C1 test seeds 301–303 and
+  401–403. Original models/evidence stay immutable and budgets remain frozen.
+- Prepared backward-compatible model input/transform manifests and bounded
+  asynchronous microbatch scoring (32 rows, 2ms collection, 256 queued rows).
+  Five focused queue tests passed in 0.06s with normal local event-loop/thread
+  wakeups. The restricted test process stalled on cross-thread wakeups and was
+  terminated by its timeout; the same tests pass with ordinary socket permissions.
+  No production runtime workaround was added for that execution restriction.
+  Full ML regressions/training are deferred until the measured budget run ends.
+
+### 2026-11-18 — completed independent budget validation; continued model work
+
+- All **36 runs** completed at source `9cd6f4a`, forming 12 matched C0/C2/C3
+  triplets, seeds 201/202/203. The post-run validator checked clean code, identical
+  scenario/policy settings within each triplet, full source coverage and exact
+  independent API/mock tokens/steps/cost. Report:
+  `docs/BUDGET_VALIDATION_RESULTS.md`; evidence in
+  `docs/evidence/budget_calibration/results.csv` and `validation.json`.
+- Policy safety targets met: **0/2,804 C2** and **0/2,749 C3** observed benign
+  denials, zero benign bans across normal/varied benign and mixed runs. C2 has two
+  unresolved `GreenletExit` requests at worker shutdown (one product read, one
+  chat, each under 1ms). They remain unknown, not successes or blocked requests.
+  Even the conservative per-run unknown-as-denial bound remains below 1%. The
+  JSON keeps policy-safety and complete-client-outcome status distinct; strict
+  complete-outcome status is false for the two affected C2 groups.
+- Paced DoW medians: C0 outputs 162,000 tokens, C2 70,200 and C3 67,500. C2/C3
+  each record 12 explicit token throttles across their three runs. Median ASR is
+  100% / 41.27% / 40.32%. Report the allowance/security tradeoff and residual abuse;
+  this is not full attack prevention. The original 81-run data remains frozen.
+- Updated the current plans, checklist, README and Redis private-TTL notes to
+  distinguish completed budget calibration from pending model/kernel work. No
+  shared key/shape/TTL, request cap, strike limit, ban TTL or allowlist was changed.
+- The separate model/scoring source passed **90 app/contract tests**, **109 eval
+  tests**, and **12 HTTP probes**. Its adapter adds Locust's five-second graceful
+  stop timeout to avoid the observed client-shutdown interruptions in future
+  campaigns; it records that option without editing A's harness/workloads.
+- Model source `86f34e5` reproduced the original forest's threshold and every
+  preserved test score exactly. Candidate v1 (seven log1p inputs, fresh benign
+  fit/calibration, 5th-percentile flags) achieved 99.82% historical recall but
+  flagged 25/191 historical benign rows (13.09%); preserved and rejected it.
+  Its hash is `8332d8a41b9a347eff8b9231680adc93c4c4f7e3b0b7eea6fd59432fa1e38d76`.
+- Before opening fresh test metrics, defined v2 by adding only the original
+  benign fitting run to fitting and its separate calibration run to calibration,
+  covering both five- and ten-user normal traffic. Features, seed, tree count and
+  percentile stay fixed; no held-out rows enter training. The still-unopened
+  fresh C1 test set is collecting seeds 301–303 and 401–403. Revision rationale is
+  in the local `docs/MODEL_CALIBRATION_REVISIONS.md`; v1 is not silently replaced.
+  No new model has been deployed on main or in the completed budget campaign.
+
+### 2026-11-18 — fresh model acceptance failed; isolate scoring performance
+
+- Completed nine independent C1 test groups at clean source `86f34e5`: six
+  normal/varied benign groups at seeds 301–303 and three attack groups at seeds
+  401–403. Explicit request-ID joins yield 11,590 rows (2,308 benign / 9,282
+  malicious), CSV SHA-256
+  `d8c1f33ad7d29e37a03cb50ad3788ee855b52479e6d55a461e7f72cce859c251`.
+- Preserved v1 and v2 development failures. Before opening fresh results,
+  fixed final v3 to three log1p inputs (request rates and max output), with
+  unchanged broadened benign groups, trees, seed and calibration rule. The
+  revision record explains the historical comparisons and development bias.
+- Final candidate hash
+  `1b4dc810cb605abecb063a6e2624b4fda32fe696174ecb1df7c1c17784d1f361`
+  achieved 628 TP / 84 FP / 8,654 FN / 2,224 TN: precision 88.20%, recall
+  6.77%, benign detector flags 3.64%. Recall and precision fail the previously
+  fixed >=20% / >=90% gates. Rejected it; no candidate live-safety campaign or
+  deployment is authorized by those failed gates. Fresh test rows must not be
+  reused to tune another candidate.
+- Frozen original model remains active. On the same fresh groups its recall is
+  0.0646%, precision 33.33%, benign detector flags 0.520%. These low-recall
+  results remain explicit; budget enforcement does not establish model quality.
+- Both explicit training input profiles and the scoring prototype now pass
+  **91 app/contract tests**, **109 eval tests**, **12 HTTP checks**. Evidence:
+  `docs/evidence/model_calibration/prototype_*`. Reproduced original training
+  still matches every historical score and threshold exactly.
+- Matched performance-only campaign is running at clean source `c220319` in
+  `/tmp/walletguard-model-performance`, original model unchanged. Twelve C3
+  direct/batched runs cover benign and mixed workloads at seeds 601–603.
+  Each run records batching settings and a five-second Locust stop timeout.
+  A's `eval/`, `locust/` and `ebpf/` files remain untouched.
+
+### 2026-11-18 — recovered interrupted scoring campaign
+
+- The environment restarted and cleared the temporary worktrees. Seven completed
+  captures are intact. Mixed direct repetition 2 had empty manifest/ban/usage/app
+  JSON snapshots despite appearing in the index; it is excluded and preserved
+  under `eval/runs/model-performance-v1/excluded-restart/`. Repetition 3 had no
+  manifest and did not start successfully. Do not treat those as valid results.
+- Restored detached source `c220319` and its synthetic credential fixture. Replayed
+  mixed direct seed 602 and the four seed-603 runs with identical commands, model,
+  budgets, duration and batching settings. The same-seed reverse order for mixed
+  repetition 2 remains batch then direct, with the restart between them. Record
+  this interruption as a limitation; raw captures preserve both attempts.
+- Updated stale journal summary, model research evidence and both plans. Model
+  replacement remains rejected; source profile support alone does not deploy it.
+
+### 2026-11-18 — completed scoring performance validation
+
+- All twelve clean-source runs passed capture validation, matched as six pairs.
+  Report `docs/SCORING_PERFORMANCE_RESULTS.md`; CSV/JSON under
+  `docs/evidence/model_calibration/performance.*`. Validator checks matching
+  source/model/policy/seeds/workloads, identities, timing and API/mock totals.
+- Median benign p95: direct 128.56ms vs batch 120.18ms. Mixed-load benign p95:
+  direct 712.05ms vs batch 291.50ms. Mixed scoring p95: 165.39ms vs 52.99ms.
+  Keep bounded batching (32 rows, 2ms, capacity 256) as the default. Original
+  model/threshold remain unchanged; size 1 retains the direct comparison path.
+- Batched benign outcomes: zero denials/unknowns/bans over 1,088 requests.
+  Direct: zero denials/bans over 1,044, with one 0.858ms chat GreenletExit at
+  shutdown retained as unknown. Five-second graceful stopping reduces but does
+  not eliminate every interruption. Earlier commentary claiming complete direct
+  outcomes was premature; the final report includes the unknown explicitly.
+- Mixed CPU median rises from 91.12% to 96.75% of one core as throughput changes;
+  do not claim CPU-per-request savings. No C0 performance pair was measured in
+  this campaign. C0 overhead evidence remains in the earlier matched campaigns.
+- Final check command initially used a nonexistent contract/tests directory, then
+  a pytest entrypoint missing repository imports. Corrected to python -m pytest
+  tests contract in a private network namespace with disposable Redis DB15.
+  These invocation failures did not indicate a runtime test failure.
+
+- Final isolated regression completed: **91 app/contract tests**, **109 evaluation
+  tests** (one known gevent monkey-patching warning), **12 real-HTTP checks**.
+  Results: `docs/evidence/model_calibration/final_*`. Disposable Redis and every
+  owned service stopped afterward. `git diff --check` passes; A-owned source
+  directories have no changes from main. Original model SHA-256 remains `bb0116…ca1`.
+- Next: publish reviewed source/reports to main, preserve ignored raw captures
+  locally, and keep recall improvement and A's real kernel/C4 integration open.
