@@ -32,6 +32,8 @@
 - [ ] **B:** Prospectively address above-IP-capacity burst collateral bans, harvesting limits, shared-wallet fairness/isolation and absolute spending caps using separate new data. Do not tune on opened remedy groups.
 - [ ] **B:** Add response-aware benign clients that honor Retry-After alongside these fixed schedules; compare both explicitly.
 
+- [x] **B:** Publish the tested split remedy decision, evidence and masterv1.7 on `main` ([8c40962](https://github.com/AhMeD-KhaTmi/walletguard/commit/8c40962d82941291f546ef3a24249aee54898f81)).
+
 ## In parallel — C4 kernel work
 
 - [ ] **A:** Deliver the app-scoped connect/execve sensor and Redis signals, plus expiring XDP enforcement or a documented generic/skb, tc/nftables/WAF fallback and its measured telemetry.

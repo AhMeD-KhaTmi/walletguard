@@ -2195,3 +2195,9 @@ IT-1–IT-6. Current acceptance failures must remain visible until fresh tests p
   sensor/enforcement. B needs a prospectively defined fairness/isolation or hard
   spend experiment with new unopened groups, plus burst/harvesting/Retry-After
   follow-up. Do not retune using any now-opened experiment groups.
+- Published reviewed source/reports to main **8c40962d82941291f546ef3a24249aee54898f81**, verified exact tree
+  `ffd11b3d71b90a58634f5a2000fda01f8dda2ee6` against prepared09beed0; model hash unchanged. GitHub
+  connected Git-data API used because terminal Git credentials are unavailable.
+  No history bundle, real credentials or A-owned source changes were uploaded.
+  Publication manifest records91 captures and118/109/12 final checks. Follow-up
+  journal/provenance commit records this verification; then local main syncs.
