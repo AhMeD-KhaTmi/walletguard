@@ -24,6 +24,7 @@ class Verdict:
     status: int = 200
     retry_after: float = 0
     reserved: tuple | None = None
+    wallet_reserved: tuple | None = None
 
 
 async def buffer_body(receive, limit):
@@ -119,6 +120,7 @@ class WAFMiddleware:
         downstream = 0.0
         status = 0
         refunded = 0.0
+        wallet_refunded = 0.0
         forwarded = False
 
         async def wrapper(message):
@@ -151,6 +153,20 @@ class WAFMiddleware:
                 if known:
                     refunded = max(0, reserve-(charged or 0))
                     await asyncio.shield(self.tb.refund(key, cfg.budgets["llm_tok"][0], refunded))
+            if verdict.wallet_reserved and known:
+                key, reserve = verdict.wallet_reserved
+                wallet_refunded = max(0, reserve-(charged or 0))
+                await asyncio.shield(self.tb.refund(key, cfg.wallet_capacity, wallet_refunded))
+            if cfg.wallet_capacity and path == "/chat":
+                await self.state.log("p20:app:wallet_audit", {
+                    "run_id": cfg.run_id, "request_id": request_id, "ts_ms": int(time.time()*1000),
+                    "ip": ip, "mode": cfg.mode, "reason": verdict.reason,
+                    "reserved": verdict.wallet_reserved[1] if verdict.wallet_reserved else 0,
+                    "refunded": wallet_refunded,
+                    "charged": charged if verdict.wallet_reserved and known else 0,
+                    "uncertain": int(bool(verdict.wallet_reserved) and not known),
+                    "capacity": cfg.wallet_capacity, "refill_per_s": cfg.wallet_refill_per_s,
+                }, 200_000)
             await self.features.record(ip, path, status)
             shown = verdict.decision
             if cfg.mode == "observe" and shown != "allow":
@@ -173,6 +189,7 @@ class WAFMiddleware:
 
     async def _decide(self, ip, user, method, path, body, oversize, score):
         cfg = self.cfg
+        budget_kind = "budget" if cfg.account_pressure_bans else "ip_budget"
         if oversize:
             return Verdict("block", "body_too_large", 413)
         if await self.bans.is_banned(ip):
@@ -181,15 +198,18 @@ class WAFMiddleware:
             return Verdict("ban", "honeypot", 404)
         verdict = await self._budgets(ip, user, method, path, body) if cfg.enable_buckets else Verdict()
         if verdict.decision == "throttle":
-            if await self.bans.strike(ip, "budget") >= cfg.strike_limit:
+            account_pressure = verdict.reason in {"login_acct", "chat_req", "llm_tok", "wallet_tok"}
+            escalate = verdict.reason != "wallet_tok" and (not account_pressure or cfg.account_pressure_bans)
+            if escalate and await self.bans.strike(ip, budget_kind) >= cfg.strike_limit:
                 verdict.decision, verdict.reason = "ban", "budget"
             return verdict
         if verdict.decision != "allow":
             return verdict
         if score is not None and self.state.scorer.is_anomalous(score):
             count = await self.bans.strike(ip, "anomaly")
-            if count >= cfg.strike_limit and await self.bans.has_budget_strike(ip):
-                return Verdict("ban", "anomaly", 403, reserved=verdict.reserved)
+            if count >= cfg.strike_limit and await self.bans.has_budget_strike(ip, budget_kind):
+                return Verdict("ban", "anomaly", 403, reserved=verdict.reserved,
+                               wallet_reserved=verdict.wallet_reserved)
             verdict.reason = "anomalous_strike"
         return verdict
 
@@ -232,5 +252,13 @@ class WAFMiddleware:
             result = await take("llm_tok", user, reserve)
             if result.decision == "allow":
                 result.reserved = (f"{prefix}llm_tok:{user}", reserve)
+                if cfg.wallet_capacity:
+                    key = f"{prefix}wallet:global"
+                    if reserve > cfg.wallet_capacity:
+                        return Verdict("block", "wallet_task_exceeds_capacity", 400, reserved=result.reserved)
+                    allowed, _, retry = await self.tb.take(key, cfg.wallet_capacity, cfg.wallet_refill_per_s, reserve)
+                    if not allowed:
+                        return Verdict("throttle", "wallet_tok", 429, retry_after=retry, reserved=result.reserved)
+                    result.wallet_reserved = (key, reserve)
             return result
         return Verdict()

@@ -113,8 +113,8 @@ class BanStore:
         self.state.cache(self.strikes, key, (count, expiry))
         return count
 
-    async def has_budget_strike(self, ip):
-        key = f"{self.prefix}strike:budget:{ip}"
+    async def has_budget_strike(self, ip, kind="budget"):
+        key = f"{self.prefix}strike:{kind}:{ip}"
         try:
             return bool(await self.state.r.exists(key))
         except RedisError:

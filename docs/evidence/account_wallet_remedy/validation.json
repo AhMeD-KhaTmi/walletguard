@@ -1,0 +1,3229 @@
+{
+  "runs": 57,
+  "smoke_only": false,
+  "mixed_contention": false,
+  "attribution_gate_passed": true,
+  "benign_wallet_gate_passed": true,
+  "wallet_gate_passed": true,
+  "source_revision": "5b9c23f8f240963415cb89d41d5ac4094fe41017",
+  "policy": {
+    "capacity": 40000,
+    "refill_per_s": 5700,
+    "largest_task": 19092,
+    "peak_1s": 28176,
+    "peak_60s": 272871,
+    "tasks": 473
+  },
+  "summary": {
+    "burst_within/C2/remedy": {
+      "benign_attempts": 810,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 0,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 0,
+      "ban_records": 0,
+      "metrics": {
+        "server_tokens": {
+          "median": 2220.0,
+          "min": 2220.0,
+          "max": 2220.0
+        },
+        "server_tokens_out": {
+          "median": 1920.0,
+          "min": 1920.0,
+          "max": 1920.0
+        },
+        "server_cost_usd": {
+          "median": 0.029700000000000015,
+          "min": 0.029700000000000015,
+          "max": 0.029700000000000015
+        },
+        "latency_p50_ms": {
+          "median": 16.5565,
+          "min": 15.586,
+          "max": 18.9335
+        },
+        "latency_p95_ms": {
+          "median": 52.72764999999999,
+          "min": 48.74239999999996,
+          "max": 56.318799999999996
+        },
+        "waf_overhead_p50_ms": {
+          "median": 16.252068999847324,
+          "min": 15.067185999896537,
+          "max": 18.814128000030905
+        },
+        "waf_overhead_p95_ms": {
+          "median": 38.2725558499942,
+          "min": 33.59986435013979,
+          "max": 41.49203665008371
+        }
+      },
+      "attacks": {}
+    },
+    "burst_within/C3/remedy": {
+      "benign_attempts": 810,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 0,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 0,
+      "ban_records": 0,
+      "metrics": {
+        "server_tokens": {
+          "median": 2220.0,
+          "min": 2220.0,
+          "max": 2220.0
+        },
+        "server_tokens_out": {
+          "median": 1920.0,
+          "min": 1920.0,
+          "max": 1920.0
+        },
+        "server_cost_usd": {
+          "median": 0.029700000000000015,
+          "min": 0.029700000000000015,
+          "max": 0.029700000000000015
+        },
+        "latency_p50_ms": {
+          "median": 60.2805,
+          "min": 55.1265,
+          "max": 61.525
+        },
+        "latency_p95_ms": {
+          "median": 111.27305,
+          "min": 98.55379999999991,
+          "max": 113.96155
+        },
+        "waf_overhead_p50_ms": {
+          "median": 60.789156000282674,
+          "min": 54.49909250000928,
+          "max": 61.79732099985813
+        },
+        "waf_overhead_p95_ms": {
+          "median": 93.73553249993164,
+          "min": 86.80163419967357,
+          "max": 101.11220405012772
+        },
+        "scoring_p95_ms": {
+          "median": 44.818043350210246,
+          "min": 43.82937444986509,
+          "max": 46.4221890501676
+        }
+      },
+      "attacks": {}
+    },
+    "distributed/C2/legacy": {
+      "benign_attempts": 0,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 0,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 0,
+      "ban_records": 0,
+      "metrics": {
+        "server_tokens": {
+          "median": 343620.0,
+          "min": 343620.0,
+          "max": 343620.0
+        },
+        "server_tokens_out": {
+          "median": 162000.0,
+          "min": 162000.0,
+          "max": 162000.0
+        },
+        "server_cost_usd": {
+          "median": 2.9748599999999996,
+          "min": 2.9748599999999996,
+          "max": 2.9748599999999996
+        },
+        "waf_overhead_p50_ms": {
+          "median": 17.195607999838103,
+          "min": 15.444814999682421,
+          "max": 18.681246000141982
+        },
+        "waf_overhead_p95_ms": {
+          "median": 38.226397099879186,
+          "min": 36.90419069980634,
+          "max": 41.104773599590764
+        },
+        "asr": {
+          "median": 0.967,
+          "min": 0.967,
+          "max": 0.967
+        }
+      },
+      "attacks": {
+        "credential_stuffing": {
+          "attempts": 60,
+          "success": 15,
+          "fail": 45,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 15,
+          "known_valid_success": 15,
+          "asr": 0.25
+        },
+        "scraping": {
+          "attempts": 1125,
+          "success": 1125,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 1.0
+        },
+        "dow": {
+          "attempts": 180,
+          "success": 180,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 1.0
+        }
+      }
+    },
+    "distributed/C2/remedy": {
+      "benign_attempts": 0,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 0,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 36,
+      "ban_records": 0,
+      "metrics": {
+        "server_tokens": {
+          "median": 274896.0,
+          "min": 274896.0,
+          "max": 274896.0
+        },
+        "server_tokens_out": {
+          "median": 129600.0,
+          "min": 129600.0,
+          "max": 129600.0
+        },
+        "server_cost_usd": {
+          "median": 2.3798880000000016,
+          "min": 2.3798880000000016,
+          "max": 2.3798880000000016
+        },
+        "waf_overhead_p50_ms": {
+          "median": 16.971510000075796,
+          "min": 15.898984000159544,
+          "max": 17.886204999740585
+        },
+        "waf_overhead_p95_ms": {
+          "median": 46.38298179979752,
+          "min": 39.40598520002822,
+          "max": 50.373064099994714
+        },
+        "token_reduction": {
+          "median": 0.19999999999999996,
+          "min": 0.19999999999999996,
+          "max": 0.19999999999999996
+        },
+        "asr": {
+          "median": 0.9407,
+          "min": 0.9407,
+          "max": 0.9407
+        }
+      },
+      "attacks": {
+        "credential_stuffing": {
+          "attempts": 60,
+          "success": 15,
+          "fail": 45,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 15,
+          "known_valid_success": 15,
+          "asr": 0.25
+        },
+        "scraping": {
+          "attempts": 1125,
+          "success": 1125,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 1.0
+        },
+        "dow": {
+          "attempts": 180,
+          "success": 144,
+          "fail": 0,
+          "blocked": 36,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 0.8
+        }
+      }
+    },
+    "distributed/C3/legacy": {
+      "benign_attempts": 0,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 0,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 0,
+      "ban_records": 0,
+      "metrics": {
+        "server_tokens": {
+          "median": 343620.0,
+          "min": 343620.0,
+          "max": 343620.0
+        },
+        "server_tokens_out": {
+          "median": 162000.0,
+          "min": 162000.0,
+          "max": 162000.0
+        },
+        "server_cost_usd": {
+          "median": 2.9748599999999996,
+          "min": 2.9748599999999996,
+          "max": 2.9748599999999996
+        },
+        "waf_overhead_p50_ms": {
+          "median": 42.99322399992889,
+          "min": 34.45926199992755,
+          "max": 43.01851100035492
+        },
+        "waf_overhead_p95_ms": {
+          "median": 78.32626750000595,
+          "min": 74.8444540002764,
+          "max": 91.88702229985205
+        },
+        "scoring_p95_ms": {
+          "median": 41.41887389996552,
+          "min": 39.43292650005787,
+          "max": 60.556615400082535
+        },
+        "asr": {
+          "median": 0.967,
+          "min": 0.967,
+          "max": 0.967
+        }
+      },
+      "attacks": {
+        "credential_stuffing": {
+          "attempts": 60,
+          "success": 15,
+          "fail": 45,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 15,
+          "known_valid_success": 15,
+          "asr": 0.25
+        },
+        "scraping": {
+          "attempts": 1125,
+          "success": 1125,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 1.0
+        },
+        "dow": {
+          "attempts": 180,
+          "success": 180,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 1.0
+        }
+      }
+    },
+    "distributed/C3/remedy": {
+      "benign_attempts": 0,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 0,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 36,
+      "ban_records": 0,
+      "metrics": {
+        "server_tokens": {
+          "median": 274896.0,
+          "min": 274896.0,
+          "max": 274896.0
+        },
+        "server_tokens_out": {
+          "median": 129600.0,
+          "min": 129600.0,
+          "max": 129600.0
+        },
+        "server_cost_usd": {
+          "median": 2.3798880000000016,
+          "min": 2.3798880000000016,
+          "max": 2.3798880000000016
+        },
+        "waf_overhead_p50_ms": {
+          "median": 42.045572999995784,
+          "min": 40.86888399979216,
+          "max": 49.77413499955219
+        },
+        "waf_overhead_p95_ms": {
+          "median": 85.69046800025717,
+          "min": 76.24477180015674,
+          "max": 89.11679340026237
+        },
+        "scoring_p95_ms": {
+          "median": 45.17214120005517,
+          "min": 40.77458819992898,
+          "max": 52.91218390011634
+        },
+        "token_reduction": {
+          "median": 0.19999999999999996,
+          "min": 0.19999999999999996,
+          "max": 0.19999999999999996
+        },
+        "asr": {
+          "median": 0.9407,
+          "min": 0.9407,
+          "max": 0.9407
+        }
+      },
+      "attacks": {
+        "credential_stuffing": {
+          "attempts": 60,
+          "success": 15,
+          "fail": 45,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 15,
+          "known_valid_success": 15,
+          "asr": 0.25
+        },
+        "scraping": {
+          "attempts": 1125,
+          "success": 1125,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 1.0
+        },
+        "dow": {
+          "attempts": 180,
+          "success": 144,
+          "fail": 0,
+          "blocked": 36,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 0.8
+        }
+      }
+    },
+    "fast_scraping/C0/legacy": {
+      "benign_attempts": 0,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 0,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 0,
+      "ban_records": 0,
+      "metrics": {
+        "server_tokens": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "server_tokens_out": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "server_cost_usd": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "asr": {
+          "median": 1.0,
+          "min": 1.0,
+          "max": 1.0
+        }
+      },
+      "attacks": {
+        "scraping": {
+          "attempts": 4792,
+          "success": 4792,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 1.0
+        }
+      }
+    },
+    "fast_scraping/C2/remedy": {
+      "benign_attempts": 0,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 0,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 0,
+      "ban_records": 9,
+      "metrics": {
+        "server_tokens": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "server_tokens_out": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "server_cost_usd": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "waf_overhead_p50_ms": {
+          "median": 2.6700304999849322,
+          "min": 2.5840675000381452,
+          "max": 2.9570370002147683
+        },
+        "waf_overhead_p95_ms": {
+          "median": 9.972554949717958,
+          "min": 9.799308900051068,
+          "max": 10.387504350092062
+        },
+        "asr": {
+          "median": 0.0546,
+          "min": 0.0535,
+          "max": 0.0615
+        }
+      },
+      "attacks": {
+        "scraping": {
+          "attempts": 4954,
+          "success": 279,
+          "fail": 0,
+          "blocked": 4675,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 0.0563181267662495
+        }
+      }
+    },
+    "fast_scraping/C3/remedy": {
+      "benign_attempts": 0,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 0,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 0,
+      "ban_records": 9,
+      "metrics": {
+        "server_tokens": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "server_tokens_out": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "server_cost_usd": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "waf_overhead_p50_ms": {
+          "median": 19.739162999940163,
+          "min": 18.08260400002837,
+          "max": 20.756123999944975
+        },
+        "waf_overhead_p95_ms": {
+          "median": 40.5487158996493,
+          "min": 37.746961700077,
+          "max": 46.162693000042054
+        },
+        "scoring_p95_ms": {
+          "median": 25.633673999845993,
+          "min": 25.2983364998272,
+          "max": 30.468844000097306
+        },
+        "asr": {
+          "median": 0.1171,
+          "min": 0.1166,
+          "max": 0.1261
+        }
+      },
+      "attacks": {
+        "scraping": {
+          "attempts": 2404,
+          "success": 288,
+          "fail": 0,
+          "blocked": 2116,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 0.11980033277870217
+        }
+      }
+    },
+    "normal/C0/legacy": {
+      "benign_attempts": 382,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 0,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 0,
+      "ban_records": 0,
+      "metrics": {
+        "server_tokens": {
+          "median": 63108.0,
+          "min": 60732.0,
+          "max": 72309.0
+        },
+        "server_tokens_out": {
+          "median": 30600.0,
+          "min": 28968.0,
+          "max": 34764.0
+        },
+        "server_cost_usd": {
+          "median": 0.556524,
+          "min": 0.529812,
+          "max": 0.6340950000000001
+        },
+        "latency_p50_ms": {
+          "median": 9.85,
+          "min": 8.003,
+          "max": 12.487
+        },
+        "latency_p95_ms": {
+          "median": 139.844,
+          "min": 125.226,
+          "max": 202.9552
+        },
+        "delta_c0_p50_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "delta_c0_p95_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "attacks": {}
+    },
+    "normal/C2/remedy": {
+      "benign_attempts": 395,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 0,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 0,
+      "ban_records": 0,
+      "metrics": {
+        "server_tokens": {
+          "median": 68919.0,
+          "min": 66183.0,
+          "max": 72000.0
+        },
+        "server_tokens_out": {
+          "median": 32940.0,
+          "min": 32064.0,
+          "max": 34584.0
+        },
+        "server_cost_usd": {
+          "median": 0.602037,
+          "min": 0.5833170000000001,
+          "max": 0.6310079999999998
+        },
+        "latency_p50_ms": {
+          "median": 16.8315,
+          "min": 15.273,
+          "max": 17.162
+        },
+        "latency_p95_ms": {
+          "median": 138.91829999999993,
+          "min": 129.10925,
+          "max": 193.79294999999988
+        },
+        "delta_c0_p50_ms": {
+          "median": 7.27,
+          "min": 4.344499999999998,
+          "max": 7.311999999999999
+        },
+        "delta_c0_p95_ms": {
+          "median": -0.925700000000063,
+          "min": -9.162250000000114,
+          "max": 3.883250000000004
+        },
+        "waf_overhead_p50_ms": {
+          "median": 7.892345000300338,
+          "min": 5.9492599998520745,
+          "max": 8.731586000067182
+        },
+        "waf_overhead_p95_ms": {
+          "median": 26.677288300288616,
+          "min": 22.201312500442327,
+          "max": 29.09044545003778
+        }
+      },
+      "attacks": {}
+    },
+    "normal/C3/remedy": {
+      "benign_attempts": 387,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 0,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 0,
+      "ban_records": 0,
+      "metrics": {
+        "server_tokens": {
+          "median": 63492.0,
+          "min": 62796.0,
+          "max": 70920.0
+        },
+        "server_tokens_out": {
+          "median": 30792.0,
+          "min": 29964.0,
+          "max": 34056.0
+        },
+        "server_cost_usd": {
+          "median": 0.5599800000000001,
+          "min": 0.5479559999999999,
+          "max": 0.6214319999999997
+        },
+        "latency_p50_ms": {
+          "median": 40.5985,
+          "min": 35.242000000000004,
+          "max": 41.067
+        },
+        "latency_p95_ms": {
+          "median": 170.09709999999995,
+          "min": 145.373,
+          "max": 261.51194999999973
+        },
+        "delta_c0_p50_ms": {
+          "median": 28.1115,
+          "min": 27.239000000000004,
+          "max": 31.217
+        },
+        "delta_c0_p95_ms": {
+          "median": 30.25309999999996,
+          "min": 20.14699999999999,
+          "max": 58.55674999999974
+        },
+        "waf_overhead_p50_ms": {
+          "median": 26.33788900016043,
+          "min": 22.270532499987894,
+          "max": 28.298316000473278
+        },
+        "waf_overhead_p95_ms": {
+          "median": 69.0827563999391,
+          "min": 59.54421049989378,
+          "max": 79.59315580012566
+        },
+        "scoring_p95_ms": {
+          "median": 43.0793140998048,
+          "min": 38.6274790000698,
+          "max": 51.661840400311114
+        }
+      },
+      "attacks": {}
+    },
+    "shared_account/C2/legacy": {
+      "benign_attempts": 540,
+      "benign_denials": 310,
+      "benign_bans": 12,
+      "benign_browse_blocked": 120,
+      "benign_chat_blocked": 190,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 0,
+      "ban_records": 12,
+      "metrics": {
+        "server_tokens": {
+          "median": 20979.0,
+          "min": 20202.0,
+          "max": 20979.0
+        },
+        "server_tokens_out": {
+          "median": 9720.0,
+          "min": 9360.0,
+          "max": 9720.0
+        },
+        "server_cost_usd": {
+          "median": 0.17957699999999982,
+          "min": 0.17292599999999983,
+          "max": 0.17957699999999982
+        },
+        "latency_p50_ms": {
+          "median": 30.2605,
+          "min": 28.37,
+          "max": 31.411
+        },
+        "latency_p95_ms": {
+          "median": 78.93525,
+          "min": 72.42500000000001,
+          "max": 83.049
+        },
+        "waf_overhead_p50_ms": {
+          "median": 10.604729000078805,
+          "min": 10.00354150005478,
+          "max": 16.500374499855752
+        },
+        "waf_overhead_p95_ms": {
+          "median": 31.464117700215848,
+          "min": 25.462872599860013,
+          "max": 36.053344999970655
+        }
+      },
+      "attacks": {}
+    },
+    "shared_account/C2/remedy": {
+      "benign_attempts": 540,
+      "benign_denials": 192,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 192,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 0,
+      "ban_records": 0,
+      "metrics": {
+        "server_tokens": {
+          "median": 20202.0,
+          "min": 20202.0,
+          "max": 20202.0
+        },
+        "server_tokens_out": {
+          "median": 9360.0,
+          "min": 9360.0,
+          "max": 9360.0
+        },
+        "server_cost_usd": {
+          "median": 0.17292599999999983,
+          "min": 0.17292599999999983,
+          "max": 0.17292599999999986
+        },
+        "latency_p50_ms": {
+          "median": 25.7105,
+          "min": 20.874499999999998,
+          "max": 31.1385
+        },
+        "latency_p95_ms": {
+          "median": 101.08099999999999,
+          "min": 74.95975,
+          "max": 117.82650000000001
+        },
+        "waf_overhead_p50_ms": {
+          "median": 13.547017499831782,
+          "min": 11.913849999928061,
+          "max": 16.39281650011526
+        },
+        "waf_overhead_p95_ms": {
+          "median": 37.71568900001512,
+          "min": 32.68620060014199,
+          "max": 38.36900274986874
+        }
+      },
+      "attacks": {}
+    },
+    "shared_account/C3/legacy": {
+      "benign_attempts": 540,
+      "benign_denials": 317,
+      "benign_bans": 13,
+      "benign_browse_blocked": 123,
+      "benign_chat_blocked": 194,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 0,
+      "ban_records": 13,
+      "metrics": {
+        "server_tokens": {
+          "median": 20202.0,
+          "min": 18648.0,
+          "max": 20202.0
+        },
+        "server_tokens_out": {
+          "median": 9360.0,
+          "min": 8640.0,
+          "max": 9360.0
+        },
+        "server_cost_usd": {
+          "median": 0.17292599999999983,
+          "min": 0.15962399999999985,
+          "max": 0.17292599999999983
+        },
+        "latency_p50_ms": {
+          "median": 57.845,
+          "min": 49.2475,
+          "max": 63.261
+        },
+        "latency_p95_ms": {
+          "median": 118.06259999999997,
+          "min": 109.62375,
+          "max": 118.43599999999996
+        },
+        "waf_overhead_p50_ms": {
+          "median": 32.77797099985946,
+          "min": 32.35443299990948,
+          "max": 34.07138050010872
+        },
+        "waf_overhead_p95_ms": {
+          "median": 70.73819769987038,
+          "min": 62.79894639988012,
+          "max": 82.07747265012128
+        },
+        "scoring_p95_ms": {
+          "median": 45.167358800313195,
+          "min": 44.444336599963066,
+          "max": 45.602686549773296
+        }
+      },
+      "attacks": {}
+    },
+    "shared_account/C3/remedy": {
+      "benign_attempts": 540,
+      "benign_denials": 192,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 192,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 0,
+      "ban_records": 0,
+      "metrics": {
+        "server_tokens": {
+          "median": 20202.0,
+          "min": 20202.0,
+          "max": 20202.0
+        },
+        "server_tokens_out": {
+          "median": 9360.0,
+          "min": 9360.0,
+          "max": 9360.0
+        },
+        "server_cost_usd": {
+          "median": 0.17292599999999983,
+          "min": 0.17292599999999983,
+          "max": 0.17292599999999986
+        },
+        "latency_p50_ms": {
+          "median": 46.486000000000004,
+          "min": 43.8215,
+          "max": 60.681
+        },
+        "latency_p95_ms": {
+          "median": 104.64699999999999,
+          "min": 102.8955,
+          "max": 131.015
+        },
+        "waf_overhead_p50_ms": {
+          "median": 36.59048249983243,
+          "min": 32.04837750035949,
+          "max": 37.470073999884335
+        },
+        "waf_overhead_p95_ms": {
+          "median": 62.68222020012215,
+          "min": 58.33293045027395,
+          "max": 81.00538449984924
+        },
+        "scoring_p95_ms": {
+          "median": 36.30860589985331,
+          "min": 36.27522594972561,
+          "max": 61.3334635999081
+        }
+      },
+      "attacks": {}
+    },
+    "varied/C0/legacy": {
+      "benign_attempts": 376,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 0,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 0,
+      "ban_records": 0,
+      "metrics": {
+        "server_tokens": {
+          "median": 132073.0,
+          "min": 128022.0,
+          "max": 155494.0
+        },
+        "server_tokens_out": {
+          "median": 38388.0,
+          "min": 37420.0,
+          "max": 45736.0
+        },
+        "server_cost_usd": {
+          "median": 0.8568749999999999,
+          "min": 0.8331060000000001,
+          "max": 1.015314
+        },
+        "latency_p50_ms": {
+          "median": 10.556,
+          "min": 10.1175,
+          "max": 13.366
+        },
+        "latency_p95_ms": {
+          "median": 208.73094999999978,
+          "min": 182.0885,
+          "max": 231.45999999999955
+        },
+        "delta_c0_p50_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "delta_c0_p95_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "attacks": {}
+    },
+    "varied/C2/remedy": {
+      "benign_attempts": 379,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 0,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 0,
+      "ban_records": 0,
+      "metrics": {
+        "server_tokens": {
+          "median": 132073.0,
+          "min": 120854.0,
+          "max": 155476.0
+        },
+        "server_tokens_out": {
+          "median": 38388.0,
+          "min": 35420.0,
+          "max": 45736.0
+        },
+        "server_cost_usd": {
+          "median": 0.8568749999999999,
+          "min": 0.7876019999999999,
+          "max": 1.01526
+        },
+        "latency_p50_ms": {
+          "median": 14.69,
+          "min": 10.558,
+          "max": 20.7945
+        },
+        "latency_p95_ms": {
+          "median": 175.10169999999997,
+          "min": 167.305,
+          "max": 185.56289999999996
+        },
+        "delta_c0_p50_ms": {
+          "median": 4.134,
+          "min": 0.4405000000000001,
+          "max": 7.4285
+        },
+        "delta_c0_p95_ms": {
+          "median": -33.629249999999814,
+          "min": -45.8970999999996,
+          "max": -14.783500000000004
+        },
+        "waf_overhead_p50_ms": {
+          "median": 5.228775000432506,
+          "min": 4.348281500142548,
+          "max": 7.822604499779118
+        },
+        "waf_overhead_p95_ms": {
+          "median": 18.15568400008942,
+          "min": 17.208710499971858,
+          "max": 22.41856024993467
+        }
+      },
+      "attacks": {}
+    },
+    "varied/C3/remedy": {
+      "benign_attempts": 372,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 0,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 0,
+      "ban_records": 0,
+      "metrics": {
+        "server_tokens": {
+          "median": 130201.0,
+          "min": 111213.0,
+          "max": 131028.0
+        },
+        "server_tokens_out": {
+          "median": 37016.0,
+          "min": 35228.0,
+          "max": 38236.0
+        },
+        "server_cost_usd": {
+          "median": 0.8372760000000001,
+          "min": 0.7563750000000002,
+          "max": 0.849435
+        },
+        "latency_p50_ms": {
+          "median": 41.7805,
+          "min": 39.845,
+          "max": 46.363
+        },
+        "latency_p95_ms": {
+          "median": 202.693,
+          "min": 190.06099999999998,
+          "max": 232.489
+        },
+        "delta_c0_p50_ms": {
+          "median": 31.224500000000006,
+          "min": 29.7275,
+          "max": 32.997
+        },
+        "delta_c0_p95_ms": {
+          "median": 7.972499999999968,
+          "min": -28.76699999999954,
+          "max": 23.758050000000225
+        },
+        "waf_overhead_p50_ms": {
+          "median": 27.425026000400976,
+          "min": 22.15057650005292,
+          "max": 28.041403999850445
+        },
+        "waf_overhead_p95_ms": {
+          "median": 81.20783100002882,
+          "min": 71.25901560002602,
+          "max": 85.7787220006685
+        },
+        "scoring_p95_ms": {
+          "median": 45.65406500023528,
+          "min": 39.437717050259366,
+          "max": 67.96721299997444
+        }
+      },
+      "attacks": {}
+    }
+  },
+  "details": {
+    "remedy-validation-shared_account-c2-legacy-r1": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "387c9dcee73a8820725b235506fa267e17f9621d414d4db53e959da6954c3a60",
+        "attempts-benign-10.20.0.11-6472.jsonl": "455e694a3e488a8d903652da52206e7cfb8f1cb15935d0d94e93cd3d8e719c98",
+        "attempts-benign-10.20.0.12-6473.jsonl": "b02b898d27dc6f7198a64db08a106305a6b64d299f5032dfdc9d24e53e66b0c3",
+        "attempts-benign-10.20.0.13-6474.jsonl": "6031bb5a3532b141a1de809d029f331d6ed1c9e804b6ac6c8b9ce9d6b325811e",
+        "attempts-benign-10.20.0.14-6475.jsonl": "adc1deb19f55229035ee40840d4a9fce8927cfba11fa43e71da336a6acd2dcc8",
+        "attempts-benign-10.20.0.15-6476.jsonl": "54482823a9b860bab47d2d14c46f8d851cab69e6d69e273211ee06383dfa3b22",
+        "bans.json": "e106c3fff6d6392bbc4683ac25bfab4d64c07c5dc1ded377f89021c2b2d0ceeb",
+        "decisions.jsonl": "dd7809350e6fdf8db227a87fac74ce9d495ae274b9ad6ab6e5148edeb4b14d2c",
+        "manifest.json": "db6589014b3bf7e39d24367e6ddfd05cf497db33e26aca2d5c10e7f84128d2e8",
+        "usage.json": "2a3b6ee00e30ec77ca560ca771f9231b56a79d18115ede5d9af9cc9f856141eb",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-6472.json": "4ce4bc5bf8f2f9ffc709436ae16d067338b821956f41f7ec7df982c1aab6c781",
+        "worker-10.20.0.12-6473.json": "dfb6f126dec0127d7ffa8f7332c8a99c8620c5aa1eb7c7f234f6bbae9a851a61",
+        "worker-10.20.0.13-6474.json": "9f434e5cdffd3df5445d6bee7adbc45ee327ce188bbae79d663b7aa5084dc4ff",
+        "worker-10.20.0.14-6475.json": "95cb4cd38e5c232c9beec44215b8c9ca7bcc1107d370564c357956816377bcb2",
+        "worker-10.20.0.15-6476.json": "2326894a27e8d78015cc6fb0f8239345168248ff60fbf471009ba98cf935578b"
+      }
+    },
+    "remedy-validation-shared_account-c2-remedy-r1": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "4f87ffd0c4fe0a4215ee9c20aa10e15ba7a3cec292ea81c40af3b8b0b3551cea",
+        "attempts-benign-10.20.0.11-6566.jsonl": "206f4e14bc094f181bb6430783218f3dff960914eb0d7a70aad16fa4089bc6b2",
+        "attempts-benign-10.20.0.12-6567.jsonl": "5c27fd1bffe1d7754d6f8a3113b6bd2b2af293fbd401efd856da672b529a6c60",
+        "attempts-benign-10.20.0.13-6568.jsonl": "061b2b42f809927c43cb245d826dec432b6b3a257f97545df7e46d7b2981a105",
+        "attempts-benign-10.20.0.14-6569.jsonl": "52acfbc4f2ec0fc9ab0f7c229e0b64e915f7a4d88335424c154f0ea131855afb",
+        "attempts-benign-10.20.0.15-6570.jsonl": "569f556a8c540159dc58dee1fcb5adff823137905dabf564161a5843b1d6d351",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "88d8c19e7898ad449844dfbaf94b163205cb5f7a6217029e9056ec282da06446",
+        "manifest.json": "1da1ccbeb2f0ce5ba0fd0d0763386058aecc747ebf6adccb1a14637c9f1c0edb",
+        "usage.json": "1703779be925b2c2102a35c8530c85c57fc876370f2f45840fcfd63e03d6fbda",
+        "wallet_audit.jsonl": "478a64279fd6fa2e6c4dbb3ef9209ec869620515c8fad6731edeb33330fbb67a",
+        "wallet_bucket.json": "9da8af01e4e95fef0e0f72886bdfa166ff902be637cff9d4a5202b4d6d3e990a",
+        "worker-10.20.0.11-6566.json": "0c9fc03dc4f54e12afb8fba781acc8a915de1c01366510dce74e3c7b69387fb9",
+        "worker-10.20.0.12-6567.json": "39c84d6d718f8d23cf17dbaa131b8e062868b2b321baf86726a3634fcdfab217",
+        "worker-10.20.0.13-6568.json": "8126ca89b649f0d4e191cb76ec83cc0e780689dfe8b8d12d5949fdbb2881a464",
+        "worker-10.20.0.14-6569.json": "5e62d25e1d00e3bc67566da3ff232e49148a26750ceb03f83bbd8bd0acd759f3",
+        "worker-10.20.0.15-6570.json": "069a467145d52ea4f9b370cb5346f1556548ccc5b76c74f807acf91d63bf3562"
+      }
+    },
+    "remedy-validation-shared_account-c3-legacy-r1": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "08e39f5c5e4411202af3d451281f4993c7833c9b20cc1ec6b24b01f850b3d0a2",
+        "attempts-benign-10.20.0.11-6634.jsonl": "2d99632c3454bd6b1e66bf95b20ba9760b8041dfa3cae0c02ef4fc912551032a",
+        "attempts-benign-10.20.0.12-6635.jsonl": "aff68fa5091b338912cc26a2c0df4391d79000775694dafce833273df0122ed9",
+        "attempts-benign-10.20.0.13-6636.jsonl": "5e6535176c33a4a46a81d55af1d347503c8d519f94b3c1737edfb7720218bf69",
+        "attempts-benign-10.20.0.14-6637.jsonl": "ecbe6be421c87582bf513ae6ec2518ff6ff907ea95334ef2cd8d43523c133b44",
+        "attempts-benign-10.20.0.15-6638.jsonl": "c862fc8f5032d8686f79e0f94a483217f72837f3283fdcaf1bcb11900a41c9cd",
+        "bans.json": "9354ecbee004d54294521e418ca165408181b930a5e46169f3d4f180877732d2",
+        "decisions.jsonl": "8dd4b591c8abe3be9148e2a8695b934ce5e63c06314dd780c648444ae5069dcc",
+        "manifest.json": "a73295572fbf2743156c21f9bd8177f483d17db3433419993c87cc8703564a32",
+        "usage.json": "a43717a56605c1c403bd3e60d184dcf78bb256c5be0f4fdf2e74ac43a7dafd14",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-6634.json": "355bbf79bc02b629b478421b3ac370e09cfd720539250e8b71479f982f527e2f",
+        "worker-10.20.0.12-6635.json": "d288a917b78cac53dab1854a02c1086a8a88ccf6738baf51ca9c3013ad71b494",
+        "worker-10.20.0.13-6636.json": "240a1cd8299f2ed917dc8b63e313f11274ad6e3abc53658b01d1b83c6100fcb7",
+        "worker-10.20.0.14-6637.json": "d1d4f4c447e765f7a2a81ebe52aee81e446c21b642c1fb9da757977e900a8573",
+        "worker-10.20.0.15-6638.json": "b0cf3f79eeb5033427c25e61bc6d80220c704f65a677ff1c8a543f04c08e1d77"
+      }
+    },
+    "remedy-validation-shared_account-c3-remedy-r1": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "d4ebb5a8170abe427d232024ded57cc8ac908fcdc738a698c88cf2b6cfc33512",
+        "attempts-benign-10.20.0.11-6681.jsonl": "32ba8188549804cec2cef7a0a9bf38a33902c901db14bf749cd930e7b6adb317",
+        "attempts-benign-10.20.0.12-6682.jsonl": "39f9a3fa0a8c8113fd9a6bb8d4099a0520d1325b3434e378f1e2f9f43cc4bdad",
+        "attempts-benign-10.20.0.13-6683.jsonl": "7f2bbfe5c77c47de4bee143f4da2571ae7513b1118cffe1d57edc85f2adb3e1c",
+        "attempts-benign-10.20.0.14-6684.jsonl": "121afac3465f09afc58d256160a74e1fde866036035dc0e693f5697c6b3b0b53",
+        "attempts-benign-10.20.0.15-6685.jsonl": "eb002255ac3fb85a61c0dd3abff3664792541e87ce3aeffcf65449adfd066299",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "5db8955d69ff4d71dbfef6b98eaa422149130daf80c136777ea0ce5e50afec10",
+        "manifest.json": "6e41ae34fa026c89253e2a66d853abf4885d1f17c9e41209a2f8cce4cb8b2011",
+        "usage.json": "1703779be925b2c2102a35c8530c85c57fc876370f2f45840fcfd63e03d6fbda",
+        "wallet_audit.jsonl": "d7c6edeb57665fd5415383aff9d9e1bdbfd0bd15c3ce0da5931dccdc7899ad66",
+        "wallet_bucket.json": "e62c1c0b401b24eec7083d4ae041f0df0a137b832d138ce3d555fb11bcf9f888",
+        "worker-10.20.0.11-6681.json": "3ae3054decca50230cf9039bcfbe7639d5cf47588dfb9aa2a2e10bc179707311",
+        "worker-10.20.0.12-6682.json": "ff2487e036d2ee902789717e8c98672382b84eeeab21b27dd2cdc8b91625ef15",
+        "worker-10.20.0.13-6683.json": "9db53e7824207223e0e500ab16f1722a7a421a4139dffd77776e3cc6d4b6d89e",
+        "worker-10.20.0.14-6684.json": "9310e905eb9584df82624ffc34fa8dc5174a2d8805cd20b44fefbc42e1bb38f5",
+        "worker-10.20.0.15-6685.json": "cf456cf45d09b2ded62a066ab9c66612424df44de1deb2002663bc2779fc128d"
+      }
+    },
+    "remedy-validation-distributed-c2-legacy-r1": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 5,
+          "fail": 15,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 20,
+          "asr": 0.25,
+          "known_valid_attempts": 5,
+          "known_valid_success": 5,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 375,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 375,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 5000
+        },
+        "dow": {
+          "success": 60,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "c9cc0b23853bd143d16422cd461a1c1ea3b07d01be1981b74743fcc261a00ab9",
+        "attempts-credential_stuffing-10.20.0.11-6721.jsonl": "a28277091c194147bf4ef8d7e544c65e0043dfe420e675d5f434876d0c4caba4",
+        "attempts-credential_stuffing-10.20.0.12-6722.jsonl": "9cd007a15e43193762f3447de6bf3787460cc3f71b3c369030b38b2d7ac94151",
+        "attempts-credential_stuffing-10.20.0.13-6723.jsonl": "44b0f22ddc11360982317100e272e921c16d4e5516363da4bb380a2dd8a3b9b2",
+        "attempts-credential_stuffing-10.20.0.14-6724.jsonl": "f086440e7fb7d4f008d5544c9ea1d2221a9fd7a38f35a44c0046b320e6a3e545",
+        "attempts-credential_stuffing-10.20.0.15-6725.jsonl": "d8096249ee6c1adb0533f450734a807866b10f8f5156a36c68a724dd4c5e6aff",
+        "attempts-dow-10.20.0.21-6732.jsonl": "8b868c9eda9f0fe0796f458cab4c17b1cf66aad56a0fa8413e5e62463d01b345",
+        "attempts-dow-10.20.0.22-6734.jsonl": "7130a795ba0e65c1c93f676d06a1f1a7fca44229fdbafeaa12215f463ed0e084",
+        "attempts-dow-10.20.0.23-6738.jsonl": "fde367893a68fff18d207f66605136b91af6500308208a85f47418ce6d348a6f",
+        "attempts-dow-10.20.0.24-6739.jsonl": "bd6a85641db992cbf7a9f04ae55a6cdcb515750d06d6891c368cbb86296bc8a7",
+        "attempts-scraping-10.20.0.16-6726.jsonl": "55caac4b6ba78412b5df81b22a5fc36b3ee7f3d94b1b523661bee3763ef27785",
+        "attempts-scraping-10.20.0.17-6727.jsonl": "042b1887e4cf2970415eaa742f44ec38d530179ef550799cfbe335ac55e65c2d",
+        "attempts-scraping-10.20.0.18-6728.jsonl": "336e06a6f53c9e5f87754cece943b66b8566c974f4e564a92216bbc367d7b043",
+        "attempts-scraping-10.20.0.19-6729.jsonl": "c2fb411fba99c7151ae7dac4d7dee8c6a25fb5b8a0e01a75b8a32b01fc4f8831",
+        "attempts-scraping-10.20.0.20-6730.jsonl": "68aa266f855639e7dc7c96e70ef1c6d9a5c265818377155d5bc9811ff962eb18",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "6282d8f37bce89abe2733a6368811ac50bd41b3559e5836b90361eae267377da",
+        "manifest.json": "2e3bf2140e63e8cb025624f23731249029d476b9614b5442740161c2f0bb8b83",
+        "usage.json": "a56f771cd15fa15707cc0cd693cd208fc89be7934b5723cdecb5040513c30d1a",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-6721.json": "2944fab15ef3f51b25d16643ac661f1156ed86ea8a1555c103916a347b85a67d",
+        "worker-10.20.0.12-6722.json": "ca2915515d175a3be6fa65db0f91be62b579deaf1717141ead15a8cd44962e05",
+        "worker-10.20.0.13-6723.json": "6a0d769a06beebe96c7969667e313aee2b17cd64d6fe67e3c9a4f7888ba160f4",
+        "worker-10.20.0.14-6724.json": "f7b5125a2be2647c9a0e6d2ef6370e8daf9b3e3ab137718a23eedd6842477742",
+        "worker-10.20.0.15-6725.json": "ccefa7c54fe3b1e19a9e864416260a19ff0caa139688b54c57169bc2805ea258",
+        "worker-10.20.0.16-6726.json": "d0b15658076f99692ab974a3d1153170ddd67b4611343ddb0e84a61035467401",
+        "worker-10.20.0.17-6727.json": "a9444da9878b14718b6e58d39ac24301d17457849bf523fb786b5e7ff33a5953",
+        "worker-10.20.0.18-6728.json": "246077b1ad7abf15e6de18181c2fdb6f6e7eb0d469b5f2616efc7628f4a9bfb4",
+        "worker-10.20.0.19-6729.json": "e16979eecf138e0559bfcf7f60441b8efa65dbac6a3f995ef6cdb5dd6191a7d5",
+        "worker-10.20.0.20-6730.json": "9f656747437a0b439d0ccbcae47b4f4383c8ba67e8583195b60dc34fad27f7df",
+        "worker-10.20.0.21-6732.json": "ff5e2a5eb62f86e27af29cae6c7b06c85cd427ff7e874f4d0854415b351fad2b",
+        "worker-10.20.0.22-6734.json": "61acedf3ecf40d0f4424fe7467d4463c13ae2180de86bb05b475b552f0063b82",
+        "worker-10.20.0.23-6738.json": "095984ebece5c775cd7693989b3eed4f6ef7a3b769f304fa44242fb2a17127e4",
+        "worker-10.20.0.24-6739.json": "1798deadd0892b3cc4ebe1f81bd7568dafe1c0304df87c358db7683d04b87ade"
+      }
+    },
+    "remedy-validation-distributed-c2-remedy-r1": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 5,
+          "fail": 15,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 20,
+          "asr": 0.25,
+          "known_valid_attempts": 5,
+          "known_valid_success": 5,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 375,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 375,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 5000
+        },
+        "dow": {
+          "success": 48,
+          "fail": 0,
+          "blocked": 12,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 0.8,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "109066da97ada45a11e574294c1c1f19ef2bd322ee93e519e3be3e1e9da1ecf0",
+        "attempts-credential_stuffing-10.20.0.11-6811.jsonl": "2fa53badb2fe8b416a817a428cc35d21a2f13e3f81c47dd682ca2d6b9b9da1cf",
+        "attempts-credential_stuffing-10.20.0.12-6812.jsonl": "390cb64534a2fb35c44d42596f880d4a9251c28dff093ea13b967b8093fe8d5d",
+        "attempts-credential_stuffing-10.20.0.13-6813.jsonl": "5f9972c7733fe32b253444f3ab5da6184d95327c778484579cb21f5a4eeddaee",
+        "attempts-credential_stuffing-10.20.0.14-6814.jsonl": "d9f68792e20a8005e0185f9a675869274d89e7c005a951dd3541db0dcc6efd45",
+        "attempts-credential_stuffing-10.20.0.15-6815.jsonl": "570c3edaec62f826054c0ba8e1c12f9002a754a4e26b5bfc2f541284c99075cd",
+        "attempts-dow-10.20.0.21-6821.jsonl": "951175e4328065dab8af7b185e7bd1f61960a422a2e1bc813d482d5bf6edc422",
+        "attempts-dow-10.20.0.22-6823.jsonl": "9b85a2c391a39bc0f451e75ea76100217d8ed6ba311f85ef030f1cfc6667f8ae",
+        "attempts-dow-10.20.0.23-6827.jsonl": "f0ef6e9703c9eca176ca78e9dbbddb0c9cd28f8c45ddab62e2507cd366235c41",
+        "attempts-dow-10.20.0.24-6829.jsonl": "f7c25c510bc6ae480646255ee29521e0180a3c1a1898f63b3b7efb95af2c2e9d",
+        "attempts-scraping-10.20.0.16-6816.jsonl": "b772b9d53a7090f0969ce9257995a38339b65aae7958e3afdced583997e2e9d4",
+        "attempts-scraping-10.20.0.17-6817.jsonl": "7b30b5628dde47e33f6656918382b4d45de3ec439882ec518be703a18ea65819",
+        "attempts-scraping-10.20.0.18-6818.jsonl": "a9f3f6130d8b1552b8c32eac013dcb191fb124117929cf01964c64323ded60ae",
+        "attempts-scraping-10.20.0.19-6819.jsonl": "99914566e3ea4f34bc50b0c3e471107105c160b0d50c7da92828a9a36b46e4d0",
+        "attempts-scraping-10.20.0.20-6820.jsonl": "9eee3c755d06560d67a3725f56cb0c4b0af0e2b33b1ad71238258ff2b8867bff",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "44f8a1abbd75f0e5f80a2c9aae9d3a5d3a578adfad584dfaa77f70a166335a9c",
+        "manifest.json": "f2700f6e03f5c44b58a3337572166679a696f0a2388557b7cd37d44ce821cbd3",
+        "usage.json": "11dc1d663dbc2fae2ee7e9f638b6eca1cd1e11fa90754125e1440fe969cc8739",
+        "wallet_audit.jsonl": "3e012f665a7453b20ed8afd18066b04170720dbdd3d3f63453964c02a05754e6",
+        "wallet_bucket.json": "27250550d7a461c45bd87bdcad4070ed811bb21ad119f2ea98e9dc70d5ffd236",
+        "worker-10.20.0.11-6811.json": "e24e81fc81aa5054c67109f92787b4ba4e67b353ed27d41d82296d419df2adbe",
+        "worker-10.20.0.12-6812.json": "b1fa7f37f01be274719e23f4c68c6bb2a57dcbe3b053486353b71f34a251680e",
+        "worker-10.20.0.13-6813.json": "6c4c9f231a891c89381f6f335a0899fdb7f9b8f2c4a980ea720bc6286f2daa41",
+        "worker-10.20.0.14-6814.json": "3cc6288709efaf415c02f6f063e86024e08dc9f2e71500bc1ce7e81ef69e28e9",
+        "worker-10.20.0.15-6815.json": "589695582748c3e5ec9c3e37703060ecf8abb1cd8814f5da077b952737791214",
+        "worker-10.20.0.16-6816.json": "51d9c8b353e53567068c97188a8f9c008e1084a232424de64c499ea63e927451",
+        "worker-10.20.0.17-6817.json": "df0aad20eddd52d677fc2edf8d8b76b74f1c11700d6fb7de671274b5f1cffe5c",
+        "worker-10.20.0.18-6818.json": "a937227d540caf00d66335a4df02d83bcfbea1bd202555d8c97eb3d4f65a6826",
+        "worker-10.20.0.19-6819.json": "ab4c9802fefb70e072b5804a27b2a87952360ae9e06ff847dc4c4db53e426797",
+        "worker-10.20.0.20-6820.json": "8ec3e483a8f42312b7eba8ea88025e8a1ce2ccaa7024db2f85af173547336911",
+        "worker-10.20.0.21-6821.json": "547e3808c47336ab53aaef5dfd6cd81fc2652cff158c23491996a1e8e4d5088f",
+        "worker-10.20.0.22-6823.json": "8ccb4b8d30d5db3585659f52e6c0f1ef42fc479c0afaf5643936eeef208f9332",
+        "worker-10.20.0.23-6827.json": "106187692cb34eaf2c22144fa11879ad0f64e1a98301dcd22832fa2da82c1cac",
+        "worker-10.20.0.24-6829.json": "732adeece4eb7e6dd5cbc20dc66934cc52b900731baec5f43081e4a83211aa42"
+      }
+    },
+    "remedy-validation-distributed-c3-legacy-r1": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 5,
+          "fail": 15,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 20,
+          "asr": 0.25,
+          "known_valid_attempts": 5,
+          "known_valid_success": 5,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 375,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 375,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 5000
+        },
+        "dow": {
+          "success": 60,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "81f7110f6b2a655190125123483615419576543a35ce0fd78478fd8939b8e337",
+        "attempts-credential_stuffing-10.20.0.11-6895.jsonl": "53a577c8339c093f239c4366e36baf29b27e77d72230cbcee4f8219f32b7fef7",
+        "attempts-credential_stuffing-10.20.0.12-6896.jsonl": "567f27bfb4656042dfbb6081a693e5e5589e4d7d54cb62c1c492db643c0fddb3",
+        "attempts-credential_stuffing-10.20.0.13-6897.jsonl": "a566826c5ff03371ac4950a89fda048fa96ef8c9e974a2dfd78e19c2ae727ba8",
+        "attempts-credential_stuffing-10.20.0.14-6898.jsonl": "7b361f58c4d8e7bfab5e026cdb73170e79581f9c9f1e2270b384895096a486c8",
+        "attempts-credential_stuffing-10.20.0.15-6899.jsonl": "325d758ff94f38ebcaa07a0bcf4915199fdb82800c43b70cbd4922574a35d533",
+        "attempts-dow-10.20.0.21-6907.jsonl": "05719c1f6ebef7c8f8852bd8f252dabb02a5ff27e1b57188c4c1ac3860ce2696",
+        "attempts-dow-10.20.0.22-6909.jsonl": "992f6436a23957b94129049d16d991ceebeacd885dd9645adb93312d36744361",
+        "attempts-dow-10.20.0.23-6912.jsonl": "80524180dfe9532b7f1a2a5d66559d02d5630d3a54be198f5abd0d5b9e8534fb",
+        "attempts-dow-10.20.0.24-6914.jsonl": "9573eb12ec593bd35a412b3fe61b2cdd5a19dd7826fa0dd3496e080b6eb739d9",
+        "attempts-scraping-10.20.0.16-6900.jsonl": "67b37edbe2b0ddc9f1e9e6c671be486cfeeafcc411ebab0371e6aa28f1abce31",
+        "attempts-scraping-10.20.0.17-6903.jsonl": "d727b40fa82b98f78685b7e744d27a330e53e69d2dfb66aedd5dd383c23bfc3f",
+        "attempts-scraping-10.20.0.18-6904.jsonl": "fd7a8560b78e20b1cf6e97a936c7edc783eb6d99c717aa4df9cbe324717cdf89",
+        "attempts-scraping-10.20.0.19-6905.jsonl": "c8929af0b3e6b7ecc572f1ba695457e745813fc3d2b6fb9e956c051c306aa36f",
+        "attempts-scraping-10.20.0.20-6906.jsonl": "a5e03dd263deb4034e6ad638c8a0cb80b960ca864c0e122e6a594e2d2770e888",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "dd3e140d84bc15290f9fc57dfc4a700f38093551df6e1b759a7d9e7269686d7f",
+        "manifest.json": "4596da8bf34f77b5fc9451ec9b85dea8c8255f358df5051cabe043706b79bbee",
+        "usage.json": "a56f771cd15fa15707cc0cd693cd208fc89be7934b5723cdecb5040513c30d1a",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-6895.json": "b415cfdab55ae92173c729528200028be39a360a882492f91303978db25c2b80",
+        "worker-10.20.0.12-6896.json": "87db3fbfe37f9f1161cf632d43ff784e2e8543aa6f95a72572485b50863c6df4",
+        "worker-10.20.0.13-6897.json": "afb033c15a2c37a055299b87c88dc7d74f08b18a4ce8a00dade5849bc567de17",
+        "worker-10.20.0.14-6898.json": "93175aedbbff5d7e345f3b70094ddf6008154f0f55f0531c5876ab07a6cad5fa",
+        "worker-10.20.0.15-6899.json": "caab6ad5b154844680272ed3a47418bf19dd908d44588b55cb8b51809dd3a163",
+        "worker-10.20.0.16-6900.json": "f97a91f1df4efd75af956fcb73d4bcee71f0fac31cebc2db0da934eee84567b2",
+        "worker-10.20.0.17-6903.json": "f012a47ba980faa6316fb27d580d07419658b94b1000c6db787b589973d0efde",
+        "worker-10.20.0.18-6904.json": "9fa13d4ad9b32ec55bf75cbf77c4a6f8e9ec57728cc3fc2915f71aa5272fceee",
+        "worker-10.20.0.19-6905.json": "e5eb727a5533ba8888a20a31409e5f64eaf550bfccd3209828134f5777b54c13",
+        "worker-10.20.0.20-6906.json": "ce85cb8db7cad3442a6d55aef8892327fdebbdff829101b8f8251c1c4d464888",
+        "worker-10.20.0.21-6907.json": "4fcd6e9f054dcc3e8f9bd7603dd5984432468aee8eac1d90776130d5706f1509",
+        "worker-10.20.0.22-6909.json": "a6030b9dbe5d8dce43ae353925e71d600e01d5a8e2296c27596c7bba7188d68c",
+        "worker-10.20.0.23-6912.json": "40902e823ecbb9f20842e821394a38b792f8555794774932d7e06ba0fc2b69a8",
+        "worker-10.20.0.24-6914.json": "72b2f8bc6f52351b41fef7da568e0ada1aca080a673be6a4b6513226d6fa45c8"
+      }
+    },
+    "remedy-validation-distributed-c3-remedy-r1": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 5,
+          "fail": 15,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 20,
+          "asr": 0.25,
+          "known_valid_attempts": 5,
+          "known_valid_success": 5,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 375,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 375,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 5000
+        },
+        "dow": {
+          "success": 48,
+          "fail": 0,
+          "blocked": 12,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 0.8,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "a93a99e6cfcceb2e90c995d80b2ecf1bac7006a8e6bca236803cf14790d7e2cb",
+        "attempts-credential_stuffing-10.20.0.11-6981.jsonl": "960de3ba17673872ca9f386de423fa73332d8999de771747c1edd6f85fe14581",
+        "attempts-credential_stuffing-10.20.0.12-6982.jsonl": "b92652dc76a3f55245a0f40cd3baeffd7a18be32bc2a443459f091447e7c6daa",
+        "attempts-credential_stuffing-10.20.0.13-6983.jsonl": "7a21d0cf114219ea35275a62a84bdc38c49e2a317e22a84967b09463d5a213d5",
+        "attempts-credential_stuffing-10.20.0.14-6984.jsonl": "2860eff394ec2e9f2c6cacdeaf66b49fbb8fc16cbb2274de642f3e01eff58bb1",
+        "attempts-credential_stuffing-10.20.0.15-6985.jsonl": "4a84a4993d8190a358154508383dd9b3d81e4759e274527aef18de1b316efd74",
+        "attempts-dow-10.20.0.21-6991.jsonl": "2cff8eb43928584775e658aa0eab33432d2d984b8ddaaf237ea4641ad26f7a64",
+        "attempts-dow-10.20.0.22-6992.jsonl": "68c38083e328997e9156cc5a07eb10b05ad80063610e3391c3aeedb190596707",
+        "attempts-dow-10.20.0.23-6993.jsonl": "b1969fa3e09e5cf8e39c9db72a6f4ec884ceeef7c356b242e94457c6947a0a67",
+        "attempts-dow-10.20.0.24-6994.jsonl": "1529d1e1adfd0f1d31c1494d08150071e1fa953744b1540f59c12c15224cf1e7",
+        "attempts-scraping-10.20.0.16-6986.jsonl": "12b3d8c93076f6f7cbccd89f777fcb9bb8af52904bfc005da556c15f54277b3d",
+        "attempts-scraping-10.20.0.17-6987.jsonl": "d694f636365ab127bf1add8175b3aabcc0987f2bc4e57d03cb1da2b816915bce",
+        "attempts-scraping-10.20.0.18-6988.jsonl": "842635157835b717e5ed42709536666fc4799d853c476b9cc0b8f0a5399fe2cd",
+        "attempts-scraping-10.20.0.19-6989.jsonl": "0939e8b43533374fd141b58a7e999b90bd8407224f462467ae1cc0c025998e6e",
+        "attempts-scraping-10.20.0.20-6990.jsonl": "5f5e87d586f75be54e107ff51e363597ca6db26e7a8e68f3c087ab394f917cfd",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "45ffd1beb1603327f5732a0afa21eea34ceb9bac71d4ddfe35e63e8fdcbbcd19",
+        "manifest.json": "b779f33cbd3151758ad1c29e88f2d0ac1fc0603646cf0fc98140f59a35638d39",
+        "usage.json": "11dc1d663dbc2fae2ee7e9f638b6eca1cd1e11fa90754125e1440fe969cc8739",
+        "wallet_audit.jsonl": "102095a13f9ca62f40d08de3014ffc33d09a5f0724d5b9a58820d21eb119f630",
+        "wallet_bucket.json": "bba5bb1828452283929e18f7b0e105dd065b8487ba2f5f2a96fd7c294ce6cf7d",
+        "worker-10.20.0.11-6981.json": "be8db45b7906f1eeb632113829752a8aa833d5e394ace7c054fc244a7d636a7d",
+        "worker-10.20.0.12-6982.json": "513d1be1778fe6e5be5912197771b8bca92832e2c287e42ebecccb30f380a409",
+        "worker-10.20.0.13-6983.json": "b78bf58e892ef852c72963e7f1350d531b34cf0c2032392859902ff4724284ca",
+        "worker-10.20.0.14-6984.json": "0ccf041c09a2c81efe36dd995931eb9c8b28f8f84775a495831fb17cf3d6a2c0",
+        "worker-10.20.0.15-6985.json": "6c874aa9cc35ce614479c14e9e836bfd6913efa4ea4743f7b9e6f1142555f6f8",
+        "worker-10.20.0.16-6986.json": "7af8739f92839dc6c22528d8adb6bcdd9423f53c1acb18fb77f482ff60f22c10",
+        "worker-10.20.0.17-6987.json": "f775fd6da560c8353b31fdc22110dca36f2693f2f05798606ae868fadb06d598",
+        "worker-10.20.0.18-6988.json": "b891ee8b70747685d89c0d2c181a8a4c2b6f922a550a9ef0ec2ceee25b967a98",
+        "worker-10.20.0.19-6989.json": "32425cc3799891b7a96ac7cba10c10d8ae0a85e6058aa0a55c9509953a023c4b",
+        "worker-10.20.0.20-6990.json": "deab92aef02a2f9422785427b68510206fa981ce07fef16e31061de8a29d988c",
+        "worker-10.20.0.21-6991.json": "88f2ba68f601fdf46cefb210c1787e80ed17c8988a09a0cad1e242da997237a6",
+        "worker-10.20.0.22-6992.json": "d6b407897bbc75e916e76418bd5ccd9dd1087ff7132a29fbda80a9299931c7fc",
+        "worker-10.20.0.23-6993.json": "5bf158d3af138ecb69d829c658f251bd4b89bd99e99421d08d7f950c8e91992a",
+        "worker-10.20.0.24-6994.json": "ad39798c6e9e820d131545f6cfd2c8004aa18c922d9f099d57419bbe3107899e"
+      }
+    },
+    "remedy-validation-normal-c0-legacy-r1": {
+      "attacks": {},
+      "files": {
+        "attempts-benign-10.20.0.11-7054.jsonl": "cffc955c229024c3e7a704793b732ce3087d6aeebc7c5fc57ba4af428d7ba34b",
+        "attempts-benign-10.20.0.12-7055.jsonl": "c0c195c22176e154168fd5cf91e6ff36109bb832253170a00c849196f7b1c8fc",
+        "attempts-benign-10.20.0.13-7056.jsonl": "65c58ccfa2c56ff384e490580a4443027cba5d9f63d9d7703dc69d4d8edb1b42",
+        "attempts-benign-10.20.0.14-7057.jsonl": "c9c39b47b52fee5a7b5935b0234ac9fd5e1c95ff086b314e8f5a91836b21410a",
+        "attempts-benign-10.20.0.15-7058.jsonl": "03af6b97111b8147a6b86ec1f65e13fb55585b5b502f5484220aec5ffa52afa5",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "manifest.json": "d4ebd7e0ceca5ddec98f646841997174b1a2872220003ec652bb9d75435e3b72",
+        "usage.json": "bfaf786564521610f80986c3c10cc12c224d4cce0a057053ad325d2ceeff4c42",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-7054.json": "9717d231e99c1fb471d473982c2e398c477a03653472792886a3e66628c62830",
+        "worker-10.20.0.12-7055.json": "6139324978b1f2414ce77a77e5efe9a11727e6d312427d35338557b144f7196f",
+        "worker-10.20.0.13-7056.json": "8fa7961ca60ff1dc0134e0b1fbfa896004091cacd8425cf7ec3bce65089a44b1",
+        "worker-10.20.0.14-7057.json": "e1bf702a9232b10c872277483623cb532d3f6a058353201ffea33023e4d67833",
+        "worker-10.20.0.15-7058.json": "7a7c50512f9979417cfc46462a9d66153b513efe245347470511423ca63f50f2"
+      }
+    },
+    "remedy-validation-normal-c2-remedy-r1": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "07304ed7e262a2d05c4d2f46379e4c0821ab895a40800839dd7bfc4b32a44cb4",
+        "attempts-benign-10.20.0.11-7141.jsonl": "110de6c2dff6335b02191fbeee44a04a98dd6f4e9a2048ab087fd30041e74393",
+        "attempts-benign-10.20.0.12-7142.jsonl": "702bdc11dbf1491392d53cd3b5e3a9da6e0c61c329fb4f37cc934769654ee73e",
+        "attempts-benign-10.20.0.13-7143.jsonl": "e71868b073143f821be6d62b6289bfb851eb1bff0d4d624d7f68f694594c26d1",
+        "attempts-benign-10.20.0.14-7144.jsonl": "876be88689c3752d3a4e79086f0e49649cda5461a1893980b1292445a3474549",
+        "attempts-benign-10.20.0.15-7145.jsonl": "6e1374879bfa72242523a7c207078476ae05f77f68bace16a1135f1c4270e18c",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "1e5dd3a1250643b2c3487b40b83840f4257a287621aa54d95d254f1aa820d109",
+        "manifest.json": "15b3cb50d43b7bfaf413d75e359adc1fd85aef6a66444ac2eab899f367ce0ce3",
+        "usage.json": "74945cae1ba224e3b987f780c6e3078b6da97b58affa72c8b049f04e790ed509",
+        "wallet_audit.jsonl": "a2d8d32763971a1dece0143b4fb50dae277720e01fb6fefddd537c5daeaef8f2",
+        "wallet_bucket.json": "23cbc5387ad9b977259d402bc855491c1a4a56227c3bc0e613505a0e15209290",
+        "worker-10.20.0.11-7141.json": "ecbbece35e5bdb7d31808f5e72e77d87fd50e9efca5e1a26db5194ed49621111",
+        "worker-10.20.0.12-7142.json": "2ea224665dda4743d4f9dc4fd630a2feaa5ed1241c5adafe1051155e53d83406",
+        "worker-10.20.0.13-7143.json": "9d0cc39ae5180d1297893c289b8aa430e5e2ef4971d001e6d4ff249c93362ed3",
+        "worker-10.20.0.14-7144.json": "efa0cc04a3473919f35dc1d6b3d91086631f719dae260d41329ebc7cbb65dde5",
+        "worker-10.20.0.15-7145.json": "e0ff867693cfca67582852b336458019113b4777c719d9fcd1b2c956cff86a56"
+      }
+    },
+    "remedy-validation-normal-c3-remedy-r1": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "3ca666d064418090f37bc097f7e767575bf0cc9a3964bc60682a19c4bfe0b8a6",
+        "attempts-benign-10.20.0.11-7193.jsonl": "9f0474995395573de438b65fa5a120f3672dbe564e084fc3d56a5b698ba0fdf8",
+        "attempts-benign-10.20.0.12-7194.jsonl": "99e8d73b7647e8e4f6fbcd0b757e2dc83a948c62751504c9d16cc08ec6f1b0c1",
+        "attempts-benign-10.20.0.13-7195.jsonl": "6daa6f051fd258397350b6f76837c5a337c9636508ab07bbd9fdf88a24cfb02d",
+        "attempts-benign-10.20.0.14-7196.jsonl": "03ecbe1db73239b404e65f157e286816d339c81aa21f0bf6ff6a386136982102",
+        "attempts-benign-10.20.0.15-7197.jsonl": "a95f8465c41100465f02e0bd83e32bd6f63cc02978ba796ada6dbb1f6fd7ba5e",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "e60e12c643d2106c707a059593ed45d17c3d6f1ae564a4766d0aa0c374612124",
+        "manifest.json": "9406aa0eab7dc00fe37b2d713526e93e9bca3baa7c384dec4c9270fa3e18aa94",
+        "usage.json": "fb15f6c248e440690a2a583bcaa9f5c304e34e394c6dfa6e098f0520e957ca61",
+        "wallet_audit.jsonl": "2df81cb3dfcdec50e59b0e5ed0a0af0eb0e5bbfaf922df7f60cd6222e4e238ac",
+        "wallet_bucket.json": "5d2d11ae81a5896e811902a60db5d883ca9c4d6d6b49c7b2ef00f2ef1aeebc03",
+        "worker-10.20.0.11-7193.json": "42eaf0c5ef0a99a55e74ddcde2b7e63820e572374fba74da70c0f7b633fa758a",
+        "worker-10.20.0.12-7194.json": "9924b364345bab44159065812a045d094d12ee955257d294bf6f87e87c6789d9",
+        "worker-10.20.0.13-7195.json": "bc2d5429c70be84912aa7ee96664b5caa8416f98ae6eb28e61409d732cd5d004",
+        "worker-10.20.0.14-7196.json": "a69c04d80e1ce6478029d76d278b7c15676c9e62ea0c21dc2c0d054af6cf6f76",
+        "worker-10.20.0.15-7197.json": "beb8f7c8bcd014e65024638502bb53810f1068c619cec8bb0cb5b77bb91eeb84"
+      }
+    },
+    "remedy-validation-varied-c0-legacy-r1": {
+      "attacks": {},
+      "files": {
+        "attempts-benign-10.20.0.11-7240.jsonl": "2e6003e0407951ee6bc8ee8d9d236248ed88aad19511b49188d7166677791100",
+        "attempts-benign-10.20.0.12-7241.jsonl": "d2b77860b73db4b23a41d7107f28d640cbfd0d3c982b653947e95b3d570dec3b",
+        "attempts-benign-10.20.0.13-7242.jsonl": "a958b45e6c78c0fd5000f5b9406b3acb089ccde5e5106ef835e948a3442bc751",
+        "attempts-benign-10.20.0.14-7243.jsonl": "8d2498470d6cf28ef7b7ac5be4ac947ba9e1a25946a4f3b13f279e9672d5b47f",
+        "attempts-benign-10.20.0.15-7244.jsonl": "12cbf7fd334cc7ee7c212a7843c395c83ad0b716a53cdb77c5998ef8865567c0",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "manifest.json": "f4e69e6ddf31366b3d7fafdf5b86ca2a0eb9fbfa5cd34fc04dad0a75fee2d058",
+        "usage.json": "77eaec2754aff52fde39249fc61f0798366c998789144963b939af73b96e7593",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-7240.json": "d90287fe39d164beec5d3e7aa8c3934c2fc27eceb6ee91cce9a8c226051c02d6",
+        "worker-10.20.0.12-7241.json": "ce67ac36c4921b4d390e00acef6357177ae67e69d136d27f906087a336b8df92",
+        "worker-10.20.0.13-7242.json": "dc9101235a446e7e4e5927603ea3a7292bb6cced7ccaaf6a3dcb854517e68c69",
+        "worker-10.20.0.14-7243.json": "5a0d0985bd539b30bb00756f3475756162204538f0fe5775de8a46fd7bd755d1",
+        "worker-10.20.0.15-7244.json": "568868ec178897c363b88c0a11931f43426ee761f1ff864d70203cfdf7891140"
+      }
+    },
+    "remedy-validation-varied-c2-remedy-r1": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "0cbf8d77273e5700783c8283602999da118eb786d4be25cdbda8ed46a466853c",
+        "attempts-benign-10.20.0.11-7285.jsonl": "41ba7a646b3e887f3138d52f42bee19685b214aa46df93c4a741ea41d8b40265",
+        "attempts-benign-10.20.0.12-7286.jsonl": "1e3c8c8f4009310493fe8c02f3107d621df2b7bd158d88e451ae494394a58333",
+        "attempts-benign-10.20.0.13-7287.jsonl": "d51079d80266eb2324649b74b74f6e9902c2d06ddcfd9b9677293bcb09376768",
+        "attempts-benign-10.20.0.14-7288.jsonl": "5c3c91199b5f920a303c1f3d17f6d4c8bedc485b9e13b9f98122a6dddf76cd08",
+        "attempts-benign-10.20.0.15-7289.jsonl": "2d93168b7d86ab93e316af3d23aefc276f35c3e23d3d0beabfec21e738465132",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "4bca55e9cf009d0654c56ca50f7fb52037224974c84f346a1252cfa84c90aa99",
+        "manifest.json": "9e6bd980549e2943aafd256b44f2104e327b9a07fbcc045fe042e34aa51f5547",
+        "usage.json": "b2260e4983a5ae873d51e6f65898b91bdda07f897d52644467ead37e0fccd46a",
+        "wallet_audit.jsonl": "018ca764709a24444b07b43ca3584cd6a8ba9d375258bf4966b89ea4d372d9b6",
+        "wallet_bucket.json": "47878ea7b5010e6fd951182d4a2d01a7c9a70821246a43106b74a53ac17c9aef",
+        "worker-10.20.0.11-7285.json": "796157115724349a458967959e15959cc6424e71cb6015b1cf6a818aa28e06b6",
+        "worker-10.20.0.12-7286.json": "a59e35557135722afa4f1d95d0b109f2a215cabc1765c15b83ab6b780f4d0deb",
+        "worker-10.20.0.13-7287.json": "b4f709456164400ee47c70da006e318ec158d70361b1d36a8c3211ad0c8ab40b",
+        "worker-10.20.0.14-7288.json": "b49ad1650ef3cbdf33e87e4df28609ec689439b0c4c422af7e2e58f975f05e97",
+        "worker-10.20.0.15-7289.json": "1935c60afaf99c5208db1455aa96aa51a37961aa93d2c41fddb6d0e26d3bb6e2"
+      }
+    },
+    "remedy-validation-varied-c3-remedy-r1": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "afed69db2f2f5649f6d763351a4e5f819d6964829bb5c5c32d6c610c884419fc",
+        "attempts-benign-10.20.0.11-7355.jsonl": "2fb6c464adf029062decd14528bdbf6711c63543fa8d26795ae77f82429d2b19",
+        "attempts-benign-10.20.0.12-7356.jsonl": "f275df207ea2c9e131ba439924dcee836f8189d631ae0f325a98dfda9518ce99",
+        "attempts-benign-10.20.0.13-7357.jsonl": "c9f7acd49eb7e62a81f52295892ebf011cac90a15a4cbda16f3aebc36bdf73a4",
+        "attempts-benign-10.20.0.14-7358.jsonl": "e655f01bf88abeca4fcb06f532daef4aeb46c8575585b878971ae01eb478c959",
+        "attempts-benign-10.20.0.15-7359.jsonl": "c17ce955ea293ac370c89aae1bf4dc53419ac0492d5b4c408f88b55e4ed360c0",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "846cbbcfa39d158dde9b829231ca33410d81f1167c4efcf857a968f222f630e0",
+        "manifest.json": "4ea6fb3bcdfd60b04dd7c9cec1fbab661954a115a5f3699d9a0614b20a7aa579",
+        "usage.json": "5fb35156bccbddcc2c02deda9679586a189e0ccc20d5239dc49365b83bc77ccc",
+        "wallet_audit.jsonl": "da74de73cccedb984fefdc151e07ed0467dee6966a0b4395c4eb330ff9500ee7",
+        "wallet_bucket.json": "0d3f7d75f4d23c16685f3ae9dd920a1cd76a61e7c1e2e375d370aacff80dfc0c",
+        "worker-10.20.0.11-7355.json": "ee2bc3c1b5a436e4bf86a917bb5abf1d38cc71fcb042a04b783b39f872f281c7",
+        "worker-10.20.0.12-7356.json": "e000d9f87f91e26dd4916218d0114ad6152c367d5ced7a42dbdc0a2962eb4b42",
+        "worker-10.20.0.13-7357.json": "c58eafa126e1ced482d6d4c0378f1d80a8e386b864363f724dfa13a92a344c08",
+        "worker-10.20.0.14-7358.json": "85eda4a7d21bf60a2943e0d8e688b7c41e582e0ad690c6ba76cf00d2424b6327",
+        "worker-10.20.0.15-7359.json": "be6a30ac2c7342b028593e21870d681a6106f0a571830456d0acee2f3ad97ddf"
+      }
+    },
+    "remedy-validation-burst_within-c2-remedy-r1": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "db495cfdfcffa51892c1c7f7d82ab9a9a5ba039ab5c20ca7ef27243d77e12ebe",
+        "attempts-benign-10.20.0.11-7395.jsonl": "98013f1108f90a3733244f5a6ac7d94f2bbced9e2cdaef4b0dd71fcd0ad30aa0",
+        "attempts-benign-10.20.0.12-7396.jsonl": "2b86b8586347f8c65552388f7ebfd40ffc13a40617a8e76e83327c4ac7672195",
+        "attempts-benign-10.20.0.13-7397.jsonl": "8ae1fec214cefa7cfa210e676c71486090f9261196a1e65f274ad7d154c70fa5",
+        "attempts-benign-10.20.0.14-7398.jsonl": "9e26bddf9ea8c22a74bf52a72dc1acdb317d513bc1268927da3f403aa4a5b509",
+        "attempts-benign-10.20.0.15-7399.jsonl": "a37596f06d57d3bf4feef2a2b6b543a3d265f3e0375b4d5a8c84958a764548c6",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "9a13520e6a42f746645d12084d273430e0ed7d82ee3df4323e11806c741aff7b",
+        "manifest.json": "d9ff5f7b05ec9f8c8408fc4a3e4be16002f36b48d364b728bd2809a5559146bd",
+        "usage.json": "ba3a811d9a4eef95c6eab47582387a6731f45c29e1c02ef022a7ed9792572194",
+        "wallet_audit.jsonl": "7a6d5f19c5214f28a2e78dd2a2aa8737fd5dca6659c8d9178f8d3493ae7fa6bb",
+        "wallet_bucket.json": "f1a05232d96e67aa2fcbb20ef3e1ea8ea9aa8ac85c1ebeed760381fa32e9d7e2",
+        "worker-10.20.0.11-7395.json": "e43ddbda18053a8cc73ff43e1b38e1aa3b74c3253565f855dc8bf8db8f0dbe56",
+        "worker-10.20.0.12-7396.json": "54bd1ab75b2ae7a5aef7701f0410b67975cac87bdcad5bc23b74f3178e6d266b",
+        "worker-10.20.0.13-7397.json": "df04bd644eaf369dd5a359d5969f2b7a47746c3d3708a457f0284bdc5469c37a",
+        "worker-10.20.0.14-7398.json": "9946912a7fb7fa891603fa4d4949cb19f2cff6fa5d2650401ac7cace5594df45",
+        "worker-10.20.0.15-7399.json": "16a1536233d14d96caffc7bad420d3e6d06ada39ca2d1a2218e6bea6a852a090"
+      }
+    },
+    "remedy-validation-burst_within-c3-remedy-r1": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "8495e31645650ca2234c45dc41d55d0108f7d565b0371e69dc4b9b6b552b002d",
+        "attempts-benign-10.20.0.11-7493.jsonl": "02d0a9c4bface49e4c8be1f0ea49b2e3bafe0281e233f92fb0d89760c4a947cf",
+        "attempts-benign-10.20.0.12-7494.jsonl": "395c30019e9cfeb37430a5db65740913392e753c2743e0a9eb456aa8fbe2aed9",
+        "attempts-benign-10.20.0.13-7495.jsonl": "f414e27b9f59451c35b0bb5626756950126f09dc4b9ca0d4ec2e682b90304c26",
+        "attempts-benign-10.20.0.14-7496.jsonl": "27b861e7011be0253ba36147e3a083ff6395680b8de2fbfe579327e075060689",
+        "attempts-benign-10.20.0.15-7497.jsonl": "0bfe78bda28ef04ce46d8514f24490017839822f4d7b47e29fe2472f8a3331de",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "ba6c51054e0d110f9159322b562acf312960f99ec8361c1f4b5725cb8921a236",
+        "manifest.json": "5ec88f73a4a2619ee3ffbddf6297d96b991588114c58ee7cd5535c4cd592a7c3",
+        "usage.json": "ba3a811d9a4eef95c6eab47582387a6731f45c29e1c02ef022a7ed9792572194",
+        "wallet_audit.jsonl": "c6db12380903869aeb6fe6879223a30a816f51a23a80998920e44dd8aeb94c90",
+        "wallet_bucket.json": "5561c521732555fbd1027ff1c5fe907a23162fb8649fe519929f6b817549ff2b",
+        "worker-10.20.0.11-7493.json": "881b92cd98e176b14cb500181790648fc74c03627dd670633f47aa48158f7c7d",
+        "worker-10.20.0.12-7494.json": "72c392efc68dcff7c28bc4d35ecd6bbdbbf0f0bcf4825daa13d4117c88053d4c",
+        "worker-10.20.0.13-7495.json": "3078cb811a39bb4e18f4c3a58f87edc42f7a25055a9322af8c9fac2f96c4e306",
+        "worker-10.20.0.14-7496.json": "404454dcdc15c90c34b7122293c2e1d9c149e10f9b87a23e16537052f194d691",
+        "worker-10.20.0.15-7497.json": "13a8e5d3fecb330cec2c7d29eb46f1adca47e8bbdd5230b609ebc0fd4fc0c5a0"
+      }
+    },
+    "remedy-validation-fast_scraping-c0-legacy-r1": {
+      "attacks": {
+        "scraping": {
+          "success": 1407,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 1407,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 5000
+        }
+      },
+      "files": {
+        "attempts-scraping-10.20.0.19-7551.jsonl": "8a0e82dd31a5f77f71ac4acaa4ec177e604ad3b75d14b8cbe0abbd9a30833a58",
+        "attempts-scraping-10.20.0.20-7552.jsonl": "f8c3606adc77f6d633fd8c81a9e00a6995b927c7cc5c2af46dbbd49ba2f2e620",
+        "attempts-scraping-10.20.0.21-7553.jsonl": "0e6e0c189e504d9d29e485281c2f7a801c1d5f22dd986b8a050ce97d415b0cd6",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "manifest.json": "2954f7f7427bd0d00e86bbfd38dbf39a9f39771aac4fb8fcf753dbc7b63c9cdf",
+        "usage.json": "85298315bff4f9079bd21723d11595f2e9230fb45d2cc571ad34bfdb36635e85",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.19-7551.json": "dad1f447c47fe55b198cf4640525f16f9047a122564dd19bfc5cccc9f6f454d4",
+        "worker-10.20.0.20-7552.json": "983db2e82d31d7c9c136e293f0578ab0b9d453fb20fc0cb670bcf6ae5332390c",
+        "worker-10.20.0.21-7553.json": "0ee5ab911641421034f1fa783abbbedfbed77e9894561c85c71a4b7c3273cfb5"
+      }
+    },
+    "remedy-validation-fast_scraping-c2-remedy-r1": {
+      "attacks": {
+        "scraping": {
+          "success": 93,
+          "fail": 0,
+          "blocked": 1419,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 1512,
+          "asr": 0.061507936507936505,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 3100
+        }
+      },
+      "files": {
+        "app-evidence.json": "2bab01ff9605753d1de563e9069af9494f78f7142ea2039026474716787ca3d4",
+        "attempts-scraping-10.20.0.19-7576.jsonl": "3ce7a8264665c29b61a2ac41397a49f11c4d6d5f7a2e9d6382019c82ec8a095d",
+        "attempts-scraping-10.20.0.20-7577.jsonl": "3dad5c4793ca5a195f791c046456a9d0029e96c11128b3ef2a501435dac8dae1",
+        "attempts-scraping-10.20.0.21-7578.jsonl": "a22f86f803840e2766d7789627b171f14f22989cd1e2e6edb9d877f8dbff5b88",
+        "bans.json": "77bacefd9f7473b7b500455ab1453f1712c11b7e55947db98ada929307541b19",
+        "decisions.jsonl": "cd1bbf54f737bb8cda45a324a6ba591b88f472baf82621bf2563013c67e72031",
+        "manifest.json": "ccb80da092a48a749c354a0f234de16b52342025379197d5c3a7c474f391c96f",
+        "usage.json": "85298315bff4f9079bd21723d11595f2e9230fb45d2cc571ad34bfdb36635e85",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.19-7576.json": "56d4fe586e2559b54d700e885318a11290f62ed1dd5d358501bd7fcfe62c9905",
+        "worker-10.20.0.20-7577.json": "e94818690f3da94ab9228e5fa844444362f9a879cb7973eee9f1cd5abc3d479b",
+        "worker-10.20.0.21-7578.json": "c4e82e1fb049193f8133aa515e68eda8fc443a97a2de6b0a6e63cd4cad71dbe6"
+      }
+    },
+    "remedy-validation-fast_scraping-c3-remedy-r1": {
+      "attacks": {
+        "scraping": {
+          "success": 96,
+          "fail": 0,
+          "blocked": 727,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 823,
+          "asr": 0.1166464155528554,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 3200
+        }
+      },
+      "files": {
+        "app-evidence.json": "27dc306ad853ede2a7a15b115ecab17200c3895a546a2a645ddab8670591ed37",
+        "attempts-scraping-10.20.0.19-7612.jsonl": "de90f270683573124c7b8c5caccc583512dddf946a4c74e77b5659f408c380e8",
+        "attempts-scraping-10.20.0.20-7613.jsonl": "ca869af8c7c90fb98c8eb8f481800adfff28873856e7f310327960bb0382d3e5",
+        "attempts-scraping-10.20.0.21-7614.jsonl": "72c9c24cfbc64c54c7cb10c812a5f18d3cf7b930bd0985b4b7f53798328c142c",
+        "bans.json": "5e2b6a8741efabb93a38050a000cc891c5f8bb27bb424c051647e319cb5dc5cb",
+        "decisions.jsonl": "3351f511e9dcd0fab853cae5521434c1636251bf65c646644ca2e33d4c05d232",
+        "manifest.json": "2700189cdba5cb4e0e5d16bba9e02a6829c866db5571f650253727a11c80d599",
+        "usage.json": "85298315bff4f9079bd21723d11595f2e9230fb45d2cc571ad34bfdb36635e85",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.19-7612.json": "3bbdcc673154daeefc847b4a48d161e7071184444181d410f8f21c48ed792fa6",
+        "worker-10.20.0.20-7613.json": "b892b44da1c5bcdacde5c13b72d70ac69af63d848bbc5a227c350fa72f981452",
+        "worker-10.20.0.21-7614.json": "18322d4576d30df883f5843404560b65a3c1db7cb807f435ca10851a98be0924"
+      }
+    },
+    "remedy-validation-shared_account-c3-remedy-r2": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "a27a99dcfab46abdc321f0cd0d217cd8c94671019e67d31d8afab13e851b49f1",
+        "attempts-benign-10.20.0.11-7647.jsonl": "b98e68132e78a886987382d135cbd1599a4a22f3e6737bcf6cfd19e1b9dfa07c",
+        "attempts-benign-10.20.0.12-7648.jsonl": "b5b90019492515a0256a9fd6128ae59d8d248aae41e52f8722abbb940e04168b",
+        "attempts-benign-10.20.0.13-7649.jsonl": "60287ca6a556d76f23a53122d2d7a8d5395d4be33f471b3c72f51971eb73af34",
+        "attempts-benign-10.20.0.14-7650.jsonl": "c932343df6edad575a0983c334249f37fa448dfceaae78ca1b3a82aead89197f",
+        "attempts-benign-10.20.0.15-7651.jsonl": "7c168ec75bf50793f756aa4f0a5abf477217da296883701b6673a619c5cde31b",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "ece29031976b9af66ff37f168a5d6f7c1844c95700588da7f487a73e491741f5",
+        "manifest.json": "56df1847e006c5e24b275f2dbbe6664e90a7667ab10a427d60281fc84e346261",
+        "usage.json": "57e641881a484823c91567c43d7706f8d1d80a1f1a67af310c06cd9e11fbc825",
+        "wallet_audit.jsonl": "7caa7c5859b072755da5e56d6f9a4b9972f41a0f8ec8cd9fa4069ab1fe355c88",
+        "wallet_bucket.json": "1bb3664e10b5491cf1a8d98af236bae7b20fffd74027610d0ae28fd2692464d1",
+        "worker-10.20.0.11-7647.json": "8d12c33d6b46be1c745a631fdd8f184019218a6302dad35ecde7e867be0388c2",
+        "worker-10.20.0.12-7648.json": "d47036b4742ba8cfe59bc13f46474880f5acc91a02862da1a53c555f88f4af01",
+        "worker-10.20.0.13-7649.json": "22a31cc30d2628ebaf2c9e41bbd05f58f72c8a7586ed4cd3385a1e1c9141d26a",
+        "worker-10.20.0.14-7650.json": "67663c7393307701483e3d2cd4729c949144576cbbf8e06aea8090f2ea89d293",
+        "worker-10.20.0.15-7651.json": "1cead95d19ae24385efa98452e5a74ff38daa71960d0db9af33219515de3433d"
+      }
+    },
+    "remedy-validation-shared_account-c3-legacy-r2": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "37ee5331cd3d961bda447245ae166581eb3fb790b541139f15f3081cec1f97ab",
+        "attempts-benign-10.20.0.11-7707.jsonl": "752e6d83081bf39ef087981d3be9e74a0e1bebbfc37be2d93eb258c73b75cb82",
+        "attempts-benign-10.20.0.12-7708.jsonl": "40be9b63ecbae2a03e099ffb29ebd8d32b984b7e1b726c45fa03039eb45842d6",
+        "attempts-benign-10.20.0.13-7709.jsonl": "e9676e11b7511c023f6e91ae01b943a07c8de51737db0b4d3b6970cc81e312d9",
+        "attempts-benign-10.20.0.14-7710.jsonl": "40785b2b238c88939faf4a8fab92f4ac29d56d229681f8c2a47f238ad4765c29",
+        "attempts-benign-10.20.0.15-7711.jsonl": "f0d4f5bdd7c692184a5f357f40d69c17ff2b8a40d85bb0c4b35b5200c47aee9a",
+        "bans.json": "812e969c9e28930db959b97dd7021420d59bbc31d87c36a3a42e8b85da5c6bae",
+        "decisions.jsonl": "2bc3d544ee01645b186946e6e82c4602dab3b5f316a66ef8aa62e908ab8f5a65",
+        "manifest.json": "db7468db4465b0592f2771380c5cc04022c3bd297e14b368a57a783e9fae4172",
+        "usage.json": "57e641881a484823c91567c43d7706f8d1d80a1f1a67af310c06cd9e11fbc825",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-7707.json": "2da2ae059a35babe4c242ae7838df00a4ec1141ea458e2d3ae2b11e401d0eafe",
+        "worker-10.20.0.12-7708.json": "c9c068d785fb367d7d1fee5c817fa259fe54f5fbcd4b2447163580ad4a34a973",
+        "worker-10.20.0.13-7709.json": "c5b7a2df68a00624533ca96e33bee7fff29f8fd08ed49b39efbcf2bf7e896756",
+        "worker-10.20.0.14-7710.json": "d6688feba1aa998baebd4958b3a061a9772a9e5ca370cab0f7f4515aac765569",
+        "worker-10.20.0.15-7711.json": "fa8649a97d648ec54d629710717c6fc726af3ea4894f537920f4d11db44e0cfb"
+      }
+    },
+    "remedy-validation-shared_account-c2-remedy-r2": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "9d00843a789affdd1e1f721e3cb2ced0cefa934059a9f69a5ac91a572cc01957",
+        "attempts-benign-10.20.0.11-7751.jsonl": "d5bbcb95db87914464765984f49a92f23242ae7583004a40ec77c2ce7d219c94",
+        "attempts-benign-10.20.0.12-7752.jsonl": "04661ec584345db7ed43619ab1a179afba2fab4e997cc9080c8fe596135eb66a",
+        "attempts-benign-10.20.0.13-7753.jsonl": "efc456b2904445427b32345bd3fd83a739a4c5e940701e1d3647e47989e4b6f2",
+        "attempts-benign-10.20.0.14-7754.jsonl": "392a8bf2686f5be0389bb674ac7ff7e815a3f5ed97f4b11b35f393573eececd7",
+        "attempts-benign-10.20.0.15-7755.jsonl": "6a24f8b880f4d1290010cccc3f34754de13cb76b32668a4f224bd8a5725047c9",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "a4345c314dc8cb2e3db1a5f68a7eb6d64cf36cb339e28223c7b1fdbf81b32e41",
+        "manifest.json": "3989c68ef5b6fd224f94b31956e48f2483d13711e21670741cbd94ee49c2703e",
+        "usage.json": "57e641881a484823c91567c43d7706f8d1d80a1f1a67af310c06cd9e11fbc825",
+        "wallet_audit.jsonl": "ce553f182824e0f88032441ce51dcb8f39aa0a430434b3677873d71f5cd8b3ff",
+        "wallet_bucket.json": "6ef994cf742f69d9b5453e7a889e82bd44641f84742f50577bd9c9307588677c",
+        "worker-10.20.0.11-7751.json": "0ea17e2d3dbef17960d4bc51df7ed9045fe86e11db9a27420abae5fa4226a78e",
+        "worker-10.20.0.12-7752.json": "3a0de0f9570b329e2877ee33d863e9d1e4b50ee5f95ff267acdd037da1188d0d",
+        "worker-10.20.0.13-7753.json": "1f558af056249e5f09967204e5335bd9c0d7108956444c6c3d453552574487c5",
+        "worker-10.20.0.14-7754.json": "daa868ce0d0be7c2bd9a5bc1debdd2f9152b4e29c2e3a43d598a123057017563",
+        "worker-10.20.0.15-7755.json": "c9241dc53e30913609cdeda8aec9e8de59285b73a1236e00639b2dcc8b207d3f"
+      }
+    },
+    "remedy-validation-shared_account-c2-legacy-r2": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "aa71acf77d731888b672001f4433a3147881c6badafa7ed89818269503e311b6",
+        "attempts-benign-10.20.0.11-7785.jsonl": "6ad481394ea898cad92dd8eb265b3c8c91c3d057ed63983e50fd926290fb323c",
+        "attempts-benign-10.20.0.12-7786.jsonl": "43ad01a60860fb037f15d17f1c68a4a95eaaa4bc3853aa944224c8d6a4303666",
+        "attempts-benign-10.20.0.13-7787.jsonl": "904a8ba34a9ae67e7a4630f4bd0276dffe4771144eb7000f5d287cd4d32264c9",
+        "attempts-benign-10.20.0.14-7788.jsonl": "f8b2fbefd29d2a7d36eade92a306e7a6576f6f1ec0a0c38914a07432c2ed4e62",
+        "attempts-benign-10.20.0.15-7789.jsonl": "e673dc6cedf5d04abf81397e2ff5b80f3f829632bdbd92df0973f0810c431154",
+        "bans.json": "061390b740ca8bc4f621bda912ebd496d2163e534da533e54ca36f8bfae2bd99",
+        "decisions.jsonl": "c64a1fc5cb01a1071f02af0f405e42994da12ffd020e8305cfa64a1d066fb338",
+        "manifest.json": "b0b5bd728ae6cb97cfc90e370185af6a1f96a6f2b51a83e96183cf7b5cde77b9",
+        "usage.json": "57e641881a484823c91567c43d7706f8d1d80a1f1a67af310c06cd9e11fbc825",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-7785.json": "8a1f08ca96ec615532593047b989545b7894d07258299527f68ef279799abe64",
+        "worker-10.20.0.12-7786.json": "183b28cbe8c609f824a308505cd83fb9593b465920d22006bb282cec3b56187a",
+        "worker-10.20.0.13-7787.json": "9cf23ad1d5a3352cd9f43dde113ecb2d98c86a0acf2956c08c0d584a3ba7dfe0",
+        "worker-10.20.0.14-7788.json": "a0b238205fc66e9301eec1faed67d2149f9ab590b00cd557574dad5f11571f33",
+        "worker-10.20.0.15-7789.json": "93588ee5417c2b6e81d40d974f2157213383510721e08dc0c1fcbba7fba8027e"
+      }
+    },
+    "remedy-validation-distributed-c3-remedy-r2": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 5,
+          "fail": 15,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 20,
+          "asr": 0.25,
+          "known_valid_attempts": 5,
+          "known_valid_success": 5,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 375,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 375,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 5000
+        },
+        "dow": {
+          "success": 48,
+          "fail": 0,
+          "blocked": 12,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 0.8,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "87e408bc950cbc50886a05a838fdb00b476d6f0af0771c423b8f1ab6cf471345",
+        "attempts-credential_stuffing-10.20.0.11-7839.jsonl": "3d9c7c506202d869af1a90327cf4e593513f1cef1114911a7859b6170590e563",
+        "attempts-credential_stuffing-10.20.0.12-7840.jsonl": "c17218938d24782a8160b333df5aa0cb72044d54a155243f1b6c50997e713400",
+        "attempts-credential_stuffing-10.20.0.13-7841.jsonl": "a2306a0171145b397f681caf933eaf0f2f5434625244fb3f9a756a8e70b784dc",
+        "attempts-credential_stuffing-10.20.0.14-7842.jsonl": "79d6fe3d0bd7ff3c19f211939f9e7f9fe275f85277827086213b6269723331d3",
+        "attempts-credential_stuffing-10.20.0.15-7843.jsonl": "dc895893364f16d8ac00a261c7d18624c59e3493849e5bd6fbf67dc9e69d0a66",
+        "attempts-dow-10.20.0.21-7849.jsonl": "4679ac20e62abd1cc55694832595694fc78c0449fabab2bcf4d9736006260eb8",
+        "attempts-dow-10.20.0.22-7850.jsonl": "f50acdf689bc4234c36b588a1d1a3536774cf75ac0efdc5bf3c47b85417ec1b2",
+        "attempts-dow-10.20.0.23-7852.jsonl": "3885e86896fb8e7f81e79cbef102e8bcf2bc8f8658841e13272be69ae54134cf",
+        "attempts-dow-10.20.0.24-7860.jsonl": "29b64078802ecae22ddbcd809a8972e9b0fd5d9e5704fb67caa643248811c65a",
+        "attempts-scraping-10.20.0.16-7844.jsonl": "d1ac7a218a32ebd99a1fc76a6512fd0d3c48fba480c98113ec7e6704d08f8ae9",
+        "attempts-scraping-10.20.0.17-7845.jsonl": "4eeeed9c016122c784d7616d2ee8c52bbe5777bd511a4a8ca70d2d72a1dcf2ca",
+        "attempts-scraping-10.20.0.18-7846.jsonl": "8a54df984da9fd3fdda2170832dc43f11cbba6da9dd930609106eb9f5b301646",
+        "attempts-scraping-10.20.0.19-7847.jsonl": "0dd01a28892747c4936fe1de755675e5f645bd2362aece72e540bc6cded1386c",
+        "attempts-scraping-10.20.0.20-7848.jsonl": "6e4c19215ca5688d55e0b8b8c92f196269dbd580185809e6515af1ed251f93b9",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "459908af0c882cfec37f113871df111d492df9efc6b2a02d4ff558726dbfca33",
+        "manifest.json": "0a732d12e879d5372564d922ab8a7c25e8114acee40ed415779ee918694ffdd3",
+        "usage.json": "11dc1d663dbc2fae2ee7e9f638b6eca1cd1e11fa90754125e1440fe969cc8739",
+        "wallet_audit.jsonl": "1366e013144bfd096c2b4260a6def5ce2283f81aaf2e910c1183c2d729619955",
+        "wallet_bucket.json": "e06a7f8f96fe4b31ab5606797d4ccacb087cb53f9293ef6664eec52c6175ae81",
+        "worker-10.20.0.11-7839.json": "6080cb4bd42ccbb50dc9ed4ad2fd892fb8419e129aaba7e6aac126433ed28e6f",
+        "worker-10.20.0.12-7840.json": "9547577af155b8cf3f095aea46590064f489ae2dd13fa4bf4405c37f4bef57a0",
+        "worker-10.20.0.13-7841.json": "c7167b427428bdc9a33113569b95ca39899024d975d3caf52e92c01e830910c6",
+        "worker-10.20.0.14-7842.json": "8c151a254ec80769ad36fcfce61083b6bf70a8fea88501a193ec38c59e815c8c",
+        "worker-10.20.0.15-7843.json": "8f8651b066511984cf59150722cd19f4963575770fd67bdd0dba3ad830fab99d",
+        "worker-10.20.0.16-7844.json": "2033ed4d6185d802c8516e0be5ecca14183123fca107d7791bfcbfa69e604718",
+        "worker-10.20.0.17-7845.json": "70f64af6b851599f0a111752146a772a1bee93a825033d2680063792d2218479",
+        "worker-10.20.0.18-7846.json": "2a122a2faed31cd04a456dd1b3bb123afb9f275c0eea3e52317d3294c63e4aeb",
+        "worker-10.20.0.19-7847.json": "6c0bc15dd2a288c68c0b5e138fa2e45ffbe77695fe3cf5c8310284804bd7d338",
+        "worker-10.20.0.20-7848.json": "92828a44e7067c267dc284191b2a6d6bdc58450fcdb7105fb8f33a9bd9e9419b",
+        "worker-10.20.0.21-7849.json": "e8b1433d5f497129763fb276d33b1e2be94a22ffb8eb5186bc596ba365cba9ff",
+        "worker-10.20.0.22-7850.json": "14ec92b03a5ad26b39e39384cb125ea62996b8b6cfb7b765fa3332fc5cf7f3e7",
+        "worker-10.20.0.23-7852.json": "e8241d13eb15bee72b8b644f8c2fade668eaf0262af79c894b1a4a38a639700b",
+        "worker-10.20.0.24-7860.json": "c8f8581fcedab367d36932d76c0d1f577f4b144dd9b72d41fa023d212b0ecdad"
+      }
+    },
+    "remedy-validation-distributed-c3-legacy-r2": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 5,
+          "fail": 15,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 20,
+          "asr": 0.25,
+          "known_valid_attempts": 5,
+          "known_valid_success": 5,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 375,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 375,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 5000
+        },
+        "dow": {
+          "success": 60,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "bbda53dadae9060d25d5156a665b95e6596bc6f27203ed1be69e14cb71dba998",
+        "attempts-credential_stuffing-10.20.0.11-7963.jsonl": "2fcb7b619be67bd4776024155f66001ac96e0320cbbed2b624be5092810d7485",
+        "attempts-credential_stuffing-10.20.0.12-7964.jsonl": "443142cff213272fae846199734d28c4808c27765c95faaa83c1fbafea5c9f74",
+        "attempts-credential_stuffing-10.20.0.13-7965.jsonl": "78a7c8bf3fc28cbe1af46412578bb50a552f0ccfdbfd244b8d158edc5b000d3e",
+        "attempts-credential_stuffing-10.20.0.14-7966.jsonl": "29a6828901b63e3048bc0ca6bae60c6a897feecab6f957d5ad4d434322ec7725",
+        "attempts-credential_stuffing-10.20.0.15-7967.jsonl": "f7d2ab7729e08ba93000595411b72324a2091ac6720f526d8f1b1b76e0113892",
+        "attempts-dow-10.20.0.21-7981.jsonl": "191f3715728fa7ba933b36f62b49073713090314eed5d73986771b73141548bb",
+        "attempts-dow-10.20.0.22-7982.jsonl": "95a455c98eb751ad10c0fd4477d0b60916039aac473e7ee3d40923a2c416d4e5",
+        "attempts-dow-10.20.0.23-7983.jsonl": "1a0cffa13d5b0b6676f3cb9d986b1118d9eeaeb15df00805c756a2b5019ccf9f",
+        "attempts-dow-10.20.0.24-7984.jsonl": "6a65bb68a3f54009de5301b1e50f11bb70a99503ad9ade7119268cc4245920a6",
+        "attempts-scraping-10.20.0.16-7968.jsonl": "34bcad9f3a5d056fa9609254f7d39be9cc1ba5c89200157e5825846029e253bc",
+        "attempts-scraping-10.20.0.17-7969.jsonl": "b53acee27ce36f0a8f63296605db528bd3f7fa4ebb2d2105903623efb7e25d26",
+        "attempts-scraping-10.20.0.18-7971.jsonl": "acd1abbb7d3863beed329d3135f1a60add235a050b3bfe74e9cbea8c9231d4db",
+        "attempts-scraping-10.20.0.19-7976.jsonl": "8fa233472978c020ea976344d7a8ea056e83f7fd3072b8e00cf592f1205c247f",
+        "attempts-scraping-10.20.0.20-7977.jsonl": "99136a15f13f659017a15e762b7e719e4a2818fc09a8cc15ba11aed4dd0e0d94",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "84eff1368d0de645c6d445da98ad9b2ad2580a05f2f7120360e142ad14fed012",
+        "manifest.json": "6b831e42852af70873f7590b18fc83c9ba4dc30bdd748dbcbc9375cacd241c2b",
+        "usage.json": "a56f771cd15fa15707cc0cd693cd208fc89be7934b5723cdecb5040513c30d1a",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-7963.json": "21f230be6484ffb8653a3c8e4366f083d945e3b7e82e5759b6c99f9944713e35",
+        "worker-10.20.0.12-7964.json": "1771ce8794f3863e05b759ba3f66a81c3814c3cca9b2c8d59c2a5f6b5bc7167e",
+        "worker-10.20.0.13-7965.json": "1778b1afe8ff1d5bc23df1be9073c7fa04ccab6737ecfa44c9d5c6f59816eae7",
+        "worker-10.20.0.14-7966.json": "f15c9eef564e5aa3abbf212611cac0a3955fff2ad6a9f2f343ed835726d3334a",
+        "worker-10.20.0.15-7967.json": "0e3c9cff7c577f41ff75dca8dd07b2b4bd5bd1f93e9e2c106726c0212256c9d3",
+        "worker-10.20.0.16-7968.json": "4b9e87bc4da97e70bec6a67b40909019e56e08999bfe6548a64dd3acd214a4d1",
+        "worker-10.20.0.17-7969.json": "0b94f04748004cebd3f1c5f4a88e89809e774c69bd5e6c17c4c58d54e0278b7b",
+        "worker-10.20.0.18-7971.json": "c53af8c8062f697fec96b0d81019503b9ed6d2152441a9f96f68633332223b04",
+        "worker-10.20.0.19-7976.json": "b32069189c53a39e879622180af0a8441ec89fc70a4a0c839f0ed418d025adf9",
+        "worker-10.20.0.20-7977.json": "d90857e039638948a9788aaac63c0682b46d9aabcf8ae976c50577f312241f2c",
+        "worker-10.20.0.21-7981.json": "0d88d9f84723bfefe83903f531f86f8dc9b5546bcee7a67b9cd9d01d287e60a5",
+        "worker-10.20.0.22-7982.json": "64c12c372a7caf22eb6d8bf0c768785e10f6d62b5c4f1286cf91f7d0e96b597e",
+        "worker-10.20.0.23-7983.json": "cd5524d8d1bd3475f13ea7d53bee5d3192ec4096b1a41a72ff577744f3fcd569",
+        "worker-10.20.0.24-7984.json": "8134c8603f4bdc2fc49d19099283d11dd1d03ca1936262dcac833b625f51f040"
+      }
+    },
+    "remedy-validation-distributed-c2-remedy-r2": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 5,
+          "fail": 15,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 20,
+          "asr": 0.25,
+          "known_valid_attempts": 5,
+          "known_valid_success": 5,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 375,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 375,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 5000
+        },
+        "dow": {
+          "success": 48,
+          "fail": 0,
+          "blocked": 12,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 0.8,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "bbb13e8f6ef6d089d5de6dea7e173509e37272f4b206b857b00663a70148edfb",
+        "attempts-credential_stuffing-10.20.0.11-8036.jsonl": "3c5ca678d495cb5c01b5bba402706aa5edbac8b087d30210915c675040c028cf",
+        "attempts-credential_stuffing-10.20.0.12-8037.jsonl": "f3b592df917be6790d1aed93750626bdc6b7dcebaeb8fbc208e9212efd711708",
+        "attempts-credential_stuffing-10.20.0.13-8038.jsonl": "afe3f26b437eec374d5ae4569b6b8f36fdbb028675000fd6ca31ec1c6f66be41",
+        "attempts-credential_stuffing-10.20.0.14-8039.jsonl": "c2a7b37b070c11b01fad79ede13609e9c30fadcc41126b8b2083ce9f52b75b29",
+        "attempts-credential_stuffing-10.20.0.15-8040.jsonl": "2e0a9142821d4c2fa359ab07b86407bf4bd915b05ac07b401f570c79ef2fccc2",
+        "attempts-dow-10.20.0.21-8048.jsonl": "42a35e04910879c37d0ef844a67e3618b0210b69e044e1ee45697223cae84262",
+        "attempts-dow-10.20.0.22-8050.jsonl": "3db7b43221ddd914ec592b66fdd2e70ebc56b3e9dc4b4be4e9e426eb8bd752cd",
+        "attempts-dow-10.20.0.23-8052.jsonl": "16f5b4a4eefeb28f217666258ac335eb983c98945a0674a43ca88d8e04b81e67",
+        "attempts-dow-10.20.0.24-8053.jsonl": "1a8469d7890c41f1dfbcf59cc16fe8f31b8ed214fbf911499aca99c2ed809542",
+        "attempts-scraping-10.20.0.16-8041.jsonl": "c20b4b5bfbef0b1b8750296d49f46a36f2b99e150e89dd7e854d7e77720c6476",
+        "attempts-scraping-10.20.0.17-8042.jsonl": "705e584a82dcb4daffd47a65da8e74caa8401a6a63014ccfaecc5dd19ed3a496",
+        "attempts-scraping-10.20.0.18-8043.jsonl": "0e2cc15998bd42fbf023369c11f7106c573bcb7b1839f62086d3edf58c26745f",
+        "attempts-scraping-10.20.0.19-8044.jsonl": "80a3908c3a60e8210d3d97cd4ac5e33adef087c608785e72a52f0bde304efe80",
+        "attempts-scraping-10.20.0.20-8047.jsonl": "35edb4a6401eb64dd3d3db4c87e73df6d955c0a2db3550cb69bb757d14768d15",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "e8f59a7e58029d450a338f57f535db40734f7579d9900e62931c0a001d29170d",
+        "manifest.json": "d3d1c425d93869da7613941566ec462d95e4e7b5a83f4684e937c0b36199bbe8",
+        "usage.json": "11dc1d663dbc2fae2ee7e9f638b6eca1cd1e11fa90754125e1440fe969cc8739",
+        "wallet_audit.jsonl": "ff6147c28844dbc56ab83df14d38ad7f77d2848f4081d7c2681a83cf767c26ad",
+        "wallet_bucket.json": "acdbc6c70652f397c08623a24d60edf990c8038b1eb5d4c0acab6dca25ecd1d0",
+        "worker-10.20.0.11-8036.json": "314f6459ce59a8753383e096e55969f29072728c24441793183a29644f19e0a4",
+        "worker-10.20.0.12-8037.json": "1befaf61f08dc656fc6a01f429f1ce9fee277cad5accc1f7c33fdc3b7e13f688",
+        "worker-10.20.0.13-8038.json": "c8fe4be8c13cc4a1e509d2798f40593910abe3f36345ed472fed7ab6f5abf29f",
+        "worker-10.20.0.14-8039.json": "1139cd05e9d631deeaef0165619391bdd0635264ae6df7614edfe0949244cba8",
+        "worker-10.20.0.15-8040.json": "f161cc4e1d97cef48fab079569f4198a7ea0fb76013132af698692830f5a6549",
+        "worker-10.20.0.16-8041.json": "5fb9494651566c8afc96c3efc0e189126d58bfb270e6715aab1e2cd9b45f55c9",
+        "worker-10.20.0.17-8042.json": "fe135ef3b1b7f4bc58a80c0203394c97379340777e1ec7e2fe33b393280ca7ac",
+        "worker-10.20.0.18-8043.json": "b08491e715526c82d885ce6aaf44471a22231991a30042f74a72874089a5aeda",
+        "worker-10.20.0.19-8044.json": "0b7469200cd6738b3202e613750163efe47a49dcab162fa499665535e94e377b",
+        "worker-10.20.0.20-8047.json": "2653dd99734f54ead79c23a2770550fe070be3bfeafc15630c5b20fd92906179",
+        "worker-10.20.0.21-8048.json": "eacbb425e5976c5b6808cf24f20ee5f9bbe6900440186fa92462b7a4dc7e0a31",
+        "worker-10.20.0.22-8050.json": "1e0b5705fdb7fbd030ff274a0f08028ed2c141ed427d8e512478562344d5ddbd",
+        "worker-10.20.0.23-8052.json": "6b1fb2433cae31f4bc5045e7f36e8a8f0eb2f2bf7d11842b783527a5a9b5becc",
+        "worker-10.20.0.24-8053.json": "3957be3c953391f27038120b0960087c38a4828ccd5cbce449bf3755a3b7a73a"
+      }
+    },
+    "remedy-validation-distributed-c2-legacy-r2": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 5,
+          "fail": 15,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 20,
+          "asr": 0.25,
+          "known_valid_attempts": 5,
+          "known_valid_success": 5,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 375,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 375,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 5000
+        },
+        "dow": {
+          "success": 60,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "81f07cbc20e374b3524a964ee125be97c661ec3b2eb0cfbd225d792b9e52bcca",
+        "attempts-credential_stuffing-10.20.0.11-8104.jsonl": "e64a28905f8b963ddde50eb1f01d71ddd68aad10ed9294be0946edb906d919e6",
+        "attempts-credential_stuffing-10.20.0.12-8105.jsonl": "b318a17f8bc5f4a6a0a28f7b78ee9b40004be5485562fc8ae6864db83d36af94",
+        "attempts-credential_stuffing-10.20.0.13-8106.jsonl": "257bc5720a306f9e827d4d19226859beb4074f839039b5a6d2e5de8b4e34effb",
+        "attempts-credential_stuffing-10.20.0.14-8107.jsonl": "21f7259ba6c042f07c1c8e079a04634126633a1a8bcdb053c842ae3bf6791b05",
+        "attempts-credential_stuffing-10.20.0.15-8108.jsonl": "defd859b48a5b790ffd7ffb4e2e5945e63283ca21a003e9125730def366f6a40",
+        "attempts-dow-10.20.0.21-8114.jsonl": "8196b2a135e55cf45d0cb1cb16a7d8c732b296ff8892e500ae81516a0761a668",
+        "attempts-dow-10.20.0.22-8116.jsonl": "16971a535369f52a7add2e681063baa404cdc51b0db526ab3b0e8d6812ef9d25",
+        "attempts-dow-10.20.0.23-8121.jsonl": "32e495970696bdfb6227897e377e827ba0fff5c1c31341969206ff3cf9827f57",
+        "attempts-dow-10.20.0.24-8122.jsonl": "2aa179b8c2f906e190dc3189f8d858ac1454c5f5e2aeb407e8a8ef5909725e4d",
+        "attempts-scraping-10.20.0.16-8109.jsonl": "c2533f384a8d9ae5fa438d663077ce7b234252824352f6d337050c6b6b421e2d",
+        "attempts-scraping-10.20.0.17-8110.jsonl": "acc96e820a3627d8d429fb38e2469856992ed6ab59751951286ebbe75f5dbf2a",
+        "attempts-scraping-10.20.0.18-8111.jsonl": "f1aa1fad96205e2a5a1097673768280088f92a74f9545834816c9b6df8f0f89d",
+        "attempts-scraping-10.20.0.19-8112.jsonl": "6000dd066f0c8dac613b39c7a5265733c5a3d590a6e1272198b00deb7244c704",
+        "attempts-scraping-10.20.0.20-8113.jsonl": "6df54a74c257d84e74a4be8dc1b1c5e5d52b864b4f31cf3726426bb7914b9df8",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "8198a49697a15b9cda76f49fa3c73db9e61f485a3a7d5c4e267a0efce841bba2",
+        "manifest.json": "8818c6e21660fe98c44392fe46adfb46f925b86d4d998df7e3a1aadc268fa8d3",
+        "usage.json": "a56f771cd15fa15707cc0cd693cd208fc89be7934b5723cdecb5040513c30d1a",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-8104.json": "5000d94eeb0ed57e0a79526057b8c7bfa06d390c33ecd9576dd0ce182aea7162",
+        "worker-10.20.0.12-8105.json": "8af959898fa43341c635be5e105e068c4ee305fd7910746725be4117eec7e941",
+        "worker-10.20.0.13-8106.json": "42fd811a46b283fa788a741995b4a365ff665f5b97bc5a88216b25caeda003ea",
+        "worker-10.20.0.14-8107.json": "7d46af18de9f83eab47649df4b9be33422b968554e099e59f1cab09329f72190",
+        "worker-10.20.0.15-8108.json": "3ae86a602649005c03484ff68b08f492389f6a6779349f3169cebbe144dbafb8",
+        "worker-10.20.0.16-8109.json": "3465543850cd5fa410d1966e5caecd4645552c56d0cdc6a4c931b8e837ce8fd4",
+        "worker-10.20.0.17-8110.json": "e3ac8728741da6149ced9d5c9b5dfc8ef4c75cd90f09a15eed5bf6ba50f68c2d",
+        "worker-10.20.0.18-8111.json": "d1ef804de14dbe82f6135df9f10cb73bcbfc413e87bda708822ab57647923cc8",
+        "worker-10.20.0.19-8112.json": "7e2070c97fd1255a4333e9f23f437cd2fc18cc7a29c38d9adfc63bb321476111",
+        "worker-10.20.0.20-8113.json": "51604dd9d25afddc1b065243d5190ebf20b2f8de48a50cddf1e74688fb7db166",
+        "worker-10.20.0.21-8114.json": "bf86df0c4d9a30bb3b2755bd6fe2d8431f9a3cd026dc670e67ec7aa51df26b19",
+        "worker-10.20.0.22-8116.json": "7bceaf77aa2757cf8ebd0b31d95f90b1502324fcd3180976657e6c0eabb505bc",
+        "worker-10.20.0.23-8121.json": "62c1d0170f15fedd11cc444fe1563dde79eb7170b50e1bb72c8b9389671be237",
+        "worker-10.20.0.24-8122.json": "6b5d1d5f43630cc76043e1eaa71f8077ec1a17d72e6780d18a3a3db9ea7ce503"
+      }
+    },
+    "remedy-validation-normal-c3-remedy-r2": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "213512c969da7e6b4bb0f1fcf855ff30bf3f79f00d12ae8ff05bd869fd613138",
+        "attempts-benign-10.20.0.11-8180.jsonl": "e100dc3a427958271bcfefe2ccf4d0f885bf9dc9b71e50323113f5694e5dcc19",
+        "attempts-benign-10.20.0.12-8181.jsonl": "adaed25b043653cfd814c1af83f6f092ee4494ba6e89846c016781393bcbc325",
+        "attempts-benign-10.20.0.13-8182.jsonl": "68bd31f88ed2c55d025d3d7f3dd63959c2b7960d0ea973c005899a8fe789aac2",
+        "attempts-benign-10.20.0.14-8183.jsonl": "0e6532b4ea5c68edbaf1a4d275fc73f68cbcf3ed5cf0c466aef7c80fc760870d",
+        "attempts-benign-10.20.0.15-8184.jsonl": "215f7b4bb56b8e180544a44b4e80267e4030af42c8fcaab231440e2a071aa707",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "9de62e3603a34d3dd2556cabd1256c12d07b356e4c5a038edb7acce3fd23bfce",
+        "manifest.json": "33d2ed3cb70eeba1337cad69f5202817fe45dffe6ac4449646b034d5b81e0412",
+        "usage.json": "548cf0685fb6d9c845474c189c076481f6e636fde815f4c45e5240042647a3a2",
+        "wallet_audit.jsonl": "f43fd3927475f60cf483c261d3d386f642201ff26a72228deed4e9fb9bb806c3",
+        "wallet_bucket.json": "c98c7b5e411a6ed3ddb2158b3888767b0ebd0bcdfada473545ecf8243e708dae",
+        "worker-10.20.0.11-8180.json": "773be9133b113414a62df70ff53f9efab5e9d65c8efa261be73bf225189c9bbf",
+        "worker-10.20.0.12-8181.json": "364df65f251283ebaab0a6c192f58a90457376f0fe70ed3dd2a001fe69564a54",
+        "worker-10.20.0.13-8182.json": "3926fb5d18eefba2fe816fdb58699a0887ec14b5513cf2afd836a8adfd94638d",
+        "worker-10.20.0.14-8183.json": "a0eab573aae00f4cc1768ff920ef9b4c2872368adb847312f6c6b51a87d28132",
+        "worker-10.20.0.15-8184.json": "b1978135d6df3f3705358a8031651fd92fb2a403091381eb8fe21f69c2b31efa"
+      }
+    },
+    "remedy-validation-normal-c2-remedy-r2": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "5e8fb0c8d8ccc76a8361494d6a1cc6120c540309770bc71b7b72b43eaa88e4cc",
+        "attempts-benign-10.20.0.11-8263.jsonl": "ce8408c21413ae7cf894ea3d86995d55cd89a95b7862129d8d470b7bb0b8cedf",
+        "attempts-benign-10.20.0.12-8264.jsonl": "5fc30d0c09f05399350b3e818bd70679862f36153c45e0c1ccf7cb0594ab5379",
+        "attempts-benign-10.20.0.13-8265.jsonl": "4758db587c686f2b2ea73c8a2905ea208f3685829cfdd870b585de0180cacceb",
+        "attempts-benign-10.20.0.14-8266.jsonl": "f7e011593f2f198ec55eb09809b25c162da30ee8c3bd9b65a1ade489ca00e43d",
+        "attempts-benign-10.20.0.15-8267.jsonl": "6fdffeb44541f79b8a3c0396a15459f3c0867fc8bf930d1db942c6bd0f100257",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "b1e140c90e53a9bcee3f4c52bb03a0f3427653f548e22427f58a6a251d993cf8",
+        "manifest.json": "bdbce5fb7162a684e902e1889fea3830ded34aaa18e5424e98c016caed2c3f9c",
+        "usage.json": "6dd527574378cc19dbb9469d7b68d2aedb4bb2278a9e88c50302a575272186c3",
+        "wallet_audit.jsonl": "df1f6a4c751a1fb8a2c199f1967cb9cd67eeb660f71d586f342c148204cc10e9",
+        "wallet_bucket.json": "b443f3aecc76ae235b86e437eb0fc34c35e83f67370a5070e79a245ba4cf3549",
+        "worker-10.20.0.11-8263.json": "3db6f6f15cb0401cd592ecf2ed7ccae287797b1be50784473efdb7c7e27e7693",
+        "worker-10.20.0.12-8264.json": "aa9e6f9052f357e5139aa41af439e72afbac0c9a4a7d36a7181c63fece7b8242",
+        "worker-10.20.0.13-8265.json": "9589e5ef9fe0c3dd222f5f971336c77ab3788fd7d1dccba3e5276f5e88c5f2db",
+        "worker-10.20.0.14-8266.json": "99f1ed7335faaec3a5b3888f936fd159a7135eddd7d98d166471b6494f3abc84",
+        "worker-10.20.0.15-8267.json": "51b7774008cc1e084b832a786b0226293cd2b627b2376d3f26f7fdbc0d475fa9"
+      }
+    },
+    "remedy-validation-normal-c0-legacy-r2": {
+      "attacks": {},
+      "files": {
+        "attempts-benign-10.20.0.11-8333.jsonl": "93dd41a0eaaa2f6ed0b56ee5b5a7d3c5fb86672b0016cc566a17f9355ba1aebe",
+        "attempts-benign-10.20.0.12-8334.jsonl": "2f7c019ced1409183c836ed3fe0b8aaa9788001d81a17d0603140613032aca5b",
+        "attempts-benign-10.20.0.13-8335.jsonl": "3426291d0d0692d920d0c89cd860fe5d347bd8f0e7d6bd08c85dbbf4de7144be",
+        "attempts-benign-10.20.0.14-8336.jsonl": "8025ef636a0f5e48979d928a94079c7cc6d7af4588fb510ca47dbfaee46f8d9f",
+        "attempts-benign-10.20.0.15-8337.jsonl": "e6bf45f66402d26a0860f2396d5dbe5f210037d104f1d1f275465f699d728581",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "manifest.json": "3d226bfcdbd9d7917ed74c86aa173fbb3beceaa65aaca70a02d7cc3ae5df5565",
+        "usage.json": "2bf05785f9af874c5832d5289f0316c047a55f3e0e63926711dfc528610862fb",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-8333.json": "263d1179514d1f5b1f541624f90fc334c2c6b6021e8faf9602bc5760718f1f51",
+        "worker-10.20.0.12-8334.json": "06aa19066a2867c12fb6c31e9eefa95beffb248f126358570f8780a252ceff44",
+        "worker-10.20.0.13-8335.json": "325f4786b70e38156988e3ed41de038f4503baa0e0039252ed87a115c88ae68e",
+        "worker-10.20.0.14-8336.json": "19401889e407be74d3494c63a487a41eeb93f8fc862698c4f24cad0b2a0f6b22",
+        "worker-10.20.0.15-8337.json": "78f9f7d291483d1a901dec228fbff96a0c82372b78ee8c88d3a456aa33d08428"
+      }
+    },
+    "remedy-validation-varied-c3-remedy-r2": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "f18ae32466cd3144d6d0d36aee1ff95f84f645ae8020c14117004059095f2373",
+        "attempts-benign-10.20.0.11-8427.jsonl": "14682e033940c354dc569e4ac8eb5ec9a5a75226fd64a31e47032bc68a1efe75",
+        "attempts-benign-10.20.0.12-8428.jsonl": "21f5713d9e2ecf503d76130356bd5cebd632438f874d51295a296caf39ba900a",
+        "attempts-benign-10.20.0.13-8429.jsonl": "79b658094febf95718a28184090357b2a3f6fc77303629ef7e3a71d519e10617",
+        "attempts-benign-10.20.0.14-8430.jsonl": "59b3d73dcf9e52ef4567d5c9bd11ee469b41e20bee7ee9daa2262a3cdef87214",
+        "attempts-benign-10.20.0.15-8431.jsonl": "80acb78b3ec2eaef32430babd81bb64f2805b8da8a455f3bbd2d6a23fe30cc97",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "454850e2b07fc248666ac2a41f9aa00a51d048341e4dcdb67047fc4c9a1317f9",
+        "manifest.json": "01737d7b97d5a784426a800668014e556eb8562fad7c77f8f6f6ce8f4e73ca3e",
+        "usage.json": "88340ee3c5ed1a32b5e0019b3ad36b0588e2073201305b23dae60063dbc67c33",
+        "wallet_audit.jsonl": "4075b39bd4bd09c0f72e7ab001a68496d98c04d0d9b6f907e3c6fe55ba1dbefd",
+        "wallet_bucket.json": "615081334147dc9e7e338f37323825234795bf729767204795fbde91682caa7b",
+        "worker-10.20.0.11-8427.json": "6060153d7f3c0a5b9d18c5bfa86c5cf66c44bdf4a65ae4ce4ece7bf0dcd28277",
+        "worker-10.20.0.12-8428.json": "4c0db95d483218e1c671abd8da44059cb49a023b4e74409823f7fcb8c6315aca",
+        "worker-10.20.0.13-8429.json": "22cc266731d9b06d84b47deb08ceb81f422f18fb3fd75aa9c6ae2c770ff03ff9",
+        "worker-10.20.0.14-8430.json": "71bf388f59cff3e5d56f225532a1facd39f3a537404fb7db1866c76ac830f13f",
+        "worker-10.20.0.15-8431.json": "cf49da5eb9afdfb0d40d29f16b7e1b0a428aaee2ef5ff47bceb34cda7a1d502f"
+      }
+    },
+    "remedy-validation-varied-c2-remedy-r2": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "31b31237021a271817f73bd4ac9aab1c13d997d0f9d3ed5fa5a0d038050232ee",
+        "attempts-benign-10.20.0.11-8544.jsonl": "6b942beec803d558b9e238b0178444d2bd3bc551f3116b19e62b3470a0c6dc7c",
+        "attempts-benign-10.20.0.12-8545.jsonl": "314e3361f753f456d2c45a8905cdb151f1f749623d96e51e3724ce010ec1e476",
+        "attempts-benign-10.20.0.13-8546.jsonl": "41439bdb80f284682efd0af8f3c823a4f9bea3ece31346a50562499763c754a4",
+        "attempts-benign-10.20.0.14-8547.jsonl": "8a6df543a2c00078a4139132e91c42226270793fdba0c3b383ce4e7936707139",
+        "attempts-benign-10.20.0.15-8548.jsonl": "bde46a46bf0e769272f7d2f177bfd1df273547a8d0046fdb616a484a3fa56edb",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "d15de48db5b53a0a145bd9a2163c0efc52df7eed88bcc03cbad3ca10ff7be84c",
+        "manifest.json": "ac5f2bb69bd92dd16c28d2a114730a9125616cacfcb300f455e338d73db638c7",
+        "usage.json": "5992be774073828a6c80905fe22c114f4c48acf46e9f01c9d7524cae59bd74a8",
+        "wallet_audit.jsonl": "ee041fd7633a324ed5aa7a1c87a8e925e3768d820ba78d2947e194e430df974d",
+        "wallet_bucket.json": "ffd7b3baaddfce08e12a83657322dc3f7db8a07b8cdd8c7462d0e0fffe9fffa3",
+        "worker-10.20.0.11-8544.json": "406dd8532cec46f73f31233e445c58949b349f11a66a88b62652702849ced254",
+        "worker-10.20.0.12-8545.json": "5f91c30b954e6f1bf05dc0fbae1cb691935085c24b1ab0ed5ca2231bed8cf41b",
+        "worker-10.20.0.13-8546.json": "e04848de9901af9d61d4777181e7ef01793c086bd1300363725ec473d9018be4",
+        "worker-10.20.0.14-8547.json": "6abeded56072ce436e6aa1b516d4e14a6e6c4e33bf77ebd3e118a49592485b7e",
+        "worker-10.20.0.15-8548.json": "4f571497fcb7023d073c4f625aba020c5ac1a007c5f453cc40e7a958841ff2fe"
+      }
+    },
+    "remedy-validation-varied-c0-legacy-r2": {
+      "attacks": {},
+      "files": {
+        "attempts-benign-10.20.0.11-8610.jsonl": "eef24abe87429193a4ddb1135caec4d44bb85d4bc828485372964691f67d809f",
+        "attempts-benign-10.20.0.12-8611.jsonl": "ce8a54e79c4906722a5d7af6658b70fa748a9c681a9102b1d46c3c5a84e37088",
+        "attempts-benign-10.20.0.13-8612.jsonl": "0c425714161ecbf5ad8675a9e3c812a6df052fce3d98f6ef46040a2822e1b7fa",
+        "attempts-benign-10.20.0.14-8613.jsonl": "965c239f153c874b701d6fa0c1d43880060b6b78147db12324960614289d1823",
+        "attempts-benign-10.20.0.15-8614.jsonl": "96529b9d406dde231a228430b2e7e877de4bd3a8f7ce84bb5ee3a70021d87707",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "manifest.json": "d628d97140ef5940a83b69e7c8843410565da3d43227273a8381d4ed10c3595d",
+        "usage.json": "1ec9c7e9b0ca8ad2ae43b4267903e58f0d5675c8147bb0e33dd99d30018e8e11",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-8610.json": "ca7f611479c4547e62aa0edfafe63618e84c47373b7e81cff2d2793463145148",
+        "worker-10.20.0.12-8611.json": "92f914ef2f92f2b085ce8075b16af402680c5658f0d5faeda49b4ecb56839c73",
+        "worker-10.20.0.13-8612.json": "14452a4475f777ad0d08ec6a2756f838714142094e319f0a4b7c55940899ca98",
+        "worker-10.20.0.14-8613.json": "ac2284dde4fbaefe106f9370206b6e24413c6fbb71c7301270381ff4e8782b09",
+        "worker-10.20.0.15-8614.json": "59a03ec85827cf8d1c769bc9b0ac7137125289117c656a39b1928ff9fc6aaa1e"
+      }
+    },
+    "remedy-validation-burst_within-c3-remedy-r2": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "e425389122cffd8f970296b7508ba1187b022e5838e00e818e2bff76ac1994bc",
+        "attempts-benign-10.20.0.11-8728.jsonl": "aa0f96968179370e75b1bcece58333c2a383dd1c243c083a87bdc8ee3ffda1eb",
+        "attempts-benign-10.20.0.12-8729.jsonl": "0f6f35bda5ed872ffee25208844edeaf6238f90378d4fd347e3744c30211eb89",
+        "attempts-benign-10.20.0.13-8730.jsonl": "11645408448a764e8c09222add43874108c1c8f27e952446c99b61e11ecc047d",
+        "attempts-benign-10.20.0.14-8731.jsonl": "083a7edd34776a80660a3cf438e18dd2aea9c47ab5bd000481236ed11c69e45a",
+        "attempts-benign-10.20.0.15-8732.jsonl": "bb9a83e06701c7fd05854bfa4227307fd79e1da7c8a6c5be122f09e4b0dfd695",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "0c1fa6dd00a28aa33dd87b8b014b1efbf89c52704429fbbb5011eb1476f2332f",
+        "manifest.json": "34cbdfb30ec6f8b6cad1b3b322705c4556a03fa9b7f0bb1ca8d175a5efc89d7d",
+        "usage.json": "ba3a811d9a4eef95c6eab47582387a6731f45c29e1c02ef022a7ed9792572194",
+        "wallet_audit.jsonl": "cf32dde1c3c2f1bb33e2717d1a14fc8865abc08f9be6f04a9377583077954596",
+        "wallet_bucket.json": "8fd7f75ac31fd7acb924897d8414b649ac69d8fd87a623ce511b140e2ac04252",
+        "worker-10.20.0.11-8728.json": "657527fb838583f2ef50098267b40ca1d77d069ffbfd6fe59c97a9a9bdd33a51",
+        "worker-10.20.0.12-8729.json": "7a53893ed23f53f0f11e0d30d72cf526adb873d0bd1bc0697061e9c67e3228ed",
+        "worker-10.20.0.13-8730.json": "326a60b1c422d6eba2a6d3fdbb98e1e6ecf36b534497a929afbccd98383588a6",
+        "worker-10.20.0.14-8731.json": "e68c1bdc48e97f06c99f7185f448220a340af51fd0a97755af0c8cdedabd03f1",
+        "worker-10.20.0.15-8732.json": "918178fe1bf8c989486738b87d0669d27ed35d628cfdf2c63ce16df37d94111e"
+      }
+    },
+    "remedy-validation-burst_within-c2-remedy-r2": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "8a3eb4aeed42b80732c8ae68020bf589538aa8795bd0ab8ce7d27566077b4f00",
+        "attempts-benign-10.20.0.11-8794.jsonl": "e043a97678fe21e4ba98135b3e89d2d3723e88ab7011b833a751e085798ee80d",
+        "attempts-benign-10.20.0.12-8795.jsonl": "9162791fb901514bc10b9012f10794607c56ccda27b2e4dd67dc445e9fb0bc40",
+        "attempts-benign-10.20.0.13-8796.jsonl": "a9775c1f85442d625bb7d1484e0579a39d3e83575c49ee5e79691b62628ff7d5",
+        "attempts-benign-10.20.0.14-8797.jsonl": "81e2a3732e8613bb6399c39925502914772a20c5046ff28972d1c005be45da7b",
+        "attempts-benign-10.20.0.15-8798.jsonl": "111496f0ba1a23be0378748a16955a08df17e4f2aac0c89c448e834498183ed0",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "7702804ad9102929ca7f68e6fa17daac2e770e2f5374d8c227fe81d364031db0",
+        "manifest.json": "4d103be6a26fc21d25b6f2f0ebcd1ac69dae4c03cc0a5343d6dd0e4217e33a30",
+        "usage.json": "ba3a811d9a4eef95c6eab47582387a6731f45c29e1c02ef022a7ed9792572194",
+        "wallet_audit.jsonl": "abd2521ec0576c4e2ec57028576778ed87abd007c5b401e67049bf9c8bc249a4",
+        "wallet_bucket.json": "c13b100d8f145c5bf63e3691c576f3742b4d9bfb5053591b163c823349f516b5",
+        "worker-10.20.0.11-8794.json": "6aea80155dd17a90d160e75f3fb0b3e5371402ec489f952e81edb0540df939c3",
+        "worker-10.20.0.12-8795.json": "5830c89c07ec85dff6eb34d4c48afa23644aa04036c6023bc17c35f1c78602cd",
+        "worker-10.20.0.13-8796.json": "b2c8487c1852930d43b4b15feb1ff83276488862c87556604fd10e43adb84044",
+        "worker-10.20.0.14-8797.json": "07f054a0c3b3e734ef6497056714b9b99b2d836d0126c6445df8d1f93b6ef033",
+        "worker-10.20.0.15-8798.json": "950f27b366467716484aeeb6ab27e31c9d563dd3d3abc4fa51eeadb1a9d6f248"
+      }
+    },
+    "remedy-validation-fast_scraping-c3-remedy-r2": {
+      "attacks": {
+        "scraping": {
+          "success": 96,
+          "fail": 0,
+          "blocked": 724,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 820,
+          "asr": 0.11707317073170732,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 3200
+        }
+      },
+      "files": {
+        "app-evidence.json": "920e92b91c850ad6b7183c5e2f07883d57449f90d779a0f0ca17d943f48be240",
+        "attempts-scraping-10.20.0.19-8862.jsonl": "856c34b89ff2e40e85aa80afbaad655bb833605e99881514aef8c87db1119adc",
+        "attempts-scraping-10.20.0.20-8863.jsonl": "145f8109c2ec0c373e1c4f514339a6616eee15baafe69c54772c14aa4b6edb3e",
+        "attempts-scraping-10.20.0.21-8864.jsonl": "3f6c6d90269056e928be2f5b7eff089ba47ba8527aa614cc4b38157c1a720ea5",
+        "bans.json": "0e38e2dfbb255463369ff4504e9114e75256f1c3fe5ed73b148b1527301a0089",
+        "decisions.jsonl": "b229852e86b76d02bed504843b9bafacaa9c83b7a11a47e975b665d52b9fab9f",
+        "manifest.json": "65a1ab9a0388cbed9524b3d555bc0333fcc4e45ed6d285c7f3a8991cd8401fad",
+        "usage.json": "85298315bff4f9079bd21723d11595f2e9230fb45d2cc571ad34bfdb36635e85",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.19-8862.json": "f6a5c258e8f8388428a8f7c7ea1fd9c5eecb52d1c542e46f3c0bbe8f25adf768",
+        "worker-10.20.0.20-8863.json": "e33823a1ec4083c70d9cbb6afb969e051d6af7301cbaa4e16bf218ab6a952d18",
+        "worker-10.20.0.21-8864.json": "54d4f70da087e175b7447e072d377d8404a5f25f0d2a669af0348d09c96a1c77"
+      }
+    },
+    "remedy-validation-fast_scraping-c2-remedy-r2": {
+      "attacks": {
+        "scraping": {
+          "success": 93,
+          "fail": 0,
+          "blocked": 1611,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 1704,
+          "asr": 0.05457746478873239,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 3100
+        }
+      },
+      "files": {
+        "app-evidence.json": "dd0bf60d043356f0e9a7ecd08b94d93ea056852d87cfe7e4a00bcef6be43f2f3",
+        "attempts-scraping-10.20.0.19-8888.jsonl": "0b59fdc6b7f3bf36127d9a70cef65508e77151925e9ea11da127fd5e5799232c",
+        "attempts-scraping-10.20.0.20-8889.jsonl": "d3515fe071c22330ca22576e24afe2fc69632b746a4ed108d25cef01e61d64bb",
+        "attempts-scraping-10.20.0.21-8890.jsonl": "8780b24bf6509861f0d2ce6c59160fff717148475cfc89f8c01ebb983230fd6e",
+        "bans.json": "c26c2c3975e59c4b7f2328a4b1f7caa21827e6bac6413c4f2303c81d7987bc78",
+        "decisions.jsonl": "cc13cdfe4b639c26a546d86e226136f47beb363c4be8a011d404a43b4e586992",
+        "manifest.json": "3a3660c22c154b8dbb66d794fba21fb09ac88c6c0b4ad4a3afd50d6c21ca0b20",
+        "usage.json": "85298315bff4f9079bd21723d11595f2e9230fb45d2cc571ad34bfdb36635e85",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.19-8888.json": "3d581d149fb6335b1cd78aa0da5a361bc14c452457c6cda8cf116b6acfa2097f",
+        "worker-10.20.0.20-8889.json": "2d68c881dc6059555fb7f10c1624ec09aedb028528cf58b61ec10653bc9aaace",
+        "worker-10.20.0.21-8890.json": "87d53865f7f7b04197f738305e0adb00750f5bee33bbd81c4285183bc95cb2b0"
+      }
+    },
+    "remedy-validation-fast_scraping-c0-legacy-r2": {
+      "attacks": {
+        "scraping": {
+          "success": 1621,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 1621,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 5000
+        }
+      },
+      "files": {
+        "attempts-scraping-10.20.0.19-8916.jsonl": "43d8183c254a716d259331603c19787201bddf3ddaf914e0142627ce335ca36a",
+        "attempts-scraping-10.20.0.20-8917.jsonl": "dcefd43cc194175114999ab7f672644964962a889cd3ee02bcee3eee79862de1",
+        "attempts-scraping-10.20.0.21-8918.jsonl": "80b7ca9555cba1f0c4784635eed0986c8208e625f0558cb7e863650532c8a251",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "manifest.json": "26c87520790b617ab0ccce23dc2702570b6aa03e3adb9b87876f9c69d166303a",
+        "usage.json": "85298315bff4f9079bd21723d11595f2e9230fb45d2cc571ad34bfdb36635e85",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.19-8916.json": "e0c6767e60afbfc7629d7e566d5fdd2d2ea28df614d590a9be8d76dc539a8ae8",
+        "worker-10.20.0.20-8917.json": "6e08b2050d414d1a136ab1474f0304c46737ba9baf7ea42c71f4312d368eb09a",
+        "worker-10.20.0.21-8918.json": "808aaad6da8be23323f8b0ca6899d463e603324c8ba241921752b1de6df7e243"
+      }
+    },
+    "remedy-validation-shared_account-c2-legacy-r3": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "862ddac56579693af03acc3a603941f6d102f4798852dc45235f8d8ca939ea0a",
+        "attempts-benign-10.20.0.11-8963.jsonl": "5b85eacc3f48c3e2877f477135a4c2eb5ba7dbf3d54d80385f9696cb4a0d3d16",
+        "attempts-benign-10.20.0.12-8964.jsonl": "53be3f735d149a3fbd398fda4205be74236c3b8dfd4fdfb1399c80f37acefe21",
+        "attempts-benign-10.20.0.13-8965.jsonl": "da8ee587142a275758177cb5479b4e2b6754ce0e4513421b8f736089095d9bba",
+        "attempts-benign-10.20.0.14-8966.jsonl": "5da3b77c82d584deb26a34ba5c04e9e5733c8a8640ca84953c44ca0f84ef642f",
+        "attempts-benign-10.20.0.15-8967.jsonl": "d9fe5c591f67a9d728e6f091f9fbdc83017398086f9aa6a65509d2a1f6b9f080",
+        "bans.json": "c4cc0db7f26ae3b295464074d2d87a5ed00de43c58c9b19cdd27079ae45f1764",
+        "decisions.jsonl": "96e9bc3b5fcc8b4390975273c9b7495ae0ddd632d775a20ed0a97674649696fb",
+        "manifest.json": "cc3658693a335e3a1ce205b43994ebce1fdbfb2bbeaddf0ac8bc53ab2de19ace",
+        "usage.json": "2a3b6ee00e30ec77ca560ca771f9231b56a79d18115ede5d9af9cc9f856141eb",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-8963.json": "ae3504648263c29d3f790273cf6b48bc2709dc202c41efc5ff596d30d12ef621",
+        "worker-10.20.0.12-8964.json": "a623f66839d356fc0c9d7a6f08868a3175ebfabdb428bf408d0f85fcc2cad570",
+        "worker-10.20.0.13-8965.json": "af865b29946216ef19544469cd0187784f952458e69a122105ff17834fbe0fdb",
+        "worker-10.20.0.14-8966.json": "49a20efbc7f61fb230fbe4451e801b9b1bcfc79dd86ad78c0731a48bfab221c7",
+        "worker-10.20.0.15-8967.json": "5c3fe1c77047e1be41e50a44d363e236cf0afaa167286ebf78d44042d45ab9b3"
+      }
+    },
+    "remedy-validation-shared_account-c2-remedy-r3": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "b36b2fd2b34cb93cf48d4f9dca236b227ce2502c1dd9f02f7825d2ed7e18d5e1",
+        "attempts-benign-10.20.0.11-9017.jsonl": "b5f4fc07b488c19d7ca97db446dca57beac21fbfa7e7acb0a7a054eb08b563e9",
+        "attempts-benign-10.20.0.12-9018.jsonl": "cfebd1ce28f864d1d4cf7bc7efffaead053ed3324040c20ef710c90192810ef5",
+        "attempts-benign-10.20.0.13-9019.jsonl": "7a40aafee65b550d44e1c838079a500e5ca763a7eb5362b36b98d65c5de5d367",
+        "attempts-benign-10.20.0.14-9020.jsonl": "b3407b42e74f27e002da84fbfc9b50a1bc9aeab909b341582ed9d4b1a1267183",
+        "attempts-benign-10.20.0.15-9021.jsonl": "f5c4ced93fe3faabbfb506f598691674c07e86057224bb1c885438a862243a36",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "dce9a1f44dad5528343c9ffddd156c69ef41150f20e670a133b0ff7a23e762e6",
+        "manifest.json": "c4ca21eb088ad31062da6ad2db733b31c1b3c7eba5213ec0380811273986c29a",
+        "usage.json": "57e641881a484823c91567c43d7706f8d1d80a1f1a67af310c06cd9e11fbc825",
+        "wallet_audit.jsonl": "854be46e1896c1c1c33760b7d3ac6c0e7c46f61dfd4b5bd019d3ba2c5264260a",
+        "wallet_bucket.json": "760e3459f3d56d18e24ad0902e948b33d459232eb9d00ca2d4017f4d8fe5ecad",
+        "worker-10.20.0.11-9017.json": "84d4658f768369d7f7497c9f26f9afe5610b2b61250d5ebcb4367e1e6873294a",
+        "worker-10.20.0.12-9018.json": "9c3b9a1167f9bab38a1b172f09ab2fb47be4e68ef6e238f3a3728a1f418d3f57",
+        "worker-10.20.0.13-9019.json": "470e063313f8b613e6120c8c4dce863fc8e3decf3f99437df818cec5dd476893",
+        "worker-10.20.0.14-9020.json": "1c8f838e664923007cdd5f8d4f2854375927507255a97566b83c57675c80b274",
+        "worker-10.20.0.15-9021.json": "608dc73f2a758e7064437d81c447b39da587b7633ce3624756176dd0d3d01cc7"
+      }
+    },
+    "remedy-validation-shared_account-c3-legacy-r3": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "90bc321a08f812035eda215eeda32c6e09cffc6cd984c91b364854450534c48d",
+        "attempts-benign-10.20.0.11-9140.jsonl": "9530dd658960ddb4fcf8a9e37bf0e4722d87941618ede2cb6a6cb6451fd045f7",
+        "attempts-benign-10.20.0.12-9141.jsonl": "56d42f301609918001813d508c0ca728ff50991dede3663a3e84c7ef6757e400",
+        "attempts-benign-10.20.0.13-9142.jsonl": "e0fa8fa2d64ac2cbd8f2559ada7dc08b620641258b493b63aaadbc7bdaa75a7e",
+        "attempts-benign-10.20.0.14-9143.jsonl": "356edd394ae6776fc434145ee1bf4126a326a86a52b4f1a1c33271756fc25149",
+        "attempts-benign-10.20.0.15-9145.jsonl": "b2aa29490e64396dfe808567aaa5cb57bf7119264efb28c8569cc32ec1b13559",
+        "bans.json": "82e42bce3041a83402effff89c4e0dccf9aac7da872bfff0a632aa4bcfdd4e42",
+        "decisions.jsonl": "771cf85a0ed50cb45d9780499f60859de8f4ef9b5fcd2dfcf30a30a98b30b810",
+        "manifest.json": "349777f2c9404df05bac0da6c1430bf1a57ec89941ee6194494f9be5dad2446d",
+        "usage.json": "57e641881a484823c91567c43d7706f8d1d80a1f1a67af310c06cd9e11fbc825",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-9140.json": "16064066d4e26926e44c8b154752439d41fc961b078c8e0e68bd933f79aa8ee1",
+        "worker-10.20.0.12-9141.json": "afe59bf2200a796df3cb3a08ed1e37464c374f66787cb5878cdbd88e5bcfab41",
+        "worker-10.20.0.13-9142.json": "9f43bb50ef1e166a3022525524f99317b8a7c38b266cb9d32e67de05c54b0d5b",
+        "worker-10.20.0.14-9143.json": "f19c28e6b7157d598bb29d5bb840d93a91b630302f7f976616daed9b3c0e37a4",
+        "worker-10.20.0.15-9145.json": "5255b40a758c30be7398b16bfabaaa3a61d4623680efa6d190a1d73138ed15e4"
+      }
+    },
+    "remedy-validation-shared_account-c3-remedy-r3": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "23a1e2575b88fc86613d022471a968a101e4a4d6680b7c53601f809ce5d1c0ca",
+        "attempts-benign-10.20.0.11-9193.jsonl": "1742dfc3125e0c7731cefe4bc5830af02eabd4edbdc35fec0031515ce9583c04",
+        "attempts-benign-10.20.0.12-9194.jsonl": "d9a7f1073137159e68063b1072399d2a50054a1b6f0e380ad4d16e8acb3f669d",
+        "attempts-benign-10.20.0.13-9195.jsonl": "1157cdfa7c1d29fef93309e798f31558357f822aada9d1b12127ff413c39a4cd",
+        "attempts-benign-10.20.0.14-9196.jsonl": "a16ec8dfbe8e5d44bcc0bf8a53292414fc8f8e0d1241288feca15fe3b948e583",
+        "attempts-benign-10.20.0.15-9197.jsonl": "b4e1ba1a899a55e4483ce01ae2768f926aa5b055965d994de57513d4a4036148",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "94ac1b40f06981f3eaeb5818180a730a34f8993220d9190b637518236a785bd6",
+        "manifest.json": "6a73361e6c3c0d47eb6a310443572685de9a04799384216790a80059882d5286",
+        "usage.json": "57e641881a484823c91567c43d7706f8d1d80a1f1a67af310c06cd9e11fbc825",
+        "wallet_audit.jsonl": "90916457c9b2c8f0c5be94a31cef47a8aa752955ab1456cf61f189250e4eb7e5",
+        "wallet_bucket.json": "8268430c8ce3a5862ca064624d9658d4d8bdfc9faed424333c75650898f2dbeb",
+        "worker-10.20.0.11-9193.json": "20d7bad9329d009f5f47c3bb751f5ac0f6d147ebedde48626ca94c5167774cf7",
+        "worker-10.20.0.12-9194.json": "03daff2e1fd999eba951863a28d9a112b0bdc79d8f65ec903978dcbcbb85325e",
+        "worker-10.20.0.13-9195.json": "22eec0d7b9ec831892c0e8d73ae273d358a234fed76ef7d47be92b02cfc3eb90",
+        "worker-10.20.0.14-9196.json": "58beec98c77ccb0af9835eed87068bb5889524b95a2639acdfa627a570a2472b",
+        "worker-10.20.0.15-9197.json": "63639417399e1df493f6abe2bad6616b929ee0666bf16ece552c665f94707a57"
+      }
+    },
+    "remedy-validation-distributed-c2-legacy-r3": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 5,
+          "fail": 15,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 20,
+          "asr": 0.25,
+          "known_valid_attempts": 5,
+          "known_valid_success": 5,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 375,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 375,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 5000
+        },
+        "dow": {
+          "success": 60,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "5f832de316bfd895c179bc5bbe749a556fdbb64f11c21f84296944c6129e565a",
+        "attempts-credential_stuffing-10.20.0.11-9241.jsonl": "63502369448b3265fa741beee5c10ab5f06b356697d00ddfdc1727f44c846a6a",
+        "attempts-credential_stuffing-10.20.0.12-9242.jsonl": "e9366f8ceb4159b58168feb9459e0172777560a6758b0b06b449c589a6bcbf63",
+        "attempts-credential_stuffing-10.20.0.13-9243.jsonl": "4386251f0f641b47998ab63ac286a2bff04fc49e7d2544c14dc16a5718438811",
+        "attempts-credential_stuffing-10.20.0.14-9244.jsonl": "bbb27f84ddff95ce671d2cb90c4584b04410d24127942f00c4a931d8b98eb994",
+        "attempts-credential_stuffing-10.20.0.15-9245.jsonl": "a331ab614be58029644da7f9052a061024f6dc4b387f786ab083b946633453e1",
+        "attempts-dow-10.20.0.21-9251.jsonl": "3257155d88ca4719378e72579daf3a62738176fec72825c7e2bdb30f99484918",
+        "attempts-dow-10.20.0.22-9256.jsonl": "7f7dd7e32f9bc48839a8ca7cf8c813ceae9952ef97138ec59e6089e62425aeee",
+        "attempts-dow-10.20.0.23-9257.jsonl": "e0db8dc8dfe6c535425efc85770acbeb32ffb6b58c5e7c4efe7bd762dbe1ecd6",
+        "attempts-dow-10.20.0.24-9262.jsonl": "ad4a6ab29b3f16d451706cf083298b1e316da8e099aaf352f4924d27769dfa5f",
+        "attempts-scraping-10.20.0.16-9246.jsonl": "7167c966dbd28cd64729e659a417492a6209b69c7d7ee8ee352386905de51515",
+        "attempts-scraping-10.20.0.17-9247.jsonl": "5d4ecb50cc8af073a770bfcf5c7ddba57b547c53daacd3befc21166085c9dc65",
+        "attempts-scraping-10.20.0.18-9248.jsonl": "13b697027455693672559dec00a333eb8d0479a055f36c224cc1c3f9945ed2b6",
+        "attempts-scraping-10.20.0.19-9249.jsonl": "965accaf97bd0692a7f42bd3debc99fab19abd08af88bcdc775d0dc4eb09b04d",
+        "attempts-scraping-10.20.0.20-9250.jsonl": "d06b16508002a585b5faf25dc6d4adcac70be624a37ea020f0e89ac51190bff3",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "4eef2a979da7027e11efca7b64dbf61191acb6c53ec01e230864eeb8e8b533f4",
+        "manifest.json": "378368ddf791ff6d7366078c24e188086ed2551e6cfef13a74b7421c1189cfd3",
+        "usage.json": "a56f771cd15fa15707cc0cd693cd208fc89be7934b5723cdecb5040513c30d1a",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-9241.json": "a8ab02be549b17679b76e954ba8e60473a95df7c3c817dad4208c03842056bb9",
+        "worker-10.20.0.12-9242.json": "057ced1e7423ae2292d3204df809a013196986ff144617bc15b8d9f032f2fb4c",
+        "worker-10.20.0.13-9243.json": "caecc1e32060cd71c408a303bff31c6aebfbe6b86e06ee93ce589788005ad583",
+        "worker-10.20.0.14-9244.json": "c22016941c53319585edbb2a6b22f3836c796a745decff49161a5f984e819ea0",
+        "worker-10.20.0.15-9245.json": "2e411658bcea1e880316ecc508761a768db41d893e5c8144d8d449d79e456a18",
+        "worker-10.20.0.16-9246.json": "c92420f727be8926b9e3240fd202b16d25c7d900937642e3875244eb162fac28",
+        "worker-10.20.0.17-9247.json": "d4360853afdb14961e3bdd86d624829c867af2f12e4ed7a6813b29d77d61c52b",
+        "worker-10.20.0.18-9248.json": "73db380377030f450fdd850af8fb2c4cb46c41ed23d1122593bbd567588021e9",
+        "worker-10.20.0.19-9249.json": "07c29d19bd2bb303fda7c46aa46262106b02be28e6b11f82756e743c487f24df",
+        "worker-10.20.0.20-9250.json": "ab445a9c80376c2863c5750078d49b9c270fdfa3c489aa5cb5fff611a897f986",
+        "worker-10.20.0.21-9251.json": "aa0ee61b3c92392ccee52694aa15a4b81b8082006964f04e0f11a3d35be2e490",
+        "worker-10.20.0.22-9256.json": "c1c4cd78d159ac4cc4b74eec4f79919bf548e487debfaa5967d0edca2e81fad7",
+        "worker-10.20.0.23-9257.json": "8ca117f9b6c06eb626da9258e5c5a10d37e1e35af5bc695c753b784ec4d7d376",
+        "worker-10.20.0.24-9262.json": "f5f008220533c7f29d9aa12d04aeb91d6a7167fb9454544d2a25382cc936777f"
+      }
+    },
+    "remedy-validation-distributed-c2-remedy-r3": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 5,
+          "fail": 15,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 20,
+          "asr": 0.25,
+          "known_valid_attempts": 5,
+          "known_valid_success": 5,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 375,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 375,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 5000
+        },
+        "dow": {
+          "success": 48,
+          "fail": 0,
+          "blocked": 12,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 0.8,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "80fcf8c7ce3ef259e6be944438d81a4ac3adb828c50caaa9038b1b7e60aec4fc",
+        "attempts-credential_stuffing-10.20.0.11-9318.jsonl": "b22578c6bd674b734ba8fa70cb8ef7eac3cf71364fa7f75f81927b81a2b900d6",
+        "attempts-credential_stuffing-10.20.0.12-9319.jsonl": "c0370f05c82d73757af9b14509810f972b6aad7b31a928c5280fb599b31b72d9",
+        "attempts-credential_stuffing-10.20.0.13-9320.jsonl": "23315ae8487008da508ceacef76b0e2cce5d280cca46790158ad7aaac6519ead",
+        "attempts-credential_stuffing-10.20.0.14-9321.jsonl": "bf8078d85eafc0484ad64c39b488000a5b8436aecc1f1683f820b37504e83807",
+        "attempts-credential_stuffing-10.20.0.15-9322.jsonl": "b30af9a1002f6a7c171ed13c4a3ed1312e16c7c72e62077fb2fea66b81da1aa0",
+        "attempts-dow-10.20.0.21-9328.jsonl": "1dba6c435c97eb12b0accec8a260d4188a81cb3efbfd6472e54618946c972fc9",
+        "attempts-dow-10.20.0.22-9329.jsonl": "fd0508ec0bedf59e80786401b6196524077ef6c920a2f8228721692073dc1d8e",
+        "attempts-dow-10.20.0.23-9331.jsonl": "af2796ed417bf8070a66354639470135942eb2e55cc3918120b388ce718f3191",
+        "attempts-dow-10.20.0.24-9332.jsonl": "4e54c07c1fb0e05fafca1ee25a609b9f7cc4c2302cb219613efc7d6a70821cdc",
+        "attempts-scraping-10.20.0.16-9323.jsonl": "6502d85c226c1b009e2623fe48a9d2b0ba7ea1d042422e06f4242a24f4b1e67d",
+        "attempts-scraping-10.20.0.17-9324.jsonl": "8923c5511901fa764293bc5d78a6111d77744b2cfaa7a816264c934224497d4b",
+        "attempts-scraping-10.20.0.18-9325.jsonl": "4d243f9114ae663b3aa43a57830b356c893bf0b65084a68a13a603ead2eac276",
+        "attempts-scraping-10.20.0.19-9326.jsonl": "91d744e1f158e88cdc9f504c58b44fe6f21a4e0853dde8f0e0f5b3eb080f504e",
+        "attempts-scraping-10.20.0.20-9327.jsonl": "9080e3a5401f3e35823ffaf8c81d73254078813b0c0b13e8af8e720f515d26af",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "3b1946ec3d84497a0ce2ea29242dd61a3c6bfa6191462bb1d571326d690c9d10",
+        "manifest.json": "78920a1c20fcbd98a91af5a7ea6cbed004ab5c169673e89c8c7ae529ebf8c8b5",
+        "usage.json": "11dc1d663dbc2fae2ee7e9f638b6eca1cd1e11fa90754125e1440fe969cc8739",
+        "wallet_audit.jsonl": "d781430189b4bde7d969163af40e0789029ea3e5798be4102a16a02f8c5b1ab5",
+        "wallet_bucket.json": "80306787b9debc491fc05d2e2d91f85104256602443d2672fdd76f6673482487",
+        "worker-10.20.0.11-9318.json": "2580d8b3e9923b2d0cdbe75cddb46da6b44b88017c74c7f9262dd30840390a06",
+        "worker-10.20.0.12-9319.json": "2f2065366a00fe18abf85d6916a4565ca360002953a3aead568efab17f18a124",
+        "worker-10.20.0.13-9320.json": "fff1e761fe68dfe440b0c8e2bf2723426fcb35cfc19514979e336de7f001ae69",
+        "worker-10.20.0.14-9321.json": "6d72207de4794b127ac73b8210986380db05727773afee0e14b5bf779233157e",
+        "worker-10.20.0.15-9322.json": "3de1856ea8d90b4c69a44840678b1be293013b3a06260076e696b2e393984cf9",
+        "worker-10.20.0.16-9323.json": "f0b362c165799388a4c32cab3a6944a82fe91ad8cf1f03fd95d2e8e1e9c626f4",
+        "worker-10.20.0.17-9324.json": "8fadd7fa5a0e035a58aa410399d81055fb2c46552248fd400043abb831f1978e",
+        "worker-10.20.0.18-9325.json": "b7680683af67693ed23b2a93d049e289cfe9259ec389af00674642e7687ce3a0",
+        "worker-10.20.0.19-9326.json": "6d6f8b01cf90fb54067ccc4e20b700674cd04b580dd714fc5381653cae36c02b",
+        "worker-10.20.0.20-9327.json": "6818150f0d7617121b54f5657458febbf4f3e5c74ee0e4e8d3a488be0a44bd7c",
+        "worker-10.20.0.21-9328.json": "ba4d54373acf4f70c0ff7f0a08afb1e61c2b2c7ae550816e9f73e85fe818c6d8",
+        "worker-10.20.0.22-9329.json": "5a684f35e07becb5232beba6c822c83a67516b30836236b55cf642dbf7d65b12",
+        "worker-10.20.0.23-9331.json": "7a283fe739a454ea4955b4683d00a31602cfb276a855ef42a2688adb4b9c9892",
+        "worker-10.20.0.24-9332.json": "359a74a44642b507d48e8989642ca492f63e84fe73fdc82f4db3ac1127af822e"
+      }
+    },
+    "remedy-validation-distributed-c3-legacy-r3": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 5,
+          "fail": 15,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 20,
+          "asr": 0.25,
+          "known_valid_attempts": 5,
+          "known_valid_success": 5,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 375,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 375,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 5000
+        },
+        "dow": {
+          "success": 60,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "dc30fe6e7bc9ad4d0c721b3023aad4149b12f5e33a110a37bc52e05eea373fce",
+        "attempts-credential_stuffing-10.20.0.11-9415.jsonl": "4b6f8251c8fc49f033fc077cbf85c649ddd8b5fcc9a41fb3fc487a8ccccb4541",
+        "attempts-credential_stuffing-10.20.0.12-9416.jsonl": "040e3d71889032844fbea1a9023a7d97ff55643a4bcefadbe94ce2a7b482bd81",
+        "attempts-credential_stuffing-10.20.0.13-9417.jsonl": "54a29ab2b33cf2966ae4eca9f7d83e4cd85d7b2fc54c03e8d681d62293a14ff4",
+        "attempts-credential_stuffing-10.20.0.14-9418.jsonl": "4a075fcdfda1942ad30e081122c5303857aef76be7743f40438d44c49e07d8ca",
+        "attempts-credential_stuffing-10.20.0.15-9419.jsonl": "dd85076b8d9ac2fe0b279d393c66aa16675b4f00af3ba63a148f098e0d3998fd",
+        "attempts-dow-10.20.0.21-9425.jsonl": "e80adfa719f39a7062568fb0e84b772ccd1d7faef8b8ec3d796563c545d85a63",
+        "attempts-dow-10.20.0.22-9426.jsonl": "d9a1e10a346c25b22da928abaf76d0fc25985797fcb2523ba8f35de52c4ebf7a",
+        "attempts-dow-10.20.0.23-9429.jsonl": "b7d8bc037b111f19b709c5c442e2b7d574c9764fe0f81041ef90584fb8b2f658",
+        "attempts-dow-10.20.0.24-9433.jsonl": "1c730b05c0eab5884239a41f8d8a0695e4599b06cfcc75daa85fd5015b105a4e",
+        "attempts-scraping-10.20.0.16-9420.jsonl": "ffa46c48376aa0dabaf8dd829309042eeb3dd28ba7a38f478fa98bb106fc0e40",
+        "attempts-scraping-10.20.0.17-9421.jsonl": "6bdb6ffb3d25e20f7aca8c35287a2aab1a9b154c21bd60a56c2fefa3bdcd1183",
+        "attempts-scraping-10.20.0.18-9422.jsonl": "52535cf716c6d86db335bfdf4c160c2a551915796cd0e48df540fdd794f6b06b",
+        "attempts-scraping-10.20.0.19-9423.jsonl": "3d2252d67705470beb6100aea9f9858fad5039dc369cb113eaab80cf3da2f2f3",
+        "attempts-scraping-10.20.0.20-9424.jsonl": "e90082d1f37d0551e63258bfce22076a4e9ec66e4a15f17d0259e754ecacfdab",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "db66cf1c92a9100a239a33d3e4c578f941f76c4de9e88e09c53b1eaa6f0c95a7",
+        "manifest.json": "9ca8e6649d48a7e29a0c7283378187b752b9642d71bd501c79cfb8a184f2ec5f",
+        "usage.json": "a56f771cd15fa15707cc0cd693cd208fc89be7934b5723cdecb5040513c30d1a",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-9415.json": "84079ed6f06d902bbc4310fd97c138fc2f8fd6e23955e144ec5ac68c6371b8e2",
+        "worker-10.20.0.12-9416.json": "ff70033ddb43048cbcdbafdf9de0946df81a1c5001efa684e02e61ef4b23c956",
+        "worker-10.20.0.13-9417.json": "deb9eba7bbd9db31e1b156f18d165922051299095e55284f29851785fdf71894",
+        "worker-10.20.0.14-9418.json": "942e8fb2d8b4abb8fbfec83f4b06180c4d902ba98078f320a6ec35fe80ee4bcc",
+        "worker-10.20.0.15-9419.json": "fd8179d1d77655d23249d791567d18e2d827f6d437b335d021c768afaa93dad0",
+        "worker-10.20.0.16-9420.json": "d18c0de239f99e215c686a48f375c9b04e20ec4fde8b215ab9b09f200033d329",
+        "worker-10.20.0.17-9421.json": "466196c71d261858dbca85ca7cd7dba0d7271adde98fa92ca47e8fe15294bffe",
+        "worker-10.20.0.18-9422.json": "da1d4ab0718533f60edc6988ce86e3d126a1a996cf8a2e8512b129e32f8ba5a6",
+        "worker-10.20.0.19-9423.json": "80a13b1e9c887a86c2b0151adcd282749183ed60495ba1fbdc9523b7052a8026",
+        "worker-10.20.0.20-9424.json": "2b4163362d2a43abf19cf636ed20cb84f91bdf4e223e9b8a52ed534ed9d2b39d",
+        "worker-10.20.0.21-9425.json": "a54fbe7a1e69a2343d0662149495a3d5b0181161945c1cda160285c00de4f735",
+        "worker-10.20.0.22-9426.json": "d9d55b7f202e6e8e5c8ccbb44d7b2a03c9403e1834188b6fca93f85d08f158be",
+        "worker-10.20.0.23-9429.json": "4068216b63d427c5c40ce5afb446e671d72b7616baee5ebda6fc4ed4d9421a86",
+        "worker-10.20.0.24-9433.json": "d587578807e9e0c131feab41c0c6e1c148c7ec493cc2d422525f427989e7172a"
+      }
+    },
+    "remedy-validation-distributed-c3-remedy-r3": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 5,
+          "fail": 15,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 20,
+          "asr": 0.25,
+          "known_valid_attempts": 5,
+          "known_valid_success": 5,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 375,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 375,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 5000
+        },
+        "dow": {
+          "success": 48,
+          "fail": 0,
+          "blocked": 12,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 0.8,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "8a8fc5151feb6ec18cdc2d6af95806700664fab4b9fa57582ac4a7e5c5654bfe",
+        "attempts-credential_stuffing-10.20.0.11-9508.jsonl": "fb1b0721c4032601235fda9a0ae93ac20c5672a59bf2752ac51a6d3dc582864e",
+        "attempts-credential_stuffing-10.20.0.12-9509.jsonl": "bd07b5167e6033e9fe839f1ac75246677fd571700d0018dfa8093a5ab2d3bf70",
+        "attempts-credential_stuffing-10.20.0.13-9510.jsonl": "8fe9d490004f221db045057122cb226dbee1c9a101c38671fc071addb971af68",
+        "attempts-credential_stuffing-10.20.0.14-9511.jsonl": "8590951b89461488ddd6f1057d2f490b46073de5750c034912b00de5f87c0a11",
+        "attempts-credential_stuffing-10.20.0.15-9512.jsonl": "f01e763b0a49f0320679167df68a8096f825cdd7bbcf17351a28ada0694e04f8",
+        "attempts-dow-10.20.0.21-9518.jsonl": "df9d5139bd28399dc3e4c0c521aa4088ec2421d4375e87e3d8e5fb8e71507908",
+        "attempts-dow-10.20.0.22-9522.jsonl": "e395db3c7fb0e57440b797a073d7820b8132e707f1b4228131a602b3e8d36d4c",
+        "attempts-dow-10.20.0.23-9527.jsonl": "404b8b6fbb40e5cc0ce02831bbb331c0f909b0cbd442f84c3238f926e560a2d3",
+        "attempts-dow-10.20.0.24-9528.jsonl": "4f1868cdfda22842d978645f8b90fb9caa4ed730ef4141faed92018b217e3b6f",
+        "attempts-scraping-10.20.0.16-9513.jsonl": "08ad5aeec67f9ea63bd581effdb302a36351a8aeb8d8f8d52f935020396ac6e0",
+        "attempts-scraping-10.20.0.17-9514.jsonl": "641e1a632c21f537c9b2cfde8ff4dd8a9a1f5f465630e3951504909ac9f46247",
+        "attempts-scraping-10.20.0.18-9515.jsonl": "f7ce69b95af86f095e02c0980f7987b2293dcf859b1cf290841268b498c66232",
+        "attempts-scraping-10.20.0.19-9516.jsonl": "3b95859631b80fc06ec447d924d415640902aca60597e0b3910b328d940b29d4",
+        "attempts-scraping-10.20.0.20-9517.jsonl": "86222d5dfc616f212fd040346b1e152f3e36b6fd8ef228552ac31a34b8ae6072",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "0188cf3a9afea25bbc67966a5f8e9284a7b00356793af15112602f928ae1ec6f",
+        "manifest.json": "e793e4b4a6d8d454f94dd9325c64fd4566aab237975be2af7d3d68802769251a",
+        "usage.json": "11dc1d663dbc2fae2ee7e9f638b6eca1cd1e11fa90754125e1440fe969cc8739",
+        "wallet_audit.jsonl": "13ad975c577c2a6b1eef4d316b4d95560930ebd40f02b6ca20f03a75416ff251",
+        "wallet_bucket.json": "ffcdf65fb91cfadbbf03ea96f826040487fac2bbb58be1db02f738a51a0852a9",
+        "worker-10.20.0.11-9508.json": "a30e029884c49370a893fc0437d851d1e3499ea301acbcdd404eeb3b8b29a48a",
+        "worker-10.20.0.12-9509.json": "1e33b2c8cb08d4ce2923e52a5f279b4935ec4f89f05c940c366078f2f79714bb",
+        "worker-10.20.0.13-9510.json": "360575ef80b7ef6438305d2ae32c5ef9d2880042d3b02d0ecdce7e6106c37456",
+        "worker-10.20.0.14-9511.json": "a04dc9d0ceef541b2bf30c30e643d305a0ccc64fbbed4e50758afb334aec5b83",
+        "worker-10.20.0.15-9512.json": "cd805056413f6d4b44d1e9d882c8c5af2da5ee26fc5447ffb98acf933a804534",
+        "worker-10.20.0.16-9513.json": "7273696ab1b42f2654d0cf4f4bd00f35d573632dd9f2bd2e1b67fcae2b3415d0",
+        "worker-10.20.0.17-9514.json": "669c093abf16db689f7b12b33d4d683e73d7bdf426dc9f0db5bf2f5c8bd71fc5",
+        "worker-10.20.0.18-9515.json": "9f30b2ba5370fe1762f3ba57515159429067fc0f0b54485efac07635e481012d",
+        "worker-10.20.0.19-9516.json": "d1206d163ea7409f6339c502c62be9479927b0b899815d7d99c42f6545e8a294",
+        "worker-10.20.0.20-9517.json": "3d7c5ae575e97995206274b80d7f87200afebe35d3729d7eea15741f4772d59b",
+        "worker-10.20.0.21-9518.json": "3489e8bfa1d286c79cacfecd7f3c219174fcc7feace6f225878361c6e8c086e8",
+        "worker-10.20.0.22-9522.json": "f490ccf2b87a217c2acedb1b396c4abdbfe945a284aef0d81c63efbe890017d9",
+        "worker-10.20.0.23-9527.json": "894ecfa49b5fbf82a1a22a1dddf81c46c560b46096b0f1b8e48d5abdb6e94845",
+        "worker-10.20.0.24-9528.json": "dd0f9663bd3e74a0bfc3c9577ec7ad2755ec44f5cbe439286a6b8bc29d6e9c1b"
+      }
+    },
+    "remedy-validation-normal-c0-legacy-r3": {
+      "attacks": {},
+      "files": {
+        "attempts-benign-10.20.0.11-9597.jsonl": "ac7dcf346a0fd9898d6cdcd7402ecab3a9a99f8eda1c3862be336e5dec04e73f",
+        "attempts-benign-10.20.0.12-9598.jsonl": "33e4a0c071317a94044bb94067b50d1a4fd7f1effa4aa471c900f774cd10ddd3",
+        "attempts-benign-10.20.0.13-9599.jsonl": "b5a266ba82d31a4159d9d338b6d326146e9c2272fb17e33b217bdd2b868a1768",
+        "attempts-benign-10.20.0.14-9600.jsonl": "f30148e20704a2cb9c7bbc711176b472bb93e1a03618e99379b1a30dd7e2dc3d",
+        "attempts-benign-10.20.0.15-9601.jsonl": "a0cf9be432de7841c0a10ed91613f0fb274b64035339f47261edc32473d1615a",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "manifest.json": "0ebdc64c997c38ef8f73288c806b3a1bf8aa54cf919d3bd4a6d684ca7195cd93",
+        "usage.json": "01f906e02115393dbb43c0a408bb070e901fe7f26e0e3071a7a6c65e22e86f4d",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-9597.json": "58552e3cc5b293fd00d08505820e2ebfe9cb9ecaeb4f64b6224c8c1fca01a1cc",
+        "worker-10.20.0.12-9598.json": "de5052a70d037fc69d8a9597a06963ce7334e746f90c9ad3eb3272a62b41b60a",
+        "worker-10.20.0.13-9599.json": "569185a89c5ed3847bd3d724dba51fc14219949bf42337ce53bbff79fc39d721",
+        "worker-10.20.0.14-9600.json": "3407d9351380fdc822df20a72524abdc4cc141da8db8e364048f37046fe0dec4",
+        "worker-10.20.0.15-9601.json": "b8f2ff3e19e770dcf101108383ae1275f1ccb605e8d638d638c457e3ea83fc32"
+      }
+    },
+    "remedy-validation-normal-c2-remedy-r3": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "8de6df976e0e89945c8f4d95803e9de984284c38c9578c2a4dfe7b5084b3095c",
+        "attempts-benign-10.20.0.11-9650.jsonl": "23e01cb8450f4f837d873ba3bce236155bc3a05140603623dc1b7a8e7965be46",
+        "attempts-benign-10.20.0.12-9651.jsonl": "611ac9faf8afbbe8b0969dbf2d8974086ea31b65872931854e06fda1cd768c64",
+        "attempts-benign-10.20.0.13-9652.jsonl": "a1a4a90df349c165005cd25dc1ac55a23fe80c93aff5d819ab20a1f6acad0383",
+        "attempts-benign-10.20.0.14-9653.jsonl": "cfa6952a32c79de5baa21f4023918d60de2e64a0d3c11baf82181ddfea28e2f3",
+        "attempts-benign-10.20.0.15-9654.jsonl": "1a0e2829ae2d813e68a6ed8c4824b84f7ac250bd729327490d52cc667afb6a9a",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "a769489fb89cc81521de8ecc64802ec535476be501826ceb234629dbe0f77da2",
+        "manifest.json": "5f1d59e5f5baa21adb78064379b9f383f792eb148cc15c12aa82007e96b1b235",
+        "usage.json": "271c1d66760d19c6a758804c9dbbffdcdcbe7f7516cae4264c1e5a06729a4071",
+        "wallet_audit.jsonl": "68e9b01718967486417f9d4d261a74fbe91eaa2e23641946d03cbc347277472e",
+        "wallet_bucket.json": "64db121424f9c76d69b43b48ea3b0c5a82d5a53bb6341dcaf6b05a848e79eca2",
+        "worker-10.20.0.11-9650.json": "fa6eabbfc6d2efba7aa1b0a729d26f04a3d6495fa417c136fe361bf136d496d9",
+        "worker-10.20.0.12-9651.json": "1e74015ea6721a46f074dab8a8fad4f5f9981d3b120fcd753df32e3f9ee71325",
+        "worker-10.20.0.13-9652.json": "0331d531001a4d2100e3216840aa266c9347bbcf1a5f5a13370f35336b5d67ff",
+        "worker-10.20.0.14-9653.json": "a63dfb9ce6e77aa4092b78138365819c13aba1972a8bb120582a71580352721e",
+        "worker-10.20.0.15-9654.json": "6b5d26b4c63b90a0f97e831c165a50c92b9dc538ebe50dbeed1e40db6608d688"
+      }
+    },
+    "remedy-validation-normal-c3-remedy-r3": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "fdce7039efe2272b15234ea790a485cfa673a9fec1749f887b8e81820b8e90a3",
+        "attempts-benign-10.20.0.11-9697.jsonl": "3a86a85af645845c317cbb7ba3fd4ff6bcd9ffed7681ad503ac5cb1eb5f445a3",
+        "attempts-benign-10.20.0.12-9698.jsonl": "ed4d96c9ee98e7de509ac1b8fcf5cc02cbfafb96aff11d9b96b9d6833236adf4",
+        "attempts-benign-10.20.0.13-9699.jsonl": "c814a134401de2aac72bd64d2cb7a15ff0a5712134ce40579d84e1013b4178a7",
+        "attempts-benign-10.20.0.14-9700.jsonl": "577d66e8c9d17ef3594909a850e209d979bc60dc8b5bb595ccc6f9e6c418da2f",
+        "attempts-benign-10.20.0.15-9701.jsonl": "89548e6a0b9808741341cc85f4908c4fbb20ebf23c499abf02d83df55146b835",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "9e65c4fd4259934b44f572b8db4b1136c9d616d5d0c3359bbca4ae39e8e7b6f8",
+        "manifest.json": "210c7fdc2a5ba7cb3ee3da390b0264f0386fed5ff79a33cc5867882e44416794",
+        "usage.json": "3f59e43b0e776c9163e06e5ece8746d2fe62a02f5b1a9e3e99154d3ef4019e96",
+        "wallet_audit.jsonl": "a05364a21e95c1a6faeaf3dbd7b54322542373e8de6cbfb7ca894bce8d6c6026",
+        "wallet_bucket.json": "4e46d34f6b3d872ca2f905097337c525fa41e5cc9551af07c42588315cdab6ab",
+        "worker-10.20.0.11-9697.json": "bfa4c43f75f69f498dac3a31682710068414fb6b6ce156cdc861c13faea99861",
+        "worker-10.20.0.12-9698.json": "81c558e916499ac15dadda7efe8a7b4d7da44b9048edd3a48c641e7917a6cbdf",
+        "worker-10.20.0.13-9699.json": "8b8196fe6ef09ce77834ce0e75a6d1ec896ebfb322f25e2cf90fea63f27c2f38",
+        "worker-10.20.0.14-9700.json": "1072229ec6f612a88eaf61f4fa1ca81539c8f30ab83d89e4422436db72c1b773",
+        "worker-10.20.0.15-9701.json": "4cd342c76674aa125d78b154d710f8c5dc651fa20df3418f3939032f9ee24bdc"
+      }
+    },
+    "remedy-validation-varied-c0-legacy-r3": {
+      "attacks": {},
+      "files": {
+        "attempts-benign-10.20.0.11-9759.jsonl": "a7ac6f3a67d3cc026306f405fc8f4e1c203c11e02feee1196d48215dfb627955",
+        "attempts-benign-10.20.0.12-9760.jsonl": "407961f51b1a60ef55dbed831d1a5a08b76e5e86c9f263b690b91db603acbb37",
+        "attempts-benign-10.20.0.13-9761.jsonl": "c034268c59baab84f942f556aa50e96d31c38cf1e9746047b06f9e362c8fec3f",
+        "attempts-benign-10.20.0.14-9762.jsonl": "5fb2259c8c1a5b73f2f7a99cec4f0c47c3de4883c4ea5104ea0400385d804a07",
+        "attempts-benign-10.20.0.15-9763.jsonl": "785c5ce18c327af2ce1eb71fd5d496964750bfc976bf448c81d399c8da5a9057",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "manifest.json": "a0a69f737b25523604bc3d780e32b5bd2ad84ca43230a1d8ed1fc2fca3f50a77",
+        "usage.json": "b3a82ce3220a6dfc460ff6f33419dec098f60524b13f630db189a1c2170f8de3",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-9759.json": "a83aed55fff31eabf7bd0dc16c1b7445baeb2a5b3ce02495a5fb36ea27052c25",
+        "worker-10.20.0.12-9760.json": "d3a94b464349a834eac5552e32e31b30b2974582d0d755d764d1cc0a1a0aed44",
+        "worker-10.20.0.13-9761.json": "5f76dd8b597635b2c5e3edca4107873f73898caefcb3fcca02e6c0a7971f8529",
+        "worker-10.20.0.14-9762.json": "b82055f2c143b9070c9c2c55de6e161805bdef159dc4659117910dc3cb5a36d5",
+        "worker-10.20.0.15-9763.json": "964aab3f401e31116963ccecbdb14ea71d49748decd1a6a743080f25d106d853"
+      }
+    },
+    "remedy-validation-varied-c2-remedy-r3": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "f0d4c933d68db6088461b428b97febbcd3907ce321b118aa1c3a56c9f94432a8",
+        "attempts-benign-10.20.0.11-9834.jsonl": "4ec39dce438e8681a95ce010b52d786cf15e9e9821b19c9df37767538c08430f",
+        "attempts-benign-10.20.0.12-9835.jsonl": "1f18b454e382591e3d426c5f58f7630d7839f063940e84bd18ad698b735873b5",
+        "attempts-benign-10.20.0.13-9836.jsonl": "351ec2cc3da92965ced0b1ef347620a9dfc7c3b164e1da86d421e3d7e06e980d",
+        "attempts-benign-10.20.0.14-9837.jsonl": "18a59542c9ad2601b532b4fd215c5e4c50ec8a267ee62c4ce5a12c992255fe48",
+        "attempts-benign-10.20.0.15-9838.jsonl": "458faa3d32329cc8a5e5323d6ddd7adb21c37aaf2d2569e1e28cef42b78a40b3",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "f343d331b5e39cad12f846198971872f0f738e174981e752cccf5438b21f2e55",
+        "manifest.json": "28740e18f2280d1a10b9199dcd35946be2c6af7e414005055e0d1dfa89aedbd8",
+        "usage.json": "b3a82ce3220a6dfc460ff6f33419dec098f60524b13f630db189a1c2170f8de3",
+        "wallet_audit.jsonl": "0ec748c1ef7c95d8015a30366b6c1b00e4e1af9eb7388252903ce331a114d6c0",
+        "wallet_bucket.json": "c5a96a893875ca65af566e37e40dde4b91f7094207f96a10c69ded26a3f3d434",
+        "worker-10.20.0.11-9834.json": "d672492f73c1ae1d86e37995e8a1e9c39c138ff33288b5c225fa274119f3dc50",
+        "worker-10.20.0.12-9835.json": "fa942707c399a1e73c16be73c6a877fa2100aeaf2e84572148416e9289191125",
+        "worker-10.20.0.13-9836.json": "d361989bdded76412d9467bd21bc3aa686bfc1762cc85267dfdbdf31f81bc1e0",
+        "worker-10.20.0.14-9837.json": "a5bd65e7d42cec4d78094d8ccadcd8c7f4afae6f89d607dd277b1337377cd3b7",
+        "worker-10.20.0.15-9838.json": "02c59465d8f4da21597766efd98e28f48f3f044f778afd0a47582571f85891ba"
+      }
+    },
+    "remedy-validation-varied-c3-remedy-r3": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "2c57dd4b503fbb80d895c2ab5bd8715a086138eeb023c39b3a1c131fc8ed1ba9",
+        "attempts-benign-10.20.0.11-9879.jsonl": "ba58e6984b573804f9ea4bacb1b824b69273fc96277a36a49370d2911b509557",
+        "attempts-benign-10.20.0.12-9880.jsonl": "4e9253e559b7822d7f4e9707888cfa8bbe93e60914b909b7bbe5a0f052dddabf",
+        "attempts-benign-10.20.0.13-9881.jsonl": "56a390bd16f83b9d50f9b762ec372df9179f9592123b4b1a5c2be4dd79b9e153",
+        "attempts-benign-10.20.0.14-9882.jsonl": "1ff68b293fff018e496162aad57e5e13934f74abc1bb728748d63f9f442a895b",
+        "attempts-benign-10.20.0.15-9883.jsonl": "26de65e7a1d2e43f25ec9f81a681c7664c9cfb807ea09ecedfe94ca79c9f5742",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "4d3f78b130d1bcdc9483e8f1c6e67c6fdf223acdec4c8ded95ea01a3b9ba8fa8",
+        "manifest.json": "cbad55e4b0ec4c5d8d2387cf86613671c6c55aff4d7798acf3b53d3de51dcdfe",
+        "usage.json": "1e118833aea8589d896fa5d90b27d873dffe6fa689b330920ff936a06cbfcc1f",
+        "wallet_audit.jsonl": "22c37ebf56856dc082ca1ba0eb9af6c2a8e1e789234c914378df9aa02f98bc93",
+        "wallet_bucket.json": "5f39dc6e3e3303ba89bd9e5c51b7bca93406a0c5b0ea9e8195fa4ac42365c96f",
+        "worker-10.20.0.11-9879.json": "67d54b40cfaa6bbcea90f6c4902e1df4fcdb8bdcd4b0a2bb7e9877599eb31049",
+        "worker-10.20.0.12-9880.json": "e47634e84003f58656035589fc004fe10eccef91c205c1aa0daedd780ad88b86",
+        "worker-10.20.0.13-9881.json": "48d5775724d7a0989708071ecc78b6ad9838a69096993a9a3feee62537734267",
+        "worker-10.20.0.14-9882.json": "0bcbd93002dc5fdac2f6b8e32077b0cd96403f94745d7456d20889c93d05dee8",
+        "worker-10.20.0.15-9883.json": "6aa7e06473de159be945e0c6de84a5cf83b201888482e8438ad034643ccfc013"
+      }
+    },
+    "remedy-validation-burst_within-c2-remedy-r3": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "383a22076640ceac6e2ff28be5a677dde1c0104bfc45945c2f729bdcdb0347b6",
+        "attempts-benign-10.20.0.11-9954.jsonl": "8d0e4355e7c89ac8f9edc4e6c01b086172ae935e880d10412cc7ef01f17b6c43",
+        "attempts-benign-10.20.0.12-9955.jsonl": "629a8706b9f38247ec81745471ef45082c54a76d551c15e79b5a6d3ddae3309c",
+        "attempts-benign-10.20.0.13-9956.jsonl": "39d38c29e1e692bdd590b6de01c4c79ba2fc25f61123d604969bc912c9e5fb47",
+        "attempts-benign-10.20.0.14-9957.jsonl": "6d25f5a23356fec05cbe32dff140dda37dfae50cfad1b9d30ee3d23833429b39",
+        "attempts-benign-10.20.0.15-9958.jsonl": "663dda47db7d63269b0afdb19b7f314e94a2993161176fe2ac4f1baf493b75f6",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "b5db60fe47cefadc77e2277b4a978b7497284806b6c438033c544c591a0f0fae",
+        "manifest.json": "1dd806ec35566cda1f8145e88f343093d1a719c815d46128623a25a0c50c4efd",
+        "usage.json": "ba3a811d9a4eef95c6eab47582387a6731f45c29e1c02ef022a7ed9792572194",
+        "wallet_audit.jsonl": "1ee8f999ea1196b4bd77abe898e97b57e7c8fcc4e46c27623082d4b64b8cc61a",
+        "wallet_bucket.json": "3b7a72ae1f68e4f6541e462781c61f0cceccdf200d7dd08efc5d685c45164a49",
+        "worker-10.20.0.11-9954.json": "5947c2bfee95d844f13cefdc554605ddb83cdd16d7ea32cbed3a3d2b131bd08f",
+        "worker-10.20.0.12-9955.json": "a18e97dc286cb5875cae7221cabee1197f4ad9b4b27acac7b73e2c81d2ce313b",
+        "worker-10.20.0.13-9956.json": "48f8f2aae0bee817062fd5348ed7bbde6ec3fb98df04118cdc148c14ad8a052b",
+        "worker-10.20.0.14-9957.json": "1f714bf7136692fd7a1df516b3f051309a9c9b84131afb878f4477b687bccf74",
+        "worker-10.20.0.15-9958.json": "046ecd83f2d7eae9352ef638105939f395dc659fd309185626caca63c9f5a3f9"
+      }
+    },
+    "remedy-validation-burst_within-c3-remedy-r3": {
+      "attacks": {},
+      "files": {
+        "app-evidence.json": "3540979f78c281efc9c266b36f96c5070864778ee4a399a7a1b771d527a7d987",
+        "attempts-benign-10.20.0.11-10023.jsonl": "3804c48dd0a3a9f6e69387325d747089aa593a51eada61e8805c968f53bcbbb6",
+        "attempts-benign-10.20.0.12-10024.jsonl": "adc6baf15ce6071fc9c9bc1f00e76c7e6a70559f070f9cd09d2a07277fc4cbca",
+        "attempts-benign-10.20.0.13-10025.jsonl": "e82411f550eece4d5598634376cb95672755d9174a5e1a5c5b7ba21783fd876f",
+        "attempts-benign-10.20.0.14-10026.jsonl": "ada0c2aeb3591bc78565ee3cc1a21b9d9d563fdf1e5b98870a5e3f86f2c2cd0d",
+        "attempts-benign-10.20.0.15-10027.jsonl": "34db157cde8f5cb5fdace383ee789577c7ecd398aee68153e9760b6233418331",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "8a4736db49c9dd57988163fceffbc30230f1b31cde1c70643115c39b81c2fe79",
+        "manifest.json": "62efe465659980b557172607821484e3a66b5629c34af0d9870563c1ad5b6903",
+        "usage.json": "ba3a811d9a4eef95c6eab47582387a6731f45c29e1c02ef022a7ed9792572194",
+        "wallet_audit.jsonl": "75d9ae51cf3b77fc64ece2e34c937bf6f99532c0f60b18fd8a926097301d231a",
+        "wallet_bucket.json": "e5f2804d7aa69f026537c4f5481e3468a6c4f522fd2e44d05acf128655dc7278",
+        "worker-10.20.0.11-10023.json": "01295fcb055936ad03fc43bd75bd256d7a9dd87aaceed5bd3d67268003047c2a",
+        "worker-10.20.0.12-10024.json": "221fb56911e8fd311a763e2617edabaedbf3fac7b004c3ac07e2e70b90d07bce",
+        "worker-10.20.0.13-10025.json": "75daa489649e6b4f06b6eeff95d4f6a924129c1ddf5953e2c700e640be205a68",
+        "worker-10.20.0.14-10026.json": "67a083825315862ac5302507d9debf7f9a4523ae5b408e7d0bf2d8bb8dc26c38",
+        "worker-10.20.0.15-10027.json": "ad1d758f6daea53f63dd0dd09a16fa678d972359124f67024d11ba436bb2162d"
+      }
+    },
+    "remedy-validation-fast_scraping-c0-legacy-r3": {
+      "attacks": {
+        "scraping": {
+          "success": 1764,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 1764,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 5000
+        }
+      },
+      "files": {
+        "attempts-scraping-10.20.0.19-10092.jsonl": "b59e781068bcf650333dca362ff92e994f8a754f7ff97b3a93bfbb9bc7e5e2b8",
+        "attempts-scraping-10.20.0.20-10093.jsonl": "aa07dcfb94a6857d3812f099c746be2b61c68050a4336bd4aebe038b1d99cabe",
+        "attempts-scraping-10.20.0.21-10094.jsonl": "e7eade44b6d1c7e37413edf546ebfd83ba27532fd5a9337e8cff92757ee745ed",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "manifest.json": "439cc6260aa22efe1cda7d1ae2e3608a57384c8d6422b5731a5b8640302b793e",
+        "usage.json": "85298315bff4f9079bd21723d11595f2e9230fb45d2cc571ad34bfdb36635e85",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.19-10092.json": "a4744279e98196af5925355fa0e5563db7b01bf3b1e556898fa811b71202c98d",
+        "worker-10.20.0.20-10093.json": "e6e32192dc1ced83e38e74b0e98a1761f17ca223e9c80b82efd26c43385f3a06",
+        "worker-10.20.0.21-10094.json": "c5b610412c015316147f9b77d959778201dd01290cd9e3f9880a758f1f92d994"
+      }
+    },
+    "remedy-validation-fast_scraping-c2-remedy-r3": {
+      "attacks": {
+        "scraping": {
+          "success": 93,
+          "fail": 0,
+          "blocked": 1645,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 1738,
+          "asr": 0.053509781357882626,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 3100
+        }
+      },
+      "files": {
+        "app-evidence.json": "c2df807b31453770ff90d8214a44ed209560876dede619079bd305858cf3d4d7",
+        "attempts-scraping-10.20.0.19-10141.jsonl": "cc6056509c01a52658b4b4bf65c14296a5ef0fc757961bb303499c86b0877fc3",
+        "attempts-scraping-10.20.0.20-10142.jsonl": "a3478baff48526afc145e379cc2f767921c5e2748ca26541c6c944092aaaf0c4",
+        "attempts-scraping-10.20.0.21-10143.jsonl": "c48ddc180945b0750de80dc4dc25395dc552490868f69c80dc20f8086a723271",
+        "bans.json": "1b25c680d27e0708701b90e9c80fa855eaffc86b72206d68b97580a73d4d9185",
+        "decisions.jsonl": "1e9a4224d1c7264ae1906542a00685602d0b029eaa62a1b711fe7b722509fc4c",
+        "manifest.json": "84b609768fa0264327b2a2206a3e1d8c2e91dd8f8ecefaffe6d5b2eabbd89b43",
+        "usage.json": "85298315bff4f9079bd21723d11595f2e9230fb45d2cc571ad34bfdb36635e85",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.19-10141.json": "871e0474adcea2f2433f3d6966eca628d62dbc6faaf1eb8f62abd54ec7d0e02e",
+        "worker-10.20.0.20-10142.json": "257a174916afbdec4f254a398a08e00b9e1775dc0e94dd8be23b7ce7d870ebaa",
+        "worker-10.20.0.21-10143.json": "8ccc945d54256824ae4a295abf6face8caaf82edea1b5effae94be62430c5597"
+      }
+    },
+    "remedy-validation-fast_scraping-c3-remedy-r3": {
+      "attacks": {
+        "scraping": {
+          "success": 96,
+          "fail": 0,
+          "blocked": 665,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 761,
+          "asr": 0.12614980289093297,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 3200
+        }
+      },
+      "files": {
+        "app-evidence.json": "8bea189ba77feef7d1525538204b2d6772d4b7719aac45d873a1b50f3f786c23",
+        "attempts-scraping-10.20.0.19-10193.jsonl": "e0619c51d14600f8e99e599f23e555ba8ea4018d374e037bd2212c032568c97d",
+        "attempts-scraping-10.20.0.20-10194.jsonl": "b14dfe4fdc2b26b886d8abf035f78a07b7924651ac2bdd2a3c8a751937ca3688",
+        "attempts-scraping-10.20.0.21-10195.jsonl": "88e6d0e862a330a7b508b521e5a4ca7b5d81551c95aab11dbccc11af384a7c09",
+        "bans.json": "bde71dc58c2d0b0b4bf4600597ff55dc4707f50765e92c5611f8b8ed8e21f93c",
+        "decisions.jsonl": "98ef83616776280f3ed47dcdd59f5a5d458262e7369d71c4d44c869e06cf4d76",
+        "manifest.json": "ec8cb5935e44cd4191713aebbf4e69f9ef64d78f1ed54a66b2cba1c286b0383d",
+        "usage.json": "85298315bff4f9079bd21723d11595f2e9230fb45d2cc571ad34bfdb36635e85",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.19-10193.json": "b24362e940d0e08279d40acea347af3bdc21dd9dc2399c7c32497a0c1c819de8",
+        "worker-10.20.0.20-10194.json": "b91dc9f91d16aae2468a43e2837b00190b268f5bc8a7ad28e1dff29fb18d44c1",
+        "worker-10.20.0.21-10195.json": "11f3835eac5a7676dc7b8d7a397d259d7f3e9f698b515d0f628f95c0dfdd6f07"
+      }
+    }
+  },
+  "model_sha256": "1eb84211004b6abe42cd2b8ec03e4b06b8504884ad0a8b9c1ca81ce2f55829e3",
+  "validator_sha256": "84788b35fe42cf15a076203ebb39960ae927c34ab9c0c2911f221ae0e524b6aa",
+  "kernel_integrated": false,
+  "deployed": false
+}

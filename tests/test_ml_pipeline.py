@@ -138,14 +138,15 @@ async def test_real_model_can_load_in_application(tmp_path, redis_db, llm_url):
     assert app.state.runtime.timings[-1]["scoring_ms"] > 0
 
 
-async def test_anomaly_alone_allows_but_corroboration_bans_and_refunds(redis_db, llm_url):
+@pytest.mark.parametrize('account_pressure_bans',[False,True])
+async def test_anomaly_alone_allows_but_corroboration_bans_and_refunds(redis_db, llm_url,account_pressure_bans):
     class Anomalous:
         def score(self, features):
             return -1
         def is_anomalous(self, score):
             return True
 
-    policy = Config(mode="enforce", redis_url=TEST_REDIS_URL)
+    policy = Config(mode="enforce", redis_url=TEST_REDIS_URL,account_pressure_bans=account_pressure_bans)
     app = create_app(Settings(redis_url=TEST_REDIS_URL, llm_base_url=llm_url, waf_mode="enforce"), policy)
     app.state.runtime.scorer = Anomalous()  # Unit-controlled scorer, not a trained production model.
     async with app.router.lifespan_context(app), httpx.AsyncClient(base_url="http://target", transport=httpx.ASGITransport(app=app, client=("10.20.0.21", 1234))) as c:
@@ -154,7 +155,7 @@ async def test_anomaly_alone_allows_but_corroboration_bans_and_refunds(redis_db,
         assert not redis_db.exists("p20:ban:10.20.0.21")
         login = await c.post("/login", json={"username": "user1", "password": "Passw0rd!1"})
         token = login.json()["token"]
-        await app.state.runtime.waf.bans.strike("10.20.0.21", "budget")
+        await app.state.runtime.waf.bans.strike("10.20.0.21", "budget" if account_pressure_bans else "ip_budget")
         result = await c.post("/chat", json={"prompt": "hi", "agent_steps": 1, "max_output_tokens": 8}, headers={"authorization": f"Bearer {token}"})
         assert result.status_code == 403
     row = redis_db.xrevrange("p20:stream:waf_decisions", count=1)[0][1]

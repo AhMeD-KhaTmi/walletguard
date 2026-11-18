@@ -1,0 +1,17 @@
+{
+  "account_pressure_bans": false,
+  "wallet_capacity": 0,
+  "wallet_refill_per_s": 0,
+  "legacy_replay": {
+    "account_pressure_bans": true,
+    "wallet_capacity": 0,
+    "wallet_refill_per_s": 0
+  },
+  "experimental_wallet": {
+    "capacity": 40000,
+    "refill_per_s": 5700
+  },
+  "reason": "Attribution passes; wallet fails prospective per-run mixed benign comfort gate.",
+  "kernel_integrated": false,
+  "model_sha256": "1eb84211004b6abe42cd2b8ec03e4b06b8504884ad0a8b9c1ca81ce2f55829e3"
+}

@@ -1,0 +1,74 @@
+{
+  "candidate": {
+    "capacity": 40000,
+    "refill_per_s": 5700,
+    "largest_task": 19092,
+    "peak_1s": 28176,
+    "peak_60s": 272871,
+    "tasks": 473
+  },
+  "calibration": [
+    {
+      "run_id": "remedy-calibration-normal-c1-legacy-r1",
+      "seed": 1201,
+      "profile": "normal",
+      "files": {
+        "manifest.json": "e742bc9c748f7e23f87764bd0c44134538dde36811c18d8f5fb60cdf81c633e9",
+        "features.jsonl": "a58cb8e1bb7dae8ab360a16223d5e68cfc2fa8ef7bc085fd3008a6ffe5bdec07",
+        "usage.json": "03a9d7e86cba7ac3d0492a1fcb122ec0695a987e82ea3b583f38a729b054cfe0"
+      }
+    },
+    {
+      "run_id": "remedy-calibration-varied-c1-legacy-r1",
+      "seed": 1201,
+      "profile": "varied",
+      "files": {
+        "manifest.json": "53ce1ae5476bee16a507b90abf898d9de1fef81455588636097eb08fb2ad4de9",
+        "features.jsonl": "3f9058b5501741b83941765ebe6f8ceb3581e4e2bd6f6cc02fae52f0d14e44bc",
+        "usage.json": "39ca45e58ae31429167c2b7bc2907f22ebe6416ff4ba4e72cd8300b3d03f743b"
+      }
+    },
+    {
+      "run_id": "remedy-calibration-normal-c1-legacy-r2",
+      "seed": 1202,
+      "profile": "normal",
+      "files": {
+        "manifest.json": "98d8c8c2f59652e3cdb45cc9d4918f59bc2ead362edb9c4c759b579687e70d39",
+        "features.jsonl": "cf966133d0e60b659d53677a852fda4a63738f626438ddb8b66ba9a23817658b",
+        "usage.json": "bde71b6ae567caeeabf007a4d98c3dcb8747738c172e1d0d408c036cfb70d988"
+      }
+    },
+    {
+      "run_id": "remedy-calibration-varied-c1-legacy-r2",
+      "seed": 1202,
+      "profile": "varied",
+      "files": {
+        "manifest.json": "4d87d4514765b8dc7754a7263502e89a521e08ea2ad49e4e6afdd8f5c41083cc",
+        "features.jsonl": "a858bde72dff10dccb9156d20ac4eef72a566e1e2ea91c428ea877dd97fecc0e",
+        "usage.json": "f7ff2560029b244fa2f2f21a6c38ff618e2c0009eeb25fe2f5651e9c325d9177"
+      }
+    },
+    {
+      "run_id": "remedy-calibration-normal-c1-legacy-r3",
+      "seed": 1203,
+      "profile": "normal",
+      "files": {
+        "manifest.json": "28948eee16d6a04a623a6794fb9f1c57fb5eed7a49a440fbe7dacedd60609ab7",
+        "features.jsonl": "04724c4d7950fb22d25a9cf7a4baf83a8a7256bba6eccdc56082efba67f8178d",
+        "usage.json": "9ce16147e09eb0f113e2b5df8979c86c25764205b784f526ef303c21c4e2e406"
+      }
+    },
+    {
+      "run_id": "remedy-calibration-varied-c1-legacy-r3",
+      "seed": 1203,
+      "profile": "varied",
+      "files": {
+        "manifest.json": "b4fa905c6d510a7b334f41f5b7a9f595b32d239f89d1384d5fa7eb068caf12bc",
+        "features.jsonl": "15fd47be967fd28c00c2c6b5708852cad615e7067eee66aec8d0c0a6cec840e2",
+        "usage.json": "759cb81dba439e6566e30a3ebfec335b7a0d3460d012b224a769e8b63b676313"
+      }
+    }
+  ],
+  "frozen_before_validation": true,
+  "rule": "max(40000,two largest task,1.25 peak1s);1.25 peak60s/60;round5000 and50/s"
+}

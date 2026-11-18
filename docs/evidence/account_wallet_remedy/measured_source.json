@@ -1,0 +1,45 @@
+{
+  "measured_sources": {
+    "5b9c23f": {
+      "waf/config.py": "0826ae69a5e2bf5d771ed925d04d0d87b0f2e8f5bffbe1ce7b27e85ac92140ea",
+      "waf/middleware.py": "5022c9a630044f3e1723d9dac7bc037335b9fa285af8918cb11e6dcf551cfa21",
+      "waf/bans.py": "b84d8d35c7ee8f9bacdcba23f3c5c4721c80acefe8bab16a9356b6892d29957c",
+      "waf/buckets.py": "cf15e86fcefc8e7f5e70e4c7f4277e77be9840a20e1c03d4a8eab1a687b5355d",
+      "scripts/budget_harness.py": "0c8dd595caeca2d6dd268fdd4bc237c2553970daccc6873690ab9298a85dc064",
+      "scripts/remedy_harness.py": "9cd163ff8b1f35b772fd87611c927b4d3ea53486948aa72e90089ea52587a5f4",
+      "scripts/run_remedy_experiment.py": "6b6d0202cdb8563fbe1a784858d709820cb4cc027832809a57c49da77847ccbf",
+      "scripts/robustness_cases.py": "34062f729910995994461cfeab06c093da1bef3c6450672550a4adcdb7174050",
+      "scripts/robustness_workload.py": "68878b1e8b40ff3c19b19326118acee17986965882ae78d127d939db3f116a3a",
+      "scripts/locust_deadline_driver.py": "9a4ee681081bcbe1f6eedb8a1464415ff5ddd7e9c9304d5883b0e337de9751a6",
+      "ml/artifacts/model_base_volume_v1.joblib": "1eb84211004b6abe42cd2b8ec03e4b06b8504884ad0a8b9c1ca81ce2f55829e3"
+    },
+    "16b2503": {
+      "waf/config.py": "0826ae69a5e2bf5d771ed925d04d0d87b0f2e8f5bffbe1ce7b27e85ac92140ea",
+      "waf/middleware.py": "5022c9a630044f3e1723d9dac7bc037335b9fa285af8918cb11e6dcf551cfa21",
+      "waf/bans.py": "b84d8d35c7ee8f9bacdcba23f3c5c4721c80acefe8bab16a9356b6892d29957c",
+      "waf/buckets.py": "cf15e86fcefc8e7f5e70e4c7f4277e77be9840a20e1c03d4a8eab1a687b5355d",
+      "scripts/budget_harness.py": "0c8dd595caeca2d6dd268fdd4bc237c2553970daccc6873690ab9298a85dc064",
+      "scripts/remedy_harness.py": "e9e70d75bd839b024da233d48a10db2fbfff07570c57d2347ecef0a21787744d",
+      "scripts/run_remedy_experiment.py": "6b6d0202cdb8563fbe1a784858d709820cb4cc027832809a57c49da77847ccbf",
+      "scripts/robustness_cases.py": "34062f729910995994461cfeab06c093da1bef3c6450672550a4adcdb7174050",
+      "scripts/robustness_workload.py": "68878b1e8b40ff3c19b19326118acee17986965882ae78d127d939db3f116a3a",
+      "scripts/locust_deadline_driver.py": "9a4ee681081bcbe1f6eedb8a1464415ff5ddd7e9c9304d5883b0e337de9751a6",
+      "ml/artifacts/model_base_volume_v1.joblib": "1eb84211004b6abe42cd2b8ec03e4b06b8504884ad0a8b9c1ca81ce2f55829e3"
+    }
+  },
+  "explanation": "Mixed adds only prospectively declared client/identity metadata. Core WAF/app/model bytes match. Final config only flips qualified account default; runner explicitly selects legacy/remedy flags.",
+  "runtime_tree_ids": {
+    "5b9c23f": {
+      "app": "8ab8f507d708e4f64b25632b72a2db086c6c45d3",
+      "waf": "9ada9315650e82acbe8551e25f5dfc7d41270806",
+      "ml": "13afb33a1715f0885a68aa060c2a70aeb7c7b301",
+      "common": "d01c1bc3b9748e8b533d0e6e45565fb1b5be2a94"
+    },
+    "16b2503": {
+      "app": "8ab8f507d708e4f64b25632b72a2db086c6c45d3",
+      "waf": "9ada9315650e82acbe8551e25f5dfc7d41270806",
+      "ml": "13afb33a1715f0885a68aa060c2a70aeb7c7b301",
+      "common": "d01c1bc3b9748e8b533d0e6e45565fb1b5be2a94"
+    }
+  }
+}

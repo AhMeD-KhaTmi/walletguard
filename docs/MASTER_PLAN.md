@@ -1,11 +1,19 @@
 # Project 20 — coordinated execution plan
 
+> Remedy update, 2026-11-19: [fresh component validation](ACCOUNT_WALLET_REMEDY_RESULTS.md)
+> qualifies account-aware escalation: account/global quota denials do not create
+> IP budget strikes or corroborate anomaly bans. Account429s remain; IP abuse and
+> honeypots still ban. Default `WAF_ACCOUNT_PRESSURE_BANS=0`; explicit1 replays legacy.
+> The experimental aggregate40,000/5,700-token/s allowance cuts distributed use20%
+> but fails the separate mixed benign comfort gate, so wallet defaults stay0/0.
+> It remains opt-in, not an absolute spending cap. Model/account budgets/schema2
+> remain fixed. Opened cohorts are excluded from future tuning; C4 remains pending.
+
 > Robustness update, 2026-11-18: [45 fresh fixed-policy runs](ROBUSTNESS_RESULTS.md)
 > expose residual slow/distributed abuse and collateral blocking/bans for shared
 > accounts and above-capacity legitimate bursts. Within-capacity bursts are a
 > separate control. Earlier model acceptance applies to its original workloads.
-> No model/policy change was made by this study. B's prospective remedies remain
-> open while A continues real sensor/enforcement work; C4 is not a demonstrated fix.
+> No model/policy change was made by this study. B's follow-up is reported above while A continues real sensor/enforcement work; C4 is not a demonstrated fix.
 
 
 > Current model update, 2026-11-18: directional-volume IsolationForest passed
@@ -17,7 +25,7 @@
 > model remains available. Validated budgets/batching and Redis schema2 stay fixed.
 
 
-Version: 1.6 · 2026-11-18 · Owners: Member B (user) and Member A.
+Version: 1.7 · 2026-11-19 · Owners: Member B (user) and Member A.
 
 ## 1. How to use this plan
 
@@ -157,6 +165,8 @@ other entries retain the initial settings. None is a universal optimal threshold
 | Login per account | Capacity 5, refill 5/15 minutes |
 | Chat requests per account | Capacity 10, refill 0.5/s |
 | LLM tokens per account | Capacity 40,000, refill 2,400/s; [calibration and status](BUDGET_CALIBRATION.md) |
+| Account pressure escalation | Disabled by default; account429s never add IP budget strikes; legacy env1 remains replayable |
+| Aggregate wallet allowance | Experimental opt-in40,000/5,700 tokens/s; default0/0 after failed mixed comfort gate; not a hard total-spend cap |
 | Hardened output cap | 1,024 tokens; baseline mock hard cap remains 32,000 |
 | Request body limit in WAF | 1,000,000 bytes |
 | Strikes / ban | 5 qualifying strikes in a fixed 300s window; ban 600s |
@@ -173,15 +183,17 @@ allowed requests; reconcile accounting; record the decision.
   cost. Preserve the baseline's deliberately unrestricted valid traffic.
 - Honeypot access immediately bans non-allowlisted clients, returning the planned
   decoy 404; later requests see the active ban. Budget exhaustion returns 429
-  with a meaningful `Retry-After`. Repeated budget denials reach the strike limit.
+  with a meaningful `Retry-After`. Only IP request/login denials add IP budget
+  strikes in the current default. Account login/chat/token and optional global
+  pressure do not escalate to IP bans. Legacy broad escalation is explicit opt-in.
 - ML alone records anomalous strikes and allows the request. An anomaly ban needs
   five anomalies in the strike window AND corroboration: a real recent budget
-  denial for that IP or fresh per-IP connection count above a configured threshold.
+  IP request/login denial for that IP (private `ip_budget` namespace), or fresh per-IP connection count above a configured threshold.
   Start the latter at 100 accepted connections/10s; freeze after calibration.
   Host-wide egress and unexpected-exec alerts are context, not proof against an IP.
 - Keep budget and anomaly strike counts distinguishable in private state. The
   existing aggregate helpers may be refactored; shared ban reasons remain unchanged.
-- C3 can detect/ban continuing anomalous behavior following a recent budget denial;
+- C3 can detect/ban continuing anomalous behavior following a recent qualifying IP budget denial;
   C4 can also use fresh kernel corroboration. Measure whether ML adds value. Do not
   tune against final test data or promise C3 will outperform C2 on every workload.
 - Reserve the whole agent task atomically before its first call, including

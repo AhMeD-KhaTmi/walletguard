@@ -3,6 +3,28 @@
 Repository: [AhMeD-KhaTmi/walletguard](https://github.com/AhMeD-KhaTmi/walletguard).
 Prepared 2026-11-16 for the **Attack & Kernel** track.
 
+## Account/global quota handoff — 2026-11-19
+
+Read `docs/ACCOUNT_WALLET_REMEDY_RESULTS.md` and the frozen protocol. Default
+account-pressure escalation is now disabled (`WAF_ACCOUNT_PRESSURE_BANS=0`):
+account login/chat/token429s do not ban IPs or corroborate anomaly bans. IP
+request/login and honeypot escalation remain. Private `p20:strike:ip_budget:<ip>`
+isolates legacy broad budget strikes; existing shared Redis bans still apply.
+
+The optional global allowance at40,000/5,700 tokens/s saves20% under distributed
+DoW but fails the fresh mixed benign comfort gate. **Keep wallet disabled by
+default** (`WAF_WALLET_CAPACITY=0 WAF_WALLET_REFILL_PER_S=0`). Its private keys
+`p20:bkt:wallet:global` / shadow equivalent and `p20:app:wallet_audit` are specified
+in `contract/redis_schema.md`. Shared bans/reasons/TTLs/schema2 and your consumer
+contract are unchanged. Do not interpret wallet throttles as IP ban evidence.
+
+For exact historical replay set account pressure1 and wallet0/0 explicitly.
+The frozen candidate uses account pressure0 and wallet40,000/5,700. Record all
+three flags in effective policy; do not mix policy versions in C0–C4 comparisons.
+Use `scripts/budget_harness.py` with `P20_SAFE_DRIVER=1` for tested lifecycle and
+policy provenance. No A-owned implementation was changed. Continue kernel work;
+real-signal C1 / augmented training and joint acceptance remain the next integration.
+
 ## Application robustness findings — 2026-11-18
 
 Read `docs/ROBUSTNESS_RESULTS.md` before interpreting earlier model accuracy as

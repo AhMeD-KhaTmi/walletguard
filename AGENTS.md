@@ -22,7 +22,7 @@ A two-person Red-vs-Blue security project. We attack a deliberately vulnerable F
 
 I own `app/`, `waf/`, `ml/`. My teammate (Member A, "Attack & Kernel" track) owns `ebpf/`, `locust/`, `eval/`. `contract/` and `docs/` are shared. Full plans: `member_B_plan.md` (mine) and `docs/member_A_plan.md` (teammate's) — read both before making non-trivial changes, since this system only works as the two halves together.
 
-**Professor-approved execution requirements (2026-11-17, master plan v1.6):**
+**Professor-approved execution requirements (2026-11-17, master plan v1.7):**
 Use Ubuntu 22.04/24.04, kernel >=5.15 and BTF. `/chat` runs a bounded simulated
 agent loop over the local mock with growing context, exact synthetic token counts,
 configurable deterministic latency and aggregate/per-step usage. Features are
@@ -41,8 +41,15 @@ Current default artifact is ml/artifacts/model_base_volume_v1.joblib. Replays th
 scripts/budget_harness.py use P20_SAFE_DRIVER=1 for the tested supervised lifecycle;
 A-owned workload files remain unchanged. Do not tune on these now-opened test groups.
 The subsequent 45-run fixed-policy robustness study exposes application limits;
-read docs/ROBUSTNESS_RESULTS.md before claiming broader safety/protection. No
-remedy was deployed. Preserve opened groups and plan independent future validation.
+read docs/ROBUSTNESS_RESULTS.md before claiming broader safety/protection. That study deployed no remedy. Subsequent fresh component validation is in
+`docs/ACCOUNT_WALLET_REMEDY_RESULTS.md`: account-aware escalation is the current
+default (`WAF_ACCOUNT_PRESSURE_BANS=0`), with explicit1 for legacy replay. Only
+IP request/login pressure can add `ip_budget` corroboration; account/global quota
+429s cannot. Existing bans remain until expiry. The aggregate wallet candidate
+(40,000 capacity/5,700 tokens/s) saves20% in matched distributed runs but fails
+mixed benign comfort, so defaults remain0/0 and it is opt-in only. Its private
+keys/audit are documented in contract; shared schema2/ban reasons/TTLs unchanged.
+Keep opened calibration/validation/mixed groups out of future independent tuning.
 
 ## Repository layout
 

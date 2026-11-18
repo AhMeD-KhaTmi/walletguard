@@ -35,6 +35,11 @@ class Config:
     scoring_batch_size: int = 32
     scoring_batch_wait_ms: float = 2.0
     scoring_queue_capacity: int = 256
+    # Qualified on independent account-attribution validation; legacy opt-in remains.
+    account_pressure_bans: bool = False
+    # Opt-in only: mixed-contention validation failed the benign comfort gate.
+    wallet_capacity: float = 0.0
+    wallet_refill_per_s: float = 0.0
     decisions_stream: str = "p20:stream:waf_decisions"
     features_stream: str = "p20:stream:waf_features"
     allowlist_key: str = "p20:allowlist"
@@ -59,6 +64,12 @@ class Config:
             raise ValueError("invalid scoring batch bounds")
         if set(self.budgets) != {"ip_req", "login_ip", "login_acct", "chat_req", "llm_tok"}:
             raise ValueError("missing or unknown bucket policy")
+        if (type(self.account_pressure_bans) is not bool
+                or any(isinstance(v, bool) for v in (self.wallet_capacity, self.wallet_refill_per_s))
+                or not all(math.isfinite(float(v)) and v >= 0 for v in
+                    (self.wallet_capacity, self.wallet_refill_per_s))
+                or bool(self.wallet_capacity) != bool(self.wallet_refill_per_s)):
+            raise ValueError("wallet capacity/refill must both be zero or positive finite")
         if any(not math.isfinite(float(v)) or v <= 0 for pair in self.budgets.values() for v in pair):
             raise ValueError("bucket capacity and refill rate must be positive and finite")
 
@@ -75,4 +86,7 @@ class Config:
             telemetry_limit=int(os.getenv("WAF_TELEMETRY_LIMIT", "10000")),
             scoring_batch_size=int(os.getenv("WAF_SCORE_BATCH_SIZE", "32")),
             scoring_batch_wait_ms=float(os.getenv("WAF_SCORE_BATCH_WAIT_MS", "2")),
+            account_pressure_bans=flag("WAF_ACCOUNT_PRESSURE_BANS", str(int(cls.account_pressure_bans))),
+            wallet_capacity=float(os.getenv("WAF_WALLET_CAPACITY", str(cls.wallet_capacity))),
+            wallet_refill_per_s=float(os.getenv("WAF_WALLET_REFILL_PER_S", str(cls.wallet_refill_per_s))),
         )

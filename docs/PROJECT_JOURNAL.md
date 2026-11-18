@@ -2104,3 +2104,94 @@ IT-1–IT-6. Current acceptance failures must remain visible until fresh tests p
 - Next B phase is prospective remedy design with new independent validation;
   these now-opened datasets must not become tuning/acceptance data for a revision.
   A can pull main and continue sensor/enforcement work with unchanged contracts.
+
+### 2026-11-18 — prospective account attribution and global wallet remedies
+
+- User authorized implementation/testing of account-related ban and aggregate
+  spending remedies. Protocol fixed before new calibration/validation in
+  docs/ACCOUNT_WALLET_REMEDY_PROTOCOL.md. Branch codex/b-account-wallet-remedies.
+- Candidate keeps account quota429s without treating them as IP-budget strikes.
+  New private ip_budget strike namespace prevents old account-derived budget
+  strikes from corroborating an anomaly after rollout. Existing active bans stay
+  authoritative; IP request/login and honeypot defenses remain. Legacy variant
+  is explicit and remains the default until gates pass.
+- Added opt-in service-wide token bucket, using existing TokenBucket Lua/local
+  conservative backend, no new math. Whole-task reservation is paired with account
+  reservation; known unused tokens refunded in both; uncertain usage retained.
+  Private wallet audit and bucket keys documented in contract; shared schema2
+  and ban reasons/TTLs unchanged. This limits aggregate burst/sustained use, not
+  a hard daily/monthly spend quota. Model/per-account allowances stay frozen.
+- Seven core tests initially exposed a test-session assumption after Redis restarts;
+  corrected test requires reauthentication after Redis loses sessions. Further
+  migration test initially accessed lazy ASGI middleware before first request;
+  corrected fixture, preserved failure XML. No auth/session policy was relaxed.
+- Full checks now **113 app/contract**, **109 eval** (known gevent warning),
+  **12 HTTP probes** pass. Cases include shared browsing, cross-account atomic
+  admission/refunds, uncertain-generation retention, legacy-strike isolation,
+  preserved IP login bans, and real Redis outage/conservative recovery.
+- Fresh C1 calibration seeds1201–1203 fits a predeclared benign-only aggregate
+  peak rule; no prior opened groups enter it. Freeze policy before57 validation
+  captures, fresh1301–1303;19 separate smoke captures at1391. Components have
+  separate acceptance gates; any failing wallet candidate remains inactive with
+  no retuning. No A-owned implementation edits. Source/evidence will record all
+  legacy/remedy policy flags, quota settings and private audit, not a new C0–C4 meaning.
+
+### 2026-11-19 — fresh aggregate allowance frozen; matched remedy validation
+
+- Candidate source frozen at5b9c23f in /tmp/walletguard-remedies. Six fresh C1
+  normal/varied calibration captures at1201–1203 pass source/coverage/accounting.
+  Fixed rule selects global capacity40,000/refill5,700 tokens/s, from473 measured
+  chats, largest task19,092, rolling1s peak28,176 and rolling60s peak272,871.
+  Policy/hash frozen before any validation; per-account40,000/2,400 unchanged.
+- All19 short smoke captures pass pipeline transport/classification checks. New
+  seeds1301–1303 now run57 matched acceptance captures. Default remains legacy
+  until component gates are evaluated. No model fitting or test-based adjustment.
+  Output: ml/data/wallet-calibration-v1 and eval/runs/account-wallet-validation-v1.
+- New private wallet keys/audit and ip_budget strikes are documented in contract;
+  no shared ban key, reason, required field or TTL changes. Teammate source remains
+  read-only. Independent post-validator is being prepared without changing the
+  frozen measurement checkout. Source control remains clean during every capture.
+- Before any mixed-contention capture, added an independent nine-run gate with
+  legitimate users competing against four separate DoW accounts (seeds1401–1403).
+  This addresses starvation risk before global default activation. Policy/model
+  and all original57 gates stay frozen; a failing mixed gate keeps wallet opt-in.
+  New B-owned identity map/workload adapter leaves A and canonical inputs intact.
+  Separate measured checkout will preserve the original candidate runtime bytes.
+- All57 primary validation captures completed with no retries or unknowns. The
+  independent reporter passes attribution, benign wallet and distributed token
+  gates; API/mock/private audit reconcile and retained usage obeys C+R*elapsed.
+  Shared C2 legacy310/540 denials/12 bans, C3 legacy317/540/13 bans; each remedy
+  has192/540 chat denials, no browsing denials and no bans. Every distributed
+  remedy capture uses274,896 vs343,620 legacy tokens (20% reduction).
+- Account attribution is qualified: prepared account_pressure_bans=False default,
+  explicit legacy1 replay remains. Both old/new anomaly-corroboration namespaces
+  receive regression coverage. Global allowance remains pending nine separate
+  mixed captures at frozen16b2503 (runtime identical5b9c23f); final tests follow.
+  A-owned source unchanged, model hash remains1eb84211….
+- Reporter invocation initially omitted --smoke and correctly rejected the
+  19-run matrix as incomplete for57; corrected invocation passes smoke integrity.
+- Mixed capture1 C0 has0/95 benign denials; first remedy C2 capture has2/95
+  (2.11%), no unknowns/bans. The prospectively fixed per-run<=1% comfort gate
+  fails, so the global default will remain0/0 (opt-in40,000/5,700). Finish all
+  nine captures unchanged; do not increase allowances or retune on opened data.
+  Attribution can qualify separately under the already declared component gate.
+- All nine mixed captures completed with no retries/exclusions or unknowns.
+  C0 benign0/285 denied; wallet C2 6/285 (2/95 each run); C3 4/285
+  (2/95,0/95,2/95), no benign bans/setup/other failures. Global comfort gate
+  FAILS; no tuning. Keep capacity/refill defaults0/0; frozen40,000/5,700 remains
+  opt-in. Account-aware escalation is the qualified default; shared runs had no
+  global denials, so disabling that inactive component preserves their result.
+- Final isolated checks on resulting defaults: **118 app/contract**, **109 eval**
+  (known gevent import warning), **12 real HTTP** all pass; owned services stopped
+  and scratch DB15 reset. Added tests for actual known-short-generation refund,
+  mixed identity separation, global throttles never banning under either legacy
+  or current scope, default/legacy/opt-in config, and both corroboration namespaces.
+- Files: docs/ACCOUNT_WALLET_REMEDY_RESULTS.md, component decision/provenance/raw
+  hashes, primary/mixed/smoke CSV+JSON and XML/HTTP evidence; masterv1.7, both
+  member plans, AGENTS, README, TEAM_CHECKLIST and A handoff now reflect the split
+  decision/private keys. Model/account allowances/schema2 remain unchanged; no
+  app/ebpf/locust/eval implementation edited. All91 fresh captures retained.
+- Next: publish reviewed source and compact evidence to main; A continues real
+  sensor/enforcement. B needs a prospectively defined fairness/isolation or hard
+  spend experiment with new unopened groups, plus burst/harvesting/Retry-After
+  follow-up. Do not retune using any now-opened experiment groups.

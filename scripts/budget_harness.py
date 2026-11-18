@@ -50,6 +50,8 @@ def main():
         policy = {"budgets": cfg.budgets, "strike_limit": cfg.strike_limit,
                   "strike_window_s": cfg.strike_window_s, "ban_ttl_s": cfg.ban_ttl_s,
                   "max_output_cap": cfg.max_output_cap}
+        policy.update(account_pressure_bans=cfg.account_pressure_bans,
+                      wallet_capacity=cfg.wallet_capacity, wallet_refill_per_s=cfg.wallet_refill_per_s)
         script = harness.WORKLOADS[args.workload][0]
         return {**original_metadata(args), "campaign_stage": opts.campaign_stage,
                 "worker_stop_timeout_s": 5,

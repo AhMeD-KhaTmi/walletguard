@@ -28,7 +28,8 @@
 ## Application robustness follow-up
 
 - [x] **B:** Complete five harder profiles in 45 matched C0/C2/C3 captures, three fresh repetitions, plus 15 separate pipeline smokes. Preserve unfavorable results and unchanged controls. [Results](ROBUSTNESS_RESULTS.md).
-- [ ] **B:** Define prospective remedies for shared-account/burst collateral bans and aggregate wallet/harvesting limits, then calibrate on separate data and validate fresh groups. Keep earlier/current test groups out of tuning.
+- [x] **B:** Define account-attribution/global-wallet remedies, calibrate on six fresh benign groups, and validate57 primary plus nine independent mixed captures. Qualify account-aware escalation; reject global default after mixed comfort failure, preserving opt-in candidate and all results. [Results](ACCOUNT_WALLET_REMEDY_RESULTS.md).
+- [ ] **B:** Prospectively address above-IP-capacity burst collateral bans, harvesting limits, shared-wallet fairness/isolation and absolute spending caps using separate new data. Do not tune on opened remedy groups.
 - [ ] **B:** Add response-aware benign clients that honor Retry-After alongside these fixed schedules; compare both explicitly.
 
 ## In parallel — C4 kernel work

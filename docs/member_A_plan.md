@@ -1,11 +1,19 @@
 # Project 20: Member A Plan ("Attack & Kernel" track)
 
+> Remedy update, 2026-11-19: [fresh component validation](ACCOUNT_WALLET_REMEDY_RESULTS.md)
+> qualifies account-aware escalation: account/global quota denials do not create
+> IP budget strikes or corroborate anomaly bans. Account429s remain; IP abuse and
+> honeypots still ban. Default `WAF_ACCOUNT_PRESSURE_BANS=0`; explicit1 replays legacy.
+> The experimental aggregate40,000/5,700-token/s allowance cuts distributed use20%
+> but fails the separate mixed benign comfort gate, so wallet defaults stay0/0.
+> It remains opt-in, not an absolute spending cap. Model/account budgets/schema2
+> remain fixed. Opened cohorts are excluded from future tuning; C4 remains pending.
+
 > Robustness update, 2026-11-18: [45 fresh fixed-policy runs](ROBUSTNESS_RESULTS.md)
 > expose residual slow/distributed abuse and collateral blocking/bans for shared
 > accounts and above-capacity legitimate bursts. Within-capacity bursts are a
 > separate control. Earlier model acceptance applies to its original workloads.
-> No model/policy change was made by this study. B's prospective remedies remain
-> open while A continues real sensor/enforcement work; C4 is not a demonstrated fix.
+> No model/policy change was made by this study. B's follow-up is reported above while A continues real sensor/enforcement work; C4 is not a demonstrated fix.
 
 
 > Current model update, 2026-11-18: directional-volume IsolationForest passed
@@ -17,7 +25,7 @@
 > model remains available. Validated budgets/batching and Redis schema2 stay fixed.
 
 
-> Current execution plan, 2026-11-17. Follow [master plan v1.6](MASTER_PLAN.md)
+> Current execution plan, 2026-11-17. Follow [master plan v1.7](MASTER_PLAN.md)
 > and the [professor's feedback](masterplan_vs_professor_diff.pdf).
 > Original starter snippets below are superseded where they conflict.
 > A owns ebpf/, locust/ and eval/. B owns app/, waf/ and ml/.

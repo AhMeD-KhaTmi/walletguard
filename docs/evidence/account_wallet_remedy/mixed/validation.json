@@ -1,0 +1,1058 @@
+{
+  "runs": 9,
+  "smoke_only": false,
+  "mixed_contention": true,
+  "attribution_gate_passed": null,
+  "benign_wallet_gate_passed": false,
+  "wallet_gate_passed": false,
+  "source_revision": "16b250314f4a7ab94a814f109cb11b79b56d58e7",
+  "policy": {
+    "capacity": 40000,
+    "refill_per_s": 5700,
+    "largest_task": 19092,
+    "peak_1s": 28176,
+    "peak_60s": 272871,
+    "tasks": 473
+  },
+  "summary": {
+    "wallet_mixed/C0/legacy": {
+      "benign_attempts": 285,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 0,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 0,
+      "ban_records": 0,
+      "metrics": {
+        "server_tokens": {
+          "median": 370815.0,
+          "min": 370815.0,
+          "max": 370815.0
+        },
+        "server_tokens_out": {
+          "median": 174600.0,
+          "min": 174600.0,
+          "max": 174600.0
+        },
+        "server_cost_usd": {
+          "median": 3.207644999999996,
+          "min": 3.207644999999996,
+          "max": 3.207644999999996
+        },
+        "latency_p50_ms": {
+          "median": 24.774,
+          "min": 19.476,
+          "max": 26.536
+        },
+        "latency_p95_ms": {
+          "median": 130.1902,
+          "min": 110.17929999999998,
+          "max": 131.90949999999998
+        },
+        "delta_c0_p50_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "delta_c0_p95_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "asr": {
+          "median": 0.9697,
+          "min": 0.9697,
+          "max": 0.9697
+        }
+      },
+      "attacks": {
+        "credential_stuffing": {
+          "attempts": 36,
+          "success": 9,
+          "fail": 27,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 9,
+          "known_valid_success": 9,
+          "asr": 0.25
+        },
+        "scraping": {
+          "attempts": 675,
+          "success": 675,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 1.0
+        },
+        "dow": {
+          "attempts": 180,
+          "success": 180,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 1.0
+        }
+      }
+    },
+    "wallet_mixed/C2/remedy": {
+      "benign_attempts": 285,
+      "benign_denials": 6,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 6,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 51,
+      "ban_records": 0,
+      "metrics": {
+        "server_tokens": {
+          "median": 283356.0,
+          "min": 283356.0,
+          "max": 283356.0
+        },
+        "server_tokens_out": {
+          "median": 133380.0,
+          "min": 133380.0,
+          "max": 133380.0
+        },
+        "server_cost_usd": {
+          "median": 2.450628,
+          "min": 2.450628,
+          "max": 2.450628
+        },
+        "latency_p50_ms": {
+          "median": 30.009,
+          "min": 22.464,
+          "max": 31.534
+        },
+        "latency_p95_ms": {
+          "median": 109.94659999999998,
+          "min": 105.59319999999998,
+          "max": 113.11359999999998
+        },
+        "delta_c0_p50_ms": {
+          "median": 5.234999999999999,
+          "min": -4.072000000000003,
+          "max": 12.058
+        },
+        "delta_c0_p95_ms": {
+          "median": -20.24360000000003,
+          "min": -26.3163,
+          "max": 2.9342999999999932
+        },
+        "waf_overhead_p50_ms": {
+          "median": 16.372795499819404,
+          "min": 15.136865999920701,
+          "max": 17.513123499611538
+        },
+        "waf_overhead_p95_ms": {
+          "median": 47.33413104972897,
+          "min": 41.82570550001401,
+          "max": 52.90308865050974
+        },
+        "asr": {
+          "median": 0.9192,
+          "min": 0.9192,
+          "max": 0.9192
+        }
+      },
+      "attacks": {
+        "credential_stuffing": {
+          "attempts": 36,
+          "success": 9,
+          "fail": 27,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 9,
+          "known_valid_success": 9,
+          "asr": 0.25
+        },
+        "scraping": {
+          "attempts": 675,
+          "success": 675,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 1.0
+        },
+        "dow": {
+          "attempts": 180,
+          "success": 135,
+          "fail": 0,
+          "blocked": 45,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 0.75
+        }
+      }
+    },
+    "wallet_mixed/C3/remedy": {
+      "benign_attempts": 285,
+      "benign_denials": 4,
+      "benign_bans": 0,
+      "benign_browse_blocked": 0,
+      "benign_chat_blocked": 4,
+      "benign_setup_unsuccessful": 0,
+      "benign_other_unsuccessful": 0,
+      "all_unknown": 0,
+      "wallet_denials": 51,
+      "ban_records": 0,
+      "metrics": {
+        "server_tokens": {
+          "median": 279183.0,
+          "min": 277629.0,
+          "max": 283356.0
+        },
+        "server_tokens_out": {
+          "median": 131400.0,
+          "min": 130680.0,
+          "max": 133380.0
+        },
+        "server_cost_usd": {
+          "median": 2.4143489999999996,
+          "min": 2.401047,
+          "max": 2.450628
+        },
+        "latency_p50_ms": {
+          "median": 57.514,
+          "min": 48.259,
+          "max": 68.914
+        },
+        "latency_p95_ms": {
+          "median": 146.45019999999997,
+          "min": 141.92759999999998,
+          "max": 150.29879999999991
+        },
+        "delta_c0_p50_ms": {
+          "median": 32.74,
+          "min": 21.723,
+          "max": 49.438
+        },
+        "delta_c0_p95_ms": {
+          "median": 18.389299999999935,
+          "min": 16.259999999999962,
+          "max": 31.7483
+        },
+        "waf_overhead_p50_ms": {
+          "median": 41.06007900054465,
+          "min": 40.71244150054554,
+          "max": 41.62383549964943
+        },
+        "waf_overhead_p95_ms": {
+          "median": 89.61903645003986,
+          "min": 84.09715569960099,
+          "max": 89.97675779974085
+        },
+        "scoring_p95_ms": {
+          "median": 43.074977850210416,
+          "min": 42.06168869945941,
+          "max": 43.9590136998504
+        },
+        "asr": {
+          "median": 0.9158,
+          "min": 0.9158,
+          "max": 0.9192
+        }
+      },
+      "attacks": {
+        "credential_stuffing": {
+          "attempts": 36,
+          "success": 9,
+          "fail": 27,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 9,
+          "known_valid_success": 9,
+          "asr": 0.25
+        },
+        "scraping": {
+          "attempts": 675,
+          "success": 675,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 1.0
+        },
+        "dow": {
+          "attempts": 180,
+          "success": 133,
+          "fail": 0,
+          "blocked": 47,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 0.7388888888888889
+        }
+      }
+    }
+  },
+  "details": {
+    "wallet-mixed-c0-r1": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 3,
+          "fail": 9,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 12,
+          "asr": 0.25,
+          "known_valid_attempts": 3,
+          "known_valid_success": 3,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 225,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 225,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 3000
+        },
+        "dow": {
+          "success": 60,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "attempts-benign-10.20.0.11-10440.jsonl": "0c43fe2f3be250086a21d14e169f0802309b7c92ce7bc401e14a9c3c7208f2a3",
+        "attempts-benign-10.20.0.12-10441.jsonl": "93195561cbf4123767f42e47255e7abd61c52a87d2de14fa02747c8c7aa5407e",
+        "attempts-benign-10.20.0.13-10442.jsonl": "135b31d249b89b4894f9b7f2e15cca3b41e8c90527eec50736f0be89b0e6489a",
+        "attempts-benign-10.20.0.14-10443.jsonl": "536ea97b73063100750ab4d2247ec3d7fd89b294a08b66afc179be4f9f4d4b39",
+        "attempts-benign-10.20.0.15-10444.jsonl": "a66dda8370acf0e75d0e52969c5b60d9c5640c3ec118d85c263f948718460f59",
+        "attempts-credential_stuffing-10.20.0.16-10445.jsonl": "816ee43724ef99550052601645af70d469d12f4d1f22ce08ae9345a70e61ea5e",
+        "attempts-credential_stuffing-10.20.0.17-10446.jsonl": "7e3353f6ac7ba24989ae20cb1f1633cc53b5708d881ac182c7f01ccc01e117f5",
+        "attempts-credential_stuffing-10.20.0.18-10447.jsonl": "4cbdb4e75c4b448611d1812de511a6eb3d3d9936d6f3f88a8d9d150128b91114",
+        "attempts-dow-10.20.0.22-10451.jsonl": "4eb7883545c3ee7a60e5ff596eb30e4a74606f9bea541cec40db98b953d96ec7",
+        "attempts-dow-10.20.0.23-10452.jsonl": "b85a6cf476c12eb9699584e3c06fb525047d2bc5836b309add42e7be8af526a5",
+        "attempts-dow-10.20.0.24-10453.jsonl": "70eba8526e77c421046700d1d73d664b4103b376718c056f478ca14606cb0c5c",
+        "attempts-dow-10.20.0.25-10456.jsonl": "25cd975b04eadb8ad797deeb587ee029d18fe2b6f2ff4775d0cfe3d185ca90b8",
+        "attempts-scraping-10.20.0.19-10448.jsonl": "33b66e8f55b94d00ccb9cec27f46a1d40646ccbd3a55f0cf2bc8ff53bbd6a599",
+        "attempts-scraping-10.20.0.20-10449.jsonl": "5fc010fe6bbb4a31e9d4cb56c99734c0915ebda385c40055b7b3846104ce8ef9",
+        "attempts-scraping-10.20.0.21-10450.jsonl": "0cd4e8c262fa51985738cf1709500d99dabb53d501c73a45a90140a069cea61b",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "manifest.json": "bd9ed5affae06cafc7a7f16b7f534dc8afd98cb1c0d33ea7630e59fb1ee85a50",
+        "usage.json": "ab2f7ed54cf5936a6e2571135514cd4bbf78697f4cf484450a3a2dc58ff5ea5c",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-10440.json": "63d394b7158fc1566087e47b07c09b5c5308b10c7c1afc9e45ff14dd98ecd136",
+        "worker-10.20.0.12-10441.json": "64028d23f07062f9ab4f00c71acc177921dc1686bd9ae0d78ecc1dad49151d91",
+        "worker-10.20.0.13-10442.json": "089d41a0a790b4c460747f6242603cadc928bd9fec4ec2ca78b612da3b77e53b",
+        "worker-10.20.0.14-10443.json": "04b588d956c599b1dbf9a35e7422f0a034a0878c6d628616e145bac12c995383",
+        "worker-10.20.0.15-10444.json": "6fbdbb39de2532fc57390a3c750f18352707003a115bedfa9fdd85ace724e018",
+        "worker-10.20.0.16-10445.json": "eaf1c6d9a37b08b9655d00f8c4a30e0f99de5270fff6ac817dc6ffd210e562bd",
+        "worker-10.20.0.17-10446.json": "c7d7e16a457d6f45cc27c8943130f815cba22549d571a014bb4d5cc87ea4b648",
+        "worker-10.20.0.18-10447.json": "e01b52170157d5cc5837e52ebfdcd66208b086871545357e7c71d41f4f32d995",
+        "worker-10.20.0.19-10448.json": "dd692d2f5224aa0502e628139bf3f98fe6a6d0e4ff24e0e5e2ba8878f343aeb1",
+        "worker-10.20.0.20-10449.json": "d76a65cecf99ba013d05369d96da6e81738e0457a61e22bab4e12dd603ac31ab",
+        "worker-10.20.0.21-10450.json": "2c6181cbdba89d555a09d3c75d214a2496a1350ac5b20a052588d94bf2f7bd74",
+        "worker-10.20.0.22-10451.json": "48aa5d5de9d6c3160c3e47dd2d8d893c6cceec6bdcc7b9888dd2c15e4e88c7e3",
+        "worker-10.20.0.23-10452.json": "9a2ea432a2ddde79d3fdaef117f1b3e7b5e817c073f0b5a6c3e18606287e77fb",
+        "worker-10.20.0.24-10453.json": "e939f284015087d196b4a56ba1e0c4139cc2295ba68eee5ee721b60e610399d9",
+        "worker-10.20.0.25-10456.json": "9cac533a58fc046e23ce0a0ba9f24d23059d7aeb18591b9da1bc0d3cbb8b5f3c"
+      }
+    },
+    "wallet-mixed-c2-r1": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 3,
+          "fail": 9,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 12,
+          "asr": 0.25,
+          "known_valid_attempts": 3,
+          "known_valid_success": 3,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 225,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 225,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 3000
+        },
+        "dow": {
+          "success": 45,
+          "fail": 0,
+          "blocked": 15,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 0.75,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "eccad6b4f58328d2f514756a1b36719993571304cee0f2de77851d4d548951ad",
+        "attempts-benign-10.20.0.11-10570.jsonl": "0589a00d1227f325c939a8f9ebf476a053dc5d3a2331e9c61240967691c8e221",
+        "attempts-benign-10.20.0.12-10571.jsonl": "59f3b7a759f05f82050d3ef1ab32b2caf21beadfc16f0050e31165c5d2802d70",
+        "attempts-benign-10.20.0.13-10572.jsonl": "f00fb5a52dd94330819fdc847f4c0d4c951abb59567b2fa3ecdcee5bfe3762eb",
+        "attempts-benign-10.20.0.14-10573.jsonl": "4cdb02ddc3d6e90be4c3baecf9766d5b9c7b77cd97d32424927b9208984fc116",
+        "attempts-benign-10.20.0.15-10574.jsonl": "219a366e549b2901d6cffa447d5e032cbf7416cdf16cb36dfd891887c41ce771",
+        "attempts-credential_stuffing-10.20.0.16-10575.jsonl": "e9593bf8df1ced7e9e29c01f9b7d8f2df5794645089f8e7d47bdf4643dc3ba30",
+        "attempts-credential_stuffing-10.20.0.17-10576.jsonl": "6919c6c45cfd9c52eb7b4678220bd6581941103e156f11d7945f0a324a6b06d6",
+        "attempts-credential_stuffing-10.20.0.18-10577.jsonl": "549bc9610ddfb83ef5ce9bdba745e30647445d5a740f8abd595ac28dc63635c3",
+        "attempts-dow-10.20.0.22-10582.jsonl": "e0604db3f94b7fc2778fb61c3716d3b4f07ece260de8ca07d9a4e1c9df241fd7",
+        "attempts-dow-10.20.0.23-10583.jsonl": "25a835635edaf640241bc18ea3e3909129e981ddcd147f9c378d6618890e883f",
+        "attempts-dow-10.20.0.24-10585.jsonl": "447ac758cc487bb87d4f8814f0b0f074e1a70888e5caca86e58c7e3f81a02f7a",
+        "attempts-dow-10.20.0.25-10587.jsonl": "8dbaf0c788e8a105c044851d0a5d4f973520088e2be1177ae88fd8d2803d16d1",
+        "attempts-scraping-10.20.0.19-10578.jsonl": "00cd5e4526b0e48849424b73ac839a072585bcbba29a34112c785c27a0fce2ab",
+        "attempts-scraping-10.20.0.20-10579.jsonl": "15835beb7dbd82208aadda36be1104507b7f67df3979570f5fa7e35b680b50b7",
+        "attempts-scraping-10.20.0.21-10580.jsonl": "6935143fd56d4e7a399227aa312e67b564616c65064bada26a843ae4a64a00eb",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "3c509f56b19479a0a0014624632054895fc71b3b76e76ebfa08772779d5d4f93",
+        "manifest.json": "64a6b256eef596ed25561245888be1d11e24815f662cf8cef3f023ff0f24abb4",
+        "usage.json": "a803007e7a1dfd2ba06c86e72afcf887bfe92c36b808c00549c233a11ad72aff",
+        "wallet_audit.jsonl": "5d32996dca93b0dd41403ee13cc9aa2a1796cea615aa5a3b9461ecab79257f9c",
+        "wallet_bucket.json": "219b799ca09e06b3819d783b793b0070020ceb2185641c6f9d24903867186eef",
+        "worker-10.20.0.11-10570.json": "4b4fd63ba2dafbea757c89ade79336364c26487bafa0cff39f03c319fdae6f0d",
+        "worker-10.20.0.12-10571.json": "0c4410476eddedf5c7746ce1a6a5292fca6f39a7c66eec1975759f3a05f98807",
+        "worker-10.20.0.13-10572.json": "dd56a5a6a2dbdf8a077782399840da6e4dcf1b697cb3004048883d8bcf3b9a1b",
+        "worker-10.20.0.14-10573.json": "11fbd8243147caba0e422ebea674cf61630971f8e7be345254d32f234ea361fc",
+        "worker-10.20.0.15-10574.json": "0df600954ef0d51a8ee4248549073a5e1ee2befb34708c8572f8074e3ab85b52",
+        "worker-10.20.0.16-10575.json": "bf3e8062dcdf007cb78bea3c9beaf538670963f002078e2cb9d9940b8319d6a8",
+        "worker-10.20.0.17-10576.json": "84c2e0d58ea725871f3da2dba7922c5ef94a68577ae3fca7d61131354d64412b",
+        "worker-10.20.0.18-10577.json": "1d0bc5ff84113b9a3892ad5df4829cb1911d6fecef424ca006affe39664cd249",
+        "worker-10.20.0.19-10578.json": "4dbbfbe09fe0c676d2dd5b8a362a612e455fa455cc9cc23ca79fc4b7291ffcce",
+        "worker-10.20.0.20-10579.json": "9d3f83330cf9f433c8b78612d7afa6d95dc5394e3b5fdc45f039c56a1cfd4b95",
+        "worker-10.20.0.21-10580.json": "72774119220d2e6595aa6863e00d70ba92fba6756ad67e91d6355b7417493667",
+        "worker-10.20.0.22-10582.json": "b8173e90de6872a4c1bf69cb8d72973ef23ddd630be6ae92837db2183d636be0",
+        "worker-10.20.0.23-10583.json": "2deba13a25ac396d63f0392464bf691168352ee0784d57a4d289ed8beff9a811",
+        "worker-10.20.0.24-10585.json": "b7e9cb1efd63958141d7924c25b975ff53933840343a02cbfe9b0af3e5ed2166",
+        "worker-10.20.0.25-10587.json": "e203eb385db54f56ca627ea497db30b8f5ee2fc24db204dca988f3a9d944d256"
+      }
+    },
+    "wallet-mixed-c3-r1": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 3,
+          "fail": 9,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 12,
+          "asr": 0.25,
+          "known_valid_attempts": 3,
+          "known_valid_success": 3,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 225,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 225,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 3000
+        },
+        "dow": {
+          "success": 44,
+          "fail": 0,
+          "blocked": 16,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 0.7333333333333333,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "44d638fdbfc1a87955c527c07605fa9277e331c03746d9026ceb7c7c235a334b",
+        "attempts-benign-10.20.0.11-10644.jsonl": "fcb276ee2286c0679802111e072d1b9f6f6305c0f7759b26e722854bd00384e6",
+        "attempts-benign-10.20.0.12-10645.jsonl": "141551c2b660d0a2cd8978d12e8464cba05dd11937083a7fbd6633c94fbccd92",
+        "attempts-benign-10.20.0.13-10646.jsonl": "46e77729dfe9fc179e7e960ad38a2e1030d43ea650c3b6c8867a7dee5152e527",
+        "attempts-benign-10.20.0.14-10647.jsonl": "35a7d5ce11918d423126894dfbdd5d51f6298d8b6feda80d1beb728f348137a5",
+        "attempts-benign-10.20.0.15-10648.jsonl": "46867354f555cb701626104a140aea32f635570803c713df01d970ea3ac9173b",
+        "attempts-credential_stuffing-10.20.0.16-10649.jsonl": "4f445f59b7c954895d52b07e31c8a9d74f9fed4f53a7d9cf0b12ffd997dba395",
+        "attempts-credential_stuffing-10.20.0.17-10650.jsonl": "39ea5b6b2210f0bd16f8226c15f15e347e1816c36c4685b908a4a6841b49ba5a",
+        "attempts-credential_stuffing-10.20.0.18-10651.jsonl": "60ea02b9da40c1c07c5e49ee7e9906f22f71bc32697dc009a031ea86113b8822",
+        "attempts-dow-10.20.0.22-10656.jsonl": "01d77d36089a5f0536cda57879da28f822ca7c3c08ee1d84205d53960e1990dd",
+        "attempts-dow-10.20.0.23-10660.jsonl": "8e5ab04604855ca4778a7edfc2eab9a0bf6fada88839cbf9ade9fdd0c9594663",
+        "attempts-dow-10.20.0.24-10661.jsonl": "62518b9ba9c412ec7f4d23ee1fd6b7b7c50394e53e260cc84c60744237fc45d4",
+        "attempts-dow-10.20.0.25-10662.jsonl": "d8da13cb85ff0e970874bbbeb1661e32562ca83334e2491d1b29274bdcfe1d26",
+        "attempts-scraping-10.20.0.19-10652.jsonl": "3a451f00888eac5d86ccc6b6d34b8dabac126a97d0ea13736e0448296c5ad217",
+        "attempts-scraping-10.20.0.20-10653.jsonl": "bcecaea1cd729ac75493c98e1e2221881a2799c5b848b8d0b5f7e2979fd258e9",
+        "attempts-scraping-10.20.0.21-10655.jsonl": "24d5c397b5d349edb011440dd4cb6db43d3e3fba26cd5670b9245ae08255f7ed",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "a3044250c0405c6120e8e3a9bc4c8bd8fbe64c49158b7d7e081bdea705c61718",
+        "manifest.json": "dcf4e159fa6868e1efd90fa0e319383c8f304cf714467d93cd0ac83a9b3ec5bc",
+        "usage.json": "b2cd7f087c012066fc9841d7f2c9e8a49b3936055a35d8f4fb0fa2d37556d951",
+        "wallet_audit.jsonl": "9df41321a83f25011e7469e6a19a7d93ca7965494bb5431ce105e6bae324e0e9",
+        "wallet_bucket.json": "20c22557533a8795fdaa6fa6622e27ceee869f9609694da044d39c1a67a8cc85",
+        "worker-10.20.0.11-10644.json": "b46b3e0dfeac16e7a4a3db6e53e3c5670e3ba1394ecf7379ddbc17a200f1ac2d",
+        "worker-10.20.0.12-10645.json": "70b91bbc00061a67034c667eb8e7254d202abc3787539236bf001e52cc4a19df",
+        "worker-10.20.0.13-10646.json": "0013c89f1c96c58ff7462a274a7ec10ebdc81d4814988f37a872ce8728b84010",
+        "worker-10.20.0.14-10647.json": "d0d34774134ea153da4a400f2d95e905b36c361c0d2b99886bc3bb650d045ead",
+        "worker-10.20.0.15-10648.json": "2d72f1f25c890a8b4014f0be9f71055c70e6593a59a7c7fc2f2d3c78e43b92ad",
+        "worker-10.20.0.16-10649.json": "f14757c1a58140e23a19f2177b4edc68be59b313994d993a54456ae62e49c72b",
+        "worker-10.20.0.17-10650.json": "82db854600f63fc5fe67d856c61e13ffc7abe3b0f6ffea91e6d5fb2072d1325f",
+        "worker-10.20.0.18-10651.json": "ff992fdf41af0fa1d9fa194fbc9402cb3f6461c0221a6161f6d7f84b55f7b618",
+        "worker-10.20.0.19-10652.json": "2fa497380610078be12bf656876e9f665afb8f11536baf1cce0ccaaf16019f71",
+        "worker-10.20.0.20-10653.json": "bcbce2a5b31c1dab10d887995bf30b7fd6848c057a9e3e175d9dd3657b119712",
+        "worker-10.20.0.21-10655.json": "9c0ec7db70313f0c34947a00128911e1386108edc440fab2ac8e96fa8b187f5f",
+        "worker-10.20.0.22-10656.json": "4baf9029216da636445060ad13f108476c9423a316d30ff6e18d0d08a5d0bb03",
+        "worker-10.20.0.23-10660.json": "7bb6c5dc1bfdf78864643f73503e6d9a6ad17aadc4d3eed455c177494801cc4e",
+        "worker-10.20.0.24-10661.json": "ab3b47b8913c376dcf7bd0e2014ff98806769f7a66d660fed4afa11e74d90f9e",
+        "worker-10.20.0.25-10662.json": "932a85a26d69ab46633ed1ffd6f44d8492a5b8c6905a84eed32db8b1cb75f218"
+      }
+    },
+    "wallet-mixed-c3-r2": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 3,
+          "fail": 9,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 12,
+          "asr": 0.25,
+          "known_valid_attempts": 3,
+          "known_valid_success": 3,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 225,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 225,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 3000
+        },
+        "dow": {
+          "success": 44,
+          "fail": 0,
+          "blocked": 16,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 0.7333333333333333,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "bafa982b533fac313fe2f01382aa4f1708292461874ab81607aed67be4fb936a",
+        "attempts-benign-10.20.0.11-10746.jsonl": "30ba6ea1e45633a60f4ae74f8a7d371f9041e1f2cc0ffa48860920a57ed7918d",
+        "attempts-benign-10.20.0.12-10747.jsonl": "88e071f0b99e03fb9597628bdf3c49fa7cf62457b4c3681815953202170da9a0",
+        "attempts-benign-10.20.0.13-10748.jsonl": "944acbca05a350e2fabf29c471eeef85b6ec526cbb087fa60e22d913385a6142",
+        "attempts-benign-10.20.0.14-10749.jsonl": "2d8a679b0ecf2d36ddcc62b6b45b074bf8e74dd8ef2d8bf0be1950ff3326c611",
+        "attempts-benign-10.20.0.15-10750.jsonl": "03b50297a04671cdf79a963abc57f645ea6dfb3c672a37fb3da01afeee7db272",
+        "attempts-credential_stuffing-10.20.0.16-10751.jsonl": "d5dea0c7519258eb89e1a6dca69ff42d53adb3bae557948b924f67d93a5881e8",
+        "attempts-credential_stuffing-10.20.0.17-10752.jsonl": "c434ba9ea7812b2b54f633250a008f7bfec214b0056227a344f9bcee3ca45be4",
+        "attempts-credential_stuffing-10.20.0.18-10753.jsonl": "592d27750a32582b816567f998977a8bf9d64f6acd8538c97c72b0c88eecf4ef",
+        "attempts-dow-10.20.0.22-10757.jsonl": "be2f13c93b1b994e32a86fb3839f73e3d5c03839a5bfa5cf3ce1f7e015b7d734",
+        "attempts-dow-10.20.0.23-10758.jsonl": "00e6fabfb2c0feebb58fd6b852188d6f9cb0cbd617d0376050da0892f1205764",
+        "attempts-dow-10.20.0.24-10759.jsonl": "fc9bf0428914db1811b4024f8d9f444a03fb2bf904aaa5c7da2ef5854f64671f",
+        "attempts-dow-10.20.0.25-10763.jsonl": "bfcd1405460b7c3be26ed997cca9054422c92c9491437e94604f3854e57708a3",
+        "attempts-scraping-10.20.0.19-10754.jsonl": "29055b769a0bffec61a1491c729baa3d2e84b9adfb9fd335a6799fff67e29d2a",
+        "attempts-scraping-10.20.0.20-10755.jsonl": "51ead52b5b8dceacab5d41ea1bc85a0462d469f35f7c853680be6a9452cb5177",
+        "attempts-scraping-10.20.0.21-10756.jsonl": "f4da239c3c88bd95cee04b66e3dcad0b08a1196c5b286b806bd54434c564822c",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "3cba6419570bb1c31893e34cb6e0fac7b5f1b7b7f683e573e002f7b29c0fd637",
+        "manifest.json": "91c7db7b5408312cc921e44efe952c210ca171c0c5c347a51826f1d7c6ce0161",
+        "usage.json": "8bdea4e038787e185a75dde7d4bf2a55132b9f5d4c4658b9b9db0bb9fad520c2",
+        "wallet_audit.jsonl": "0ed5a799c81217869d104df2e24c82bd7030a8feaaf231cc5807bf910b456553",
+        "wallet_bucket.json": "09bca14fd0fb61ff4d30ebed290e377c10b2e5190dff9b6b8c16dbeb3212519a",
+        "worker-10.20.0.11-10746.json": "05e5e5131d52700031dd643aafaaa975a477258e547335b7151b3a030c290392",
+        "worker-10.20.0.12-10747.json": "8426aa94b458c716300d7eee9db7e05fef1433282a7e2350e739864a5866ff0f",
+        "worker-10.20.0.13-10748.json": "348113d159eb22d0b75707455b93e7d7214f3ca338bf2f712f82d8a812513f62",
+        "worker-10.20.0.14-10749.json": "7a9f21ce8fdee3a79620c189ef46472f379d26ea87ba9c9038272999c8b36e07",
+        "worker-10.20.0.15-10750.json": "3226c4acb5b1b2e5f7debb1ac303831d7dfba06271a655a4bf0fd477acccc20d",
+        "worker-10.20.0.16-10751.json": "6519500d9072838e8d28142adde9b1012f7b722fe2ae7138d18fb8e9e55992f0",
+        "worker-10.20.0.17-10752.json": "7c737fe9f5b3f39ebbc5d6f4be7644667295db33d544b511cfb6e16cdcfe8bd5",
+        "worker-10.20.0.18-10753.json": "d202b217faa47cfe9d34c2a47d12c0ccf934ef20a96da17eba5d37a597d560e3",
+        "worker-10.20.0.19-10754.json": "d54ed3b1baac200a6cf0fc6c0b764cc92a171ed1edb3ccd6b45f6b03867157e1",
+        "worker-10.20.0.20-10755.json": "3c1357217e80c0385cda8f5561cf8c36a9d415bd67aa896d90ad91bd7570286b",
+        "worker-10.20.0.21-10756.json": "de4462f0568e60265d8e77d7123bd165745b116dce9a439818decab6e57d67ac",
+        "worker-10.20.0.22-10757.json": "91ee84d50437f8e76f3888d051747fa6f089e1b8fed223fdddfccb4e6accee69",
+        "worker-10.20.0.23-10758.json": "b595c00b2fdb0489471e646a82b627567eff8f8fe8e447e1999b96662f094448",
+        "worker-10.20.0.24-10759.json": "6b68c87e62699e4c011a9d0709856d43a405f09d0adedacc901c1c79f849b8a7",
+        "worker-10.20.0.25-10763.json": "53a55beb3117f0c14539b9cf93463ee710ffa96aa587dae531be24755cf6dfdb"
+      }
+    },
+    "wallet-mixed-c2-r2": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 3,
+          "fail": 9,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 12,
+          "asr": 0.25,
+          "known_valid_attempts": 3,
+          "known_valid_success": 3,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 225,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 225,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 3000
+        },
+        "dow": {
+          "success": 45,
+          "fail": 0,
+          "blocked": 15,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 0.75,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "340795859fb03091dff9e205ea67cd6b21d4404d19e325afdc1ec7e659cfe4cf",
+        "attempts-benign-10.20.0.11-10827.jsonl": "8a54708496dae2f9291298016697727f8708313d42abb282fa3e270620463c84",
+        "attempts-benign-10.20.0.12-10828.jsonl": "99448a0092fbfde8b51cf0bfeaf3cf43580cb6e5055773c1ce5764414312ebcf",
+        "attempts-benign-10.20.0.13-10829.jsonl": "cdfa96af666eb00fc9305c40d1ba570cea13c22e13cd1f8310df61af0ceb4d52",
+        "attempts-benign-10.20.0.14-10830.jsonl": "22612cf6e3b495e6efc9f7af71b7f46ce02a52057da0c2b75dff9237de898634",
+        "attempts-benign-10.20.0.15-10831.jsonl": "669d66185f6eb682b8dd24099ca033f0f76c647c17fbb0f8265e02067d1c889f",
+        "attempts-credential_stuffing-10.20.0.16-10832.jsonl": "a6bea89c181370609153c8ad8c893d89f4831c17c9eebac63e3e9bb6aac94169",
+        "attempts-credential_stuffing-10.20.0.17-10833.jsonl": "8275ee35a06dbce8a0ea5e9f3c7ee268f2a359255869347126113a4d5ab6eb73",
+        "attempts-credential_stuffing-10.20.0.18-10834.jsonl": "8c473b89d4470256378a2f2295ea51cb34449cff3fe11386b29f42dbbdfbd924",
+        "attempts-dow-10.20.0.22-10838.jsonl": "9b6314cc41fc914a837567bfafa492ca0e20518f55055f0638c0831e5e342e2e",
+        "attempts-dow-10.20.0.23-10839.jsonl": "a774b0b01a5851db688b22709ae1723a437fc8d9051b35521447744feb8f0fd3",
+        "attempts-dow-10.20.0.24-10840.jsonl": "372cf9a03a71d8b0f6e9a6d7facafd58561cf2d345639514227b67ea4c02a25b",
+        "attempts-dow-10.20.0.25-10846.jsonl": "b458658821b1f39d16b2169a30a3e47b5aad737d7f8b1ff994f6f44c66346066",
+        "attempts-scraping-10.20.0.19-10835.jsonl": "17b347f763a8417fe3123cec31f2f0c72998e082e347c004aa789fad9439a6bf",
+        "attempts-scraping-10.20.0.20-10836.jsonl": "81922638634f6cc41c9a1c81c616f1ebf00a9bd5727621f59f9cdb483b519bd8",
+        "attempts-scraping-10.20.0.21-10837.jsonl": "0eea43b8771eefaf51b96ffd0c1748d8fdcfe070cab9312b653e669730666bd1",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "e737f5a010cc2d30b78d2c60fb6763ea32cf9a1e2f4f16223e0fa5ebf212dd4f",
+        "manifest.json": "e206c6c4507063af475f18e373a83d1c31693a96e6cee34eccde533228f7f2c9",
+        "usage.json": "a803007e7a1dfd2ba06c86e72afcf887bfe92c36b808c00549c233a11ad72aff",
+        "wallet_audit.jsonl": "36d22117e104d6c5361fb49a156f2dc80272b2009615f5bcf93071f79bbc0759",
+        "wallet_bucket.json": "abb3feb52a16d31434cae4f1e3c78b07fb82b8f9de6e98a5c4f17f8c29383c99",
+        "worker-10.20.0.11-10827.json": "e0161b12ae3d99c13856b839e8686d60498eeb05f704f1206125338cf39fcab6",
+        "worker-10.20.0.12-10828.json": "f754acbfd1a4cd0db1d4fff63482c90f629ab76cf2f3e4da296e3e0bdde707eb",
+        "worker-10.20.0.13-10829.json": "23394bc06a035bcee47c198247dac6857b83d9d6f278bdc1fb5bb0d9099158f6",
+        "worker-10.20.0.14-10830.json": "22647946492e2b4ff26646ecf4ced6aafe56ed4ca2175ae12f762d014d30c947",
+        "worker-10.20.0.15-10831.json": "35aad7aadaa6294eb3d107b4eb1b313369cc7cb501061366e9e5c64aeb18e2c1",
+        "worker-10.20.0.16-10832.json": "22179fa9b5a77d05bdda04cd68cdb85f236cfd6c410e80e95bdd5b26ba9b0114",
+        "worker-10.20.0.17-10833.json": "8bc2c5d68132fb13fd13fc8f96ab683356dcb4ce0ce3761911a8d076e73698a9",
+        "worker-10.20.0.18-10834.json": "393074b78074c17b1cf9b268e9b9aed78dfec2dcb7954dbc35ba90adb3c2dee6",
+        "worker-10.20.0.19-10835.json": "ab218347b36c085559de5854dfc04dd6c2da4951603446726b3ecd475b51ae7a",
+        "worker-10.20.0.20-10836.json": "2f1c69afb3e10dce5fac957a932905de8f79a7fbe0f308a51ffc275d8b573105",
+        "worker-10.20.0.21-10837.json": "791bdc938e46b4c9d5c478ac42e7b8d9bd718219ac75e9b3f71fbf08d19662c0",
+        "worker-10.20.0.22-10838.json": "eee549393701854c4d685b3b25ef43805b234cc96733a0040ed1c574c0c7144a",
+        "worker-10.20.0.23-10839.json": "27b35c5bfd9d90ecabaf8a52c5e3656d08db78acdf246a0c7ca6107a283d4f0f",
+        "worker-10.20.0.24-10840.json": "27acf161df55afa6c9bb7899b9bb260a7e0b55257445f5579e456bbc7f1929b7",
+        "worker-10.20.0.25-10846.json": "f934b535d9f987c7577e0e56a525dcea283ac3b3a38e03186426382a427657a6"
+      }
+    },
+    "wallet-mixed-c0-r2": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 3,
+          "fail": 9,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 12,
+          "asr": 0.25,
+          "known_valid_attempts": 3,
+          "known_valid_success": 3,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 225,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 225,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 3000
+        },
+        "dow": {
+          "success": 60,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "attempts-benign-10.20.0.11-10967.jsonl": "ee791727849b905c0ecdfd60a295511e11439a00c27685eba7d661a4758455d2",
+        "attempts-benign-10.20.0.12-10968.jsonl": "b6a15577908f7d4f84bb262112d8bf406a392d4c911d3efec023189822df2cb0",
+        "attempts-benign-10.20.0.13-10969.jsonl": "5eb3150fb8dc5f5c1a332afc49d84121bf1e67a03d3bdca71d8ef8018d66b306",
+        "attempts-benign-10.20.0.14-10970.jsonl": "6dfde64bed4b9e1d286de2ac66396a874e60b07bb33f6714c124ffb2fcb99408",
+        "attempts-benign-10.20.0.15-10971.jsonl": "4a21700a5a526965845af8ad65c476449d011d8eb5998312364efae9af18ea88",
+        "attempts-credential_stuffing-10.20.0.16-10972.jsonl": "7493ece5008d70d5e1952d048a495271b6cb914766a010f5b2a867f132aace9c",
+        "attempts-credential_stuffing-10.20.0.17-10974.jsonl": "c26035342b90e89d1d4406749d5fe08ab4aac2e23c875481df86510f701371ef",
+        "attempts-credential_stuffing-10.20.0.18-10975.jsonl": "99fbd08336d694e3dae0ff198cabee9add60d148b87fd0ea79601764d177752b",
+        "attempts-dow-10.20.0.22-10980.jsonl": "b1a142713b9d5c94ed10f39d326dc048b5c2a045fa96115152a1a9ffc39a15ee",
+        "attempts-dow-10.20.0.23-10981.jsonl": "694d4bbe616313f4ac2e8db8ca9f4dd98a457dec661b6a1d335635d974ae3326",
+        "attempts-dow-10.20.0.24-10982.jsonl": "8e5cb7d5deb75698d13aadf3825464c69cd15b2d0a09a95e45b65351d95cf57b",
+        "attempts-dow-10.20.0.25-10985.jsonl": "6dc1f1b8445626a67934eaa6e6fee8c9b6b504c1ffd251a99f70cce4ae0a1f2b",
+        "attempts-scraping-10.20.0.19-10977.jsonl": "68b21aa38f62f4902c7248e1e06c4399f69f15874496f1502ee9aa6eae02196f",
+        "attempts-scraping-10.20.0.20-10978.jsonl": "d5791c7491866673ad2198d7c4800536719e3b8208162a9d79b6537ebc1dc5bf",
+        "attempts-scraping-10.20.0.21-10979.jsonl": "99478d839527f48f9a137bd8943fd6c8caff52b1c34d364f8d4f057c21c4faa7",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "manifest.json": "c5af715c6b53d3c120a69a1ef497ccea9506db9434622cf3d590826726f66e4c",
+        "usage.json": "ab2f7ed54cf5936a6e2571135514cd4bbf78697f4cf484450a3a2dc58ff5ea5c",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-10967.json": "659b4c391be7ccb26a8df7f5577482200ca5e8cd56c80f2d27a5945bcaf19585",
+        "worker-10.20.0.12-10968.json": "83f8e30af4be97bfaa2e202029f78f27cc13d81dd1267ab96454765ca63879a0",
+        "worker-10.20.0.13-10969.json": "615d52a4945597f907453868b16408a97d8a042070e5bf847a753f2f04eab9a1",
+        "worker-10.20.0.14-10970.json": "6e9fb60246f09edba83f4c13632aee0e381007acd95ebd751bff67773d199cea",
+        "worker-10.20.0.15-10971.json": "75b87da18f72c986084a1770ed30778c0204a5a8c76720a6ba58294c0b50c834",
+        "worker-10.20.0.16-10972.json": "d421b376e5b691d2d09013eaf665bf9597111ebae7d98e4ef20427619f7ea681",
+        "worker-10.20.0.17-10974.json": "680691072648aec734a80c6fbee8e2f59a6baf0a78b10e62e99ea3edb093db56",
+        "worker-10.20.0.18-10975.json": "08070e5507392856cfe2c013ca646152d06e3b7604cb51bb7367728bfed47615",
+        "worker-10.20.0.19-10977.json": "c2345473fa848e58eae62afc27de1084862115e1f683ec70c40f85413565cb0d",
+        "worker-10.20.0.20-10978.json": "2d05ce180145ab454e2adce505755a633bce20764e6ba5f54e7424c8578d772b",
+        "worker-10.20.0.21-10979.json": "50412817c17da5f0e518717dca10787fb32e3854c2479df3533689d449df4d15",
+        "worker-10.20.0.22-10980.json": "5a8252a4da7fbd5f4e7bb61545d79becd3a188c1f665ac01626fc76b5620af2a",
+        "worker-10.20.0.23-10981.json": "bbb0fb807dcf44c008a10923ced722f24fddb0d75c1fc1eee756dd422a4f2bd5",
+        "worker-10.20.0.24-10982.json": "d14880cb96ab19c2fb82f186ced3d778dd1992577baa1e07b99a7bb8f779467f",
+        "worker-10.20.0.25-10985.json": "aad67a9d4b01a23b23776da27ddad999d4caa27dac80da6b3777bbccc4720e63"
+      }
+    },
+    "wallet-mixed-c0-r3": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 3,
+          "fail": 9,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 12,
+          "asr": 0.25,
+          "known_valid_attempts": 3,
+          "known_valid_success": 3,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 225,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 225,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 3000
+        },
+        "dow": {
+          "success": 60,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "attempts-benign-10.20.0.11-11073.jsonl": "5a0c92c2155de418dc98c2a6a6130827334accdb010905994d45261bf0be46a1",
+        "attempts-benign-10.20.0.12-11074.jsonl": "2376936dcf588fb2aa9f2a81f3717d4c4fce2d25ac39cd6fcc97cf0dc67cae06",
+        "attempts-benign-10.20.0.13-11075.jsonl": "6ca4be3748e8b3162e416b4baf9fdba512dc94182a59e934b87c2a00cac8c043",
+        "attempts-benign-10.20.0.14-11076.jsonl": "f20abe70a27a31666bd5179b1686b24c52a1096d316993dacd80c0be941eb9cc",
+        "attempts-benign-10.20.0.15-11077.jsonl": "915ae5243cb28f53d54fe4699af4522feb19a58b82f14b113be472abed7aa14e",
+        "attempts-credential_stuffing-10.20.0.16-11078.jsonl": "722698a7f984c507c7dd7cd2c6b62cb71e83f9c3527ca70377e41d503d7a7a68",
+        "attempts-credential_stuffing-10.20.0.17-11079.jsonl": "1d6b86e480ce2d8927264b7f6aa64052bd81a89d795fd797cb4dbdaf9ed1cc9e",
+        "attempts-credential_stuffing-10.20.0.18-11081.jsonl": "15d58bb47972cc8a5fe9fed8480c7bf6fe320c0d315e77fdbd115b8dbbaeafe1",
+        "attempts-dow-10.20.0.22-11089.jsonl": "6e08912a6d851810a447d27a41f6e93c03e091a7f1adf8de6c88fa704246f583",
+        "attempts-dow-10.20.0.23-11090.jsonl": "ee1667bf3c7562b611bb508c3e048c6b841e39fb311f8a990865def4d8452e20",
+        "attempts-dow-10.20.0.24-11092.jsonl": "2d6db8ed8de20f33a6db98735cd37807caa41b20d9fcc5d24de1b44054eff94e",
+        "attempts-dow-10.20.0.25-11093.jsonl": "840f8ff9acfe2681562fc7da6244c966870fb95f60597f12893e7a56e0eb84e4",
+        "attempts-scraping-10.20.0.19-11082.jsonl": "a14de652f2eeaa3606b1c77855b12e023d43bbf25baa8a960538de0fe114968a",
+        "attempts-scraping-10.20.0.20-11083.jsonl": "74296843e3726901ed27d877475d29c93c51bb302365e37e6cab50d7f07dd384",
+        "attempts-scraping-10.20.0.21-11085.jsonl": "95e5b32da86df78cfca70b4a8845e71df165285cb0725679b66facfece58d8ef",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "manifest.json": "8037f997afd724f0a728530208f3b871f5fa6d5c4d35d827c22bf04d2e0c9b20",
+        "usage.json": "ab2f7ed54cf5936a6e2571135514cd4bbf78697f4cf484450a3a2dc58ff5ea5c",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "wallet_bucket.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "worker-10.20.0.11-11073.json": "fcf63445ef30723658c58328e8d1447ed686a4292e48b2db873588072b4f13f6",
+        "worker-10.20.0.12-11074.json": "1b69ba729fa2a72f93ba3d1438f9e8d81cd81af85e5156c6ea4b17354e100118",
+        "worker-10.20.0.13-11075.json": "9a8732a19e151d0c0855d2b38d6e879f81a75c2aaa5396965c5d2dc00bc2a636",
+        "worker-10.20.0.14-11076.json": "02b42f0e63d79be516ae3d0202261e2d2acc9f7a5635fd3b77fd08db5c6a2657",
+        "worker-10.20.0.15-11077.json": "75c728b9ea9f3c584754594e268d51c9e40e5ffad30acbaf1103f75bea9cbfe8",
+        "worker-10.20.0.16-11078.json": "c3cd93d4b7e1f3d0c0fa9844398703e637184fc5c22b72315cb4de6451503526",
+        "worker-10.20.0.17-11079.json": "a374ef008cf95cfbb0dc8e06a84b78b5b8fc8caaa554bd44241005d7558c8ccd",
+        "worker-10.20.0.18-11081.json": "c403bd353c7e021aaf16f6a603d404fe5714b512fffcf49b95ec20bea1f8c655",
+        "worker-10.20.0.19-11082.json": "14b54f4daffabb6b4b8b12caeedeb3723dae61106bc4fef8e645a53d14d33a4a",
+        "worker-10.20.0.20-11083.json": "74edb545af962dcb4b6a0d443f6420acb993841cbc90a52b63f9311726bc13bf",
+        "worker-10.20.0.21-11085.json": "8d7d37b7151b82dbec2bf7cade5e9d564d3ba6bc8cc8306bda67014f3619188a",
+        "worker-10.20.0.22-11089.json": "3046230376f5a0540700af061d4ffaaa3af3b36e6ee4394bbdbec1ba1051c025",
+        "worker-10.20.0.23-11090.json": "0c7894f32f6482579d5eff219375c5b76ce8993eb2bb47ccc7be4436a3fcb00e",
+        "worker-10.20.0.24-11092.json": "8ed9a64843bd8e0b85bfa751b8b725572ba05957b63cd338b7e9fe7dfe9d0039",
+        "worker-10.20.0.25-11093.json": "af8b94c2e21a3c79716de47a973ed7575431117832aa8dd18d075a2f2f22ebe6"
+      }
+    },
+    "wallet-mixed-c2-r3": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 3,
+          "fail": 9,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 12,
+          "asr": 0.25,
+          "known_valid_attempts": 3,
+          "known_valid_success": 3,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 225,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 225,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 3000
+        },
+        "dow": {
+          "success": 45,
+          "fail": 0,
+          "blocked": 15,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 0.75,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "6c70200e3a996c608a65a3dff43904f3f2e7d36af5de9dda3add1701a6596bd1",
+        "attempts-benign-10.20.0.11-11137.jsonl": "12b13c6c7ca13152b711fd6668277bf12970d4e4c02e0afbae033e4300a36dcd",
+        "attempts-benign-10.20.0.12-11138.jsonl": "48ef9cc3aa7c6f99451e6c4f6a15f113ef5249ded58b79c85884302c075ef149",
+        "attempts-benign-10.20.0.13-11139.jsonl": "1b1a12e0e385b0feabc73ff31ca5ff9a72ffa9512266ecb5f8fd8509a5330311",
+        "attempts-benign-10.20.0.14-11140.jsonl": "12d9ef0466ec8cae162f988581184686c4b2fb619d6e15764727caee530484c5",
+        "attempts-benign-10.20.0.15-11141.jsonl": "0f2858c21af591cfaba6fdf8ee2ed0ac0cdad2848e30231b39d938b2be7290b7",
+        "attempts-credential_stuffing-10.20.0.16-11142.jsonl": "e96392f318b518cdf7073cc4df2d052dcb7487f3b59f15fc6c0ae43fa408d00e",
+        "attempts-credential_stuffing-10.20.0.17-11143.jsonl": "11c2afb2611d87a27ac8bbbbfafa775cc977d372d10d3e1e8932093a3ea5e55d",
+        "attempts-credential_stuffing-10.20.0.18-11144.jsonl": "fddfc3a71c72bb7f1814ea90cfd791acf9044fcbf52c2eb8e1948fcf1056dfd4",
+        "attempts-dow-10.20.0.22-11153.jsonl": "37f08e50854c870611e1dae70bab8855c2328b7a1fe9354337688e85368e05c9",
+        "attempts-dow-10.20.0.23-11155.jsonl": "7cc0fa6932b170e1d097001f3d4caa88568633819ade1a6cf735c8cf03fdcb36",
+        "attempts-dow-10.20.0.24-11156.jsonl": "6767638fd35266c7c2f11a5d0b37ac7595c8630ad4f6dc15a54d51727ace4134",
+        "attempts-dow-10.20.0.25-11158.jsonl": "68081b8d344ec0ccc935b4a7ada9861b49ee97eb4cfafad05cc5839ad5a1633b",
+        "attempts-scraping-10.20.0.19-11145.jsonl": "285f7a970e192b1a87f4854ddea6d753f8c2d389e8644d12e45e5be34b9ab9d4",
+        "attempts-scraping-10.20.0.20-11148.jsonl": "9698752f5586dda007224fa091388072d719431e4368e5dd3784df64f7812c12",
+        "attempts-scraping-10.20.0.21-11149.jsonl": "4ff906534b4ca1c4b6296b2a22033a264e78c6f0665cdb2c794102b2ac4f344d",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "df39d9efdd62a7c3bebdc379765ef8a7d54489cb2d7ef02f0ae3f812cb17f691",
+        "manifest.json": "0e2d334fff75e3d6c3479cd12f88bc2b6a40a06447b02dd8c7675c86a849c65e",
+        "usage.json": "a803007e7a1dfd2ba06c86e72afcf887bfe92c36b808c00549c233a11ad72aff",
+        "wallet_audit.jsonl": "33353260e17f6a6596307fbdceb13559ff8c2b6f431039d95c430811b0dd212e",
+        "wallet_bucket.json": "d1f54aeef3779624e13d3a399e9114b2c301f094127fca73f4e2b2546eee57d5",
+        "worker-10.20.0.11-11137.json": "61e34f5133ddaa800ddcc58f29f08359ed09bfa6e278c8b2efc23a79513ed30e",
+        "worker-10.20.0.12-11138.json": "067993422287df9494d55793eb68fe99ca1cf4ab048ef918637967fac346f8ff",
+        "worker-10.20.0.13-11139.json": "c413972185ce8517a765c99d11f23f48b702c981558b6453ae52fccea56320e2",
+        "worker-10.20.0.14-11140.json": "abd8c994e3fce88c896ce1f83dfbeb7948a78dc690933d212eb45e902c13a78a",
+        "worker-10.20.0.15-11141.json": "b33df8909a15c284b544078a8738672b4d25a476cedefc175bc1695a7818956a",
+        "worker-10.20.0.16-11142.json": "e0c206d809f4972ba73b24f8cea04d7d6bfa6f25959df785dae4feaff421a5d1",
+        "worker-10.20.0.17-11143.json": "97f570735f8cc3c2b2375132b8d12d83855f72a4bd462cfcd749f22c311c4765",
+        "worker-10.20.0.18-11144.json": "69d8c9976146cab586c3eddb1989f3c6615fbc8d87f6637013af7b2d8745dc7b",
+        "worker-10.20.0.19-11145.json": "f4b70939eba3ae9527c9c3c8a1013218f669a6376984c447226dfd83a0d4cac2",
+        "worker-10.20.0.20-11148.json": "c0485e194ac39cf500c2bbde064d9c07991fa2f6ac1a76198f8a9dba6457e525",
+        "worker-10.20.0.21-11149.json": "8a19ee7fd5621750662368c66d6015d014633d8cab146bb3ee3613cdfabd45b4",
+        "worker-10.20.0.22-11153.json": "4df189a0b937b41b2d45f3430f35b6897878fc33a1020d0a852a7688750a9faa",
+        "worker-10.20.0.23-11155.json": "13fd05aa9fbef3d6c1f4ddb59e4fdde3ca4785c5f470e174fa06a3cef940b595",
+        "worker-10.20.0.24-11156.json": "e57ca09d328d6401c53c4f6580916760f4399cc942ed7d19638bf7015d846982",
+        "worker-10.20.0.25-11158.json": "fc2e8d3ed214fb536ff692dbf29cc30d07bb383343713a90d26c42cb370c9cbe"
+      }
+    },
+    "wallet-mixed-c3-r3": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 3,
+          "fail": 9,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 12,
+          "asr": 0.25,
+          "known_valid_attempts": 3,
+          "known_valid_success": 3,
+          "unique_products": 0
+        },
+        "scraping": {
+          "success": 225,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 225,
+          "asr": 1.0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 3000
+        },
+        "dow": {
+          "success": 45,
+          "fail": 0,
+          "blocked": 15,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 60,
+          "asr": 0.75,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "unique_products": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "bda33418dd44fe43ff5e0755cdc544e94ad81da6415c99c0ba7964b9eb791bb8",
+        "attempts-benign-10.20.0.11-11213.jsonl": "f99daf5c16c2662ba18b8ab1c5b15a6ba51c3e3a5842dc04ae771804ef9cc295",
+        "attempts-benign-10.20.0.12-11214.jsonl": "268a805f05784462ed2751980bb988986b2592d19c022ac19a3f6edcde11a6e6",
+        "attempts-benign-10.20.0.13-11215.jsonl": "dce0a25b485590da2a85f6483df0e6c4f1c475543631124513153666a39f377a",
+        "attempts-benign-10.20.0.14-11216.jsonl": "ba2b294e9adf7865c5a556689bb7833b318d46846faf3ab62bf4cef026c8e4fb",
+        "attempts-benign-10.20.0.15-11217.jsonl": "ff7a8d46f66c07500cbc4258cddaba0d6f6ff6711231f26bb5d0f2d03b68954d",
+        "attempts-credential_stuffing-10.20.0.16-11218.jsonl": "cc670b447f80f67e310aae2ac4c3adb3afc40e66c35389c6412e0b9aa7f0c5e0",
+        "attempts-credential_stuffing-10.20.0.17-11219.jsonl": "433b836c6c62309bef03c1088bb2b3cecfd9f1b7f8802f1f4d50d9ddf9967259",
+        "attempts-credential_stuffing-10.20.0.18-11220.jsonl": "27c40cbae1be76331c630bb582abcee72cb385b9e9d485d40e17a66f3a872d5b",
+        "attempts-dow-10.20.0.22-11232.jsonl": "6cbfe7bdb7bcd882df2050ea37fdbbeb23df5eeda398ff1f71fcacaf53001951",
+        "attempts-dow-10.20.0.23-11234.jsonl": "ded447a2ddfe917f7ba79a1628e3f6cc62353302320b22fa186cb07546416b9b",
+        "attempts-dow-10.20.0.24-11235.jsonl": "ed41300792096552e2c0f22d0bb8a566fa5bba028fac3b427aa66078a397dab6",
+        "attempts-dow-10.20.0.25-11236.jsonl": "0788787fee27b6028b386857f3921a79b216971c6dd480a657a50bf6f06c5cda",
+        "attempts-scraping-10.20.0.19-11221.jsonl": "49d1c1d7f6dfc531f08aadd922792638c67435643bddb6057b7b47aaaa9c3825",
+        "attempts-scraping-10.20.0.20-11222.jsonl": "1597679ed5b12afa3ed9c06153c5a51840dbe5f5450399948684ad2db4c38f59",
+        "attempts-scraping-10.20.0.21-11231.jsonl": "0db9424e424f11369f31bb40f42e38c7095c926a4705572f183451ac0e9198cb",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "becd008ab2505e06a2b3b80af64a70aaf60a91e63b071c7f5b0b422901b8e162",
+        "manifest.json": "1f7f9bd2f7553138782fd9c4eaeaf1ebbea7976f3f6f58f57805e13a7a64c993",
+        "usage.json": "a803007e7a1dfd2ba06c86e72afcf887bfe92c36b808c00549c233a11ad72aff",
+        "wallet_audit.jsonl": "f264b76f2dad8440594d2f0d4be35c15f65c72d5cb7764a378b35b4746594e3c",
+        "wallet_bucket.json": "fd225a0119dc14b7f2124432790a0dcd3fdc7de55b0a7cff8d1caab6337ed604",
+        "worker-10.20.0.11-11213.json": "380dd5e1ea021f2a68acfeccf308ebae23ee0642b1f384e3d42e16bda5897d0a",
+        "worker-10.20.0.12-11214.json": "df9118d235ad07226d0e11e8b690365f179e499837a8903213d07c6ac7ee4614",
+        "worker-10.20.0.13-11215.json": "5b3f19d2faccd0e63d9833acd7cf58e8c33d5596823fc38d82c5e76d52e334eb",
+        "worker-10.20.0.14-11216.json": "0fab2f1b1166f90a2b9fe86a61c318d0bc49ca0b422ba953afef2ce5f7d10c2f",
+        "worker-10.20.0.15-11217.json": "2fecba8dcc1faf123b61448ae2e40645c9d79fd42a4a5f2382e0fce74fa1097a",
+        "worker-10.20.0.16-11218.json": "c70d9c35a69acd48745a698d1b42b83560cbcf4de810a5368131cb18a3addde6",
+        "worker-10.20.0.17-11219.json": "37303572c49bb5e84a08259ba60d52f74776f0bf18d43d0843219a9d920099d4",
+        "worker-10.20.0.18-11220.json": "6f22765b360fc120de3e9e8c8188aec2d2f2e29b1cbc806667c32d3a37e011a8",
+        "worker-10.20.0.19-11221.json": "4564a57ff70360c3819a4344886fcd8f6bb17e2a2bd692c2e717649ceb29df44",
+        "worker-10.20.0.20-11222.json": "0a15e8cab048a84dea7a7ae3752dbaab8dd72e2e15a66ae0bff34ae3603cc6eb",
+        "worker-10.20.0.21-11231.json": "79d28edf650c424297a62994664c793e98126f39e824caf9f2293324f9eed202",
+        "worker-10.20.0.22-11232.json": "a12713974f3acbfab39dc6eacc120a915552af391c27fbbe038fa5c8b0794b52",
+        "worker-10.20.0.23-11234.json": "ab803c3e942add0add968fe5b8ea2d28f0a2ec6bb3a68f431c3b173aa9c32263",
+        "worker-10.20.0.24-11235.json": "bfceaa49ae884e8aff530227b532f5cfc244be79a680dbf107c97c118ad50f7d",
+        "worker-10.20.0.25-11236.json": "1267930be19a930129a3a8802b125aa6a8859a7ef8c2ae50ad8b12066642d45d"
+      }
+    }
+  },
+  "model_sha256": "1eb84211004b6abe42cd2b8ec03e4b06b8504884ad0a8b9c1ca81ce2f55829e3",
+  "validator_sha256": "84788b35fe42cf15a076203ebb39960ae927c34ab9c0c2911f221ae0e524b6aa",
+  "kernel_integrated": false,
+  "deployed": false
+}

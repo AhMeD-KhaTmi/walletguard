@@ -130,3 +130,39 @@ and management allowlist. Keep archived run artifacts outside reset scope. A sch
 mismatch or missing required fields invalidates integration readiness. Future
 shared shape/unit/TTL changes require updates in both member plans, this file and
 the journal, plus a schema-version bump.
+
+## Account attribution and optional wallet allowance — private state
+
+B's qualified default uses `WAF_ACCOUNT_PRESSURE_BANS=0` to keep account quota
+throttles from adding IP budget strikes/corroboration. Existing IP/honeypot bans
+and existing Redis bans are still honored. `WAF_WALLET_CAPACITY` plus
+`WAF_WALLET_REFILL_PER_S` enable a single service-wide token bucket on authenticated
+chat, using the same whole-task token units and atomic Lua/outage backend. Both
+are zero to disable. They are policy variants of C2/C3, not new configurations.
+Wallet defaults stay zero after the mixed benign comfort gate failed; the frozen
+40,000/5,700-token/s experimental policy remains explicit opt-in. Legacy account
+escalation is replayable with account pressure1 and wallet0/0. See the fresh
+component results in `../docs/ACCOUNT_WALLET_REMEDY_RESULTS.md`.
+
+- `p20:bkt:wallet:global`: private B token bucket, same hash shape/idle-expiry math
+  as other buckets. Observe uses `p20:shadow:bkt:wallet:global` exclusively.
+- `p20:app:wallet_audit`: private B stream, reset with other app state, bounded to
+  200,000 approximate entries. Fields: run_id, request_id, ts_ms, ip, mode, reason,
+  reserved/refunded/charged token counts, uncertain flag, capacity/refill_per_s.
+  This is diagnostic private state, not a kernel input or shared decision schema.
+  During outage records fall back to the existing bounded process-local evidence.
+- `wallet_tok` is a request denial reason (429/Retry-After), never a ban reason.
+  `wallet_task_exceeds_capacity` is permanent policy rejection400, with any
+  earlier account reservation refunded. Shared reasons/keys/fields/TTLs and schema2
+  are unchanged. A should archive B's supplied wallet audit for measured replays.
+
+This controls aggregate burst/sustained token consumption, not an absolute
+period/daily/monthly monetary cap. For one worker, conservative local fallback and
+recovery apply. Unknown outage history starts without a new burst; no refund is
+made for uncertain generation. Existing per-account quota and reservation remain.
+
+Current IP-attributable strikes use private `p20:strike:ip_budget:<ip>` (and
+shadow equivalent), with the existing strike value/expiry semantics. This isolates
+legacy broad `budget` strikes after rollout without deleting old state. Existing
+p20:ban keys remain authoritative and are not reclassified or removed. Shared ban
+reason remains `budget`; A's consumers need no new ban-reason handling.
