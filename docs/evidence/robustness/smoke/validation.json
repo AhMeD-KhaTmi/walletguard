@@ -1,0 +1,2386 @@
+{
+  "kind": "fixed_policy_robustness_smoke",
+  "runs": 15,
+  "triplets": 5,
+  "source_revision": "39040482748d717d11c7852b455abbac4fb74c40",
+  "model_sha256": "1eb84211004b6abe42cd2b8ec03e4b06b8504884ad0a8b9c1ca81ce2f55829e3",
+  "summary": {
+    "slow_mixed": {
+      "C0": {
+        "benign_attempts": 170,
+        "benign_policy_denials": 0,
+        "benign_bans": 0,
+        "benign_success": 170,
+        "benign_fail": 0,
+        "benign_error": 0,
+        "benign_timeout": 0,
+        "benign_unknown": 0,
+        "benign_setup_attempts": 5,
+        "benign_setup_unsuccessful": 0,
+        "comfort_passed": true,
+        "benign_model_scored": null,
+        "benign_model_flags": null,
+        "benign_model_flag_rate": null,
+        "metrics": {
+          "latency_p50_ms": {
+            "median": 4.9335,
+            "min": 4.9335,
+            "max": 4.9335
+          },
+          "latency_p95_ms": {
+            "median": 59.21535,
+            "min": 59.21535,
+            "max": 59.21535
+          },
+          "delta_p50_ms": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "delta_p95_ms": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "server_tokens_out": {
+            "median": 64800.0,
+            "min": 64800.0,
+            "max": 64800.0
+          },
+          "server_cost_usd": {
+            "median": 1.5224760000000004,
+            "min": 1.5224760000000004,
+            "max": 1.5224760000000004
+          },
+          "app_cpu_pct": {
+            "median": 8.44,
+            "min": 8.44,
+            "max": 8.44
+          }
+        },
+        "attacks": {
+          "credential_stuffing": {
+            "attempts": 18,
+            "success": 4,
+            "fail": 14,
+            "blocked": 0,
+            "error": 0,
+            "timeout": 0,
+            "unknown": 0,
+            "tokens_out": 0,
+            "model_scored": 0,
+            "model_flags": 0,
+            "asr": 0.2222222222222222,
+            "unique_products_per_run": {
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "scraping": {
+            "attempts": 162,
+            "success": 162,
+            "fail": 0,
+            "blocked": 0,
+            "error": 0,
+            "timeout": 0,
+            "unknown": 0,
+            "tokens_out": 0,
+            "model_scored": 0,
+            "model_flags": 0,
+            "asr": 1.0,
+            "unique_products_per_run": {
+              "median": 5000,
+              "min": 5000,
+              "max": 5000
+            }
+          },
+          "dow": {
+            "attempts": 6,
+            "success": 6,
+            "fail": 0,
+            "blocked": 0,
+            "error": 0,
+            "timeout": 0,
+            "unknown": 0,
+            "tokens_out": 43200,
+            "model_scored": 0,
+            "model_flags": 0,
+            "asr": 1.0,
+            "unique_products_per_run": {
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          }
+        }
+      },
+      "C2": {
+        "benign_attempts": 170,
+        "benign_policy_denials": 0,
+        "benign_bans": 0,
+        "benign_success": 170,
+        "benign_fail": 0,
+        "benign_error": 0,
+        "benign_timeout": 0,
+        "benign_unknown": 0,
+        "benign_setup_attempts": 5,
+        "benign_setup_unsuccessful": 0,
+        "comfort_passed": true,
+        "benign_model_scored": null,
+        "benign_model_flags": null,
+        "benign_model_flag_rate": null,
+        "metrics": {
+          "latency_p50_ms": {
+            "median": 9.4545,
+            "min": 9.4545,
+            "max": 9.4545
+          },
+          "latency_p95_ms": {
+            "median": 74.6112,
+            "min": 74.6112,
+            "max": 74.6112
+          },
+          "delta_p50_ms": {
+            "median": 4.520999999999999,
+            "min": 4.520999999999999,
+            "max": 4.520999999999999
+          },
+          "delta_p95_ms": {
+            "median": 15.395849999999996,
+            "min": 15.395849999999996,
+            "max": 15.395849999999996
+          },
+          "waf_overhead_p50_ms": {
+            "median": 6.886472000132926,
+            "min": 6.886472000132926,
+            "max": 6.886472000132926
+          },
+          "waf_overhead_p95_ms": {
+            "median": 22.81882699980997,
+            "min": 22.81882699980997,
+            "max": 22.81882699980997
+          },
+          "server_tokens_out": {
+            "median": 28800.0,
+            "min": 28800.0,
+            "max": 28800.0
+          },
+          "server_cost_usd": {
+            "median": 0.5862960000000016,
+            "min": 0.5862960000000016,
+            "max": 0.5862960000000016
+          },
+          "app_cpu_pct": {
+            "median": 10.79,
+            "min": 10.79,
+            "max": 10.79
+          }
+        },
+        "attacks": {
+          "credential_stuffing": {
+            "attempts": 18,
+            "success": 3,
+            "fail": 12,
+            "blocked": 3,
+            "error": 0,
+            "timeout": 0,
+            "unknown": 0,
+            "tokens_out": 0,
+            "model_scored": 0,
+            "model_flags": 0,
+            "asr": 0.16666666666666666,
+            "unique_products_per_run": {
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "scraping": {
+            "attempts": 162,
+            "success": 132,
+            "fail": 0,
+            "blocked": 30,
+            "error": 0,
+            "timeout": 0,
+            "unknown": 0,
+            "tokens_out": 0,
+            "model_scored": 0,
+            "model_flags": 0,
+            "asr": 0.8148148148148148,
+            "unique_products_per_run": {
+              "median": 5000,
+              "min": 5000,
+              "max": 5000
+            }
+          },
+          "dow": {
+            "attempts": 6,
+            "success": 1,
+            "fail": 0,
+            "blocked": 5,
+            "error": 0,
+            "timeout": 0,
+            "unknown": 0,
+            "tokens_out": 7200,
+            "model_scored": 0,
+            "model_flags": 0,
+            "asr": 0.16666666666666666,
+            "unique_products_per_run": {
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          }
+        }
+      },
+      "C3": {
+        "benign_attempts": 170,
+        "benign_policy_denials": 0,
+        "benign_bans": 0,
+        "benign_success": 170,
+        "benign_fail": 0,
+        "benign_error": 0,
+        "benign_timeout": 0,
+        "benign_unknown": 0,
+        "benign_setup_attempts": 5,
+        "benign_setup_unsuccessful": 0,
+        "comfort_passed": true,
+        "benign_model_scored": 170,
+        "benign_model_flags": 110,
+        "benign_model_flag_rate": 0.6470588235294118,
+        "metrics": {
+          "latency_p50_ms": {
+            "median": 27.2105,
+            "min": 27.2105,
+            "max": 27.2105
+          },
+          "latency_p95_ms": {
+            "median": 91.36844999999998,
+            "min": 91.36844999999998,
+            "max": 91.36844999999998
+          },
+          "delta_p50_ms": {
+            "median": 22.277,
+            "min": 22.277,
+            "max": 22.277
+          },
+          "delta_p95_ms": {
+            "median": 32.15309999999998,
+            "min": 32.15309999999998,
+            "max": 32.15309999999998
+          },
+          "waf_overhead_p50_ms": {
+            "median": 20.42548750023343,
+            "min": 20.42548750023343,
+            "max": 20.42548750023343
+          },
+          "waf_overhead_p95_ms": {
+            "median": 42.13411449927662,
+            "min": 42.13411449927662,
+            "max": 42.13411449927662
+          },
+          "scoring_p95_ms": {
+            "median": 23.964821249592205,
+            "min": 23.964821249592205,
+            "max": 23.964821249592205
+          },
+          "server_tokens_out": {
+            "median": 28800.0,
+            "min": 28800.0,
+            "max": 28800.0
+          },
+          "server_cost_usd": {
+            "median": 0.5862960000000017,
+            "min": 0.5862960000000017,
+            "max": 0.5862960000000017
+          },
+          "app_cpu_pct": {
+            "median": 20.88,
+            "min": 20.88,
+            "max": 20.88
+          }
+        },
+        "attacks": {
+          "credential_stuffing": {
+            "attempts": 18,
+            "success": 3,
+            "fail": 12,
+            "blocked": 3,
+            "error": 0,
+            "timeout": 0,
+            "unknown": 0,
+            "tokens_out": 0,
+            "model_scored": 18,
+            "model_flags": 0,
+            "asr": 0.16666666666666666,
+            "unique_products_per_run": {
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "scraping": {
+            "attempts": 162,
+            "success": 126,
+            "fail": 0,
+            "blocked": 36,
+            "error": 0,
+            "timeout": 0,
+            "unknown": 0,
+            "tokens_out": 0,
+            "model_scored": 162,
+            "model_flags": 126,
+            "asr": 0.7777777777777778,
+            "unique_products_per_run": {
+              "median": 5000,
+              "min": 5000,
+              "max": 5000
+            }
+          },
+          "dow": {
+            "attempts": 6,
+            "success": 1,
+            "fail": 0,
+            "blocked": 5,
+            "error": 0,
+            "timeout": 0,
+            "unknown": 0,
+            "tokens_out": 7200,
+            "model_scored": 6,
+            "model_flags": 6,
+            "asr": 0.16666666666666666,
+            "unique_products_per_run": {
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          }
+        }
+      }
+    },
+    "distributed": {
+      "C0": {
+        "benign_attempts": 0,
+        "benign_policy_denials": 0,
+        "benign_bans": 0,
+        "benign_success": 0,
+        "benign_fail": 0,
+        "benign_error": 0,
+        "benign_timeout": 0,
+        "benign_unknown": 0,
+        "benign_setup_attempts": 0,
+        "benign_setup_unsuccessful": 0,
+        "comfort_passed": null,
+        "benign_model_scored": null,
+        "benign_model_flags": null,
+        "benign_model_flag_rate": null,
+        "metrics": {
+          "server_tokens_out": {
+            "median": 291600.0,
+            "min": 291600.0,
+            "max": 291600.0
+          },
+          "server_cost_usd": {
+            "median": 5.354747999999994,
+            "min": 5.354747999999994,
+            "max": 5.354747999999994
+          },
+          "app_cpu_pct": {
+            "median": 15.7,
+            "min": 15.7,
+            "max": 15.7
+          }
+        },
+        "attacks": {
+          "credential_stuffing": {
+            "attempts": 35,
+            "success": 8,
+            "fail": 27,
+            "blocked": 0,
+            "error": 0,
+            "timeout": 0,
+            "unknown": 0,
+            "tokens_out": 0,
+            "model_scored": 0,
+            "model_flags": 0,
+            "asr": 0.22857142857142856,
+            "unique_products_per_run": {
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "scraping": {
+            "attempts": 670,
+            "success": 670,
+            "fail": 0,
+            "blocked": 0,
+            "error": 0,
+            "timeout": 0,
+            "unknown": 0,
+            "tokens_out": 0,
+            "model_scored": 0,
+            "model_flags": 0,
+            "asr": 1.0,
+            "unique_products_per_run": {
+              "median": 5000,
+              "min": 5000,
+              "max": 5000
+            }
+          },
+          "dow": {
+            "attempts": 108,
+            "success": 108,
+            "fail": 0,
+            "blocked": 0,
+            "error": 0,
+            "timeout": 0,
+            "unknown": 0,
+            "tokens_out": 291600,
+            "model_scored": 0,
+            "model_flags": 0,
+            "asr": 1.0,
+            "unique_products_per_run": {
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          }
+        }
+      },
+      "C2": {
+        "benign_attempts": 0,
+        "benign_policy_denials": 0,
+        "benign_bans": 0,
+        "benign_success": 0,
+        "benign_fail": 0,
+        "benign_error": 0,
+        "benign_timeout": 0,
+        "benign_unknown": 0,
+        "benign_setup_attempts": 0,
+        "benign_setup_unsuccessful": 0,
+        "comfort_passed": null,
+        "benign_model_scored": null,
+        "benign_model_flags": null,
+        "benign_model_flag_rate": null,
+        "metrics": {
+          "waf_overhead_p50_ms": {
+            "median": 6.303846000264457,
+            "min": 6.303846000264457,
+            "max": 6.303846000264457
+          },
+          "waf_overhead_p95_ms": {
+            "median": 16.772825799671406,
+            "min": 16.772825799671406,
+            "max": 16.772825799671406
+          },
+          "server_tokens_out": {
+            "median": 86400.0,
+            "min": 86400.0,
+            "max": 86400.0
+          },
+          "server_cost_usd": {
+            "median": 1.586592000000001,
+            "min": 1.586592000000001,
+            "max": 1.586592000000001
+          },
+          "app_cpu_pct": {
+            "median": 13.18,
+            "min": 13.18,
+            "max": 13.18
+          }
+        },
+        "attacks": {
+          "credential_stuffing": {
+            "attempts": 35,
+            "success": 7,
+            "fail": 18,
+            "blocked": 10,
+            "error": 0,
+            "timeout": 0,
+            "unknown": 0,
+            "tokens_out": 0,
+            "model_scored": 0,
+            "model_flags": 0,
+            "asr": 0.2,
+            "unique_products_per_run": {
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "scraping": {
+            "attempts": 670,
+            "success": 170,
+            "fail": 0,
+            "blocked": 500,
+            "error": 0,
+            "timeout": 0,
+            "unknown": 0,
+            "tokens_out": 0,
+            "model_scored": 0,
+            "model_flags": 0,
+            "asr": 0.2537313432835821,
+            "unique_products_per_run": {
+              "median": 5000,
+              "min": 5000,
+              "max": 5000
+            }
+          },
+          "dow": {
+            "attempts": 108,
+            "success": 32,
+            "fail": 0,
+            "blocked": 76,
+            "error": 0,
+            "timeout": 0,
+            "unknown": 0,
+            "tokens_out": 86400,
+            "model_scored": 0,
+            "model_flags": 0,
+            "asr": 0.2962962962962963,
+            "unique_products_per_run": {
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          }
+        }
+      },
+      "C3": {
+        "benign_attempts": 0,
+        "benign_policy_denials": 0,
+        "benign_bans": 0,
+        "benign_success": 0,
+        "benign_fail": 0,
+        "benign_error": 0,
+        "benign_timeout": 0,
+        "benign_unknown": 0,
+        "benign_setup_attempts": 0,
+        "benign_setup_unsuccessful": 0,
+        "comfort_passed": null,
+        "benign_model_scored": 0,
+        "benign_model_flags": 0,
+        "benign_model_flag_rate": null,
+        "metrics": {
+          "waf_overhead_p50_ms": {
+            "median": 20.371554999655928,
+            "min": 20.371554999655928,
+            "max": 20.371554999655928
+          },
+          "waf_overhead_p95_ms": {
+            "median": 45.536917000026726,
+            "min": 45.536917000026726,
+            "max": 45.536917000026726
+          },
+          "scoring_p95_ms": {
+            "median": 24.3427324003278,
+            "min": 24.3427324003278,
+            "max": 24.3427324003278
+          },
+          "server_tokens_out": {
+            "median": 75600.0,
+            "min": 75600.0,
+            "max": 75600.0
+          },
+          "server_cost_usd": {
+            "median": 1.3882680000000005,
+            "min": 1.3882680000000005,
+            "max": 1.3882680000000005
+          },
+          "app_cpu_pct": {
+            "median": 35.19,
+            "min": 35.19,
+            "max": 35.19
+          }
+        },
+        "attacks": {
+          "credential_stuffing": {
+            "attempts": 35,
+            "success": 7,
+            "fail": 18,
+            "blocked": 10,
+            "error": 0,
+            "timeout": 0,
+            "unknown": 0,
+            "tokens_out": 0,
+            "model_scored": 35,
+            "model_flags": 0,
+            "asr": 0.2,
+            "unique_products_per_run": {
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "scraping": {
+            "attempts": 670,
+            "success": 165,
+            "fail": 0,
+            "blocked": 505,
+            "error": 0,
+            "timeout": 0,
+            "unknown": 0,
+            "tokens_out": 0,
+            "model_scored": 670,
+            "model_flags": 610,
+            "asr": 0.2462686567164179,
+            "unique_products_per_run": {
+              "median": 5000,
+              "min": 5000,
+              "max": 5000
+            }
+          },
+          "dow": {
+            "attempts": 108,
+            "success": 28,
+            "fail": 0,
+            "blocked": 80,
+            "error": 0,
+            "timeout": 0,
+            "unknown": 0,
+            "tokens_out": 75600,
+            "model_scored": 108,
+            "model_flags": 108,
+            "asr": 0.25925925925925924,
+            "unique_products_per_run": {
+              "median": 0,
+              "min": 0,
+              "max": 0
+            }
+          }
+        }
+      }
+    },
+    "shared_account": {
+      "C0": {
+        "benign_attempts": 400,
+        "benign_policy_denials": 0,
+        "benign_bans": 0,
+        "benign_success": 400,
+        "benign_fail": 0,
+        "benign_error": 0,
+        "benign_timeout": 0,
+        "benign_unknown": 0,
+        "benign_setup_attempts": 5,
+        "benign_setup_unsuccessful": 0,
+        "comfort_passed": true,
+        "benign_model_scored": null,
+        "benign_model_flags": null,
+        "benign_model_flag_rate": null,
+        "metrics": {
+          "latency_p50_ms": {
+            "median": 20.2915,
+            "min": 20.2915,
+            "max": 20.2915
+          },
+          "latency_p95_ms": {
+            "median": 56.82024999999998,
+            "min": 56.82024999999998,
+            "max": 56.82024999999998
+          },
+          "delta_p50_ms": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "delta_p95_ms": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "server_tokens_out": {
+            "median": 72000.0,
+            "min": 72000.0,
+            "max": 72000.0
+          },
+          "server_cost_usd": {
+            "median": 1.330200000000004,
+            "min": 1.330200000000004,
+            "max": 1.330200000000004
+          },
+          "app_cpu_pct": {
+            "median": 14.87,
+            "min": 14.87,
+            "max": 14.87
+          }
+        },
+        "attacks": {}
+      },
+      "C2": {
+        "benign_attempts": 400,
+        "benign_policy_denials": 355,
+        "benign_bans": 5,
+        "benign_success": 45,
+        "benign_fail": 0,
+        "benign_error": 0,
+        "benign_timeout": 0,
+        "benign_unknown": 0,
+        "benign_setup_attempts": 5,
+        "benign_setup_unsuccessful": 0,
+        "comfort_passed": false,
+        "benign_model_scored": null,
+        "benign_model_flags": null,
+        "benign_model_flag_rate": null,
+        "metrics": {
+          "latency_p50_ms": {
+            "median": 8.893,
+            "min": 8.893,
+            "max": 8.893
+          },
+          "latency_p95_ms": {
+            "median": 55.4726,
+            "min": 55.4726,
+            "max": 55.4726
+          },
+          "delta_p50_ms": {
+            "median": -11.398499999999999,
+            "min": -11.398499999999999,
+            "max": -11.398499999999999
+          },
+          "delta_p95_ms": {
+            "median": -1.3476499999999803,
+            "min": -1.3476499999999803,
+            "max": -1.3476499999999803
+          },
+          "waf_overhead_p50_ms": {
+            "median": 6.2104434996399505,
+            "min": 6.2104434996399505,
+            "max": 6.2104434996399505
+          },
+          "waf_overhead_p95_ms": {
+            "median": 11.294091700119674,
+            "min": 11.294091700119674,
+            "max": 11.294091700119674
+          },
+          "server_tokens_out": {
+            "median": 3600.0,
+            "min": 3600.0,
+            "max": 3600.0
+          },
+          "server_cost_usd": {
+            "median": 0.06650999999999999,
+            "min": 0.06650999999999999,
+            "max": 0.06650999999999999
+          },
+          "app_cpu_pct": {
+            "median": 5.89,
+            "min": 5.89,
+            "max": 5.89
+          }
+        },
+        "attacks": {}
+      },
+      "C3": {
+        "benign_attempts": 400,
+        "benign_policy_denials": 355,
+        "benign_bans": 5,
+        "benign_success": 45,
+        "benign_fail": 0,
+        "benign_error": 0,
+        "benign_timeout": 0,
+        "benign_unknown": 0,
+        "benign_setup_attempts": 5,
+        "benign_setup_unsuccessful": 0,
+        "comfort_passed": false,
+        "benign_model_scored": 400,
+        "benign_model_flags": 340,
+        "benign_model_flag_rate": 0.85,
+        "metrics": {
+          "latency_p50_ms": {
+            "median": 20.47,
+            "min": 20.47,
+            "max": 20.47
+          },
+          "latency_p95_ms": {
+            "median": 66.15099999999997,
+            "min": 66.15099999999997,
+            "max": 66.15099999999997
+          },
+          "delta_p50_ms": {
+            "median": 0.17849999999999966,
+            "min": 0.17849999999999966,
+            "max": 0.17849999999999966
+          },
+          "delta_p95_ms": {
+            "median": 9.330749999999988,
+            "min": 9.330749999999988,
+            "max": 9.330749999999988
+          },
+          "waf_overhead_p50_ms": {
+            "median": 18.787818999953743,
+            "min": 18.787818999953743,
+            "max": 18.787818999953743
+          },
+          "waf_overhead_p95_ms": {
+            "median": 34.41896129961605,
+            "min": 34.41896129961605,
+            "max": 34.41896129961605
+          },
+          "scoring_p95_ms": {
+            "median": 21.277653649576667,
+            "min": 21.277653649576667,
+            "max": 21.277653649576667
+          },
+          "server_tokens_out": {
+            "median": 3600.0,
+            "min": 3600.0,
+            "max": 3600.0
+          },
+          "server_cost_usd": {
+            "median": 0.06650999999999999,
+            "min": 0.06650999999999999,
+            "max": 0.06650999999999999
+          },
+          "app_cpu_pct": {
+            "median": 18.65,
+            "min": 18.65,
+            "max": 18.65
+          }
+        },
+        "attacks": {}
+      }
+    },
+    "burst_within": {
+      "C0": {
+        "benign_attempts": 630,
+        "benign_policy_denials": 0,
+        "benign_bans": 0,
+        "benign_success": 630,
+        "benign_fail": 0,
+        "benign_error": 0,
+        "benign_timeout": 0,
+        "benign_unknown": 0,
+        "benign_setup_attempts": 10,
+        "benign_setup_unsuccessful": 0,
+        "comfort_passed": true,
+        "benign_model_scored": null,
+        "benign_model_flags": null,
+        "benign_model_flag_rate": null,
+        "metrics": {
+          "latency_p50_ms": {
+            "median": 5.186999999999999,
+            "min": 5.186999999999999,
+            "max": 5.186999999999999
+          },
+          "latency_p95_ms": {
+            "median": 29.452399999999997,
+            "min": 29.452399999999997,
+            "max": 29.452399999999997
+          },
+          "delta_p50_ms": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "delta_p95_ms": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "server_tokens_out": {
+            "median": 4480.0,
+            "min": 4480.0,
+            "max": 4480.0
+          },
+          "server_cost_usd": {
+            "median": 0.06929999999999997,
+            "min": 0.06929999999999997,
+            "max": 0.06929999999999997
+          },
+          "app_cpu_pct": {
+            "median": 5.55,
+            "min": 5.55,
+            "max": 5.55
+          }
+        },
+        "attacks": {}
+      },
+      "C2": {
+        "benign_attempts": 630,
+        "benign_policy_denials": 460,
+        "benign_bans": 5,
+        "benign_success": 170,
+        "benign_fail": 0,
+        "benign_error": 0,
+        "benign_timeout": 0,
+        "benign_unknown": 0,
+        "benign_setup_attempts": 10,
+        "benign_setup_unsuccessful": 0,
+        "comfort_passed": false,
+        "benign_model_scored": null,
+        "benign_model_flags": null,
+        "benign_model_flag_rate": null,
+        "metrics": {
+          "latency_p50_ms": {
+            "median": 13.585,
+            "min": 13.585,
+            "max": 13.585
+          },
+          "latency_p95_ms": {
+            "median": 34.647249999999964,
+            "min": 34.647249999999964,
+            "max": 34.647249999999964
+          },
+          "delta_p50_ms": {
+            "median": 8.398000000000001,
+            "min": 8.398000000000001,
+            "max": 8.398000000000001
+          },
+          "delta_p95_ms": {
+            "median": 5.194849999999967,
+            "min": 5.194849999999967,
+            "max": 5.194849999999967
+          },
+          "waf_overhead_p50_ms": {
+            "median": 10.758701000668225,
+            "min": 10.758701000668225,
+            "max": 10.758701000668225
+          },
+          "waf_overhead_p95_ms": {
+            "median": 16.558605100090055,
+            "min": 16.558605100090055,
+            "max": 16.558605100090055
+          },
+          "server_tokens_out": {
+            "median": 640.0,
+            "min": 640.0,
+            "max": 640.0
+          },
+          "server_cost_usd": {
+            "median": 0.009899999999999997,
+            "min": 0.009899999999999997,
+            "max": 0.009899999999999997
+          },
+          "app_cpu_pct": {
+            "median": 7.21,
+            "min": 7.21,
+            "max": 7.21
+          }
+        },
+        "attacks": {}
+      },
+      "C3": {
+        "benign_attempts": 630,
+        "benign_policy_denials": 465,
+        "benign_bans": 5,
+        "benign_success": 165,
+        "benign_fail": 0,
+        "benign_error": 0,
+        "benign_timeout": 0,
+        "benign_unknown": 0,
+        "benign_setup_attempts": 10,
+        "benign_setup_unsuccessful": 0,
+        "comfort_passed": false,
+        "benign_model_scored": 630,
+        "benign_model_flags": 567,
+        "benign_model_flag_rate": 0.9,
+        "metrics": {
+          "latency_p50_ms": {
+            "median": 58.534,
+            "min": 58.534,
+            "max": 58.534
+          },
+          "latency_p95_ms": {
+            "median": 94.43119999999998,
+            "min": 94.43119999999998,
+            "max": 94.43119999999998
+          },
+          "delta_p50_ms": {
+            "median": 53.347,
+            "min": 53.347,
+            "max": 53.347
+          },
+          "delta_p95_ms": {
+            "median": 64.97879999999998,
+            "min": 64.97879999999998,
+            "max": 64.97879999999998
+          },
+          "waf_overhead_p50_ms": {
+            "median": 41.18604850009433,
+            "min": 41.18604850009433,
+            "max": 41.18604850009433
+          },
+          "waf_overhead_p95_ms": {
+            "median": 77.34375334962351,
+            "min": 77.34375334962351,
+            "max": 77.34375334962351
+          },
+          "scoring_p95_ms": {
+            "median": 39.436950000117555,
+            "min": 39.436950000117555,
+            "max": 39.436950000117555
+          },
+          "server_tokens_out": {
+            "median": 640.0,
+            "min": 640.0,
+            "max": 640.0
+          },
+          "server_cost_usd": {
+            "median": 0.009899999999999997,
+            "min": 0.009899999999999997,
+            "max": 0.009899999999999997
+          },
+          "app_cpu_pct": {
+            "median": 28.07,
+            "min": 28.07,
+            "max": 28.07
+          }
+        },
+        "attacks": {}
+      }
+    },
+    "burst_above": {
+      "C0": {
+        "benign_attempts": 840,
+        "benign_policy_denials": 0,
+        "benign_bans": 0,
+        "benign_success": 840,
+        "benign_fail": 0,
+        "benign_error": 0,
+        "benign_timeout": 0,
+        "benign_unknown": 0,
+        "benign_setup_attempts": 10,
+        "benign_setup_unsuccessful": 0,
+        "comfort_passed": true,
+        "benign_model_scored": null,
+        "benign_model_flags": null,
+        "benign_model_flag_rate": null,
+        "metrics": {
+          "latency_p50_ms": {
+            "median": 4.6835,
+            "min": 4.6835,
+            "max": 4.6835
+          },
+          "latency_p95_ms": {
+            "median": 11.814699999999993,
+            "min": 11.814699999999993,
+            "max": 11.814699999999993
+          },
+          "delta_p50_ms": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "delta_p95_ms": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "server_tokens_out": {
+            "median": 2560.0,
+            "min": 2560.0,
+            "max": 2560.0
+          },
+          "server_cost_usd": {
+            "median": 0.039599999999999996,
+            "min": 0.039599999999999996,
+            "max": 0.039599999999999996
+          },
+          "app_cpu_pct": {
+            "median": 6.21,
+            "min": 6.21,
+            "max": 6.21
+          }
+        },
+        "attacks": {}
+      },
+      "C2": {
+        "benign_attempts": 840,
+        "benign_policy_denials": 690,
+        "benign_bans": 5,
+        "benign_success": 150,
+        "benign_fail": 0,
+        "benign_error": 0,
+        "benign_timeout": 0,
+        "benign_unknown": 0,
+        "benign_setup_attempts": 10,
+        "benign_setup_unsuccessful": 0,
+        "comfort_passed": false,
+        "benign_model_scored": null,
+        "benign_model_flags": null,
+        "benign_model_flag_rate": null,
+        "metrics": {
+          "latency_p50_ms": {
+            "median": 12.171,
+            "min": 12.171,
+            "max": 12.171
+          },
+          "latency_p95_ms": {
+            "median": 14.585549999999996,
+            "min": 14.585549999999996,
+            "max": 14.585549999999996
+          },
+          "delta_p50_ms": {
+            "median": 7.487499999999999,
+            "min": 7.487499999999999,
+            "max": 7.487499999999999
+          },
+          "delta_p95_ms": {
+            "median": 2.770850000000003,
+            "min": 2.770850000000003,
+            "max": 2.770850000000003
+          },
+          "waf_overhead_p50_ms": {
+            "median": 10.722831999828486,
+            "min": 10.722831999828486,
+            "max": 10.722831999828486
+          },
+          "waf_overhead_p95_ms": {
+            "median": 15.327116749904235,
+            "min": 15.327116749904235,
+            "max": 15.327116749904235
+          },
+          "server_tokens_out": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "server_cost_usd": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "app_cpu_pct": {
+            "median": 8.32,
+            "min": 8.32,
+            "max": 8.32
+          }
+        },
+        "attacks": {}
+      },
+      "C3": {
+        "benign_attempts": 840,
+        "benign_policy_denials": 685,
+        "benign_bans": 5,
+        "benign_success": 155,
+        "benign_fail": 0,
+        "benign_error": 0,
+        "benign_timeout": 0,
+        "benign_unknown": 0,
+        "benign_setup_attempts": 10,
+        "benign_setup_unsuccessful": 0,
+        "comfort_passed": false,
+        "benign_model_scored": 840,
+        "benign_model_flags": 777,
+        "benign_model_flag_rate": 0.925,
+        "metrics": {
+          "latency_p50_ms": {
+            "median": 49.146,
+            "min": 49.146,
+            "max": 49.146
+          },
+          "latency_p95_ms": {
+            "median": 66.86049999999999,
+            "min": 66.86049999999999,
+            "max": 66.86049999999999
+          },
+          "delta_p50_ms": {
+            "median": 44.4625,
+            "min": 44.4625,
+            "max": 44.4625
+          },
+          "delta_p95_ms": {
+            "median": 55.04579999999999,
+            "min": 55.04579999999999,
+            "max": 55.04579999999999
+          },
+          "waf_overhead_p50_ms": {
+            "median": 40.422971000225516,
+            "min": 40.422971000225516,
+            "max": 40.422971000225516
+          },
+          "waf_overhead_p95_ms": {
+            "median": 61.79040010015342,
+            "min": 61.79040010015342,
+            "max": 61.79040010015342
+          },
+          "scoring_p95_ms": {
+            "median": 33.70735365019755,
+            "min": 33.70735365019755,
+            "max": 33.70735365019755
+          },
+          "server_tokens_out": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "server_cost_usd": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "app_cpu_pct": {
+            "median": 35.93,
+            "min": 35.93,
+            "max": 35.93
+          }
+        },
+        "attacks": {}
+      }
+    }
+  },
+  "run_details": {
+    "robust-smoke-slow_mixed-c0-r1": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 4,
+          "fail": 14,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 18,
+          "asr": 0.2222222222222222,
+          "unique_products": 0,
+          "tokens_out": 0,
+          "model_scored": 0,
+          "model_flags": 0
+        },
+        "scraping": {
+          "success": 162,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 162,
+          "asr": 1.0,
+          "unique_products": 5000,
+          "tokens_out": 0,
+          "model_scored": 0,
+          "model_flags": 0
+        },
+        "dow": {
+          "success": 6,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 6,
+          "asr": 1.0,
+          "unique_products": 0,
+          "tokens_out": 43200,
+          "model_scored": 0,
+          "model_flags": 0
+        }
+      },
+      "per_ip": {
+        "10.20.0.11": {
+          "attempts": 34,
+          "attempts_per_requested_second": 4.25,
+          "peak_attempts_1s": 5,
+          "role": "benign"
+        },
+        "10.20.0.12": {
+          "attempts": 34,
+          "attempts_per_requested_second": 4.25,
+          "peak_attempts_1s": 5,
+          "role": "benign"
+        },
+        "10.20.0.13": {
+          "attempts": 34,
+          "attempts_per_requested_second": 4.25,
+          "peak_attempts_1s": 5,
+          "role": "benign"
+        },
+        "10.20.0.14": {
+          "attempts": 34,
+          "attempts_per_requested_second": 4.25,
+          "peak_attempts_1s": 5,
+          "role": "benign"
+        },
+        "10.20.0.15": {
+          "attempts": 34,
+          "attempts_per_requested_second": 4.25,
+          "peak_attempts_1s": 5,
+          "role": "benign"
+        },
+        "10.20.0.16": {
+          "attempts": 6,
+          "attempts_per_requested_second": 0.75,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.17": {
+          "attempts": 6,
+          "attempts_per_requested_second": 0.75,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.18": {
+          "attempts": 6,
+          "attempts_per_requested_second": 0.75,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.19": {
+          "attempts": 54,
+          "attempts_per_requested_second": 6.75,
+          "peak_attempts_1s": 7,
+          "role": "scraping"
+        },
+        "10.20.0.20": {
+          "attempts": 54,
+          "attempts_per_requested_second": 6.75,
+          "peak_attempts_1s": 7,
+          "role": "scraping"
+        },
+        "10.20.0.21": {
+          "attempts": 54,
+          "attempts_per_requested_second": 6.75,
+          "peak_attempts_1s": 7,
+          "role": "scraping"
+        },
+        "10.20.0.22": {
+          "attempts": 2,
+          "attempts_per_requested_second": 0.25,
+          "peak_attempts_1s": 1,
+          "role": "dow"
+        },
+        "10.20.0.23": {
+          "attempts": 2,
+          "attempts_per_requested_second": 0.25,
+          "peak_attempts_1s": 1,
+          "role": "dow"
+        },
+        "10.20.0.24": {
+          "attempts": 2,
+          "attempts_per_requested_second": 0.25,
+          "peak_attempts_1s": 1,
+          "role": "dow"
+        }
+      },
+      "bans_by_reason": {},
+      "benign_model_flag_rate": null
+    },
+    "robust-smoke-slow_mixed-c2-r1": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 3,
+          "fail": 12,
+          "blocked": 3,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 18,
+          "asr": 0.16666666666666666,
+          "unique_products": 0,
+          "tokens_out": 0,
+          "model_scored": 0,
+          "model_flags": 0
+        },
+        "scraping": {
+          "success": 132,
+          "fail": 0,
+          "blocked": 30,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 162,
+          "asr": 0.8148148148148148,
+          "unique_products": 5000,
+          "tokens_out": 0,
+          "model_scored": 0,
+          "model_flags": 0
+        },
+        "dow": {
+          "success": 1,
+          "fail": 0,
+          "blocked": 5,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 6,
+          "asr": 0.16666666666666666,
+          "unique_products": 0,
+          "tokens_out": 7200,
+          "model_scored": 0,
+          "model_flags": 0
+        }
+      },
+      "per_ip": {
+        "10.20.0.11": {
+          "attempts": 34,
+          "attempts_per_requested_second": 4.25,
+          "peak_attempts_1s": 5,
+          "role": "benign"
+        },
+        "10.20.0.12": {
+          "attempts": 34,
+          "attempts_per_requested_second": 4.25,
+          "peak_attempts_1s": 5,
+          "role": "benign"
+        },
+        "10.20.0.13": {
+          "attempts": 34,
+          "attempts_per_requested_second": 4.25,
+          "peak_attempts_1s": 5,
+          "role": "benign"
+        },
+        "10.20.0.14": {
+          "attempts": 34,
+          "attempts_per_requested_second": 4.25,
+          "peak_attempts_1s": 5,
+          "role": "benign"
+        },
+        "10.20.0.15": {
+          "attempts": 34,
+          "attempts_per_requested_second": 4.25,
+          "peak_attempts_1s": 5,
+          "role": "benign"
+        },
+        "10.20.0.16": {
+          "attempts": 6,
+          "attempts_per_requested_second": 0.75,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.17": {
+          "attempts": 6,
+          "attempts_per_requested_second": 0.75,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.18": {
+          "attempts": 6,
+          "attempts_per_requested_second": 0.75,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.19": {
+          "attempts": 54,
+          "attempts_per_requested_second": 6.75,
+          "peak_attempts_1s": 7,
+          "role": "scraping"
+        },
+        "10.20.0.20": {
+          "attempts": 54,
+          "attempts_per_requested_second": 6.75,
+          "peak_attempts_1s": 7,
+          "role": "scraping"
+        },
+        "10.20.0.21": {
+          "attempts": 54,
+          "attempts_per_requested_second": 6.75,
+          "peak_attempts_1s": 7,
+          "role": "scraping"
+        },
+        "10.20.0.22": {
+          "attempts": 2,
+          "attempts_per_requested_second": 0.25,
+          "peak_attempts_1s": 1,
+          "role": "dow"
+        },
+        "10.20.0.23": {
+          "attempts": 2,
+          "attempts_per_requested_second": 0.25,
+          "peak_attempts_1s": 1,
+          "role": "dow"
+        },
+        "10.20.0.24": {
+          "attempts": 2,
+          "attempts_per_requested_second": 0.25,
+          "peak_attempts_1s": 1,
+          "role": "dow"
+        }
+      },
+      "bans_by_reason": {
+        "budget": 3
+      },
+      "benign_model_flag_rate": null
+    },
+    "robust-smoke-slow_mixed-c3-r1": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 3,
+          "fail": 12,
+          "blocked": 3,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 18,
+          "asr": 0.16666666666666666,
+          "unique_products": 0,
+          "tokens_out": 0,
+          "model_scored": 18,
+          "model_flags": 0
+        },
+        "scraping": {
+          "success": 126,
+          "fail": 0,
+          "blocked": 36,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 162,
+          "asr": 0.7777777777777778,
+          "unique_products": 5000,
+          "tokens_out": 0,
+          "model_scored": 162,
+          "model_flags": 126
+        },
+        "dow": {
+          "success": 1,
+          "fail": 0,
+          "blocked": 5,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 6,
+          "asr": 0.16666666666666666,
+          "unique_products": 0,
+          "tokens_out": 7200,
+          "model_scored": 6,
+          "model_flags": 6
+        }
+      },
+      "per_ip": {
+        "10.20.0.11": {
+          "attempts": 34,
+          "attempts_per_requested_second": 4.25,
+          "peak_attempts_1s": 5,
+          "role": "benign"
+        },
+        "10.20.0.12": {
+          "attempts": 34,
+          "attempts_per_requested_second": 4.25,
+          "peak_attempts_1s": 5,
+          "role": "benign"
+        },
+        "10.20.0.13": {
+          "attempts": 34,
+          "attempts_per_requested_second": 4.25,
+          "peak_attempts_1s": 5,
+          "role": "benign"
+        },
+        "10.20.0.14": {
+          "attempts": 34,
+          "attempts_per_requested_second": 4.25,
+          "peak_attempts_1s": 5,
+          "role": "benign"
+        },
+        "10.20.0.15": {
+          "attempts": 34,
+          "attempts_per_requested_second": 4.25,
+          "peak_attempts_1s": 5,
+          "role": "benign"
+        },
+        "10.20.0.16": {
+          "attempts": 6,
+          "attempts_per_requested_second": 0.75,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.17": {
+          "attempts": 6,
+          "attempts_per_requested_second": 0.75,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.18": {
+          "attempts": 6,
+          "attempts_per_requested_second": 0.75,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.19": {
+          "attempts": 54,
+          "attempts_per_requested_second": 6.75,
+          "peak_attempts_1s": 7,
+          "role": "scraping"
+        },
+        "10.20.0.20": {
+          "attempts": 54,
+          "attempts_per_requested_second": 6.75,
+          "peak_attempts_1s": 7,
+          "role": "scraping"
+        },
+        "10.20.0.21": {
+          "attempts": 54,
+          "attempts_per_requested_second": 6.75,
+          "peak_attempts_1s": 7,
+          "role": "scraping"
+        },
+        "10.20.0.22": {
+          "attempts": 2,
+          "attempts_per_requested_second": 0.25,
+          "peak_attempts_1s": 1,
+          "role": "dow"
+        },
+        "10.20.0.23": {
+          "attempts": 2,
+          "attempts_per_requested_second": 0.25,
+          "peak_attempts_1s": 1,
+          "role": "dow"
+        },
+        "10.20.0.24": {
+          "attempts": 2,
+          "attempts_per_requested_second": 0.25,
+          "peak_attempts_1s": 1,
+          "role": "dow"
+        }
+      },
+      "bans_by_reason": {
+        "anomaly": 3
+      },
+      "benign_model_flag_rate": 0.6470588235294118
+    },
+    "robust-smoke-distributed-c0-r1": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 8,
+          "fail": 27,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 35,
+          "asr": 0.22857142857142856,
+          "unique_products": 0,
+          "tokens_out": 0,
+          "model_scored": 0,
+          "model_flags": 0
+        },
+        "scraping": {
+          "success": 670,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 670,
+          "asr": 1.0,
+          "unique_products": 5000,
+          "tokens_out": 0,
+          "model_scored": 0,
+          "model_flags": 0
+        },
+        "dow": {
+          "success": 108,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 108,
+          "asr": 1.0,
+          "unique_products": 0,
+          "tokens_out": 291600,
+          "model_scored": 0,
+          "model_flags": 0
+        }
+      },
+      "per_ip": {
+        "10.20.0.11": {
+          "attempts": 7,
+          "attempts_per_requested_second": 0.875,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.12": {
+          "attempts": 7,
+          "attempts_per_requested_second": 0.875,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.13": {
+          "attempts": 7,
+          "attempts_per_requested_second": 0.875,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.14": {
+          "attempts": 7,
+          "attempts_per_requested_second": 0.875,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.15": {
+          "attempts": 7,
+          "attempts_per_requested_second": 0.875,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.16": {
+          "attempts": 134,
+          "attempts_per_requested_second": 16.75,
+          "peak_attempts_1s": 17,
+          "role": "scraping"
+        },
+        "10.20.0.17": {
+          "attempts": 134,
+          "attempts_per_requested_second": 16.75,
+          "peak_attempts_1s": 17,
+          "role": "scraping"
+        },
+        "10.20.0.18": {
+          "attempts": 134,
+          "attempts_per_requested_second": 16.75,
+          "peak_attempts_1s": 17,
+          "role": "scraping"
+        },
+        "10.20.0.19": {
+          "attempts": 134,
+          "attempts_per_requested_second": 16.75,
+          "peak_attempts_1s": 17,
+          "role": "scraping"
+        },
+        "10.20.0.20": {
+          "attempts": 134,
+          "attempts_per_requested_second": 16.75,
+          "peak_attempts_1s": 17,
+          "role": "scraping"
+        },
+        "10.20.0.21": {
+          "attempts": 27,
+          "attempts_per_requested_second": 3.375,
+          "peak_attempts_1s": 4,
+          "role": "dow"
+        },
+        "10.20.0.22": {
+          "attempts": 27,
+          "attempts_per_requested_second": 3.375,
+          "peak_attempts_1s": 4,
+          "role": "dow"
+        },
+        "10.20.0.23": {
+          "attempts": 27,
+          "attempts_per_requested_second": 3.375,
+          "peak_attempts_1s": 4,
+          "role": "dow"
+        },
+        "10.20.0.24": {
+          "attempts": 27,
+          "attempts_per_requested_second": 3.375,
+          "peak_attempts_1s": 4,
+          "role": "dow"
+        }
+      },
+      "bans_by_reason": {},
+      "benign_model_flag_rate": null
+    },
+    "robust-smoke-distributed-c2-r1": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 7,
+          "fail": 18,
+          "blocked": 10,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 35,
+          "asr": 0.2,
+          "unique_products": 0,
+          "tokens_out": 0,
+          "model_scored": 0,
+          "model_flags": 0
+        },
+        "scraping": {
+          "success": 170,
+          "fail": 0,
+          "blocked": 500,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 670,
+          "asr": 0.2537313432835821,
+          "unique_products": 5000,
+          "tokens_out": 0,
+          "model_scored": 0,
+          "model_flags": 0
+        },
+        "dow": {
+          "success": 32,
+          "fail": 0,
+          "blocked": 76,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 108,
+          "asr": 0.2962962962962963,
+          "unique_products": 0,
+          "tokens_out": 86400,
+          "model_scored": 0,
+          "model_flags": 0
+        }
+      },
+      "per_ip": {
+        "10.20.0.11": {
+          "attempts": 7,
+          "attempts_per_requested_second": 0.875,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.12": {
+          "attempts": 7,
+          "attempts_per_requested_second": 0.875,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.13": {
+          "attempts": 7,
+          "attempts_per_requested_second": 0.875,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.14": {
+          "attempts": 7,
+          "attempts_per_requested_second": 0.875,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.15": {
+          "attempts": 7,
+          "attempts_per_requested_second": 0.875,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.16": {
+          "attempts": 134,
+          "attempts_per_requested_second": 16.75,
+          "peak_attempts_1s": 17,
+          "role": "scraping"
+        },
+        "10.20.0.17": {
+          "attempts": 134,
+          "attempts_per_requested_second": 16.75,
+          "peak_attempts_1s": 17,
+          "role": "scraping"
+        },
+        "10.20.0.18": {
+          "attempts": 134,
+          "attempts_per_requested_second": 16.75,
+          "peak_attempts_1s": 18,
+          "role": "scraping"
+        },
+        "10.20.0.19": {
+          "attempts": 134,
+          "attempts_per_requested_second": 16.75,
+          "peak_attempts_1s": 17,
+          "role": "scraping"
+        },
+        "10.20.0.20": {
+          "attempts": 134,
+          "attempts_per_requested_second": 16.75,
+          "peak_attempts_1s": 17,
+          "role": "scraping"
+        },
+        "10.20.0.21": {
+          "attempts": 27,
+          "attempts_per_requested_second": 3.375,
+          "peak_attempts_1s": 4,
+          "role": "dow"
+        },
+        "10.20.0.22": {
+          "attempts": 27,
+          "attempts_per_requested_second": 3.375,
+          "peak_attempts_1s": 4,
+          "role": "dow"
+        },
+        "10.20.0.23": {
+          "attempts": 27,
+          "attempts_per_requested_second": 3.375,
+          "peak_attempts_1s": 4,
+          "role": "dow"
+        },
+        "10.20.0.24": {
+          "attempts": 27,
+          "attempts_per_requested_second": 3.375,
+          "peak_attempts_1s": 4,
+          "role": "dow"
+        }
+      },
+      "bans_by_reason": {
+        "budget": 9
+      },
+      "benign_model_flag_rate": null
+    },
+    "robust-smoke-distributed-c3-r1": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 7,
+          "fail": 18,
+          "blocked": 10,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 35,
+          "asr": 0.2,
+          "unique_products": 0,
+          "tokens_out": 0,
+          "model_scored": 35,
+          "model_flags": 0
+        },
+        "scraping": {
+          "success": 165,
+          "fail": 0,
+          "blocked": 505,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 670,
+          "asr": 0.2462686567164179,
+          "unique_products": 5000,
+          "tokens_out": 0,
+          "model_scored": 670,
+          "model_flags": 610
+        },
+        "dow": {
+          "success": 28,
+          "fail": 0,
+          "blocked": 80,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 108,
+          "asr": 0.25925925925925924,
+          "unique_products": 0,
+          "tokens_out": 75600,
+          "model_scored": 108,
+          "model_flags": 108
+        }
+      },
+      "per_ip": {
+        "10.20.0.11": {
+          "attempts": 7,
+          "attempts_per_requested_second": 0.875,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.12": {
+          "attempts": 7,
+          "attempts_per_requested_second": 0.875,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.13": {
+          "attempts": 7,
+          "attempts_per_requested_second": 0.875,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.14": {
+          "attempts": 7,
+          "attempts_per_requested_second": 0.875,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.15": {
+          "attempts": 7,
+          "attempts_per_requested_second": 0.875,
+          "peak_attempts_1s": 1,
+          "role": "credential_stuffing"
+        },
+        "10.20.0.16": {
+          "attempts": 134,
+          "attempts_per_requested_second": 16.75,
+          "peak_attempts_1s": 19,
+          "role": "scraping"
+        },
+        "10.20.0.17": {
+          "attempts": 134,
+          "attempts_per_requested_second": 16.75,
+          "peak_attempts_1s": 18,
+          "role": "scraping"
+        },
+        "10.20.0.18": {
+          "attempts": 134,
+          "attempts_per_requested_second": 16.75,
+          "peak_attempts_1s": 18,
+          "role": "scraping"
+        },
+        "10.20.0.19": {
+          "attempts": 134,
+          "attempts_per_requested_second": 16.75,
+          "peak_attempts_1s": 18,
+          "role": "scraping"
+        },
+        "10.20.0.20": {
+          "attempts": 134,
+          "attempts_per_requested_second": 16.75,
+          "peak_attempts_1s": 17,
+          "role": "scraping"
+        },
+        "10.20.0.21": {
+          "attempts": 27,
+          "attempts_per_requested_second": 3.375,
+          "peak_attempts_1s": 4,
+          "role": "dow"
+        },
+        "10.20.0.22": {
+          "attempts": 27,
+          "attempts_per_requested_second": 3.375,
+          "peak_attempts_1s": 4,
+          "role": "dow"
+        },
+        "10.20.0.23": {
+          "attempts": 27,
+          "attempts_per_requested_second": 3.375,
+          "peak_attempts_1s": 4,
+          "role": "dow"
+        },
+        "10.20.0.24": {
+          "attempts": 27,
+          "attempts_per_requested_second": 3.375,
+          "peak_attempts_1s": 4,
+          "role": "dow"
+        }
+      },
+      "bans_by_reason": {
+        "anomaly": 9
+      },
+      "benign_model_flag_rate": null
+    },
+    "robust-smoke-shared_account-c0-r1": {
+      "attacks": {},
+      "per_ip": {
+        "10.20.0.11": {
+          "attempts": 80,
+          "attempts_per_requested_second": 10.0,
+          "peak_attempts_1s": 12,
+          "role": "benign"
+        },
+        "10.20.0.12": {
+          "attempts": 80,
+          "attempts_per_requested_second": 10.0,
+          "peak_attempts_1s": 12,
+          "role": "benign"
+        },
+        "10.20.0.13": {
+          "attempts": 80,
+          "attempts_per_requested_second": 10.0,
+          "peak_attempts_1s": 11,
+          "role": "benign"
+        },
+        "10.20.0.14": {
+          "attempts": 80,
+          "attempts_per_requested_second": 10.0,
+          "peak_attempts_1s": 11,
+          "role": "benign"
+        },
+        "10.20.0.15": {
+          "attempts": 80,
+          "attempts_per_requested_second": 10.0,
+          "peak_attempts_1s": 12,
+          "role": "benign"
+        }
+      },
+      "bans_by_reason": {},
+      "benign_model_flag_rate": null
+    },
+    "robust-smoke-shared_account-c2-r1": {
+      "attacks": {},
+      "per_ip": {
+        "10.20.0.11": {
+          "attempts": 80,
+          "attempts_per_requested_second": 10.0,
+          "peak_attempts_1s": 12,
+          "role": "benign"
+        },
+        "10.20.0.12": {
+          "attempts": 80,
+          "attempts_per_requested_second": 10.0,
+          "peak_attempts_1s": 12,
+          "role": "benign"
+        },
+        "10.20.0.13": {
+          "attempts": 80,
+          "attempts_per_requested_second": 10.0,
+          "peak_attempts_1s": 12,
+          "role": "benign"
+        },
+        "10.20.0.14": {
+          "attempts": 80,
+          "attempts_per_requested_second": 10.0,
+          "peak_attempts_1s": 12,
+          "role": "benign"
+        },
+        "10.20.0.15": {
+          "attempts": 80,
+          "attempts_per_requested_second": 10.0,
+          "peak_attempts_1s": 12,
+          "role": "benign"
+        }
+      },
+      "bans_by_reason": {
+        "budget": 5
+      },
+      "benign_model_flag_rate": null
+    },
+    "robust-smoke-shared_account-c3-r1": {
+      "attacks": {},
+      "per_ip": {
+        "10.20.0.11": {
+          "attempts": 80,
+          "attempts_per_requested_second": 10.0,
+          "peak_attempts_1s": 11,
+          "role": "benign"
+        },
+        "10.20.0.12": {
+          "attempts": 80,
+          "attempts_per_requested_second": 10.0,
+          "peak_attempts_1s": 11,
+          "role": "benign"
+        },
+        "10.20.0.13": {
+          "attempts": 80,
+          "attempts_per_requested_second": 10.0,
+          "peak_attempts_1s": 11,
+          "role": "benign"
+        },
+        "10.20.0.14": {
+          "attempts": 80,
+          "attempts_per_requested_second": 10.0,
+          "peak_attempts_1s": 11,
+          "role": "benign"
+        },
+        "10.20.0.15": {
+          "attempts": 80,
+          "attempts_per_requested_second": 10.0,
+          "peak_attempts_1s": 11,
+          "role": "benign"
+        }
+      },
+      "bans_by_reason": {
+        "budget": 5
+      },
+      "benign_model_flag_rate": 0.85
+    },
+    "robust-smoke-burst_within-c0-r1": {
+      "attacks": {},
+      "per_ip": {
+        "10.20.0.11": {
+          "attempts": 126,
+          "attempts_per_requested_second": 15.75,
+          "peak_attempts_1s": 18,
+          "role": "benign"
+        },
+        "10.20.0.12": {
+          "attempts": 126,
+          "attempts_per_requested_second": 15.75,
+          "peak_attempts_1s": 18,
+          "role": "benign"
+        },
+        "10.20.0.13": {
+          "attempts": 126,
+          "attempts_per_requested_second": 15.75,
+          "peak_attempts_1s": 18,
+          "role": "benign"
+        },
+        "10.20.0.14": {
+          "attempts": 126,
+          "attempts_per_requested_second": 15.75,
+          "peak_attempts_1s": 18,
+          "role": "benign"
+        },
+        "10.20.0.15": {
+          "attempts": 126,
+          "attempts_per_requested_second": 15.75,
+          "peak_attempts_1s": 18,
+          "role": "benign"
+        }
+      },
+      "bans_by_reason": {},
+      "benign_model_flag_rate": null
+    },
+    "robust-smoke-burst_within-c2-r1": {
+      "attacks": {},
+      "per_ip": {
+        "10.20.0.11": {
+          "attempts": 126,
+          "attempts_per_requested_second": 15.75,
+          "peak_attempts_1s": 18,
+          "role": "benign"
+        },
+        "10.20.0.12": {
+          "attempts": 126,
+          "attempts_per_requested_second": 15.75,
+          "peak_attempts_1s": 18,
+          "role": "benign"
+        },
+        "10.20.0.13": {
+          "attempts": 126,
+          "attempts_per_requested_second": 15.75,
+          "peak_attempts_1s": 18,
+          "role": "benign"
+        },
+        "10.20.0.14": {
+          "attempts": 126,
+          "attempts_per_requested_second": 15.75,
+          "peak_attempts_1s": 18,
+          "role": "benign"
+        },
+        "10.20.0.15": {
+          "attempts": 126,
+          "attempts_per_requested_second": 15.75,
+          "peak_attempts_1s": 18,
+          "role": "benign"
+        }
+      },
+      "bans_by_reason": {
+        "budget": 5
+      },
+      "benign_model_flag_rate": null
+    },
+    "robust-smoke-burst_within-c3-r1": {
+      "attacks": {},
+      "per_ip": {
+        "10.20.0.11": {
+          "attempts": 126,
+          "attempts_per_requested_second": 15.75,
+          "peak_attempts_1s": 18,
+          "role": "benign"
+        },
+        "10.20.0.12": {
+          "attempts": 126,
+          "attempts_per_requested_second": 15.75,
+          "peak_attempts_1s": 18,
+          "role": "benign"
+        },
+        "10.20.0.13": {
+          "attempts": 126,
+          "attempts_per_requested_second": 15.75,
+          "peak_attempts_1s": 18,
+          "role": "benign"
+        },
+        "10.20.0.14": {
+          "attempts": 126,
+          "attempts_per_requested_second": 15.75,
+          "peak_attempts_1s": 18,
+          "role": "benign"
+        },
+        "10.20.0.15": {
+          "attempts": 126,
+          "attempts_per_requested_second": 15.75,
+          "peak_attempts_1s": 18,
+          "role": "benign"
+        }
+      },
+      "bans_by_reason": {
+        "anomaly": 5
+      },
+      "benign_model_flag_rate": 0.9
+    },
+    "robust-smoke-burst_above-c0-r1": {
+      "attacks": {},
+      "per_ip": {
+        "10.20.0.11": {
+          "attempts": 168,
+          "attempts_per_requested_second": 21.0,
+          "peak_attempts_1s": 42,
+          "role": "benign"
+        },
+        "10.20.0.12": {
+          "attempts": 168,
+          "attempts_per_requested_second": 21.0,
+          "peak_attempts_1s": 42,
+          "role": "benign"
+        },
+        "10.20.0.13": {
+          "attempts": 168,
+          "attempts_per_requested_second": 21.0,
+          "peak_attempts_1s": 42,
+          "role": "benign"
+        },
+        "10.20.0.14": {
+          "attempts": 168,
+          "attempts_per_requested_second": 21.0,
+          "peak_attempts_1s": 42,
+          "role": "benign"
+        },
+        "10.20.0.15": {
+          "attempts": 168,
+          "attempts_per_requested_second": 21.0,
+          "peak_attempts_1s": 42,
+          "role": "benign"
+        }
+      },
+      "bans_by_reason": {},
+      "benign_model_flag_rate": null
+    },
+    "robust-smoke-burst_above-c2-r1": {
+      "attacks": {},
+      "per_ip": {
+        "10.20.0.11": {
+          "attempts": 168,
+          "attempts_per_requested_second": 21.0,
+          "peak_attempts_1s": 42,
+          "role": "benign"
+        },
+        "10.20.0.12": {
+          "attempts": 168,
+          "attempts_per_requested_second": 21.0,
+          "peak_attempts_1s": 42,
+          "role": "benign"
+        },
+        "10.20.0.13": {
+          "attempts": 168,
+          "attempts_per_requested_second": 21.0,
+          "peak_attempts_1s": 42,
+          "role": "benign"
+        },
+        "10.20.0.14": {
+          "attempts": 168,
+          "attempts_per_requested_second": 21.0,
+          "peak_attempts_1s": 42,
+          "role": "benign"
+        },
+        "10.20.0.15": {
+          "attempts": 168,
+          "attempts_per_requested_second": 21.0,
+          "peak_attempts_1s": 42,
+          "role": "benign"
+        }
+      },
+      "bans_by_reason": {
+        "budget": 5
+      },
+      "benign_model_flag_rate": null
+    },
+    "robust-smoke-burst_above-c3-r1": {
+      "attacks": {},
+      "per_ip": {
+        "10.20.0.11": {
+          "attempts": 168,
+          "attempts_per_requested_second": 21.0,
+          "peak_attempts_1s": 42,
+          "role": "benign"
+        },
+        "10.20.0.12": {
+          "attempts": 168,
+          "attempts_per_requested_second": 21.0,
+          "peak_attempts_1s": 42,
+          "role": "benign"
+        },
+        "10.20.0.13": {
+          "attempts": 168,
+          "attempts_per_requested_second": 21.0,
+          "peak_attempts_1s": 42,
+          "role": "benign"
+        },
+        "10.20.0.14": {
+          "attempts": 168,
+          "attempts_per_requested_second": 21.0,
+          "peak_attempts_1s": 42,
+          "role": "benign"
+        },
+        "10.20.0.15": {
+          "attempts": 168,
+          "attempts_per_requested_second": 21.0,
+          "peak_attempts_1s": 42,
+          "role": "benign"
+        }
+      },
+      "bans_by_reason": {
+        "budget": 5
+      },
+      "benign_model_flag_rate": 0.925
+    }
+  },
+  "kernel_integrated": false,
+  "policy_changed": false,
+  "model_retrained": false
+}

@@ -1,5 +1,13 @@
 # Project 20: Member B Plan ("Application & Intelligence" track)
 
+> Robustness update, 2026-11-18: [45 fresh fixed-policy runs](docs/ROBUSTNESS_RESULTS.md)
+> expose residual slow/distributed abuse and collateral blocking/bans for shared
+> accounts and above-capacity legitimate bursts. Within-capacity bursts are a
+> separate control. Earlier model acceptance applies to its original workloads.
+> No model/policy change was made by this study. B's prospective remedies remain
+> open while A continues real sensor/enforcement work; C4 is not a demonstrated fix.
+
+
 > Current model update, 2026-11-18: directional-volume IsolationForest passed
 > fresh offline gates (99.01% recall / 99.58% precision; 5.77% benign flags) and
 > an independent 18-run live confirmation (966 benign C3 requests, zero
@@ -9,7 +17,7 @@
 > model remains available. Validated budgets/batching and Redis schema2 stay fixed.
 
 
-> Current execution plan, 2026-11-17. Follow [master plan v1.5](docs/MASTER_PLAN.md)
+> Current execution plan, 2026-11-17. Follow [master plan v1.6](docs/MASTER_PLAN.md)
 > and the [professor's feedback](docs/masterplan_vs_professor_diff.pdf).
 > The original snippets below are reference material. Current code uses a bounded
 > agent loop, exact synthetic tokens and feature version 3. Prior feature-version-2

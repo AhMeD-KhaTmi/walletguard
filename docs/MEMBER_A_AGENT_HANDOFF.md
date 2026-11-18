@@ -3,6 +3,16 @@
 Repository: [AhMeD-KhaTmi/walletguard](https://github.com/AhMeD-KhaTmi/walletguard).
 Prepared 2026-11-16 for the **Attack & Kernel** track.
 
+## Application robustness findings — 2026-11-18
+
+Read `docs/ROBUSTNESS_RESULTS.md` before interpreting earlier model accuracy as
+broad protection. Forty-five fresh fixed-policy runs expose allowed slow/distributed
+abuse and collateral shared-account/large-burst bans. Within-capacity bursts remain
+a separate successful control. This study changed no app/WAF/model/Redis contract
+or A-owned source. The existing model and budgets remain the baseline; B owns the
+prospective application remedies. Continue sensor/enforcement work in parallel,
+and coordinate any future policy version before the final matched C0–C4 campaign.
+
 ## Current model/lifecycle handoff — 2026-11-18
 
 Use the qualified `ml/artifacts/model_base_volume_v1.joblib` explicitly for new

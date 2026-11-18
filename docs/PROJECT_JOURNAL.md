@@ -2,15 +2,13 @@
 
 Last updated: 2026-11-18 (Africa/Lagos).
 
-Latest snapshot: validated 40,000-token/2,400-token/s budgets and bounded
-batching remain. Directional-volume C3 model now passes fresh offline acceptance
-(99.01% recall, 99.58% precision, 5.77% benign detector flags) and independent
-live confirmation (966 benign C3 requests; zero denials/unknowns/bans). Initial
-live shutdown failure is preserved; confirmation uses the tested supervised
-lifecycle driver. Final98 app/contract tests,109 eval tests,12 HTTP probes and
-default-model eight-step/dashboard startup probe pass. Original model and all
-historical campaigns are preserved. Real kernel/C4 remains pending.
-See `DETECTOR_VOLUME_RESULTS.md` and the latest dated entry.
+Latest snapshot: fixed-policy robustness study completed45 captures/15 matched
+C0/C2/C3 triplets at source3904048, plus15 separate pipeline smokes. It exposes
+residual slow/distributed abuse and legitimate shared-account/above-burst-capacity
+blocking/bans. Read ROBUSTNESS_RESULTS.md; earlier zero-ban/model-accuracy figures
+apply to their own narrower workloads. Current qualified model, budgets, batching
+and A-owned source are unchanged. Preparation/final checks are recorded below.
+No robustness remedy or real kernel/C4 integration is complete.
 
 Current execution authority: `MASTER_PLAN.md` and `../contract/redis_schema.md`.
 The user authorized resolving the planning choices on 2026-11-16. The initial
@@ -2001,3 +1999,94 @@ IT-1–IT-6. Current acceptance failures must remain visible until fresh tests p
 - Task complete for this B phase. Next: A pulls main, delivers real app-scoped
   sensor/enforcement telemetry, then both collect real-signal C1 data for augmented
   training and C4/IT-1–IT-6/final C0–C4 runs. Do not retune on the opened test groups.
+
+### 2026-11-18 — begin fixed-policy robustness study
+
+- User requested push of completed work and new slow/distributed/shared-account/
+  legitimate-burst tests. Remote main verified already at79f3d24; clean qualified
+  baseline preserved. Branch `codex/b-robustness-study`; protocol fixed before data
+  in `docs/ROBUSTNESS_PROTOCOL.md`. No app/WAF/model or A-owned source changes.
+- Added five B-owned profiles under scripts: slow mixed72s; distributed account/IP
+  fanout60s; shared legitimate account36s; within-capacity bursts30s; above-burst-
+  capacity but below-sustained-rate bursts50s. Each has matched C0/C2/C3 and three
+  fresh repetitions1101–1103 (45 captures). Separate15 short pipeline checks use
+  seed1191 and explicit0.1 smoke timing. No model fitting/threshold selection.
+- Separate B identity files declare shared account user1 and attack-only source
+  redistribution across14 existing namespaces. Canonical identities and all A
+  source remain unchanged. Both maps validate and exclude management IPs.
+- All actors synchronize on A's existing setup/measure gate through B's adapter;
+  authenticated users log in, anonymous users announce ready. Runtime resets keep
+  sessions. Supervised shutdown and explicit hashes/actual account/rate plans are
+  recorded. Actual client outcomes/usage, not ideal scheduled counts, are evidence.
+- Four focused tests verify that slow/distributed rates stay inside the declared
+  individual allowances, shared-account pressure isolates account limits, and
+  legitimate bursts separate capacity from sustained-rate constraints. **102
+  app/contract tests,109 eval tests (known gevent warning),12 HTTP probes pass**.
+  Evidence under docs/evidence/robustness. Window-counter boundaries also checked.
+- Current qualified artifact remains1eb842…829e3; budgets40,000/2,400, batching32/2ms,
+  strike/ban/allowlist/outage semantics and schema2 remain fixed. Unfavorable ASR
+  or benign comfort outcomes are findings, never reasons to discard valid captures.
+  Any later remedy requires a new prospective experiment and fresh validation.
+
+- Source frozen at3904048 in `/tmp/walletguard-robustness`; root raw outputs
+  `eval/runs/robustness-smoke-v1` and `eval/runs/robustness-v1`. All15 smoke
+  captures passed identity coverage, clean-source/model checks, independent API/
+  mock totals and transport/classification completeness. Smoke comfort/security
+  outcomes are not acceptance data because timings were explicitly compressed.
+- Fixed-policy45-run campaign starts at unchanged source/model/parameters. No
+  tuning or code changes enter the frozen measurement checkout. Large raw logs
+  remain ignored/local; compact smoke validation copied into durable evidence.
+
+- Interim repetition1 findings (not final): slow mixed C0/C2/C3 each allow144/144
+  scrape objectives and5/5 token-generation objectives; credentials3/15 successful
+  in every mode. The attacks stay within individual allowances, exposing residual
+  abuse despite earlier high-rate detector recall. Shared-account C0 allows180/180
+  legitimate measured requests; C2 blocks102/180. C3 and further repetitions are
+  captured separately. These are valid unfavorable observations, not excluded runs.
+  Burst cases and all remaining repetitions continue with the frozen controls.
+
+- Two full repetitions complete:30/45 captures, no exclusions/retries so far.
+  First shared-account C2/C3 each block102/180 legitimate requests and ban4IPs;
+  first above-cap burst C2 blocks480/630, C3 blocks475/630, each banning5 legitimate
+  IPs. First within-cap burst C0/C2/C3 each succeed270/270. Second slow C3 repeats
+  scrape144/144 and DoW5/5 success; correct synthetic credentials also continue.
+- Clarified fixed-source assumptions without changing behavior: clients continue
+  their schedule after429, no Retry-After backoff. Above-cap profile periodic rate
+  is1.75/s; finite50s window includes126 requests/IP (2.52/s), inside integrated
+  initial-plus-refill130 but above instantaneous capacity30. Actual rates are
+  reported. These nuances remain visible in the protocol/results interpretation.
+- Final repetition continues at3904048. No model retraining or policy change.
+
+### 2026-11-18 — completed fixed-policy robustness matrix
+
+- All45 measured captures form15 matched C0/C2/C3 triplets, three repetitions at
+  seeds1101–1103, frozen source3904048. Fifteen compressed-timing smoke captures
+  remain separate. Independent validator checks complete grid, clean source,
+  identity/model/policy/workload/driver matching and independent API/mock totals.
+  Report `docs/ROBUSTNESS_RESULTS.md`; CSV/JSON in docs/evidence/robustness.
+- Current model and every app/WAF/ML/common runtime file remain unchanged from
+  main79f3d24. No training or threshold/policy adjustment used this study's data.
+  Findings apply to these new fixed-schedule profiles; no generalized protection
+  or successful remediation claim. Canonical/A-owned source files are untouched.
+- slow_mixed: C0 benign 0/450 denied, 0 bans; credential_stuffing success 13/45; scraping success 432/432; dow success 15/15; C2 benign 0/450 denied, 0 bans; credential_stuffing success 13/45; scraping success 432/432; dow success 15/15; C3 benign 0/450 denied, 0 bans; credential_stuffing success 13/45; scraping success 432/432; dow success 15/15;
+- distributed: C0 benign N/A (attack-only); credential_stuffing success 19/75; scraping success 1500/1500; dow success 240/240; C2 benign N/A (attack-only); credential_stuffing success 19/75; scraping success 1500/1500; dow success 240/240; C3 benign N/A (attack-only); credential_stuffing success 19/75; scraping success 1500/1500; dow success 240/240;
+- shared_account: C0 benign 0/540 denied, 0 bans; C2 benign 308/540 denied, 12 bans; C3 benign 310/540 denied, 12 bans;
+- burst_within: C0 benign 0/810 denied, 0 bans; C2 benign 0/810 denied, 0 bans; C3 benign 0/810 denied, 0 bans;
+- burst_above: C0 benign 0/1890 denied, 0 bans; C2 benign 1440/1890 denied, 15 bans; C3 benign 1425/1890 denied, 15 bans;
+- Updated master v1.6, both member plans, checklist and README. New B work is a
+  separate prospective study of account-versus-IP strike attribution, aggregate
+  spending/harvesting scope and response-aware benign clients. Do not ban on every
+  ML flag or retune using these opened tests. A continues kernel integration in
+  parallel; its sensor/XDP work alone does not establish these application fixes.
+
+- Final regression completed after measurement: **102 app/contract tests**, **109
+  evaluation tests** (one known gevent warning), **12 real-HTTP probes**. Independent
+  post-validator and outcome-partition sanity checks pass; no excluded/retried
+  captures, zero unknown outcomes. `git diff --check` passes. Model SHA remains
+  1eb842…829e3; runtime app/WAF/ML/common and A-owned source have zero diff from79f.
+  Owned services and disposable Redis stopped. Raw logs remain local/ignored.
+- Known-valid credential subsets are diagnostic; primary ASR keeps all malicious
+  attempts. Ban counts sum per-run records, not unique people/IPs across resets.
+  Current low-rate flags/blocks and benign comfort failures are evidence, not
+  concealed as test failures. Final tables explicitly disclose fixed no-backoff
+  pacing, partial-window burst rates, workload scope and the need for fresh remedies.

@@ -10,7 +10,7 @@ behavioral detection, and a planned Linux kernel enforcement layer.
 [![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](requirements.txt)
 [![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?logo=fastapi&logoColor=white)](app/main.py)
 [![Redis](https://img.shields.io/badge/State-Redis%207-DC382D?logo=redis&logoColor=white)](contract/redis_schema.md)
-[![Validation](https://img.shields.io/badge/App%20tests-98%20passed-76A946)](docs/evidence/volume_confirmation/final_application.xml)
+[![Validation](https://img.shields.io/badge/App%20tests-102%20passed-76A946)](docs/evidence/robustness/final_application.xml)
 [![Status](https://img.shields.io/badge/Stage-Before%20kernel%20integration-D4A24C)](docs/evidence/independent_status.json)
 
 [Overview](#overview) · [Quick start](#quick-start) · [Validation](#validation) · [Documentation](#documentation) · [Team](#team)
@@ -45,7 +45,12 @@ are synthetic; the LLM is a local HTTP mock. All displayed costs are simulated.
 | Base IsolationForest (C3) | Uses the current agent-loop feature version and disjoint C1 run groups |
 | Held-out detector evaluation | Qualified volume model: 99.01% recall / 99.58% precision; benign detector flags 5.77% |
 | C0/C2/C3 namespace benchmark | 81 frozen agent runs, 36 budget runs, 12 scoring runs and independently checked volume-model results |
+| Fixed-policy robustness study | 45 fresh runs expose slow/distributed and legitimate account/burst limits; see the [results](docs/ROBUSTNESS_RESULTS.md) |
 | eBPF sensor, XDP and C4 integration | Pending; C4 startup is explicitly blocked |
+
+The [robustness study](docs/ROBUSTNESS_RESULTS.md) evaluates new traffic beyond the
+earlier model acceptance envelope. Its unfavorable outcomes remain published;
+no policy fix is implied.
 
 The latest local C3 evidence includes model provenance, per-run detector results,
 and C0/C2/C3 HTTP smoke runs with Member A's attacks. Earlier application evidence
@@ -183,7 +188,7 @@ Redis process. HTTP developer probes own their API/mock processes and clean up a
 
 | Saved evidence | Scope |
 |---|---|
-| [64-test report](docs/evidence/volume_confirmation/final_application.xml) | Baseline, UI access, budgets, refunds, bans, observation, recovery and ML tooling |
+| [64-test report](docs/evidence/robustness/final_application.xml) | Baseline, UI access, budgets, refunds, bans, observation, recovery and ML tooling |
 | [12 HTTP checks](docs/evidence/application_http_checks.json) | Real HTTP C0/C1/C2 development scenarios |
 | [C2 process evidence](docs/evidence/c2_local_evidence.json) | Bounded local timing/outage records |
 | [Status + source hashes](docs/evidence/independent_status.json) | Provenance and pending dependencies |

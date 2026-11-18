@@ -1,0 +1,9 @@
+{
+  "measured_revision": "39040482748d717d11c7852b455abbac4fb74c40",
+  "baseline_main": "79f3d241517810d4c32b5bdc11826c1b53dfd623",
+  "runtime_diff_empty": true,
+  "model_sha256": "1eb84211004b6abe42cd2b8ec03e4b06b8504884ad0a8b9c1ca81ce2f55829e3",
+  "a_owned_source_edited": false,
+  "model_retrained": false,
+  "policy_changed": false
+}

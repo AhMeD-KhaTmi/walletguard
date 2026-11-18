@@ -22,7 +22,7 @@ A two-person Red-vs-Blue security project. We attack a deliberately vulnerable F
 
 I own `app/`, `waf/`, `ml/`. My teammate (Member A, "Attack & Kernel" track) owns `ebpf/`, `locust/`, `eval/`. `contract/` and `docs/` are shared. Full plans: `member_B_plan.md` (mine) and `docs/member_A_plan.md` (teammate's) — read both before making non-trivial changes, since this system only works as the two halves together.
 
-**Professor-approved execution requirements (2026-11-17, master plan v1.5):**
+**Professor-approved execution requirements (2026-11-17, master plan v1.6):**
 Use Ubuntu 22.04/24.04, kernel >=5.15 and BTF. `/chat` runs a bounded simulated
 agent loop over the local mock with growing context, exact synthetic token counts,
 configurable deterministic latency and aggregate/per-step usage. Features are
@@ -40,6 +40,9 @@ IsolationForest passed independent offline/live gates; see docs/DETECTOR_VOLUME_
 Current default artifact is ml/artifacts/model_base_volume_v1.joblib. Replays through
 scripts/budget_harness.py use P20_SAFE_DRIVER=1 for the tested supervised lifecycle;
 A-owned workload files remain unchanged. Do not tune on these now-opened test groups.
+The subsequent 45-run fixed-policy robustness study exposes application limits;
+read docs/ROBUSTNESS_RESULTS.md before claiming broader safety/protection. No
+remedy was deployed. Preserve opened groups and plan independent future validation.
 
 ## Repository layout
 

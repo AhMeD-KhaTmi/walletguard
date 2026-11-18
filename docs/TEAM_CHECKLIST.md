@@ -23,6 +23,12 @@
 
 - [x] **B:** Publish the qualified volume model, lifecycle fix, evidence and master v1.5 on `main` ([fa95a24](https://github.com/AhMeD-KhaTmi/walletguard/commit/fa95a240e7e1d6159b81a7e68f054845df639249)).
 
+## Application robustness follow-up
+
+- [x] **B:** Complete five harder profiles in 45 matched C0/C2/C3 captures, three fresh repetitions, plus 15 separate pipeline smokes. Preserve unfavorable results and unchanged controls. [Results](ROBUSTNESS_RESULTS.md).
+- [ ] **B:** Define prospective remedies for shared-account/burst collateral bans and aggregate wallet/harvesting limits, then calibrate on separate data and validate fresh groups. Keep earlier/current test groups out of tuning.
+- [ ] **B:** Add response-aware benign clients that honor Retry-After alongside these fixed schedules; compare both explicitly.
+
 ## In parallel — C4 kernel work
 
 - [ ] **A:** Deliver the app-scoped connect/execve sensor and Redis signals, plus expiring XDP enforcement or a documented generic/skb, tc/nftables/WAF fallback and its measured telemetry.

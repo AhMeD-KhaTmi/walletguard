@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "description": "B attack-only distributed profile; explicit reassignment of existing namespace IPs",
+  "bridge": {
+    "interface": "p20br0",
+    "ip": "10.20.0.1",
+    "cidr": "10.20.0.0/24",
+    "note": "API binds 0.0.0.0 and is reached by clients at 10.20.0.1:8000. The mock LLM stays on loopback 127.0.0.1:8001."
+  },
+  "management": {
+    "hosts": [
+      "127.0.0.1",
+      "10.20.0.1"
+    ],
+    "note": "Only these addresses may be used for /health, /_metrics/usage, /dashboard and scripts/reset_state. Never add a benign or attacker address."
+  },
+  "benign_accounts": {
+    "accounts": "user1..user49",
+    "note": "Reserved for the benign generator pool. user50 is NOT benign."
+  },
+  "attacker_account": "user50",
+  "benign": [],
+  "attack": {
+    "credential_stuffing": [
+      {
+        "ns": "ns1",
+        "ip": "10.20.0.11"
+      },
+      {
+        "ns": "ns2",
+        "ip": "10.20.0.12"
+      },
+      {
+        "ns": "ns3",
+        "ip": "10.20.0.13"
+      },
+      {
+        "ns": "ns4",
+        "ip": "10.20.0.14"
+      },
+      {
+        "ns": "ns5",
+        "ip": "10.20.0.15"
+      }
+    ],
+    "scraping": [
+      {
+        "ns": "ns6",
+        "ip": "10.20.0.16"
+      },
+      {
+        "ns": "ns7",
+        "ip": "10.20.0.17"
+      },
+      {
+        "ns": "ns8",
+        "ip": "10.20.0.18"
+      },
+      {
+        "ns": "ns9",
+        "ip": "10.20.0.19"
+      },
+      {
+        "ns": "ns10",
+        "ip": "10.20.0.20"
+      }
+    ],
+    "dow": [
+      {
+        "ns": "ns11",
+        "ip": "10.20.0.21"
+      },
+      {
+        "ns": "ns12",
+        "ip": "10.20.0.22"
+      },
+      {
+        "ns": "ns13",
+        "ip": "10.20.0.23"
+      },
+      {
+        "ns": "ns14",
+        "ip": "10.20.0.24"
+      }
+    ]
+  },
+  "probe": [
+    {
+      "ns": "ns15",
+      "ip": "10.20.0.25",
+      "workloads": [
+        "honeypot",
+        "churn"
+      ],
+      "note": "Hook for decoy and connection-churn probes. Run one probe workload per run ID and reset state between them, because a C2 honeypot hit bans this address."
+    }
+  ]
+}
