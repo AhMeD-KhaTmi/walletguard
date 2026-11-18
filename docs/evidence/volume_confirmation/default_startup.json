@@ -1,0 +1,15 @@
+{
+  "kind": "default_model_real_http_startup_probe",
+  "passed": true,
+  "model_path": "ml/artifacts/model_base_volume_v1.joblib",
+  "model_sha256": "1eb84211004b6abe42cd2b8ec03e4b06b8504884ad0a8b9c1ca81ce2f55829e3",
+  "agent_steps": 8,
+  "chat_status": 200,
+  "controls": {
+    "buckets": true,
+    "honeypot": true,
+    "ml": true,
+    "kernel": false
+  },
+  "dashboard_ml_loaded": true
+}

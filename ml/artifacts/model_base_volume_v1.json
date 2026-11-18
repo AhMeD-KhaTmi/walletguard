@@ -1,0 +1,90 @@
+{
+  "features": [
+    "is_chat",
+    "is_login",
+    "is_products",
+    "is_other",
+    "body_size",
+    "prompt_tokens",
+    "max_out_tokens",
+    "prompt_entropy",
+    "has_ua",
+    "has_accept_lang",
+    "req_10s",
+    "req_60s",
+    "distinct_paths_60s",
+    "fail_ratio_60s",
+    "mean_gap_s",
+    "std_gap_s",
+    "window_saturated",
+    "agent_steps",
+    "task_token_budget"
+  ],
+  "feature_version": 3,
+  "model_features": [
+    "req_10s",
+    "req_60s",
+    "task_token_budget"
+  ],
+  "feature_set": "volume",
+  "model_transform": "volume-v1",
+  "agent_version": "context-loop-v1",
+  "tokenizer": "synthetic-whitespace-v1",
+  "feature_units": {
+    "is_chat": "indicator",
+    "is_login": "indicator",
+    "is_products": "indicator",
+    "is_other": "indicator",
+    "body_size": "bytes",
+    "prompt_tokens": "tokens",
+    "max_out_tokens": "tokens",
+    "prompt_entropy": "bits per character",
+    "has_ua": "indicator",
+    "has_accept_lang": "indicator",
+    "req_10s": "requests",
+    "req_60s": "requests",
+    "distinct_paths_60s": "paths",
+    "fail_ratio_60s": "fraction",
+    "mean_gap_s": "seconds",
+    "std_gap_s": "seconds",
+    "window_saturated": "indicator",
+    "agent_steps": "iterations",
+    "task_token_budget": "tokens"
+  },
+  "sklearn_version": "1.9.1",
+  "dependencies": {
+    "python": "3.11.18",
+    "numpy": "2.4.6",
+    "pandas": "3.1.1",
+    "scikit-learn": "1.9.1",
+    "joblib": "1.6.0"
+  },
+  "code_revision": "816145e4da027d113e9794bb575b528ccaa1e598",
+  "trainer_sha256": "754d83dc2c4a86cd3f476ae2d35929af4542765d46d625cea3206a1232736817",
+  "threshold": -0.4738787278010676,
+  "calibration_percentile": 5,
+  "seed": 42,
+  "trees": 100,
+  "dataset_sha256": "cd9c035c39940f10db96762ac86ee2339d1c34b3e3a6a842b5174cbeb899a997",
+  "training_runs": [
+    "volume-normal-701",
+    "volume-varied-701",
+    "volume-normal-702",
+    "volume-varied-702"
+  ],
+  "calibration_runs": [
+    "volume-normal-703",
+    "volume-varied-703"
+  ],
+  "training_rows": 1055,
+  "calibration_rows": 519,
+  "volume_parameters": {
+    "scales": [
+      10.0,
+      50.0,
+      3226.7999999999984
+    ],
+    "gate": 0.8
+  },
+  "splits_sha256": "0d1845f90057dcaf35f38197706e9790c07a4a91e35a6c438fc2878a788ed207"
+}

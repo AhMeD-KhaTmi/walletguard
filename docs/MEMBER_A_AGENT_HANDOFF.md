@@ -3,7 +3,27 @@
 Repository: [AhMeD-KhaTmi/walletguard](https://github.com/AhMeD-KhaTmi/walletguard).
 Prepared 2026-11-16 for the **Attack & Kernel** track.
 
-## Current handoff — professor update, 2026-11-17
+## Current model/lifecycle handoff — 2026-11-18
+
+Use the qualified `ml/artifacts/model_base_volume_v1.joblib` explicitly for new
+C3 runs, with the recorded sklearn1.9.1 environment. B's current model achieves
+99.01% detector recall /99.58% precision on fresh labeled groups. Benign flags
+are5.77%, separate from blocking. Independent confirmation records zero benign
+C3 denials/unknowns/bans over966 requests. Read `docs/DETECTOR_VOLUME_RESULTS.md`.
+
+The initial live grid failed due to one GreenletExit at shutdown. Its evidence
+remains preserved. B's opt-in supervised driver fixes the self-quit lifecycle
+path while preserving your workload/request/classification files. For measured
+replays, invoke `scripts/budget_harness.py` with `P20_SAFE_DRIVER=1`; its manifests
+record driver hash and mode. See `scripts/locust_deadline_driver.py` and protocol.
+A may later incorporate this fix into A-owned plumbing; no such files were edited.
+
+Validated llm_tok remains40,000 capacity /2,400 tokens/s; batching32/2ms remains.
+Feature version3 and Redis schema2 remain. Preserve the original frozen model and
+all previous campaigns. Your next task remains real sensor/enforcement delivery;
+joint real-signal C1 collection, augmented training and C4 follow that handoff.
+
+## Historical handoff — professor update, 2026-11-17
 
 PR #2 is merged. Start from `main`. Fetch it, then create your own
 work branch from that remote branch; keep any existing local work committed first.

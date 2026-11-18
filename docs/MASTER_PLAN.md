@@ -1,12 +1,15 @@
 # Project 20 — coordinated execution plan
 
-> Model research update, 2026-11-18: the final replacement candidate failed fresh
-> acceptance (6.77% recall / 88.20% precision). The original forest remains active.
-> See [research record](MODEL_CALIBRATION_REVISIONS.md) for the preserved outcomes.
-> Further model selection requires new independent test groups. Twelve matched scoring runs
-> validate batching with the unchanged forest (mixed benign p95 median 712→291ms).
+> Current model update, 2026-11-18: directional-volume IsolationForest passed
+> fresh offline gates (99.01% recall / 99.58% precision; 5.77% benign flags) and
+> an independent 18-run live confirmation (966 benign C3 requests, zero
+> denials/unknowns/bans). [Results](DETECTOR_VOLUME_RESULTS.md). The first live grid's shutdown
+> failure is preserved; confirmation uses an explicitly recorded lifecycle driver.
+> Current artifact: `ml/artifacts/model_base_volume_v1.joblib`; original frozen
+> model remains available. Validated budgets/batching and Redis schema2 stay fixed.
 
-Version: 1.4 · 2026-11-18 · Owners: Member B (user) and Member A.
+
+Version: 1.5 · 2026-11-18 · Owners: Member B (user) and Member A.
 
 ## 1. How to use this plan
 
@@ -32,7 +35,8 @@ those frozen findings. Fresh [budget calibration](BUDGET_CALIBRATION.md) and
 40,000-token capacity / 2,400-token/s policy: zero observed benign policy denials
 and zero bans in C2/C3. Two client-shutdown interruptions remain unknown; their
 worst-case denial rate is still below 1%. The original base detector's very low
-recall and substantial scoring overhead remain separate B work. No budget values
+recall and scoring overhead were addressed in separately validated studies;
+see [the detector results](DETECTOR_VOLUME_RESULTS.md). Real C4 acceptance remains open. No budget values
 were selected using the frozen campaign or the new validation outcomes.
 The earlier [54-run benchmark](C23_BENCHMARK_RESULTS.md) remains historical.
 The full C0–C4 comparison awaits the real kernel integration and joint acceptance.
@@ -304,7 +308,7 @@ tests alone. Missing A scripts may allow B unit work, but block attack-validatio
    snapshot, model manifest and revised plans with A.
 2. B gathers new calibration traffic for the legitimate multi-step agent, adjusts
    budgets/strike behavior only from calibration evidence, and retests independently.
-   Investigate the base detector's low recall and scoring overhead in parallel.
+   Maintain the qualified volume detector and validated batching; preserve independent test groups.
 3. A delivers the scoped sensor and tested enforcement backend with actual mode,
    freshness, expiry, allowlist and per-IP telemetry evidence.
 4. Both integrate real signals, collect augmented data, complete IT-1–IT-6 and run

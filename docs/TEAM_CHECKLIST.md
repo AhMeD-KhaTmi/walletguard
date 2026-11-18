@@ -17,7 +17,7 @@
 - [x] **B:** Calibrate whole-agent budgets on new data and complete 36 independent runs: zero observed benign denials/bans, with two shutdown-interrupted requests retained as unknowns. [Results](BUDGET_VALIDATION_RESULTS.md).
 - [x] **B:** Collect nine fresh detector test groups and assess new profiles. Reject the final candidate (6.77% recall / 88.20% precision); preserve the original forest and all results. [Research record](MODEL_CALIBRATION_REVISIONS.md).
 - [x] **B:** Validate scoring latency with twelve matched direct/batched runs using the original model. Mixed benign p95 median 712→291ms; one direct shutdown outcome remains unknown. [Results](SCORING_PERFORMANCE_RESULTS.md).
-- [ ] **B:** Improve base detector recall under a new research protocol and new independent test groups before final model acceptance. Do not tune against the now-opened fresh tests.
+- [x] **B:** Diagnose low recall; freeze a new benign-only model, collect 21 fresh C1 groups, pass offline gates, preserve the first live failure, fix shutdown in B's opt-in driver, and pass 18 fresh live confirmations. Activate the qualified volume model after final startup checks. [Results](DETECTOR_VOLUME_RESULTS.md).
 
 - [x] **B:** Publish budget calibration, validated batching, model rejection evidence and updated plans on `main` ([01d21d9](https://github.com/AhMeD-KhaTmi/walletguard/commit/01d21d934c7e6077afa713b1d4c707bc9655d68d)).
 

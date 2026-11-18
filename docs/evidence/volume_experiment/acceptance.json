@@ -1,0 +1,271 @@
+{
+  "offline_gate_passed": true,
+  "live_gate_passed": false,
+  "eligible_for_activation": false,
+  "deployed": false,
+  "model_sha256": "1eb84211004b6abe42cd2b8ec03e4b06b8504884ad0a8b9c1ca81ce2f55829e3",
+  "source_revision": "816145e4da027d113e9794bb575b528ccaa1e598",
+  "c1_runs": 21,
+  "live_runs": 18,
+  "summary": {
+    "normal-benign": {
+      "C0": {
+        "benign_attempts": 387,
+        "benign_policy_denials": 0,
+        "benign_unknown": 0,
+        "benign_auto_bans": 0,
+        "latency_p50_ms": {
+          "median": 3.359,
+          "min": 3.073,
+          "max": 4.361
+        },
+        "latency_p95_ms": {
+          "median": 87.363,
+          "min": 77.431,
+          "max": 89.795
+        },
+        "app_cpu_pct": {
+          "median": 1.87,
+          "min": 1.63,
+          "max": 2.06
+        },
+        "latency_delta_p50_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "latency_delta_p95_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "C3": {
+        "benign_attempts": 382,
+        "benign_policy_denials": 0,
+        "benign_unknown": 0,
+        "benign_auto_bans": 0,
+        "latency_p50_ms": {
+          "median": 16.248,
+          "min": 15.754,
+          "max": 17.471
+        },
+        "latency_p95_ms": {
+          "median": 103.70429999999998,
+          "min": 98.34919999999997,
+          "max": 111.57799999999999
+        },
+        "waf_overhead_p50_ms": {
+          "median": 12.86384500008353,
+          "min": 12.160624999978609,
+          "max": 13.50424799989014
+        },
+        "waf_overhead_p95_ms": {
+          "median": 25.985401250272837,
+          "min": 24.382309799966606,
+          "max": 28.043908799782
+        },
+        "scoring_p95_ms": {
+          "median": 17.288224300182264,
+          "min": 16.119875200092785,
+          "max": 17.884599150170285
+        },
+        "app_cpu_pct": {
+          "median": 5.19,
+          "min": 5.16,
+          "max": 5.93
+        },
+        "latency_delta_p50_ms": {
+          "median": 13.11,
+          "min": 12.395,
+          "max": 13.175
+        },
+        "latency_delta_p95_ms": {
+          "median": 20.91819999999997,
+          "min": 16.341299999999976,
+          "max": 21.782999999999987
+        }
+      }
+    },
+    "varied-benign": {
+      "C0": {
+        "benign_attempts": 405,
+        "benign_policy_denials": 0,
+        "benign_unknown": 0,
+        "benign_auto_bans": 0,
+        "latency_p50_ms": {
+          "median": 3.393,
+          "min": 3.311,
+          "max": 4.839
+        },
+        "latency_p95_ms": {
+          "median": 108.536,
+          "min": 103.251,
+          "max": 152.339
+        },
+        "app_cpu_pct": {
+          "median": 2.33,
+          "min": 2.03,
+          "max": 3.03
+        },
+        "latency_delta_p50_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "latency_delta_p95_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "C3": {
+        "benign_attempts": 401,
+        "benign_policy_denials": 0,
+        "benign_unknown": 1,
+        "benign_auto_bans": 0,
+        "latency_p50_ms": {
+          "median": 18.837,
+          "min": 18.0455,
+          "max": 20.354
+        },
+        "latency_p95_ms": {
+          "median": 133.56089999999975,
+          "min": 117.41499999999994,
+          "max": 167.999
+        },
+        "waf_overhead_p50_ms": {
+          "median": 12.842229999932897,
+          "min": 12.608998499899826,
+          "max": 13.309590999597276
+        },
+        "waf_overhead_p95_ms": {
+          "median": 36.85662560010313,
+          "min": 25.92432830033431,
+          "max": 39.251341999715805
+        },
+        "scoring_p95_ms": {
+          "median": 17.916869499913446,
+          "min": 14.969904199710978,
+          "max": 18.211867399986655
+        },
+        "app_cpu_pct": {
+          "median": 6.26,
+          "min": 5.72,
+          "max": 6.53
+        },
+        "latency_delta_p50_ms": {
+          "median": 15.514999999999999,
+          "min": 14.6525,
+          "max": 15.526
+        },
+        "latency_delta_p95_ms": {
+          "median": 15.659999999999997,
+          "min": 14.16399999999993,
+          "max": 25.024899999999747
+        }
+      }
+    },
+    "normal-mixed": {
+      "C0": {
+        "benign_attempts": 193,
+        "benign_policy_denials": 0,
+        "benign_unknown": 0,
+        "benign_auto_bans": 0,
+        "latency_p50_ms": {
+          "median": 3.516,
+          "min": 2.956,
+          "max": 3.528
+        },
+        "latency_p95_ms": {
+          "median": 91.963,
+          "min": 76.441,
+          "max": 122.651
+        },
+        "app_cpu_pct": {
+          "median": 41.44,
+          "min": 40.63,
+          "max": 41.52
+        },
+        "asr": {
+          "median": 0.7164,
+          "min": 0.7115,
+          "max": 0.7168
+        },
+        "unknown_outcomes": {
+          "median": 2.0,
+          "min": 2.0,
+          "max": 4.0
+        },
+        "latency_delta_p50_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "latency_delta_p95_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "C3": {
+        "benign_attempts": 186,
+        "benign_policy_denials": 0,
+        "benign_unknown": 0,
+        "benign_auto_bans": 0,
+        "latency_p50_ms": {
+          "median": 58.251000000000005,
+          "min": 57.1015,
+          "max": 63.81400000000001
+        },
+        "latency_p95_ms": {
+          "median": 200.3656,
+          "min": 195.65614999999997,
+          "max": 212.4509
+        },
+        "waf_overhead_p50_ms": {
+          "median": 40.88853600023867,
+          "min": 40.41283300011855,
+          "max": 41.08361099997637
+        },
+        "waf_overhead_p95_ms": {
+          "median": 64.69701740024902,
+          "min": 64.39599574991917,
+          "max": 67.34835180004666
+        },
+        "scoring_p95_ms": {
+          "median": 37.50734099999136,
+          "min": 37.0696392502623,
+          "max": 38.932934400054364
+        },
+        "app_cpu_pct": {
+          "median": 90.07,
+          "min": 89.75,
+          "max": 90.55
+        },
+        "asr": {
+          "median": 0.0244,
+          "min": 0.0244,
+          "max": 0.0247
+        },
+        "unknown_outcomes": {
+          "median": 1.0,
+          "min": 0.0,
+          "max": 3.0
+        },
+        "latency_delta_p50_ms": {
+          "median": 54.723000000000006,
+          "min": 54.1455,
+          "max": 60.29800000000001
+        },
+        "latency_delta_p95_ms": {
+          "median": 103.69314999999997,
+          "min": 77.7146,
+          "max": 136.0099
+        }
+      }
+    }
+  },
+  "kernel_integrated": false,
+  "note": "Short synthetic workload windows; no production or C4 acceptance claim."
+}

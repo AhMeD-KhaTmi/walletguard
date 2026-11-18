@@ -21,7 +21,7 @@ class Config:
     enable_ml: bool = False
     use_ebpf_signals: bool = False
     run_id: str = "development"
-    model_path: str = "ml/model_base.joblib"
+    model_path: str = "ml/artifacts/model_base_volume_v1.joblib"
     honeypot_paths: tuple[str, ...] = ("/admin-backup", "/internal/export", "/.env")
     ban_ttl_s: int = 600
     strike_limit: int = 5
@@ -71,7 +71,7 @@ class Config:
             enable_ml=flag("WAF_ML", "0"),
             use_ebpf_signals=flag("WAF_EBPF_SIGNALS", "0"),
             run_id=os.getenv("P20_RUN_ID", "development"),
-            model_path=os.getenv("WAF_MODEL_PATH", "ml/model_base.joblib"),
+            model_path=os.getenv("WAF_MODEL_PATH", "ml/artifacts/model_base_volume_v1.joblib"),
             telemetry_limit=int(os.getenv("WAF_TELEMETRY_LIMIT", "10000")),
             scoring_batch_size=int(os.getenv("WAF_SCORE_BATCH_SIZE", "32")),
             scoring_batch_wait_ms=float(os.getenv("WAF_SCORE_BATCH_WAIT_MS", "2")),

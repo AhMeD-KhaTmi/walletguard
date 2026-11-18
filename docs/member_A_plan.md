@@ -1,12 +1,15 @@
 # Project 20: Member A Plan ("Attack & Kernel" track)
 
-> Model research update, 2026-11-18: the final replacement candidate failed fresh
-> acceptance (6.77% recall / 88.20% precision). The original forest remains active.
-> See [research record](MODEL_CALIBRATION_REVISIONS.md) for the preserved outcomes.
-> Further model selection requires new independent test groups. Twelve matched scoring runs
-> validate batching with the unchanged forest (mixed benign p95 median 712→291ms).
+> Current model update, 2026-11-18: directional-volume IsolationForest passed
+> fresh offline gates (99.01% recall / 99.58% precision; 5.77% benign flags) and
+> an independent 18-run live confirmation (966 benign C3 requests, zero
+> denials/unknowns/bans). [Results](DETECTOR_VOLUME_RESULTS.md). The first live grid's shutdown
+> failure is preserved; confirmation uses an explicitly recorded lifecycle driver.
+> Current artifact: `ml/artifacts/model_base_volume_v1.joblib`; original frozen
+> model remains available. Validated budgets/batching and Redis schema2 stay fixed.
 
-> Current execution plan, 2026-11-17. Follow [master plan v1.4](MASTER_PLAN.md)
+
+> Current execution plan, 2026-11-17. Follow [master plan v1.5](MASTER_PLAN.md)
 > and the [professor's feedback](masterplan_vs_professor_diff.pdf).
 > Original starter snippets below are superseded where they conflict.
 > A owns ebpf/, locust/ and eval/. B owns app/, waf/ and ml/.
@@ -24,8 +27,8 @@
 - Current features are version 3. B completed six fresh C1 runs and 81 matched
   C0/C2/C3 runs under the new runtime. Read the [current results](PROFESSOR_BENCHMARK_RESULTS.md)
   and [professor update](PROFESSOR_UPDATE.md); preserve old rows and manifests.
-  Current benign FPR/bans and detector recall/scoring cost require B's independent
-  calibration and retest. These measurements do not complete IT-1–IT-6 or C4.
+  B's independent budget, scoring and volume-model acceptance now pass; see
+  `DETECTOR_VOLUME_RESULTS.md`. These measurements do not complete IT-1–IT-6 or C4.
 - The shared harness now enables compatible C3 models, records their hashes,
   propagates client timeouts, rejects failed workers, and saves app timing snapshots.
 - B's calibration fits a 40,000-token burst / 2,400 tokens/s policy from fresh

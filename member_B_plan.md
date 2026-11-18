@@ -1,12 +1,15 @@
 # Project 20: Member B Plan ("Application & Intelligence" track)
 
-> Model research update, 2026-11-18: the final replacement candidate failed fresh
-> acceptance (6.77% recall / 88.20% precision). The original forest remains active.
-> See [research record](docs/MODEL_CALIBRATION_REVISIONS.md) for the preserved outcomes.
-> Further model selection requires new independent test groups. Twelve matched scoring runs
-> validate batching with the unchanged forest (mixed benign p95 median 712→291ms).
+> Current model update, 2026-11-18: directional-volume IsolationForest passed
+> fresh offline gates (99.01% recall / 99.58% precision; 5.77% benign flags) and
+> an independent 18-run live confirmation (966 benign C3 requests, zero
+> denials/unknowns/bans). [Results](docs/DETECTOR_VOLUME_RESULTS.md). The first live grid's shutdown
+> failure is preserved; confirmation uses an explicitly recorded lifecycle driver.
+> Current artifact: `ml/artifacts/model_base_volume_v1.joblib`; original frozen
+> model remains available. Validated budgets/batching and Redis schema2 stay fixed.
 
-> Current execution plan, 2026-11-17. Follow [master plan v1.4](docs/MASTER_PLAN.md)
+
+> Current execution plan, 2026-11-17. Follow [master plan v1.5](docs/MASTER_PLAN.md)
 > and the [professor's feedback](docs/masterplan_vs_professor_diff.pdf).
 > The original snippets below are reference material. Current code uses a bounded
 > agent loop, exact synthetic tokens and feature version 3. Prior feature-version-2

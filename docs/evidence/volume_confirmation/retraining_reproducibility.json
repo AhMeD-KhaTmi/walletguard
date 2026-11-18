@@ -1,0 +1,16 @@
+[
+  {
+    "model": "volume",
+    "threshold_equal": true,
+    "all_test_scores_exactly_equal": true,
+    "test_rows": 23368,
+    "note": "Replayed artifact metadata has current revision; frozen original artifact is not replaced."
+  },
+  {
+    "model": "original",
+    "threshold_equal": true,
+    "all_test_scores_exactly_equal": true,
+    "test_rows": 10276,
+    "note": "Replayed artifact metadata has current revision; frozen original artifact is not replaced."
+  }
+]

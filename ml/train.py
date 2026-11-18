@@ -21,6 +21,7 @@ from sklearn.ensemble import IsolationForest
 from waf.features import FEATURE_VERSION, FEATURES_BASE
 from common.agent import AGENT_VERSION
 from common.tokens import TOKENIZER_VERSION
+from ml.volume import VOLUME_FEATURES, fit_representation, intensity, score_volume
 
 FEATURE_UNITS = {
     "is_chat": "indicator", "is_login": "indicator", "is_products": "indicator",
@@ -66,7 +67,7 @@ def code_revision():
 
 def train(csv_path, output, *, seed=42, trees=100, splits_path=None, feature_set="base",
           calibration_percentile=.5):
-    if feature_set not in {"base", "behavior", "rate"}:
+    if feature_set not in {"base", "behavior", "rate", "volume"}:
         raise ValueError("unknown model feature set")
     if not math.isfinite(calibration_percentile) or not 0 < calibration_percentile <= 10:
         raise ValueError("calibration percentile must be in (0, 10]")
@@ -84,22 +85,25 @@ def train(csv_path, output, *, seed=42, trees=100, splits_path=None, feature_set
         raise ValueError("at least two independent benign run groups are required")
     train_groups, cal_groups = split_groups(groups, seed, splits_path)
     model_features = {"base": FEATURES_BASE, "behavior": BEHAVIOR_FEATURES,
-                      "rate": RATE_FEATURES}[feature_set]
+                      "rate": RATE_FEATURES, "volume": VOLUME_FEATURES}[feature_set]
     x = frame[model_features].to_numpy(dtype=float)
     if not np.isfinite(x).all():
         raise ValueError("features must be finite")
-    if feature_set != "base":
+    if feature_set not in {"base", "volume"}:
         if (x < 0).any():
             raise ValueError("behavior model inputs must be nonnegative")
         x = np.log1p(x)
     is_cal = frame.run_id.astype(str).isin(cal_groups).to_numpy()
+    volume = fit_representation(x[~is_cal]) if feature_set == "volume" else None
+    model_x = np.log1p(intensity(x, volume["scales"])).reshape(-1, 1) if volume else x
     model = IsolationForest(n_estimators=trees, random_state=seed, contamination="auto", n_jobs=1)
-    model.fit(x[~is_cal])
-    threshold = float(np.percentile(model.score_samples(x[is_cal]), calibration_percentile))
+    model.fit(model_x[~is_cal])
+    cal_scores = score_volume(model, x[is_cal], volume) if volume else model.score_samples(x[is_cal])
+    threshold = float(np.percentile(cal_scores, calibration_percentile))
     artifact = {
         "model": model, "features": FEATURES_BASE, "feature_version": FEATURE_VERSION,
         "model_features": list(model_features), "feature_set": feature_set,
-        "model_transform": "log1p" if feature_set != "base" else "identity",
+        "model_transform": "volume-v1" if volume else "log1p" if feature_set != "base" else "identity",
         "agent_version": AGENT_VERSION, "tokenizer": TOKENIZER_VERSION,
         "feature_units": FEATURE_UNITS, "sklearn_version": sklearn.__version__,
         "dependencies": {"python": platform.python_version(), "numpy": np.__version__,
@@ -112,6 +116,8 @@ def train(csv_path, output, *, seed=42, trees=100, splits_path=None, feature_set
         "training_runs": train_groups, "calibration_runs": cal_groups,
         "training_rows": int((~is_cal).sum()), "calibration_rows": int(is_cal.sum()),
     }
+    if volume:
+        artifact["volume_parameters"] = volume
     if splits_path is not None:
         artifact["splits_sha256"] = hashlib.sha256(Path(splits_path).read_bytes()).hexdigest()
     output = Path(output)
@@ -128,7 +134,7 @@ def main():
     parser.add_argument("--csv", required=True)
     parser.add_argument("--splits", help="JSON declaring benign_fit, benign_calibration and test run IDs")
     parser.add_argument("--output", default="ml/model_base.joblib")
-    parser.add_argument("--features", choices=["base", "behavior", "rate"], default="base")
+    parser.add_argument("--features", choices=["base", "behavior", "rate", "volume"], default="base")
     parser.add_argument("--calibration-percentile", type=float, default=.5)
     args = parser.parse_args()
     if args.set == "ebpf":

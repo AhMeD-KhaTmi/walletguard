@@ -1,0 +1,12 @@
+{
+  "status": "activated_after_offline_and_independent_confirmation",
+  "model_path": "ml/artifacts/model_base_volume_v1.joblib",
+  "model_sha256": "1eb84211004b6abe42cd2b8ec03e4b06b8504884ad0a8b9c1ca81ce2f55829e3",
+  "input_feature_version": 3,
+  "input_columns": 19,
+  "selected_inputs": 3,
+  "forest_dimensions": 1,
+  "default_startup_probe": "default_startup.json",
+  "original_model_preserved": true,
+  "kernel_integrated": false
+}

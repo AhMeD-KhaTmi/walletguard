@@ -1,0 +1,311 @@
+{
+  "offline_gate_passed": true,
+  "live_gate_passed": true,
+  "eligible_for_activation": true,
+  "deployed": false,
+  "model_sha256": "1eb84211004b6abe42cd2b8ec03e4b06b8504884ad0a8b9c1ca81ce2f55829e3",
+  "source_revision": "816145e4da027d113e9794bb575b528ccaa1e598",
+  "live_source_revision": "b1527870a7406bab1d75699e4ba1c3c0aee97b33",
+  "lifecycle_confirmation": true,
+  "c1_runs": 21,
+  "live_runs": 18,
+  "summary": {
+    "normal-benign": {
+      "C0": {
+        "benign_attempts": 390,
+        "benign_policy_denials": 0,
+        "benign_unknown": 0,
+        "benign_auto_bans": 0,
+        "latency_p50_ms": {
+          "median": 3.028,
+          "min": 2.957,
+          "max": 3.051
+        },
+        "latency_p95_ms": {
+          "median": 94.124,
+          "min": 63.85,
+          "max": 96.051
+        },
+        "app_cpu_pct": {
+          "median": 1.76,
+          "min": 1.66,
+          "max": 1.96
+        },
+        "latency_delta_p50_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "latency_delta_p95_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "C3": {
+        "benign_attempts": 390,
+        "benign_policy_denials": 0,
+        "benign_unknown": 0,
+        "benign_auto_bans": 0,
+        "latency_p50_ms": {
+          "median": 16.952,
+          "min": 15.391,
+          "max": 17.042
+        },
+        "latency_p95_ms": {
+          "median": 107.49085,
+          "min": 81.68479999999998,
+          "max": 108.24179999999998
+        },
+        "waf_overhead_p50_ms": {
+          "median": 13.100601499672848,
+          "min": 12.601191000157996,
+          "max": 13.183761999698618
+        },
+        "waf_overhead_p95_ms": {
+          "median": 33.26055400002588,
+          "min": 29.41052524986389,
+          "max": 34.85347200030446
+        },
+        "scoring_p95_ms": {
+          "median": 17.28469360004965,
+          "min": 16.507527450198715,
+          "max": 22.327475600013706
+        },
+        "app_cpu_pct": {
+          "median": 5.5,
+          "min": 5.16,
+          "max": 5.73
+        },
+        "latency_delta_p50_ms": {
+          "median": 13.924000000000001,
+          "min": 12.434000000000001,
+          "max": 13.991000000000001
+        },
+        "latency_delta_p95_ms": {
+          "median": 13.36685,
+          "min": 12.190799999999982,
+          "max": 17.83479999999998
+        }
+      }
+    },
+    "varied-benign": {
+      "C0": {
+        "benign_attempts": 388,
+        "benign_policy_denials": 0,
+        "benign_unknown": 0,
+        "benign_auto_bans": 0,
+        "latency_p50_ms": {
+          "median": 3.25,
+          "min": 3.057,
+          "max": 3.52
+        },
+        "latency_p95_ms": {
+          "median": 129.04,
+          "min": 100.365,
+          "max": 154.186
+        },
+        "app_cpu_pct": {
+          "median": 2.16,
+          "min": 1.86,
+          "max": 2.4
+        },
+        "latency_delta_p50_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "latency_delta_p95_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "C3": {
+        "benign_attempts": 381,
+        "benign_policy_denials": 0,
+        "benign_unknown": 0,
+        "benign_auto_bans": 0,
+        "latency_p50_ms": {
+          "median": 17.326500000000003,
+          "min": 14.658,
+          "max": 17.528
+        },
+        "latency_p95_ms": {
+          "median": 116.98224999999996,
+          "min": 107.36059999999999,
+          "max": 173.00300000000001
+        },
+        "waf_overhead_p50_ms": {
+          "median": 12.57934249997561,
+          "min": 12.269070999991527,
+          "max": 13.587715499397746
+        },
+        "waf_overhead_p95_ms": {
+          "median": 31.18856839973887,
+          "min": 26.99374844978592,
+          "max": 32.37049475092135
+        },
+        "scoring_p95_ms": {
+          "median": 19.291407400123717,
+          "min": 17.668716199909785,
+          "max": 23.07689050007866
+        },
+        "app_cpu_pct": {
+          "median": 5.73,
+          "min": 5.43,
+          "max": 6.06
+        },
+        "latency_delta_p50_ms": {
+          "median": 14.008,
+          "min": 11.600999999999999,
+          "max": 14.076500000000003
+        },
+        "latency_delta_p95_ms": {
+          "median": 6.995599999999996,
+          "min": -12.057750000000027,
+          "max": 18.817000000000007
+        }
+      }
+    },
+    "normal-mixed": {
+      "C0": {
+        "benign_attempts": 199,
+        "benign_policy_denials": 0,
+        "benign_unknown": 0,
+        "benign_auto_bans": 0,
+        "latency_p50_ms": {
+          "median": 3.262,
+          "min": 3.225,
+          "max": 3.526
+        },
+        "latency_p95_ms": {
+          "median": 92.066,
+          "min": 90.508,
+          "max": 99.755
+        },
+        "app_cpu_pct": {
+          "median": 42.43,
+          "min": 41.84,
+          "max": 42.44
+        },
+        "asr": {
+          "median": 0.715,
+          "min": 0.7109,
+          "max": 0.7156
+        },
+        "unknown_outcomes": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "latency_delta_p50_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "latency_delta_p95_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        }
+      },
+      "C3": {
+        "benign_attempts": 195,
+        "benign_policy_denials": 0,
+        "benign_unknown": 0,
+        "benign_auto_bans": 0,
+        "latency_p50_ms": {
+          "median": 58.532,
+          "min": 58.493,
+          "max": 58.759
+        },
+        "latency_p95_ms": {
+          "median": 214.4495,
+          "min": 197.90384999999998,
+          "max": 248.8275
+        },
+        "waf_overhead_p50_ms": {
+          "median": 41.46093000008477,
+          "min": 41.324770000301214,
+          "max": 41.942066999581584
+        },
+        "waf_overhead_p95_ms": {
+          "median": 68.14043199970001,
+          "min": 67.6501209001799,
+          "max": 71.51251370023601
+        },
+        "scoring_p95_ms": {
+          "median": 38.64069800010839,
+          "min": 37.926362699727136,
+          "max": 39.62890630014044
+        },
+        "app_cpu_pct": {
+          "median": 90.25,
+          "min": 88.04,
+          "max": 91.65
+        },
+        "asr": {
+          "median": 0.0245,
+          "min": 0.0242,
+          "max": 0.0246
+        },
+        "unknown_outcomes": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "latency_delta_p50_ms": {
+          "median": 55.233000000000004,
+          "min": 55.231,
+          "max": 55.306999999999995
+        },
+        "latency_delta_p95_ms": {
+          "median": 122.3835,
+          "min": 98.14884999999998,
+          "max": 158.3195
+        }
+      }
+    }
+  },
+  "kernel_integrated": false,
+  "mixed_attacks": {
+    "C0-credential_stuffing": {
+      "attempts": 9290,
+      "success": 861,
+      "unknown": 0,
+      "asr": 0.09268030139935414
+    },
+    "C0-dow": {
+      "attempts": 1457,
+      "success": 1457,
+      "unknown": 0,
+      "asr": 1.0
+    },
+    "C0-scraping": {
+      "attempts": 18708,
+      "success": 18708,
+      "unknown": 0,
+      "asr": 1.0
+    },
+    "C3-credential_stuffing": {
+      "attempts": 4037,
+      "success": 2,
+      "unknown": 0,
+      "asr": 0.0004954173891503591
+    },
+    "C3-dow": {
+      "attempts": 3772,
+      "success": 21,
+      "unknown": 0,
+      "asr": 0.005567338282078473
+    },
+    "C3-scraping": {
+      "attempts": 5293,
+      "success": 297,
+      "unknown": 0,
+      "asr": 0.05611184583412054
+    }
+  },
+  "note": "Short synthetic workload windows; no production or C4 acceptance claim."
+}

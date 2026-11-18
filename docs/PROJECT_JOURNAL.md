@@ -2,13 +2,15 @@
 
 Last updated: 2026-11-18 (Africa/Lagos).
 
-Latest snapshot: calibrated agent budgets pass 36 independent C0/C2/C3 runs
-with zero observed benign policy denials/bans (two C2 shutdown interruptions
-remain unknown). Model/scoring code passes 91 app/contract tests, 109 evaluation
-tests and 12 HTTP checks. Fresh detector acceptance rejected the replacement
-model; the original forest stays active. Twelve matched scoring runs validate bounded batching; mixed benign p95
-median falls from 712ms to 291ms. One direct shutdown outcome remains unknown. Real kernel/C4 integration remains pending. See the latest dated entry,
-`BUDGET_VALIDATION_RESULTS.md` and `MODEL_CALIBRATION_REVISIONS.md`.
+Latest snapshot: validated 40,000-token/2,400-token/s budgets and bounded
+batching remain. Directional-volume C3 model now passes fresh offline acceptance
+(99.01% recall, 99.58% precision, 5.77% benign detector flags) and independent
+live confirmation (966 benign C3 requests; zero denials/unknowns/bans). Initial
+live shutdown failure is preserved; confirmation uses the tested supervised
+lifecycle driver. Final98 app/contract tests,109 eval tests,12 HTTP probes and
+default-model eight-step/dashboard startup probe pass. Original model and all
+historical campaigns are preserved. Real kernel/C4 remains pending.
+See `DETECTOR_VOLUME_RESULTS.md` and the latest dated entry.
 
 Current execution authority: `MASTER_PLAN.md` and `../contract/redis_schema.md`.
 The user authorized resolving the planning choices on 2026-11-16. The initial
@@ -1887,3 +1889,100 @@ IT-1–IT-6. Current acceptance failures must remain visible until fresh tests p
 - A can pull main and continue schema-v2 sensor/enforcement work in parallel.
   B still owns recall research with new independent test groups. Collect real
   sensor data jointly before augmented training/C4 and final IT-1–IT-6.
+
+### 2026-11-18 — start independently split directional-volume experiment
+
+- User authorized recall research, new data and replacement testing while keeping
+  validated budgets/batching. Branch `codex/b-directional-volume`; protocol fixed
+  in `docs/DETECTOR_VOLUME_EXPERIMENT.md` before any new collection or fitting.
+- Benign-anchored synthetic probes confirm normal-score saturation beyond fitting
+  support, including the rejected three-input forest. Saved diagnosis JSON and
+  verified IsolationForest split/score behavior against official sklearn docs.
+  No old held-out rows are used for this candidate's selection or training.
+- New candidate retains IsolationForest, benign-only fitting, 100 trees, seed42.
+  It models log1p(max scaled request/task volume), scales from fitting p95, and
+  treats below-fitting-median intensity as normal. Threshold stays benign-calibrated
+  fifth percentile. No score penalties, new blocking rule, feature version/Redis
+  contract change or hardcoded attack threshold. Original model stays active.
+- Added `ml/volume.py`, explicit volume artifact validation, trainer profile,
+  fresh-data/live runners and five regression tests. Existing profiles remain
+  compatible. **96 app/contract, 109 eval, 12 HTTP checks passed**; one known
+  gevent warning. Initial restricted two HTTP fixture setups lacked sockets;
+  rerun in disposable namespace passed. Evidence under `docs/evidence/volume_experiment/`.
+- Fresh groups: fit701/702, cal703; held-out benign711–713 and attack721–743;
+  live751–753 only after offline acceptance. No earlier held-out data is reused.
+  Preserve all rejected captures. Acceptance criteria unchanged; no retuning from
+  new held-out metrics. A's implementation directories remain untouched.
+
+- Measurement source frozen at `816145e` in `/tmp/walletguard-volume`;
+  output `ml/data/volume-v1`. First five fresh fitting/calibration captures
+  accepted with clean source, no transport failures, and independent API/mock
+  usage equality. No model/test metrics opened. Collection and conditional live
+  replay use `/tmp/p20-volume-chain.py`; source protocol/runners are committed.
+
+- All six benign fitting/calibration captures accepted without exclusion. Candidate
+  frozen before test capture: SHA-256
+  `1eb84211004b6abe42cd2b8ec03e4b06b8504884ad0a8b9c1ca81ce2f55829e3`.
+  1,055 fitting / 519 calibration rows, threshold -0.4738787278010676; fitted
+  scales [10, 50, 3226.8], median-intensity gate0.8. These values are now immutable.
+  Fresh held-out collection begins; no model deployment or quality claim yet.
+
+- All 21 C1 captures accepted without exclusions. Fresh test CSV has 23,368
+  rows (1,594 benign / 21,774 malicious). Frozen volume candidate passes offline
+  gates: TP21,558 FP92 FN216 TN1,502; precision99.575%, recall99.008%, benign
+  detector flag rate5.772%. Every attack run has positive recall. Original on
+  identical rows: TP15 FP10 FN21,759 TN1,584; precision60%, recall0.0689%,
+  benign flags0.627%. Full per-run metrics and joins copied to evidence.
+- The candidate remains inactive. Conditional live validation begins at unchanged
+  source816145e, 18 matched C0/C3 runs, seeds751–753. Higher benign detector flags
+  must not become unacceptable policy denials/bans. No post-test retuning.
+
+- First live grid completed all18 valid captures, but strict live acceptance FAILED:
+  one benign varied C3 product request ended GreenletExit at0.412ms, retained as
+  unknown; no observed benign denials/bans. Full failed grid/report preserved.
+  Candidate remains inactive despite its offline quality improvement.
+- Root cause investigation: A's LoggedUser._past_deadline calls runner.quit from
+  the user greenlet; installed Locust stop_users explicitly kills a current user
+  that calls quit. Five-second stop-timeout alone does not remove this path.
+- Defined an independent follow-up in the protocol BEFORE replay: opt-in B
+  lifecycle driver and source/hash metadata, no A-owned source edits. Expired
+  users stop individually; a separate supervisor drains/terminates the worker.
+  Per-user deadlines unchanged; non-gated CLI watchdog +10s, overrun checks stay.
+  Frozen candidate/hash/threshold unchanged. Focused tests plus six smoke runs
+  precede one new 18-run confirmation at seeds761–763. Preserve both outcomes;
+  this is a lifecycle fix, not retuning or relaxing the failed completeness gate.
+
+- Lifecycle source frozen at `b152787` in a separate clean checkout. Seven focused
+  volume/lifecycle tests pass. All six 7s C0/C3 normal/varied/mixed smoke runs
+  meet the unchanged safety/completeness checks with supervised_deadline_v1.
+  Smoke uses seed861 and is not final acceptance. New confirmation761–763 starts;
+  original failed live grid and immutable offline artifact remain preserved.
+
+### 2026-11-18 — qualified volume model, preserved lifecycle failure, activated default
+
+- Independent confirmation completed18 matched C0/C3 runs at source `b152787`,
+  new seeds761–763. Post-validator checks exact expected grid, source/model hashes,
+  matching policy/workload/identity/scoring metadata and API/mock token/step/cost
+  totals. All966 benign C3 requests: zero policy denials, unknown/errors/timeouts
+  or bans. Offline quality gates and confirmation gate pass. Initial failed18-run
+  grid remains under volume_experiment evidence, not overwritten or relabeled.
+- Current C3 default is the frozen qualified volume artifact, hash1eb842…829e3,
+  copied under `ml/artifacts/model_base_volume_v1.joblib` with its original JSON.
+  Config default points to it; explicit historical overrides still work. Original
+  artifact bb0116…ca1 remains byte-identical. No bucket/strike/ban/allowlist/schema
+  or A-owned source change. The only post-measurement runtime change is the default
+  artifact path; measured confirmation already used those exact frozen weights.
+- Full final regression: **98 app/contract**, **109 eval** (one known gevent warning),
+  **12 real-HTTP C0/C1/C2 probes**, plus a **real-HTTP default C3 startup/eight-step
+  chat/dashboard probe**. A probe invocation initially omitted required redis_url;
+  corrected standalone probe passes. Owned services/scratch Redis stopped.
+- Re-trained both the new model and original base on their exact respective CSVs/
+  splits. Each threshold and EVERY corresponding held-out score match exactly
+  (23,368 new rows,10,276 historical rows). Frozen artifacts were not replaced by
+  metadata-different replays. Proof in volume_confirmation/retraining_reproducibility.json.
+- Updated master v1.5, both member plans, checklist, model cards and A-agent handoff.
+  63 new captures total:21 C1 +18 first live(failed completeness) +6 driver smokes
+  +18 independent confirmation. Report high benign detector flags5.77% separately
+  from zero observed policy denials. These are short, synthetic workload-family
+  checks; no production/C4/final joint benchmark claim. A's sensor/enforcement and
+  joint real-signal data/augmented training remain the next integration point.

@@ -1,0 +1,149 @@
+[
+  {
+    "run_id": "volume-normal-701",
+    "attempts": 265,
+    "joined": 265,
+    "coverage": 1.0,
+    "unknown": 0
+  },
+  {
+    "run_id": "volume-varied-701",
+    "attempts": 257,
+    "joined": 257,
+    "coverage": 1.0,
+    "unknown": 0
+  },
+  {
+    "run_id": "volume-normal-702",
+    "attempts": 269,
+    "joined": 269,
+    "coverage": 1.0,
+    "unknown": 0
+  },
+  {
+    "run_id": "volume-varied-702",
+    "attempts": 264,
+    "joined": 264,
+    "coverage": 1.0,
+    "unknown": 0
+  },
+  {
+    "run_id": "volume-normal-703",
+    "attempts": 262,
+    "joined": 262,
+    "coverage": 1.0,
+    "unknown": 0
+  },
+  {
+    "run_id": "volume-varied-703",
+    "attempts": 257,
+    "joined": 257,
+    "coverage": 1.0,
+    "unknown": 0
+  },
+  {
+    "run_id": "volume-test-normal-711",
+    "attempts": 262,
+    "joined": 262,
+    "coverage": 1.0,
+    "unknown": 0
+  },
+  {
+    "run_id": "volume-test-varied-711",
+    "attempts": 262,
+    "joined": 262,
+    "coverage": 1.0,
+    "unknown": 0
+  },
+  {
+    "run_id": "volume-test-normal-712",
+    "attempts": 262,
+    "joined": 262,
+    "coverage": 1.0,
+    "unknown": 0
+  },
+  {
+    "run_id": "volume-test-varied-712",
+    "attempts": 260,
+    "joined": 260,
+    "coverage": 1.0,
+    "unknown": 0
+  },
+  {
+    "run_id": "volume-test-normal-713",
+    "attempts": 277,
+    "joined": 277,
+    "coverage": 1.0,
+    "unknown": 0
+  },
+  {
+    "run_id": "volume-test-varied-713",
+    "attempts": 272,
+    "joined": 271,
+    "coverage": 0.9963235294117647,
+    "unknown": 1
+  },
+  {
+    "run_id": "volume-test-credential_stuffing-721",
+    "attempts": 2670,
+    "joined": 2669,
+    "coverage": 0.999625468164794,
+    "unknown": 1
+  },
+  {
+    "run_id": "volume-test-credential_stuffing-731",
+    "attempts": 2643,
+    "joined": 2641,
+    "coverage": 0.9992432841468029,
+    "unknown": 2
+  },
+  {
+    "run_id": "volume-test-credential_stuffing-741",
+    "attempts": 2706,
+    "joined": 2706,
+    "coverage": 1.0,
+    "unknown": 0
+  },
+  {
+    "run_id": "volume-test-scraping-722",
+    "attempts": 4099,
+    "joined": 4098,
+    "coverage": 0.9997560380580629,
+    "unknown": 1
+  },
+  {
+    "run_id": "volume-test-scraping-732",
+    "attempts": 4036,
+    "joined": 4036,
+    "coverage": 1.0,
+    "unknown": 0
+  },
+  {
+    "run_id": "volume-test-scraping-742",
+    "attempts": 4140,
+    "joined": 4140,
+    "coverage": 1.0,
+    "unknown": 0
+  },
+  {
+    "run_id": "volume-test-dow-723",
+    "attempts": 493,
+    "joined": 493,
+    "coverage": 1.0,
+    "unknown": 0
+  },
+  {
+    "run_id": "volume-test-dow-733",
+    "attempts": 496,
+    "joined": 496,
+    "coverage": 1.0,
+    "unknown": 0
+  },
+  {
+    "run_id": "volume-test-dow-743",
+    "attempts": 495,
+    "joined": 495,
+    "coverage": 1.0,
+    "unknown": 0
+  }
+]

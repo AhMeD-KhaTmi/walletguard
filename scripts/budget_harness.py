@@ -8,6 +8,7 @@ metadata and campaign partition tags to every manifest, including failed runs.
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import sys
 
@@ -35,6 +36,11 @@ def main():
     def command(args, entry, run_dir):
         argv, env, log = original_command(args, entry, run_dir)
         argv += ["--stop-timeout", "5"]
+        if os.environ.get("P20_SAFE_DRIVER") == "1":
+            executable = argv.index("-f")-1
+            argv[executable:executable+1] = [sys.executable, str(ROOT / "scripts/locust_deadline_driver.py")]
+            if env["P20_SETUP_GATE"] == "0":
+                argv[argv.index("-t")+1] = f"{harness._seconds(args.duration)+10:g}s"
         return argv, env, log
 
     harness.workload_command = command
@@ -47,6 +53,9 @@ def main():
         script = harness.WORKLOADS[args.workload][0]
         return {**original_metadata(args), "campaign_stage": opts.campaign_stage,
                 "worker_stop_timeout_s": 5,
+                "worker_lifecycle": "supervised_deadline_v1" if os.environ.get("P20_SAFE_DRIVER") == "1" else "original",
+                "worker_driver_sha256": (hashlib.sha256((ROOT / "scripts/locust_deadline_driver.py").read_bytes()).hexdigest()
+                                         if os.environ.get("P20_SAFE_DRIVER") == "1" else None),
                 "benign_scenario": opts.agent_scenario if args.workload == "benign" else None,
                 "workload_script": script,
                 "workload_sha256": hashlib.sha256((ROOT / script).read_bytes()).hexdigest(),

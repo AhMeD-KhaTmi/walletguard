@@ -1,0 +1,9 @@
+{
+  "live_safety_gate_passed": true,
+  "runs": 6,
+  "model_sha256": "1eb84211004b6abe42cd2b8ec03e4b06b8504884ad0a8b9c1ca81ce2f55829e3",
+  "deployed": false,
+  "confirmation": false,
+  "smoke_only": true,
+  "note": "Candidate remains inactive until final combined acceptance review."
+}

@@ -1,4 +1,30 @@
-# Frozen agent-loop C3 model
+# C3 model artifacts
+
+## Current qualified directional-volume model
+
+`model_base_volume_v1.joblib` is the current default when C3 is enabled.
+SHA-256: `1eb84211004b6abe42cd2b8ec03e4b06b8504884ad0a8b9c1ca81ce2f55829e3`.
+Its adjacent JSON manifest records fitting/calibration IDs, scales, directional
+gate, threshold, feature order, source/data hashes and dependencies. Input feature
+version remains3 (19 fields); three selected inputs map to one forest dimension.
+Required scikit-learn: **1.9.1**. Use the recorded environment; do not edit manifests
+or load untrusted joblib files. The original comparison binary below is preserved.
+
+Fresh detector results: precision99.58%, recall99.01%, benign detector flags5.77%.
+Those flags are separate from blocking. Eighteen fresh live confirmation runs
+record zero benign denials/unknowns/bans over966 C3 benign requests. The first
+live grid failed completeness and is preserved. See
+[full results](../../docs/DETECTOR_VOLUME_RESULTS.md) for protocol and limitations.
+
+```bash
+.venv/bin/python scripts/run_demo.py --mode enforce --model ml/artifacts/model_base_volume_v1.joblib
+```
+
+For A's harness, explicitly pass `--model ml/artifacts/model_base_volume_v1.joblib`.
+Use B's recorded `scripts/budget_harness.py` adapter with `P20_SAFE_DRIVER=1` for
+supervised deadline/draining behavior. The original harness/workloads are unchanged.
+
+## Historical frozen agent-loop model
 
 This repository-generated model is the frozen feature-version-3 base model used
 in the 81-run professor-update campaign. It is supplied so A can run C3 after

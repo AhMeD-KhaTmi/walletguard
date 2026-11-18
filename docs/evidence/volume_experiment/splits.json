@@ -1,0 +1,29 @@
+{
+  "benign_fit": [
+    "volume-normal-701",
+    "volume-varied-701",
+    "volume-normal-702",
+    "volume-varied-702"
+  ],
+  "benign_calibration": [
+    "volume-normal-703",
+    "volume-varied-703"
+  ],
+  "test": [
+    "volume-test-normal-711",
+    "volume-test-varied-711",
+    "volume-test-normal-712",
+    "volume-test-varied-712",
+    "volume-test-normal-713",
+    "volume-test-varied-713",
+    "volume-test-credential_stuffing-721",
+    "volume-test-credential_stuffing-731",
+    "volume-test-credential_stuffing-741",
+    "volume-test-scraping-722",
+    "volume-test-scraping-732",
+    "volume-test-scraping-742",
+    "volume-test-dow-723",
+    "volume-test-dow-733",
+    "volume-test-dow-743"
+  ]
+}
