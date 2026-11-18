@@ -2090,3 +2090,17 @@ IT-1–IT-6. Current acceptance failures must remain visible until fresh tests p
   Current low-rate flags/blocks and benign comfort failures are evidence, not
   concealed as test failures. Final tables explicitly disclose fixed no-backoff
   pacing, partial-window burst rates, workload scope and the need for fresh remedies.
+
+### 2026-11-18 — verified robustness-study publication
+
+- Published reviewed source, plans and compact evidence to main at
+  `259d366a2337d393e7a86eec468c11cf64612e4c`, with expected-head checking and no
+  force. Fetched tree6b0cdeca636219cc9660d5eb1725498d16809fc9 exactly matches local
+  checkpoint56d1a97. Earlier completed work was already published at79f3d24 when
+  this task began. All requested test profiles are now completed and documented.
+- GitHub recreates commit metadata; measured local3904048 remains recorded with
+  workload-helper hashes so the actual run source is identifiable. Raw captures
+  stay ignored/local. No app/WAF/ML/common runtime or A-owned source was changed.
+- Next B phase is prospective remedy design with new independent validation;
+  these now-opened datasets must not become tuning/acceptance data for a revision.
+  A can pull main and continue sensor/enforcement work with unchanged contracts.

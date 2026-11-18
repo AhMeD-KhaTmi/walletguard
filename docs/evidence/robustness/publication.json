@@ -1,0 +1,14 @@
+{
+  "measured_local_revision": "3904048",
+  "published_checkpoint": "259d366a2337d393e7a86eec468c11cf64612e4c",
+  "helper_sha256": {
+    "scripts/robustness_cases.py": "34062f729910995994461cfeab06c093da1bef3c6450672550a4adcdb7174050",
+    "scripts/robustness_workload.py": "68878b1e8b40ff3c19b19326118acee17986965882ae78d127d939db3f116a3a",
+    "scripts/robustness_harness.py": "8217f441ba3c913a49aabfaf9889a3533e43b9236c9a5c8e87cedebe758f2305",
+    "scripts/budget_harness.py": "2b945ea0c1923bd7e5a02c645cfe317d0960b113fc5bb43120bb452368f32254",
+    "scripts/locust_deadline_driver.py": "9a4ee681081bcbe1f6eedb8a1464415ff5ddd7e9c9304d5883b0e337de9751a6",
+    "scripts/robustness_identities/shared_account.json": "e723377826a5a5c772e02de458379aa61b28db946c264aa4c5f0535f2ee7f0b8",
+    "scripts/robustness_identities/distributed.json": "3b3e416e76fbc355fcca9a02f392671c60fd3ac2ce3b865a6852a81df40ff413"
+  },
+  "note": "Commit metadata differs; these published runtime workload files match the clean measured checkout exactly."
+}

@@ -23,6 +23,8 @@
 
 - [x] **B:** Publish the qualified volume model, lifecycle fix, evidence and master v1.5 on `main` ([fa95a24](https://github.com/AhMeD-KhaTmi/walletguard/commit/fa95a240e7e1d6159b81a7e68f054845df639249)).
 
+- [x] **B:** Publish robustness source, unfavorable findings, evidence and coordinated plans on `main` ([259d366](https://github.com/AhMeD-KhaTmi/walletguard/commit/259d366a2337d393e7a86eec468c11cf64612e4c)).
+
 ## Application robustness follow-up
 
 - [x] **B:** Complete five harder profiles in 45 matched C0/C2/C3 captures, three fresh repetitions, plus 15 separate pipeline smokes. Preserve unfavorable results and unchanged controls. [Results](ROBUSTNESS_RESULTS.md).
