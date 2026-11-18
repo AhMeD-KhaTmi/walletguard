@@ -1873,3 +1873,17 @@ IT-1–IT-6. Current acceptance failures must remain visible until fresh tests p
   directories have no changes from main. Original model SHA-256 remains `bb0116…ca1`.
 - Next: publish reviewed source/reports to main, preserve ignored raw captures
   locally, and keep recall improvement and A's real kernel/C4 integration open.
+
+### 2026-11-18 — published calibrated budgets and validated scoring on main
+
+- Published reviewed source/reports through the GitHub connector at
+  `01d21d934c7e6077afa713b1d4c707bc9655d68d` on `main`, using an expected-head
+  check and no force push. Remote tree `76f21105256367999073ba6336e8610af5f4434d`
+  exactly matches the tested local checkpoint `648a687` tree. GitHub recreates
+  commit metadata; measured local revision IDs remain recorded honestly.
+- Upload includes source, plans and compact evidence only. Raw captures and
+  rejected model binaries stay in ignored local directories. Original deployed
+  model remains byte-identical. No A-owned source changes or shared-schema changes.
+- A can pull main and continue schema-v2 sensor/enforcement work in parallel.
+  B still owns recall research with new independent test groups. Collect real
+  sensor data jointly before augmented training/C4 and final IT-1–IT-6.

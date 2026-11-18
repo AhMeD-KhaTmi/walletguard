@@ -19,6 +19,8 @@
 - [x] **B:** Validate scoring latency with twelve matched direct/batched runs using the original model. Mixed benign p95 median 712→291ms; one direct shutdown outcome remains unknown. [Results](SCORING_PERFORMANCE_RESULTS.md).
 - [ ] **B:** Improve base detector recall under a new research protocol and new independent test groups before final model acceptance. Do not tune against the now-opened fresh tests.
 
+- [x] **B:** Publish budget calibration, validated batching, model rejection evidence and updated plans on `main` ([01d21d9](https://github.com/AhMeD-KhaTmi/walletguard/commit/01d21d934c7e6077afa713b1d4c707bc9655d68d)).
+
 ## In parallel — C4 kernel work
 
 - [ ] **A:** Deliver the app-scoped connect/execve sensor and Redis signals, plus expiring XDP enforcement or a documented generic/skb, tc/nftables/WAF fallback and its measured telemetry.
