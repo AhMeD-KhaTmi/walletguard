@@ -10,7 +10,8 @@ from waf.config import Config
 
 
 def test_profiles_really_exercise_declared_policy_boundaries():
-    cfg=Config();ip_cap,ip_rate=cfg.budgets['ip_req'];tok_cap,tok_rate=cfg.budgets['llm_tok']
+    # Historical robustness-v1 boundaries were defined against capacity30.
+    cfg=Config(budgets={**Config().budgets,'ip_req':(30,2.)});ip_cap,ip_rate=cfg.budgets['ip_req'];tok_cap,tok_rate=cfg.budgets['llm_tok']
     slow=worker_plan('slow_mixed','dow','ns12')
     task=reserve_tokens(' '.join(['synthetic']*slow['prompt_words']),slow['output'],slow['steps'])
     assert task<tok_cap and 3*task/slow['period_s']<tok_rate

@@ -52,6 +52,7 @@ def main():
                   "max_output_cap": cfg.max_output_cap}
         policy.update(account_pressure_bans=cfg.account_pressure_bans,
                       wallet_capacity=cfg.wallet_capacity, wallet_refill_per_s=cfg.wallet_refill_per_s)
+        policy.update({name:getattr(cfg,name) for name in ['wallet_small_capacity','wallet_small_refill_per_s','wallet_small_task_max','products_capacity','products_refill_per_s','spend_cap_microusd','spend_period']})
         script = harness.WORKLOADS[args.workload][0]
         return {**original_metadata(args), "campaign_stage": opts.campaign_stage,
                 "worker_stop_timeout_s": 5,

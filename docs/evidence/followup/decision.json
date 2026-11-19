@@ -1,0 +1,28 @@
+{
+  "combined_default_enabled": true,
+  "qualified_component_source": "e85db2087a658907c0b741c545e5eb6957cb68ec",
+  "qualified_combined_source": "f6de6d29213e460d12ad199668e67bd153d8fa42",
+  "gates": {
+    "fairness": true,
+    "bursts": true,
+    "hard_spend": true,
+    "preserved_defenses": true,
+    "scraping_volume_slow": true,
+    "scraping_volume_distributed": true,
+    "combined_compatibility": true
+  },
+  "wallet_capacity": 56000,
+  "wallet_refill_per_s": 7300,
+  "wallet_small_capacity": 9000,
+  "wallet_small_refill_per_s": 1800,
+  "wallet_small_task_max": 2048,
+  "ip_capacity": 60,
+  "ip_refill_per_s": 2,
+  "products_capacity": 1000,
+  "products_refill_per_s": 50,
+  "spend_cap_microusd": 0,
+  "spend_period": "",
+  "model_sha256": "1eb84211004b6abe42cd2b8ec03e4b06b8504884ad0a8b9c1ca81ce2f55829e3",
+  "legacy_replay": "Explicit wallet/SMALL/products0 and IP30; account_pressure_bans0 for prior6b82e70,1 for older broad escalation.",
+  "kernel_integrated": false
+}

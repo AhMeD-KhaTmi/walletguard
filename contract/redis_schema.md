@@ -139,8 +139,8 @@ and existing Redis bans are still honored. `WAF_WALLET_CAPACITY` plus
 `WAF_WALLET_REFILL_PER_S` enable a single service-wide token bucket on authenticated
 chat, using the same whole-task token units and atomic Lua/outage backend. Both
 are zero to disable. They are policy variants of C2/C3, not new configurations.
-Wallet defaults stay zero after the mixed benign comfort gate failed; the frozen
-40,000/5,700-token/s experimental policy remains explicit opt-in. Legacy account
+The earlier pooled40,000/5,700-token/s policy failed mixed comfort and remains
+historical. The later qualified lane default is specified below. Legacy account
 escalation is replayable with account pressure1 and wallet0/0. See the fresh
 component results in `../docs/ACCOUNT_WALLET_REMEDY_RESULTS.md`.
 
@@ -166,3 +166,58 @@ shadow equivalent), with the existing strike value/expiry semantics. This isolat
 legacy broad `budget` strikes after rollout without deleting old state. Existing
 p20:ban keys remain authoritative and are not reclassified or removed. Shared ban
 reason remains `budget`; A's consumers need no new ban-reason handling.
+
+## Prospective fairness/resource/spend controls — private B state
+
+The fitted lane/IP/item controls are qualified defaults after independent component
+and combined acceptance in `docs/FOLLOWUP_RESULTS.md`. Hard spending stays opt-in.
+The historical earlier pooled40,000/5,700 candidate remains a failed comparison.
+Shared schema2, ban reasons, signal TTLs and A-owned consumers are unchanged.
+
+- `WAF_WALLET_SMALL_CAPACITY`, `WAF_WALLET_SMALL_REFILL_PER_S` and
+  `WAF_WALLET_SMALL_TASK_MAX` partition the existing total wallet allowance into
+  two non-borrowing task-size lanes. All three zero selects the original pooled
+  allowance. Private buckets: `p20:bkt:wallet:small` and `:general`, shadow-prefixed
+  in C1. Their capacity/refill sum exactly to the configured wallet envelope.
+  Audit adds optional `lane`; normal token units/refunds/outage backend apply.
+- `WAF_IP_CAPACITY` overrides only IP burst capacity; request refill stays2/s.
+- `WAF_PRODUCTS_CAPACITY` / `WAF_PRODUCTS_REFILL_PER_S` enable private
+  `p20:bkt:products:<ip>` (and shadow equivalent). Cost is requested per_page
+  clamped1..100. Valid empty/tail pages can be conservatively overcharged. Invalid
+  integer query fields remain API validation errors. `products_items`429 never
+  adds an IP strike or corroborates an anomaly; impossible item cost gets400.
+- `WAF_SPEND_CAP_MICROUSD` / `WAF_SPEND_PERIOD` enable an absolute synthetic
+  period allowance. Period is trusted operator config, never a client header.
+  Initialize explicitly with `scripts/init_spend_period.py`; it cannot overwrite
+  an existing cap/used balance. Private `p20:spend:<period>` is a persistent hash:
+  `cap` integer micro-USD, `used` known charged plus retained reservations, and
+  `r:<request_id>` outstanding amounts. No TTL, refill or automatic rotation.
+  Runtime reset deliberately preserves this namespace, including setup resets;
+  restoring/resetting periods is an operator action outside the campaign helper.
+  Redis persistence/backups are an operational responsibility. Missing/lost or
+  mismatched authority returns503, never creates fresh money. In Redis outage,
+  optional capped chat admission returns503; normal buckets retain their existing
+  local fallback and cached-session browsing works. Hard cap disabled by default.
+  `spend_cap` exhaustion429 has no Retry-After (no scheduled refill) and causes no
+  IP ban. Whole-task integer reservations use synthetic input3/output15 micro-USD
+  per token; prices are shared in common/pricing.py. Known unused credit refunds
+  idempotently; uncertain/unreconciled usage retains credit. Allowlisted management
+  requests still bypass WAF, so the cap covers non-exempt application admission.
+- Private `p20:app:spend_audit`: bounded200,000 entries, fields run_id, request_id,
+  period, reserved, charged, refunded, uncertain, reconciled, cap. Runtime-reset
+  scope includes this diagnostic stream, but never the authoritative ledger.
+  C1 uses only shadow ledger keys and cannot consume the enforcement period.
+
+A should record these optional flags/effective budgets before new comparisons;
+B's budget_harness adapter records them. These change policy variants, not C0–C4.
+
+### Qualified default policy (2026-11-19, masterv1.8)
+
+Total wallet56,000/7,300, small9,000/1,800 (whole task<=2,048), general47,000/5,500;
+IP capacity60/refill2/s; item capacity1,000/refill50/s; hard spend0/empty period.
+Account40,000/2,400 and operational schema2 remain unchanged. Setting wallet total
+capacity/refill0/0 also defaults all SMALL fields to0 unless explicitly supplied.
+Explicitly zero all SMALL fields to select a pooled positive allowance. Historical
+replay must set wallet/SMALL/products0, IP30 and the recorded account-pressure flag;
+B's historical remedy adapter now sets those flags explicitly. Private strike
+namespace ip_budget remains; existing ban keys stay authoritative until expiry.

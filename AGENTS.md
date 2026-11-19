@@ -22,7 +22,7 @@ A two-person Red-vs-Blue security project. We attack a deliberately vulnerable F
 
 I own `app/`, `waf/`, `ml/`. My teammate (Member A, "Attack & Kernel" track) owns `ebpf/`, `locust/`, `eval/`. `contract/` and `docs/` are shared. Full plans: `member_B_plan.md` (mine) and `docs/member_A_plan.md` (teammate's) — read both before making non-trivial changes, since this system only works as the two halves together.
 
-**Professor-approved execution requirements (2026-11-17, master plan v1.7):**
+**Professor-approved execution requirements (2026-11-17, master plan v1.8):**
 Use Ubuntu 22.04/24.04, kernel >=5.15 and BTF. `/chat` runs a bounded simulated
 agent loop over the local mock with growing context, exact synthetic token counts,
 configurable deterministic latency and aggregate/per-step usage. Features are
@@ -45,11 +45,22 @@ read docs/ROBUSTNESS_RESULTS.md before claiming broader safety/protection. That 
 `docs/ACCOUNT_WALLET_REMEDY_RESULTS.md`: account-aware escalation is the current
 default (`WAF_ACCOUNT_PRESSURE_BANS=0`), with explicit1 for legacy replay. Only
 IP request/login pressure can add `ip_budget` corroboration; account/global quota
-429s cannot. Existing bans remain until expiry. The aggregate wallet candidate
-(40,000 capacity/5,700 tokens/s) saves20% in matched distributed runs but fails
-mixed benign comfort, so defaults remain0/0 and it is opt-in only. Its private
-keys/audit are documented in contract; shared schema2/ban reasons/TTLs unchanged.
-Keep opened calibration/validation/mixed groups out of future independent tuning.
+429s cannot. Existing bans remain until expiry. The earlier pooled wallet40,000/5,700 candidate failed mixed comfort and remains
+historical. Fresh follow-up fits/tests are in `docs/FOLLOWUP_RESULTS.md`: nine
+benign fits,93 component runs and12 separate combined runs pass;5 short smokes
+are separate. Current wallet defaults are total56,000/7,300, small9,000/1,800
+for whole tasks<=2,048 tokens, general47,000/5,500, no borrowing. IP capacity60,
+refill2/s; product-item capacity1,000/refill50/s. All3,780 planned combined benign
+candidate requests succeeded with no bans/unknowns. Financial period caps remain
+opt-in; exact synthetic micro-USD prices live in common/pricing.py. Normal buckets
+keep local conservative Redis-outage fallback. Optional hard-spend authority
+unavailable/missing/mismatched rejects capped chat503; ordinary cached-session
+browsing still works. Its persistent p20:spend:<period> ledger survives routine
+runtime reset and API restart; initialization cannot overwrite existing credit.
+Private lane/item/ledger/audit keys are in contract; shared schema2/ban reasons/TTLs
+unchanged. Slow/distributed scrape volume falls but all5,000 public items remain
+extractable; identical small-job contention is not solved. All opened groups stay
+excluded from future independent tuning. A-owned sources remain unchanged.
 
 ## Repository layout
 

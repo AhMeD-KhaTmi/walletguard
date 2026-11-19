@@ -1,0 +1,169 @@
+{
+  "small_task_max": 2048,
+  "lanes": {
+    "small": {
+      "largest": 2046,
+      "peak1s": 7149,
+      "peak60s": 85080,
+      "tasks": 302,
+      "capacity": 9000,
+      "refill_per_s": 1800
+    },
+    "general": {
+      "largest": 19188,
+      "peak1s": 36912,
+      "peak60s": 262968,
+      "tasks": 182,
+      "capacity": 47000,
+      "refill_per_s": 5500
+    }
+  },
+  "wallet_capacity": 56000,
+  "wallet_refill_per_s": 7300,
+  "ip_capacity": 60,
+  "products_capacity": 1000,
+  "products_refill_per_s": 50,
+  "burst_peaks": {
+    "requests_1s": 42,
+    "items_1s": 800,
+    "items_60s": 2400
+  },
+  "calibration": [
+    {
+      "run_id": "followup-cal-normal-r1",
+      "seed": 2001,
+      "profile": "normal",
+      "source": {
+        "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+        "dirty": false,
+        "status": "ok"
+      },
+      "files": {
+        "manifest.json": "e11a7d4d3fb06a2928e121d755ed012fa2c72ea8e5c56b0c15d2e642523528d4",
+        "features.jsonl": "c5f6eb3e6ba4163da984feb953610574a5c5c1428d4ad78b7edaa3dc1e11c005",
+        "usage.json": "29c9708ea8a1f31e8a2cd9666ad10cc9cac1d572c479dedba71e926b6c054ccb"
+      }
+    },
+    {
+      "run_id": "followup-cal-varied-r1",
+      "seed": 2001,
+      "profile": "varied",
+      "source": {
+        "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+        "dirty": false,
+        "status": "ok"
+      },
+      "files": {
+        "manifest.json": "2d47cd1c7e6a0c2adce7f0d87fcf3907f1b1a37a2d4c101552dc86595b094ef8",
+        "features.jsonl": "c0ef6812ce8dbeff1c2542d5d736de8188b1dc8b6413a7e1d87223b33eb8dca2",
+        "usage.json": "bcc671377d791792106c3ab9bf95c8585b768c5f1f1fc1064155f347294ef5d0"
+      }
+    },
+    {
+      "run_id": "followup-cal-normal-r2",
+      "seed": 2002,
+      "profile": "normal",
+      "source": {
+        "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+        "dirty": false,
+        "status": "ok"
+      },
+      "files": {
+        "manifest.json": "1b7c6f56955e842d3c2b907ed84fa8e6a17ca37b98ad61a815522494ddb9eb23",
+        "features.jsonl": "6ceb8f3179583eb03eb1c29edfa5a47ccfd8a623f1f1b196e6ebe493b2913c84",
+        "usage.json": "eca02b9c3cb6dd77e69d8e192df673fc193a6a6b78ebfda073a81c81599aada9"
+      }
+    },
+    {
+      "run_id": "followup-cal-varied-r2",
+      "seed": 2002,
+      "profile": "varied",
+      "source": {
+        "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+        "dirty": false,
+        "status": "ok"
+      },
+      "files": {
+        "manifest.json": "91ed357c0532a7aaf078ad420bc3a110f1dc3bab11d862151be2c785cd7a4ec4",
+        "features.jsonl": "07f8034a4e37fffba98008334ddc72bb75f15d2858fd301e7009346a7783f7f5",
+        "usage.json": "08d17f59b7d3abbb53932fb570f1109f149dc2d38050a116f9b6cd4a62dce4b5"
+      }
+    },
+    {
+      "run_id": "followup-cal-normal-r3",
+      "seed": 2003,
+      "profile": "normal",
+      "source": {
+        "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+        "dirty": false,
+        "status": "ok"
+      },
+      "files": {
+        "manifest.json": "0b64921dff0df0a4ab21070e85450f40dc52f7babef720e2a80c29866b64836b",
+        "features.jsonl": "87593aed36c54bed42c7a18b041aaf36cd7bae1727ec8322d43f6d09fd6163a3",
+        "usage.json": "97f876e52a90f4d47d5363f67cce27a1325c20aee1bee716ebfb3a6921638c5a"
+      }
+    },
+    {
+      "run_id": "followup-cal-varied-r3",
+      "seed": 2003,
+      "profile": "varied",
+      "source": {
+        "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+        "dirty": false,
+        "status": "ok"
+      },
+      "files": {
+        "manifest.json": "8ffff8dd3f93bb2a8e42f3682a51728489436c2b7add9e8fd8d7893811e041ea",
+        "features.jsonl": "c859de40c3af461943c46fbf247391604982af965a1fc69a84b3e29831c71090",
+        "usage.json": "5a74be36296928518b4bb048639a7f9480c5bfc14ce93e929539d5626bd0d3ea"
+      }
+    },
+    {
+      "run_id": "followup-cal-burst-r1",
+      "seed": 2201,
+      "profile": "burst",
+      "source": {
+        "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+        "dirty": false,
+        "status": "ok"
+      },
+      "files": {
+        "manifest.json": "799eb506f4b0ef09f2b23475a622bf6a2fd21664cb4bc6af4743c6be4fc4f1cb",
+        "features.jsonl": "d06305769a13126eedbfbda83545f9edd414105376f05df96e26ab1a6d2562ce",
+        "usage.json": "ba3a811d9a4eef95c6eab47582387a6731f45c29e1c02ef022a7ed9792572194"
+      }
+    },
+    {
+      "run_id": "followup-cal-burst-r2",
+      "seed": 2202,
+      "profile": "burst",
+      "source": {
+        "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+        "dirty": false,
+        "status": "ok"
+      },
+      "files": {
+        "manifest.json": "4860914e2fc77e0f017ed2a01738124d291b79051050adea5b83454920849117",
+        "features.jsonl": "3b8d52183bef48cd6364ed9c0fa79d1f05d503d61d185c38fbfc3e839b55a34e",
+        "usage.json": "ba3a811d9a4eef95c6eab47582387a6731f45c29e1c02ef022a7ed9792572194"
+      }
+    },
+    {
+      "run_id": "followup-cal-burst-r3",
+      "seed": 2203,
+      "profile": "burst",
+      "source": {
+        "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+        "dirty": false,
+        "status": "ok"
+      },
+      "files": {
+        "manifest.json": "74daffdd433a7c3ca6f53fd05096353eb09aed48157ea72012a680374b32e97e",
+        "features.jsonl": "e69715d6c233428048f7982e24d80c71ba06180356e652d3f4edcc7c782542c8",
+        "usage.json": "ba3a811d9a4eef95c6eab47582387a6731f45c29e1c02ef022a7ed9792572194"
+      }
+    }
+  ],
+  "frozen_before_validation": true
+}

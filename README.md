@@ -10,7 +10,7 @@ behavioral detection, and a planned Linux kernel enforcement layer.
 [![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](requirements.txt)
 [![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?logo=fastapi&logoColor=white)](app/main.py)
 [![Redis](https://img.shields.io/badge/State-Redis%207-DC382D?logo=redis&logoColor=white)](contract/redis_schema.md)
-[![Validation](https://img.shields.io/badge/App%20tests-118%20passed-76A946)](docs/evidence/account_wallet_remedy/application.xml)
+[![Validation](https://img.shields.io/badge/App%20tests-133%20passed-76A946)](docs/evidence/followup/application.xml)
 [![Status](https://img.shields.io/badge/Stage-Before%20kernel%20integration-D4A24C)](docs/evidence/independent_status.json)
 
 [Overview](#overview) · [Quick start](#quick-start) · [Validation](#validation) · [Documentation](#documentation) · [Team](#team)
@@ -29,7 +29,7 @@ vulnerable baseline or behind an ASGI behavioral WAF, making comparisons reprodu
 |---|---|---|
 | Credential stuffing | Login budgets per IP and account, strikes and temporary bans | Successful malicious logins |
 | Bulk API scraping | Request budgets, behavioral features and honeypot detection | Products extracted and attack success rate |
-| LLM Denial-of-Wallet | Output policy, per-account token reservation and refund | Tokens consumed and simulated cost |
+| LLM Denial-of-Wallet | Whole-task account/global reservations, refunds and optional absolute synthetic cap | Tokens consumed and simulated cost |
 
 **This is an academic prototype for an isolated lab.** Credentials and workloads
 are synthetic; the LLM is a local HTTP mock. All displayed costs are simulated.
@@ -45,7 +45,8 @@ are synthetic; the LLM is a local HTTP mock. All displayed costs are simulated.
 | Base IsolationForest (C3) | Uses the current agent-loop feature version and disjoint C1 run groups |
 | Held-out detector evaluation | Qualified volume model: 99.01% recall / 99.58% precision; benign detector flags 5.77% |
 | C0/C2/C3 namespace benchmark | 81 frozen agent runs, 36 budget runs, 12 scoring runs and independently checked volume-model results |
-| Account/global quota remedies | Account-aware escalation qualified; aggregate candidate saves20% but fails mixed benign comfort and stays opt-in. [Results](docs/ACCOUNT_WALLET_REMEDY_RESULTS.md) |
+| Qualified resource policy | Task-size wallet lanes, fitted IP bursts and item quotas pass93 component +12 combined runs; zero denials across3,780 combined candidate benign requests. [Results](docs/FOLLOWUP_RESULTS.md) |
+| Absolute synthetic spending | Opt-in persistent period cap; all six capped runs stay at$0.991620 under a$1 allowance. [Controls](docs/FOLLOWUP_CONTROLS.md) |
 | Fixed-policy robustness study | 45 fresh runs expose slow/distributed and legitimate account/burst limits; see the [results](docs/ROBUSTNESS_RESULTS.md) |
 | eBPF sensor, XDP and C4 integration | Pending; C4 startup is explicitly blocked |
 
@@ -67,13 +68,17 @@ The demo supports login/logout, catalogue pagination and chat with token/cost
 feedback. The dashboard displays real application decisions, usage and ban
 lifetimes, and labels unavailable integrations explicitly.
 
-Current account-pressure policy returns quota429s without IP strikes/bans from
-account/global pressure (`WAF_ACCOUNT_PRESSURE_BANS=0`). IP request/login abuse
-and honeypots still escalate. Legacy replay uses1 with wallet0/0. The optional
-aggregate allowance uses `WAF_WALLET_CAPACITY=40000` and
-`WAF_WALLET_REFILL_PER_S=5700`; it failed mixed-traffic comfort validation, so
-both wallet defaults remain0. It is a burst/rate control, not a hard spending cap.
-See the [fresh remedy results](docs/ACCOUNT_WALLET_REMEDY_RESULTS.md).
+Current C2/C3 defaults combine task-size wallet lanes (56,000 tokens total,
+7,300/s), IP burst capacity60 with refill2/s, and product-item capacity1,000 with
+refill50/s. Whole tasks up to2,048 tokens have a reserved small-task lane.
+Account quotas/model stay fixed; account/global/item pressure does not create IP
+ban strikes. The hard synthetic spending cap is opt-in and never refills or resets
+with routine runtime cleanup. [Results and limits](docs/FOLLOWUP_RESULTS.md) ·
+[Launch and historical replay](docs/FOLLOWUP_CONTROLS.md).
+
+Slow/distributed scraping volume is lower, while all5,000 public catalogue products
+remain extractable. The earlier pooled wallet candidate and its failed safety
+results remain [historical evidence](docs/ACCOUNT_WALLET_REMEDY_RESULTS.md).
 
 ## Architecture
 
@@ -197,8 +202,8 @@ Redis process. HTTP developer probes own their API/mock processes and clean up a
 
 | Saved evidence | Scope |
 |---|---|
-| [118-test report](docs/evidence/account_wallet_remedy/application.xml) | Baseline, UI access, budgets, refunds, bans, observation, recovery and ML tooling |
-| [12 HTTP checks](docs/evidence/account_wallet_remedy/http.json) | Real HTTP C0/C1/C2 development scenarios |
+| [133-test report](docs/evidence/followup/application.xml) | Baseline, UI access, budgets, refunds, bans, observation, recovery and ML tooling |
+| [12 HTTP checks](docs/evidence/followup/http.json) | Real HTTP C0/C1/C2 development scenarios |
 | [C2 process evidence](docs/evidence/c2_local_evidence.json) | Bounded local timing/outage records |
 | [Status + source hashes](docs/evidence/independent_status.json) | Provenance and pending dependencies |
 | [C3 base-model evidence](docs/evidence/c3_base_model.json) | Historical version-2 dataset hashes and detector results |

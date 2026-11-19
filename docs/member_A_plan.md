@@ -1,6 +1,15 @@
 # Project 20: Member A Plan ("Attack & Kernel" track)
 
-> Remedy update, 2026-11-19: [fresh component validation](ACCOUNT_WALLET_REMEDY_RESULTS.md)
+> Current policy update, 2026-11-19: fresh [follow-up results](FOLLOWUP_RESULTS.md)
+> pass93 component and12 combined validation runs after nine benign-only fits.
+> The qualified defaults now use a56,000/7,300-token/s wallet split into small
+> (9,000/1,800; tasks<=2,048 tokens) and general lanes, IP capacity60/refill2/s,
+> and product-item capacity1,000/refill50/s. All3,780 combined candidate benign
+> requests succeeded, with no benign bans or unknowns. Hard spending remains
+> explicit opt-in. Scraping volume falls, but the public catalogue remains fully
+> extractable in slow/distributed cases. Model/account budgets/schema2 stay fixed.
+
+> Earlier pooled-candidate update, 2026-11-19: [fresh component validation](ACCOUNT_WALLET_REMEDY_RESULTS.md)
 > qualifies account-aware escalation: account/global quota denials do not create
 > IP budget strikes or corroborate anomaly bans. Account429s remain; IP abuse and
 > honeypots still ban. Default `WAF_ACCOUNT_PRESSURE_BANS=0`; explicit1 replays legacy.
@@ -25,7 +34,7 @@
 > model remains available. Validated budgets/batching and Redis schema2 stay fixed.
 
 
-> Current execution plan, 2026-11-17. Follow [master plan v1.7](MASTER_PLAN.md)
+> Current execution plan, 2026-11-17. Follow [master plan v1.8](MASTER_PLAN.md)
 > and the [professor's feedback](masterplan_vs_professor_diff.pdf).
 > Original starter snippets below are superseded where they conflict.
 > A owns ebpf/, locust/ and eval/. B owns app/, waf/ and ml/.

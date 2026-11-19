@@ -25,6 +25,9 @@ def main():
         if a.global_policy is None:raise ValueError('frozen global policy required')
         policy=json.loads(a.global_policy.read_text())['candidate']
     os.environ.update(WAF_ACCOUNT_PRESSURE_BANS='0' if candidate else '1',
+                      WAF_WALLET_SMALL_CAPACITY='0',WAF_WALLET_SMALL_REFILL_PER_S='0',WAF_WALLET_SMALL_TASK_MAX='0',
+                      WAF_PRODUCTS_CAPACITY='0',WAF_PRODUCTS_REFILL_PER_S='0',WAF_IP_CAPACITY='30',
+                      WAF_SPEND_CAP_MICROUSD='0',WAF_SPEND_PERIOD='',
                       WAF_WALLET_CAPACITY=str(policy['capacity'] if policy else 0),
                       WAF_WALLET_REFILL_PER_S=str(policy['refill_per_s'] if policy else 0),P20_SAFE_DRIVER='1')
     original=harness.workload_metadata

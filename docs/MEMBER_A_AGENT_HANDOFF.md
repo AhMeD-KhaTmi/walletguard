@@ -3,6 +3,25 @@
 Repository: [AhMeD-KhaTmi/walletguard](https://github.com/AhMeD-KhaTmi/walletguard).
 Prepared 2026-11-16 for the **Attack & Kernel** track.
 
+## Qualified resource-policy handoff — 2026-11-19, masterv1.8
+
+Read `docs/FOLLOWUP_RESULTS.md` and `docs/FOLLOWUP_CONTROLS.md`. Fresh benign fits,
+93 component and12 additional combined captures qualify the new C2/C3 defaults:
+wallet56,000/7,300 total, small9,000/1,800 for whole tasks<=2,048, general47,000/5,500;
+IP60/refill2/s; product items1,000/refill50/s. Account40,000/2,400, model artifact,
+featurev3, schema2, ban shapes/reasons/TTLs and allowlist contract are unchanged.
+All3,780 planned combined candidate benign requests succeed with no bans/unknowns.
+Scraping volume drops; all5,000 public products still remain extractable. C4 is open.
+
+Private lane/item/spend keys are documented in `contract/redis_schema.md`. Optional
+spending cap defaults0; its explicit trusted period ledger survives routine reset
+and restart. Never clear p20:spend:* as ordinary runtime cleanup. B's wrappers
+record all effective parameters. Source changes to your ebpf/locust/eval files
+were unnecessary. Continue real sensor/enforcement, then integrate fresh signals.
+Historical replay requires explicit new-policy opt-outs/IP30; use the launch guide
+and recorded policies rather than inheriting changed defaults. Older notes below
+are historical where they describe the failed pooled candidate/default0 release.
+
 ## Account/global quota handoff — 2026-11-19
 
 Read `docs/ACCOUNT_WALLET_REMEDY_RESULTS.md` and the frozen protocol. Default

@@ -117,3 +117,56 @@ class TokenBucket:
                 self.dirty.add(key)
                 tokens = min(capacity, local+amount)
             self._remember(key, tokens, capacity, rate)
+
+
+# Non-refilling monetary reservations. Missing/changed authority never initializes
+# silently, and finalized request IDs cannot refund twice. No TTL resets spend.
+SPEND_TAKE_LUA = """
+local cap,cost=tonumber(ARGV[1]),tonumber(ARGV[2])
+local configured=tonumber(redis.call('HGET',KEYS[1],'cap'))
+if configured==nil then return {-1,0} end
+if configured~=cap then return {-2,0} end
+local field='r:'..ARGV[3]
+local old=redis.call('HGET',KEYS[1],field)
+if old then return {1,tonumber(redis.call('HGET',KEYS[1],'used'))} end
+local used=tonumber(redis.call('HGET',KEYS[1],'used')) or 0
+if used+cost>cap then return {0,used} end
+used=used+cost
+redis.call('HSET',KEYS[1],'used',used,field,cost)
+return {1,used}
+"""
+SPEND_FINISH_LUA = """
+local field='r:'..ARGV[1]
+local reserve=tonumber(redis.call('HGET',KEYS[1],field))
+if reserve==nil then return 0 end
+local charged=tonumber(ARGV[2])
+if charged<0 or charged>reserve then return -1 end
+redis.call('HINCRBY',KEYS[1],'used',charged-reserve)
+redis.call('HDEL',KEYS[1],field)
+return reserve-charged
+"""
+SPEND_INIT_LUA = """
+if redis.call('EXISTS',KEYS[1])==1 then
+ if tonumber(redis.call('HGET',KEYS[1],'cap'))~=tonumber(ARGV[1]) then return -1 end
+ return 0
+end
+redis.call('HSET',KEYS[1],'cap',ARGV[1],'used',0)
+return 1
+"""
+
+
+class SpendLedger:
+    """Optional strict period authority; normal token-bucket fallback is separate."""
+    def __init__(self,state):self.state=state
+
+    async def reserve(self,key,cap,amount,request_id):
+        if any(type(v)is not int or v<=0 or v>2**53-1 for v in (cap,amount)) or not request_id:raise ValueError('invalid integer spend reservation')
+        try:
+            status,used=await self.state.eval(SPEND_TAKE_LUA,1,key,cap,amount,request_id)
+            return int(status),int(used)
+        except RedisError:return -1,None
+
+    async def finish(self,key,request_id,charged):
+        if type(charged)is not int or charged<0:raise ValueError('invalid integer spend charge')
+        try:return int(await self.state.eval(SPEND_FINISH_LUA,1,key,request_id,charged))
+        except RedisError:return None  # Retain full reservation when reconciliation is unavailable.

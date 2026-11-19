@@ -73,7 +73,9 @@ def run(output):
                                 assert codes[:5] == [200]*5
                                 assert (any(x in (429, 403) for x in codes) if mode == "enforce" else codes == [200]*12)
                             elif workload == "catalogue":
-                                codes = [c.get(f"/products?page={page}").status_code for page in range(1, 46)]
+                                # Forty-five small pages now fit the qualified burst/item
+                                # allowances. Large pages exercise resource exhaustion.
+                                codes = [c.get(f"/products?page={page}&per_page=100").status_code for page in range(1, 46)]
                                 assert (any(x in (429, 403) for x in codes) if mode == "enforce" else codes == [200]*45)
                             elif workload == "chat_output_policy":
                                 login = c.post("/login", json={"username": "user1", "password": "Passw0rd!1"})
@@ -96,6 +98,7 @@ def run(output):
                                     assert not list(r.scan_iter("p20:ban:*"))
                                     assert not list(r.scan_iter("p20:bkt:*"))
                             results["runs"].append({"config": name, "workload": workload,
+                                                    "catalogue_per_page": 100 if workload == "catalogue" else None,
                                                     "response_codes": codes, "observe_samples": features,
                                                     "decision_records": decisions,
                                                     "timings": evidence.json()["timings"], "passed": True})

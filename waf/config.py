@@ -2,6 +2,7 @@
 
 import os
 import math
+import re
 from dataclasses import dataclass, field
 
 
@@ -37,14 +38,21 @@ class Config:
     scoring_queue_capacity: int = 256
     # Qualified on independent account-attribution validation; legacy opt-in remains.
     account_pressure_bans: bool = False
-    # Opt-in only: mixed-contention validation failed the benign comfort gate.
-    wallet_capacity: float = 0.0
-    wallet_refill_per_s: float = 0.0
+    # Fresh benign fit, standalone gates and independent combined gate passed.
+    wallet_capacity: float = 56_000.0
+    wallet_refill_per_s: float = 7_300.0
+    wallet_small_capacity: float = 9_000.0
+    wallet_small_refill_per_s: float = 1_800.0
+    wallet_small_task_max: int = 2048
+    products_capacity: float = 1_000.0
+    products_refill_per_s: float = 50.0
+    spend_cap_microusd: int = 0
+    spend_period: str = ""
     decisions_stream: str = "p20:stream:waf_decisions"
     features_stream: str = "p20:stream:waf_features"
     allowlist_key: str = "p20:allowlist"
     budgets: dict = field(default_factory=lambda: {
-        "ip_req": (30, 2.0), "login_ip": (5, 5/60),
+        "ip_req": (60, 2.0), "login_ip": (5, 5/60),
         "login_acct": (5, 5/900), "chat_req": (10, .5),
         # Frozen benign agent calibration; see docs/BUDGET_CALIBRATION.md.
         "llm_tok": (40_000, 2_400.0),
@@ -72,9 +80,22 @@ class Config:
             raise ValueError("wallet capacity/refill must both be zero or positive finite")
         if any(not math.isfinite(float(v)) or v <= 0 for pair in self.budgets.values() for v in pair):
             raise ValueError("bucket capacity and refill rate must be positive and finite")
+        values=(self.wallet_small_capacity,self.wallet_small_refill_per_s,self.products_capacity,self.products_refill_per_s)
+        if any(isinstance(v,bool) or not math.isfinite(float(v)) or v<0 for v in values):raise ValueError('invalid optional budget')
+        if bool(self.products_capacity)!=bool(self.products_refill_per_s):raise ValueError('paired product budget required')
+        small=(bool(self.wallet_small_capacity),bool(self.wallet_small_refill_per_s),bool(self.wallet_small_task_max))
+        if type(self.wallet_small_task_max)is not int or self.wallet_small_task_max<0 or len(set(small))!=1:raise ValueError('paired small lane required')
+        if all(small) and not (self.wallet_capacity>self.wallet_small_capacity>=self.wallet_small_task_max and self.wallet_refill_per_s>self.wallet_small_refill_per_s):raise ValueError('lanes must partition total allowance')
+        if type(self.spend_cap_microusd)is not int or not 0<=self.spend_cap_microusd<=2**53-1:raise ValueError('invalid spend cap')
+        if bool(self.spend_cap_microusd)!=bool(self.spend_period) or self.spend_period and not re.fullmatch(r'[A-Za-z0-9_-]{1,80}',self.spend_period):raise ValueError('explicit safe period required')
 
     @classmethod
     def from_env(cls, *, mode: str, redis_url: str):
+        budgets=cls().budgets
+        budgets['ip_req']=(float(os.getenv('WAF_IP_CAPACITY',str(budgets['ip_req'][0]))),budgets['ip_req'][1])
+        wallet_capacity=float(os.getenv('WAF_WALLET_CAPACITY',str(cls.wallet_capacity)))
+        wallet_rate=float(os.getenv('WAF_WALLET_REFILL_PER_S',str(cls.wallet_refill_per_s)))
+        lanes_enabled=bool(wallet_capacity and wallet_rate)
         return cls(
             mode=mode, redis_url=redis_url,
             enable_buckets=flag("WAF_BUCKETS", "1"),
@@ -87,6 +108,13 @@ class Config:
             scoring_batch_size=int(os.getenv("WAF_SCORE_BATCH_SIZE", "32")),
             scoring_batch_wait_ms=float(os.getenv("WAF_SCORE_BATCH_WAIT_MS", "2")),
             account_pressure_bans=flag("WAF_ACCOUNT_PRESSURE_BANS", str(int(cls.account_pressure_bans))),
-            wallet_capacity=float(os.getenv("WAF_WALLET_CAPACITY", str(cls.wallet_capacity))),
-            wallet_refill_per_s=float(os.getenv("WAF_WALLET_REFILL_PER_S", str(cls.wallet_refill_per_s))),
+            wallet_capacity=wallet_capacity,
+            wallet_refill_per_s=wallet_rate,
+            wallet_small_capacity=float(os.getenv('WAF_WALLET_SMALL_CAPACITY',str(cls.wallet_small_capacity if lanes_enabled else 0))),
+            wallet_small_refill_per_s=float(os.getenv('WAF_WALLET_SMALL_REFILL_PER_S',str(cls.wallet_small_refill_per_s if lanes_enabled else 0))),
+            wallet_small_task_max=int(os.getenv('WAF_WALLET_SMALL_TASK_MAX',str(cls.wallet_small_task_max if lanes_enabled else 0))),
+            products_capacity=float(os.getenv('WAF_PRODUCTS_CAPACITY',str(cls.products_capacity))),
+            products_refill_per_s=float(os.getenv('WAF_PRODUCTS_REFILL_PER_S',str(cls.products_refill_per_s))),
+            spend_cap_microusd=int(os.getenv('WAF_SPEND_CAP_MICROUSD','0')),
+            spend_period=os.getenv('WAF_SPEND_PERIOD',''),budgets=budgets,
         )

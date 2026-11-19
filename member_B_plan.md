@@ -1,6 +1,15 @@
 # Project 20: Member B Plan ("Application & Intelligence" track)
 
-> Remedy update, 2026-11-19: [fresh component validation](docs/ACCOUNT_WALLET_REMEDY_RESULTS.md)
+> Current policy update, 2026-11-19: fresh [follow-up results](docs/FOLLOWUP_RESULTS.md)
+> pass93 component and12 combined validation runs after nine benign-only fits.
+> The qualified defaults now use a56,000/7,300-token/s wallet split into small
+> (9,000/1,800; tasks<=2,048 tokens) and general lanes, IP capacity60/refill2/s,
+> and product-item capacity1,000/refill50/s. All3,780 combined candidate benign
+> requests succeeded, with no benign bans or unknowns. Hard spending remains
+> explicit opt-in. Scraping volume falls, but the public catalogue remains fully
+> extractable in slow/distributed cases. Model/account budgets/schema2 stay fixed.
+
+> Earlier pooled-candidate update, 2026-11-19: [fresh component validation](docs/ACCOUNT_WALLET_REMEDY_RESULTS.md)
 > qualifies account-aware escalation: account/global quota denials do not create
 > IP budget strikes or corroborate anomaly bans. Account429s remain; IP abuse and
 > honeypots still ban. Default `WAF_ACCOUNT_PRESSURE_BANS=0`; explicit1 replays legacy.
@@ -25,7 +34,7 @@
 > model remains available. Validated budgets/batching and Redis schema2 stay fixed.
 
 
-> Current execution plan, 2026-11-17. Follow [master plan v1.7](docs/MASTER_PLAN.md)
+> Current execution plan, 2026-11-17. Follow [master plan v1.8](docs/MASTER_PLAN.md)
 > and the [professor's feedback](docs/masterplan_vs_professor_diff.pdf).
 > The original snippets below are reference material. Current code uses a bounded
 > agent loop, exact synthetic tokens and feature version 3. Prior feature-version-2
@@ -990,7 +999,7 @@ sequenceDiagram
 
 ## 13. Definition of done (your checklist)
 
-Updated: **2026-11-17**. Checked items have independent implementation/test
+Updated: **2026-11-19**. Checked items have independent implementation/test
 evidence. An unchecked item marked **partial** already has work completed, but
 the complete deliverable is not finished. Joint attack/kernel acceptance is
 separate from the local checks below.
@@ -1011,7 +1020,7 @@ the final benchmark remain pending.
 - [x] **B5 — historical C2/C3 benchmark:** 54 version-2 single-call runs passed. [Results and limitations](docs/C23_BENCHMARK_RESULTS.md) are preserved.
 - [x] **B5 — current agent benchmark:** completed 81 valid matched C0/C2/C3 runs, with finalized WAF p50/p95 and baseline-relative client deltas. [Current results and limitations](docs/PROFESSOR_BENCHMARK_RESULTS.md).
 - [x] **B2/B5 — agent budget calibration:** fitted only on fresh calibration data, then completed 36 independent C0/C2/C3 runs. Zero observed benign denials/bans (0/2,804 C2, 0/2,749 C3); two C2 shutdown interruptions remain unknown. [Results and tradeoffs](docs/BUDGET_VALIDATION_RESULTS.md).
-- [ ] **B4/B5 — model improvement:** investigate low detector recall and C3 scoring overhead on separate training/calibration groups; freeze candidates before new held-out/live tests. Existing model and campaigns stay immutable.
+- [x] **B4/B5 — model improvement:** qualified the directional-volume detector on separate groups and confirmed live safety; validated faster batched scoring. [Detector](docs/DETECTOR_VOLUME_RESULTS.md) and [timing evidence](docs/SCORING_PERFORMANCE_RESULTS.md). Preserve original models/campaigns.
 - [ ] **B5:** final matched C0–C4 results CSV with latency/FPR/overhead and repeated runs. Current C0/C2/C3 measurements exist; the complete kernel comparison remains pending.
 - [ ] **B6:** slides 1, 5, 6, 10, 11, 14, 16, 18 and joint slides 8/17.
 - [ ] **Reproduction/demo — partial:** one-command local C0/C1/C2 launch and developer checks work. Full-stack reproduction, rehearsal and backup demo video remain pending.

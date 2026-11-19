@@ -1,6 +1,15 @@
 # Project 20 — coordinated execution plan
 
-> Remedy update, 2026-11-19: [fresh component validation](ACCOUNT_WALLET_REMEDY_RESULTS.md)
+> Current policy update, 2026-11-19: fresh [follow-up results](FOLLOWUP_RESULTS.md)
+> pass93 component and12 combined validation runs after nine benign-only fits.
+> The qualified defaults now use a56,000/7,300-token/s wallet split into small
+> (9,000/1,800; tasks<=2,048 tokens) and general lanes, IP capacity60/refill2/s,
+> and product-item capacity1,000/refill50/s. All3,780 combined candidate benign
+> requests succeeded, with no benign bans or unknowns. Hard spending remains
+> explicit opt-in. Scraping volume falls, but the public catalogue remains fully
+> extractable in slow/distributed cases. Model/account budgets/schema2 stay fixed.
+
+> Earlier pooled-candidate update, 2026-11-19: [fresh component validation](ACCOUNT_WALLET_REMEDY_RESULTS.md)
 > qualifies account-aware escalation: account/global quota denials do not create
 > IP budget strikes or corroborate anomaly bans. Account429s remain; IP abuse and
 > honeypots still ban. Default `WAF_ACCOUNT_PRESSURE_BANS=0`; explicit1 replays legacy.
@@ -25,7 +34,7 @@
 > model remains available. Validated budgets/batching and Redis schema2 stay fixed.
 
 
-Version: 1.7 · 2026-11-19 · Owners: Member B (user) and Member A.
+Version: 1.8 · 2026-11-19 · Owners: Member B (user) and Member A.
 
 ## 1. How to use this plan
 
@@ -160,13 +169,15 @@ other entries retain the initial settings. None is a universal optimal threshold
 
 | Control | Initial policy |
 |---|---|
-| All requests per IP | Capacity 30, refill 2/s |
+| All requests per IP | Capacity60, refill2/s; independently fitted from benign bursts |
 | Login per IP | Capacity 5, refill 5/minute |
 | Login per account | Capacity 5, refill 5/15 minutes |
 | Chat requests per account | Capacity 10, refill 0.5/s |
 | LLM tokens per account | Capacity 40,000, refill 2,400/s; [calibration and status](BUDGET_CALIBRATION.md) |
 | Account pressure escalation | Disabled by default; account429s never add IP budget strikes; legacy env1 remains replayable |
-| Aggregate wallet allowance | Experimental opt-in40,000/5,700 tokens/s; default0/0 after failed mixed comfort gate; not a hard total-spend cap |
+| Aggregate wallet allowance | Qualified two-lane56,000/7,300 total; small9,000/1,800 for tasks<=2,048, general47,000/5,500; no borrowing |
+| Product items per IP | Capacity1,000/refill50 items/s; clamped requested page-size cost; throttles do not ban |
+| Absolute synthetic spend | Opt-in, trusted period+integer micro-USD cap; no refill/TTL/runtime-reset; explicit initialization |
 | Hardened output cap | 1,024 tokens; baseline mock hard cap remains 32,000 |
 | Request body limit in WAF | 1,000,000 bytes |
 | Strikes / ban | 5 qualifying strikes in a fixed 300s window; ban 600s |
@@ -322,17 +333,21 @@ For each gate: update journal, retain raw artifacts, document startup/test comma
 and cross-review the other track's handoff. Do not mark G1/G2/G4 done using unit
 tests alone. Missing A scripts may allow B unit work, but block attack-validation claims.
 
-### Current next work — independent calibration and the kernel handoff
+### Current next work — application follow-up and kernel handoff
 
-1. B preserves the current 81-run evidence and shares the professor update, source
-   snapshot, model manifest and revised plans with A.
-2. B gathers new calibration traffic for the legitimate multi-step agent, adjusts
-   budgets/strike behavior only from calibration evidence, and retests independently.
-   Maintain the qualified volume detector and validated batching; preserve independent test groups.
+1. B's independent account budget calibration, scoring improvement, qualified base
+   detector and account-aware escalation are complete. Preserve all original and
+   follow-up evidence; do not repeat their fitting or tune on opened test groups.
+2. B completed the fresh task-size wallet, burst/item, Retry-After and absolute
+   synthetic-spend study. Component and combined gates passed; the fitted lane/IP/
+   item policy is now default. Hard spending stays opt-in. Preserve the
+   [protocol](FAIRNESS_BURST_SPEND_PROTOCOL.md) and [results](FOLLOWUP_RESULTS.md).
+   Adaptive small-job fairness and unique public-data extraction remain open.
 3. A delivers the scoped sensor and tested enforcement backend with actual mode,
    freshness, expiry, allowlist and per-IP telemetry evidence.
 4. Both integrate real signals, collect augmented data, complete IT-1–IT-6 and run
-   the final matched C0–C4 comparison. No final acceptance is claimed yet.
+   the final matched C0–C4 comparison, then finish slides/rehearsals/recording.
+   No final joint acceptance is claimed yet.
 
 ### Original B0/B1 starting sequence — completed reference
 

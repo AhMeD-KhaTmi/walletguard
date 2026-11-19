@@ -2201,3 +2201,106 @@ IT-1–IT-6. Current acceptance failures must remain visible until fresh tests p
   No history bundle, real credentials or A-owned source changes were uploaded.
   Publication manifest records91 captures and118/109/12 final checks. Follow-up
   journal/provenance commit records this verification; then local main syncs.
+
+### 2026-11-19 — independent fairness/burst/harvest/spend follow-up begins
+
+- User authorized all remaining application robustness follow-ups. Frozen prospective
+  protocol in docs/FAIRNESS_BURST_SPEND_PROTOCOL.md separates task-size lanes,
+  benign-fitted IP/item budgets, response-aware clients and an absolute period cap.
+  No labels/allowlist hints enter admission; model/account quotas stay fixed.
+- Fresh fitting seeds2001–2003 normal/varied and2201–2203 bursts use existing C1
+  runtime in a clean checkout while B prepares opt-in implementations separately.
+  Validation seeds210x/230x/240x/250x are separate; no earlier opened data fitted.
+  Hard cap is integer synthetic micro-USD with an explicitly initialized persistent
+  ledger; unavailable authority cannot grant new spend. Normal default outage
+  fallback remains unchanged. A-owned implementation stays read-only.
+- All nine fresh C1 fits pass. Frozen rule selects wallet small9,000/1,800/s
+  (302 tasks), general47,000/5,500/s (182 tasks), total56,000/7,300/s.
+  Small threshold2,048 fixed prospectively. Burst peaks42 requests/800 items in1s,
+  2,400 items/60s select IP capacity60 (refill2/s unchanged), item1,000/50/s.
+- Implemented opt-in size lanes/item budgets and persistent integer spend ledger.
+  Common synthetic prices remain exactly input3/output15 micro-USD/token. Hard
+  cap cannot silently reset/refill; unavailable/missing authority blocks only
+  capped chat admission. Runtime reset/API restart preserve ledger. Normal default
+  local bucket fallback remains. Focused scratch-Redis **29 tests pass**, including
+  concurrency/idempotency, known refunds/uncertain retention, Redis loss, restart,
+  small/general isolation, preserved sustained IP bans and finite Retry-After.
+- Prospective slow horizon clarified to120s before any validation (observe beyond
+  short-burst depletion), with unchanged10% harvesting gate. Four separate8s smoke
+  captures at2601 precede93 measured runs. All source/policy/model/client hashes
+  will be fixed; no tuning from these groups or changing A-owned implementation.
+- Pre-freeze full checks:132 app/contract and109 eval pass;12 real HTTP probes
+  pass. Earlier131-test pass preceded an additional monetary-reservation/anomaly
+  refund test. Query parsing now uses FastAPI/Pydantic integer semantics, so
+  accepted values like per_page=100.0 cannot bypass item quotas. Added explicit
+  regression coverage; no data-dependent policy/model adjustments.
+- All four distinct pipeline smokes pass with no transport/classification unknowns.
+  Their short-window security gates are not acceptance evidence. The93-run frozen
+  validation matrix is running at e85db20, independently of fitting15e37e7.
+- Corrected stale master next-step calibration prose and B's unchecked base-model
+  improvement entry: those earlier gates already passed. Real augmented training,
+  kernel integration and joint acceptance remain pending. No runtime source edits
+  are made in the frozen measured checkout.
+- Interim repetition1: lane C2/C3 mixed0/95 benign denied each, total302,091
+  tokens vs370,815 current (18.53% lower). Varied benign lanes also have zero
+  denials. Fixed bursts: current C2 denies480/630 with5 ban records; resource
+  C2/C3 each0/630 denied,0 bans. These are interim, not final qualification.
+- Retry baseline recorded30 backoff events (~30.09 completed wait seconds) in
+  repetition1. Actual attempts/denials and fixed-schedule opportunities remain
+  separate. Tail wait ending at deadline may lack a final stat write; documented
+  recorded wait sums as lower bounds. Independent validator now also checks each
+  lane's own C+R*elapsed bound without changing frozen runtime or test thresholds.
+- Interim distributed repetition1: resource C2/C3 each160/375 successful scrape
+  pages vs375/375 current (57.33% fewer successful page deliveries). All arms
+  still extract all5,000 unique catalogue products. This is volume mitigation,
+  NOT prevented unique-data harvesting. Independent report labels its original
+  unchanged>=10% criterion scraping_volume, and reports unique products/run
+  separately; no acceptance criterion or parameter was loosened after opening.
+- Repetition1 complete (31/93). Slow resource C2/C3 volume reduction13.75%
+  (207/240 vs240/240), no benign denials in250 attempts each. Absolute spend
+  C2/C3 both charge991,620 micro-USD ($0.991620) vs C0$2.974860; ledger agrees
+  exactly and remains below1,000,000 cap. Original A fast scraping replays complete;
+  verify final independent preserved-defense gate across all repetitions.
+- Before any combined capture, defined a separate12-run compatibility gate at
+  seeds2701–2703 (plus8s smoke2709):30 users, ten benign burst users must complete
+  all630 planned requests successfully while20 attack users run concurrently.
+  This makes default rollout depend on both original component gates and fresh
+  combined acceptance. All original93 runs continue unchanged at e85db20.
+  New adapter extension changes only additional client profiles/variants; runtime
+  code/parameters remain identical. No actor labels enter WAF admission.
+- Repetition2 completes62/93 valid captures; no exclusion/retry/transport unknown
+  observed. Resource bursts again0/630 denied in each candidate; current480/630
+  with5 bans. Second cap runs both991,620 micro-USD, second fast C2/C3 each3 bans.
+  Repetition3 is running. No fitted values or frozen runtime changed.
+- Resumed from persistent evidence after temporary tool sessions/worktrees expired:
+  all93 component captures had completed. Independent report passes fairness,
+  bursts, strict hard spending, preserved defenses and both scraping-volume gates.
+  No poor-outcome exclusions or retries. Restored only the frozen f6de6d2 combined
+  checkout; runtime/model unchanged, raw evidence retained. Fresh combined smoke
+  and12 compatibility captures now start before any default change.
+- Combined gate passes:12/12 captures, each candidate completes exactly630 benign
+  requests successfully (C2 1,890/1,890; C3 1,890/1,890), no bans/setup/other
+  failures or all-actor unknowns. Original93 gates and audit bounds also pass.
+  Total current study119 captures:9 fits,5 smokes,93 component+12 combined.
+- Applied only the qualified Config defaults (lanes/IP/items), preserving account
+  quotas/model and hard-spend opt-in0. Environment0/0 wallet disables default
+  lanes; historical adapter explicitly restores old options. Historical boundary
+  and pooled tests select their original policies; added real default-path test.
+- Final133 app/contract and109 eval tests pass. Initial developer HTTP catalogue
+  assertion failed because45 small20-item pages legitimately fit new quotas.
+  Corrected the probe to explicitly request100-item pages (true resource flood),
+  retaining its initial failure record; no runtime or acceptance target changed.
+  Only the affected12 real-HTTP probes are rerunning. Pre-default132-test evidence
+  remains separately saved; new monetary restart test also varies API run_id.
+- Corrected12 real HTTP probes pass. Final total133 app/contract,109 eval and12
+  HTTP checks all pass; scratch DB15 reset and all owned services stopped. Checked
+  JSON/XML, report links, source-tree identity and unchanged model hash1eb84211….
+  New defaults equal the explicit policy in accepted live captures; only Config
+  default selection changed after measurement, not token math/decision logic.
+- Results/controls guide, masterv1.8, both member plans, AGENTS, README, shared
+  private-key contract, team checklist and A handoff now record the qualified
+  release. Hard spending is always opt-in. Scrape volume gains are13.75% slow/
+  57.33% distributed; public unique-catalogue exposure remains5,000 items.
+  Identical small-job contention and real C4/IT-1–IT-6 remain open. No A-owned
+  source changed. Remote main still6b82e70 before publication; reviewed release
+  and compact evidence will publish with an expected-head lease and exact-tree check.

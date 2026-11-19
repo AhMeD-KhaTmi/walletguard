@@ -6,8 +6,7 @@ import os
 from common.tokens import estimate_tokens
 from common.agent import MOCK_OUTPUT_CAP
 
-IN_PER_1K = 0.003      # simulated price per 1k input tokens (USD)
-OUT_PER_1K = 0.015     # simulated price per 1k output tokens (USD)
+from common.pricing import IN_PER_1K, OUT_PER_1K
 OUTPUT_HARD_CAP = MOCK_OUTPUT_CAP
 
 

@@ -1,0 +1,9 @@
+{
+  "initial_exit_code": 1,
+  "assertion": "catalogue: expected any429/403 among45 requests",
+  "old_probe": "45 pages of20 items now legitimately fit IP60 and item1000/refill50",
+  "revision": "Explicit45 pages of100 items target resource exhaustion; C0/C1 must still all200, C2 must throttle",
+  "runtime_changed": false,
+  "application_tests_passed": 133,
+  "evaluation_tests_passed": 109
+}

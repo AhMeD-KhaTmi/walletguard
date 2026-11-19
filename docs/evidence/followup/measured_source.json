@@ -1,0 +1,48 @@
+{
+  "sources": {
+    "15e37e7": {
+      "runtime_trees": {
+        "app": "8ab8f507d708e4f64b25632b72a2db086c6c45d3",
+        "waf": "ac69379421d565a1ce5770f33b9e5346e588db0d",
+        "ml": "13afb33a1715f0885a68aa060c2a70aeb7c7b301",
+        "common": "d01c1bc3b9748e8b533d0e6e45565fb1b5be2a94"
+      }
+    },
+    "e85db20": {
+      "runtime_trees": {
+        "app": "d441f4dc8c5d41446ed2e62f105f79e5539dabf6",
+        "waf": "15567de13b3f19ca024568f582af5f316c59bc77",
+        "ml": "13afb33a1715f0885a68aa060c2a70aeb7c7b301",
+        "common": "b4ac2f418df78c3027da452b5eaca6b04eefb894"
+      }
+    },
+    "f6de6d2": {
+      "runtime_trees": {
+        "app": "d441f4dc8c5d41446ed2e62f105f79e5539dabf6",
+        "waf": "15567de13b3f19ca024568f582af5f316c59bc77",
+        "ml": "13afb33a1715f0885a68aa060c2a70aeb7c7b301",
+        "common": "b4ac2f418df78c3027da452b5eaca6b04eefb894"
+      }
+    }
+  },
+  "model_sha256": "1eb84211004b6abe42cd2b8ec03e4b06b8504884ad0a8b9c1ca81ce2f55829e3",
+  "runtime_identical_component_and_compatibility": true,
+  "component_runtime_hashes": {
+    "app/mock_llm.py": "5efdf2061a31853285223223f98198d94faf7c0a1a944310758939f0e32f333a",
+    "common/pricing.py": "7b3baa80c0ebe988919c6b7a90e590c22d9010b8b19a8ba0ae2346c71cc1a650",
+    "waf/config.py": "77425651fd1b6d5e1bb358e73edf13a2168c36d42e04ef23430bba2d4eab19a4",
+    "waf/middleware.py": "bb47453c6a567fdc0366bee3b3f0840fa07a3a3cbdc1771c4b1833ec88c1e61c",
+    "waf/buckets.py": "f271be5d5cdedf66d3ed6c2543d87a5802866b3bd15c9427c273c34acf9ac4c9",
+    "scripts/followup_harness.py": "ddc619fa713bca19bd14611fc431789887a8ed0530d4fc12b2bcfc2f9e4bfc2d",
+    "scripts/followup_retry_workload.py": "4342a6fe6d0c24a5f8ffe3573a7c593a8ab33fe1d6bc1342c42a3e8413fc285b",
+    "scripts/run_followup_study.py": "49a49595f6f8321cab7b204f57e2cdfbc7887dc5538e477f459b8020eef16b97",
+    "scripts/report_followup_study.py": "c7fdc5b3837a46e36b890ab54ed2a5d6292b11056c82ad90fa7b41a819f1c659"
+  },
+  "released_runtime_hashes": {
+    "app/mock_llm.py": "5efdf2061a31853285223223f98198d94faf7c0a1a944310758939f0e32f333a",
+    "common/pricing.py": "7b3baa80c0ebe988919c6b7a90e590c22d9010b8b19a8ba0ae2346c71cc1a650",
+    "waf/config.py": "22e5c2bdff7555252b0b97f91b713dd4000afadee727800067cd2319eb75deff",
+    "waf/middleware.py": "bb47453c6a567fdc0366bee3b3f0840fa07a3a3cbdc1771c4b1833ec88c1e61c",
+    "waf/buckets.py": "f271be5d5cdedf66d3ed6c2543d87a5802866b3bd15c9427c273c34acf9ac4c9"
+  }
+}

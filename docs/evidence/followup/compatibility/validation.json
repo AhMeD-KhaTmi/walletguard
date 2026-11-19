@@ -1,0 +1,1434 @@
+{
+  "runs": 12,
+  "smoke_only": false,
+  "compatibility": true,
+  "gates": {
+    "combined_compatibility": true
+  },
+  "policy": {
+    "small_task_max": 2048,
+    "lanes": {
+      "small": {
+        "largest": 2046,
+        "peak1s": 7149,
+        "peak60s": 85080,
+        "tasks": 302,
+        "capacity": 9000,
+        "refill_per_s": 1800
+      },
+      "general": {
+        "largest": 19188,
+        "peak1s": 36912,
+        "peak60s": 262968,
+        "tasks": 182,
+        "capacity": 47000,
+        "refill_per_s": 5500
+      }
+    },
+    "wallet_capacity": 56000,
+    "wallet_refill_per_s": 7300,
+    "ip_capacity": 60,
+    "products_capacity": 1000,
+    "products_refill_per_s": 50,
+    "burst_peaks": {
+      "requests_1s": 42,
+      "items_1s": 800,
+      "items_60s": 2400
+    },
+    "calibration": [
+      {
+        "run_id": "followup-cal-normal-r1",
+        "seed": 2001,
+        "profile": "normal",
+        "source": {
+          "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+          "dirty": false,
+          "status": "ok"
+        },
+        "files": {
+          "manifest.json": "e11a7d4d3fb06a2928e121d755ed012fa2c72ea8e5c56b0c15d2e642523528d4",
+          "features.jsonl": "c5f6eb3e6ba4163da984feb953610574a5c5c1428d4ad78b7edaa3dc1e11c005",
+          "usage.json": "29c9708ea8a1f31e8a2cd9666ad10cc9cac1d572c479dedba71e926b6c054ccb"
+        }
+      },
+      {
+        "run_id": "followup-cal-varied-r1",
+        "seed": 2001,
+        "profile": "varied",
+        "source": {
+          "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+          "dirty": false,
+          "status": "ok"
+        },
+        "files": {
+          "manifest.json": "2d47cd1c7e6a0c2adce7f0d87fcf3907f1b1a37a2d4c101552dc86595b094ef8",
+          "features.jsonl": "c0ef6812ce8dbeff1c2542d5d736de8188b1dc8b6413a7e1d87223b33eb8dca2",
+          "usage.json": "bcc671377d791792106c3ab9bf95c8585b768c5f1f1fc1064155f347294ef5d0"
+        }
+      },
+      {
+        "run_id": "followup-cal-normal-r2",
+        "seed": 2002,
+        "profile": "normal",
+        "source": {
+          "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+          "dirty": false,
+          "status": "ok"
+        },
+        "files": {
+          "manifest.json": "1b7c6f56955e842d3c2b907ed84fa8e6a17ca37b98ad61a815522494ddb9eb23",
+          "features.jsonl": "6ceb8f3179583eb03eb1c29edfa5a47ccfd8a623f1f1b196e6ebe493b2913c84",
+          "usage.json": "eca02b9c3cb6dd77e69d8e192df673fc193a6a6b78ebfda073a81c81599aada9"
+        }
+      },
+      {
+        "run_id": "followup-cal-varied-r2",
+        "seed": 2002,
+        "profile": "varied",
+        "source": {
+          "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+          "dirty": false,
+          "status": "ok"
+        },
+        "files": {
+          "manifest.json": "91ed357c0532a7aaf078ad420bc3a110f1dc3bab11d862151be2c785cd7a4ec4",
+          "features.jsonl": "07f8034a4e37fffba98008334ddc72bb75f15d2858fd301e7009346a7783f7f5",
+          "usage.json": "08d17f59b7d3abbb53932fb570f1109f149dc2d38050a116f9b6cd4a62dce4b5"
+        }
+      },
+      {
+        "run_id": "followup-cal-normal-r3",
+        "seed": 2003,
+        "profile": "normal",
+        "source": {
+          "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+          "dirty": false,
+          "status": "ok"
+        },
+        "files": {
+          "manifest.json": "0b64921dff0df0a4ab21070e85450f40dc52f7babef720e2a80c29866b64836b",
+          "features.jsonl": "87593aed36c54bed42c7a18b041aaf36cd7bae1727ec8322d43f6d09fd6163a3",
+          "usage.json": "97f876e52a90f4d47d5363f67cce27a1325c20aee1bee716ebfb3a6921638c5a"
+        }
+      },
+      {
+        "run_id": "followup-cal-varied-r3",
+        "seed": 2003,
+        "profile": "varied",
+        "source": {
+          "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+          "dirty": false,
+          "status": "ok"
+        },
+        "files": {
+          "manifest.json": "8ffff8dd3f93bb2a8e42f3682a51728489436c2b7add9e8fd8d7893811e041ea",
+          "features.jsonl": "c859de40c3af461943c46fbf247391604982af965a1fc69a84b3e29831c71090",
+          "usage.json": "5a74be36296928518b4bb048639a7f9480c5bfc14ce93e929539d5626bd0d3ea"
+        }
+      },
+      {
+        "run_id": "followup-cal-burst-r1",
+        "seed": 2201,
+        "profile": "burst",
+        "source": {
+          "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+          "dirty": false,
+          "status": "ok"
+        },
+        "files": {
+          "manifest.json": "799eb506f4b0ef09f2b23475a622bf6a2fd21664cb4bc6af4743c6be4fc4f1cb",
+          "features.jsonl": "d06305769a13126eedbfbda83545f9edd414105376f05df96e26ab1a6d2562ce",
+          "usage.json": "ba3a811d9a4eef95c6eab47582387a6731f45c29e1c02ef022a7ed9792572194"
+        }
+      },
+      {
+        "run_id": "followup-cal-burst-r2",
+        "seed": 2202,
+        "profile": "burst",
+        "source": {
+          "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+          "dirty": false,
+          "status": "ok"
+        },
+        "files": {
+          "manifest.json": "4860914e2fc77e0f017ed2a01738124d291b79051050adea5b83454920849117",
+          "features.jsonl": "3b8d52183bef48cd6364ed9c0fa79d1f05d503d61d185c38fbfc3e839b55a34e",
+          "usage.json": "ba3a811d9a4eef95c6eab47582387a6731f45c29e1c02ef022a7ed9792572194"
+        }
+      },
+      {
+        "run_id": "followup-cal-burst-r3",
+        "seed": 2203,
+        "profile": "burst",
+        "source": {
+          "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+          "dirty": false,
+          "status": "ok"
+        },
+        "files": {
+          "manifest.json": "74daffdd433a7c3ca6f53fd05096353eb09aed48157ea72012a680374b32e97e",
+          "features.jsonl": "e69715d6c233428048f7982e24d80c71ba06180356e652d3f4edcc7c782542c8",
+          "usage.json": "ba3a811d9a4eef95c6eab47582387a6731f45c29e1c02ef022a7ed9792572194"
+        }
+      }
+    ],
+    "frozen_before_validation": true
+  },
+  "summary": {
+    "combined_burst/C0/current": {
+      "benign_attempts": 1890,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_other_unsuccessful": 0,
+      "benign_setup_unsuccessful": 0,
+      "all_unknown": 0,
+      "ban_records": 0,
+      "wallet_tok_denials": 0,
+      "products_items_denials": 0,
+      "spend_cap_denials": 0,
+      "retry_events": 0,
+      "retry_wait_s": 0,
+      "metrics": {
+        "latency_p50_ms": {
+          "median": 5.9094999999999995,
+          "min": 5.7265,
+          "max": 6.6425
+        },
+        "latency_p95_ms": {
+          "median": 26.15575,
+          "min": 24.53874999999996,
+          "max": 33.90964999999999
+        },
+        "delta_c0_p50_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "delta_c0_p95_ms": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "server_tokens": {
+          "median": 781092.0,
+          "min": 781092.0,
+          "max": 781092.0
+        },
+        "server_cost_usd": {
+          "median": 6.772715999999987,
+          "min": 6.772715999999987,
+          "max": 6.772715999999987
+        }
+      },
+      "attacks": {
+        "credential_stuffing": {
+          "attempts": 72,
+          "success": 18,
+          "fail": 54,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 18,
+          "known_valid_success": 18,
+          "asr": 0.25,
+          "unique_products_per_run": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          }
+        },
+        "scraping": {
+          "attempts": 1512,
+          "success": 1512,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 1.0,
+          "unique_products_per_run": {
+            "median": 3000,
+            "min": 3000,
+            "max": 3000
+          }
+        },
+        "dow": {
+          "attempts": 408,
+          "success": 408,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 1.0,
+          "unique_products_per_run": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          }
+        }
+      }
+    },
+    "combined_burst/C2/current": {
+      "benign_attempts": 1890,
+      "benign_denials": 1440,
+      "benign_bans": 15,
+      "benign_other_unsuccessful": 0,
+      "benign_setup_unsuccessful": 0,
+      "all_unknown": 0,
+      "ban_records": 24,
+      "wallet_tok_denials": 0,
+      "products_items_denials": 0,
+      "spend_cap_denials": 0,
+      "retry_events": 0,
+      "retry_wait_s": 0,
+      "metrics": {
+        "latency_p50_ms": {
+          "median": 21.86,
+          "min": 21.3405,
+          "max": 23.211
+        },
+        "latency_p95_ms": {
+          "median": 35.9705,
+          "min": 35.58379999999997,
+          "max": 36.73664999999999
+        },
+        "delta_c0_p50_ms": {
+          "median": 15.9505,
+          "min": 15.613999999999999,
+          "max": 16.5685
+        },
+        "delta_c0_p95_ms": {
+          "median": 9.428049999999967,
+          "min": 2.826999999999998,
+          "max": 11.43175000000004
+        },
+        "waf_overhead_p50_ms": {
+          "median": 12.796667000003481,
+          "min": 12.467336499980775,
+          "max": 12.929882499975065
+        },
+        "waf_overhead_p95_ms": {
+          "median": 33.31610555001698,
+          "min": 32.35212614995362,
+          "max": 39.29045529999082
+        },
+        "server_tokens": {
+          "median": 607062.0,
+          "min": 607062.0,
+          "max": 612789.0
+        },
+        "server_cost_usd": {
+          "median": 5.255585999999994,
+          "min": 5.255585999999994,
+          "max": 5.305166999999994
+        }
+      },
+      "attacks": {
+        "credential_stuffing": {
+          "attempts": 72,
+          "success": 18,
+          "fail": 54,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 18,
+          "known_valid_success": 18,
+          "asr": 0.25,
+          "unique_products_per_run": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          }
+        },
+        "scraping": {
+          "attempts": 1512,
+          "success": 701,
+          "fail": 0,
+          "blocked": 811,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 0.4636243386243386,
+          "unique_products_per_run": {
+            "median": 3000,
+            "min": 3000,
+            "max": 3000
+          }
+        },
+        "dow": {
+          "attempts": 408,
+          "success": 319,
+          "fail": 0,
+          "blocked": 89,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 0.7818627450980392,
+          "unique_products_per_run": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          }
+        }
+      }
+    },
+    "combined_burst/C2/combined": {
+      "benign_attempts": 1890,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_other_unsuccessful": 0,
+      "benign_setup_unsuccessful": 0,
+      "all_unknown": 0,
+      "ban_records": 9,
+      "wallet_tok_denials": 234,
+      "products_items_denials": 1080,
+      "spend_cap_denials": 0,
+      "retry_events": 0,
+      "retry_wait_s": 0,
+      "metrics": {
+        "latency_p50_ms": {
+          "median": 18.112499999999997,
+          "min": 16.3315,
+          "max": 18.499
+        },
+        "latency_p95_ms": {
+          "median": 41.53649999999999,
+          "min": 40.42485,
+          "max": 45.20979999999997
+        },
+        "delta_c0_p50_ms": {
+          "median": 12.385999999999997,
+          "min": 9.688999999999998,
+          "max": 12.5895
+        },
+        "delta_c0_p95_ms": {
+          "median": 15.380749999999988,
+          "min": 11.30014999999998,
+          "max": 15.886100000000038
+        },
+        "waf_overhead_p50_ms": {
+          "median": 15.032223000048361,
+          "min": 14.219378500001767,
+          "max": 15.067376500013552
+        },
+        "waf_overhead_p95_ms": {
+          "median": 37.695184750015166,
+          "min": 37.2357577000258,
+          "max": 45.390096750037394
+        },
+        "server_tokens": {
+          "median": 311478.0,
+          "min": 311478.0,
+          "max": 311478.0
+        },
+        "server_cost_usd": {
+          "median": 2.7070739999999995,
+          "min": 2.7070739999999995,
+          "max": 2.7070739999999995
+        }
+      },
+      "attacks": {
+        "credential_stuffing": {
+          "attempts": 72,
+          "success": 18,
+          "fail": 54,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 18,
+          "known_valid_success": 18,
+          "asr": 0.25,
+          "unique_products_per_run": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          }
+        },
+        "scraping": {
+          "attempts": 1512,
+          "success": 297,
+          "fail": 0,
+          "blocked": 1215,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 0.19642857142857142,
+          "unique_products_per_run": {
+            "median": 2100,
+            "min": 2100,
+            "max": 2100
+          }
+        },
+        "dow": {
+          "attempts": 408,
+          "success": 162,
+          "fail": 0,
+          "blocked": 246,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 0.39705882352941174,
+          "unique_products_per_run": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          }
+        }
+      }
+    },
+    "combined_burst/C3/combined": {
+      "benign_attempts": 1890,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_other_unsuccessful": 0,
+      "benign_setup_unsuccessful": 0,
+      "all_unknown": 0,
+      "ban_records": 9,
+      "wallet_tok_denials": 235,
+      "products_items_denials": 1044,
+      "spend_cap_denials": 0,
+      "retry_events": 0,
+      "retry_wait_s": 0,
+      "metrics": {
+        "latency_p50_ms": {
+          "median": 76.8185,
+          "min": 75.4925,
+          "max": 77.086
+        },
+        "latency_p95_ms": {
+          "median": 119.12979999999992,
+          "min": 118.78284999999997,
+          "max": 123.53684999999996
+        },
+        "delta_c0_p50_ms": {
+          "median": 70.909,
+          "min": 68.85000000000001,
+          "max": 71.3595
+        },
+        "delta_c0_p95_ms": {
+          "median": 92.62709999999997,
+          "min": 89.62719999999996,
+          "max": 94.59104999999995
+        },
+        "waf_overhead_p50_ms": {
+          "median": 57.37854450001123,
+          "min": 56.68093050007883,
+          "max": 59.78237849996049
+        },
+        "waf_overhead_p95_ms": {
+          "median": 115.89594945001521,
+          "min": 113.6773027499799,
+          "max": 121.54452115003657
+        },
+        "server_tokens": {
+          "median": 311478.0,
+          "min": 311478.0,
+          "max": 311478.0
+        },
+        "server_cost_usd": {
+          "median": 2.7070739999999995,
+          "min": 2.7070739999999995,
+          "max": 2.7070739999999995
+        }
+      },
+      "attacks": {
+        "credential_stuffing": {
+          "attempts": 72,
+          "success": 18,
+          "fail": 54,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 18,
+          "known_valid_success": 18,
+          "asr": 0.25,
+          "unique_products_per_run": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          }
+        },
+        "scraping": {
+          "attempts": 1512,
+          "success": 279,
+          "fail": 0,
+          "blocked": 1233,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 0.18452380952380953,
+          "unique_products_per_run": {
+            "median": 2100,
+            "min": 2100,
+            "max": 2100
+          }
+        },
+        "dow": {
+          "attempts": 408,
+          "success": 162,
+          "fail": 0,
+          "blocked": 246,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 0.39705882352941174,
+          "unique_products_per_run": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          }
+        }
+      }
+    }
+  },
+  "details": {
+    "compat-validation-c0-current-r1": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 6,
+          "fail": 18,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 24,
+          "asr": 0.25,
+          "unique_products": 0,
+          "known_valid_attempts": 6,
+          "known_valid_success": 6
+        },
+        "scraping": {
+          "success": 504,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 504,
+          "asr": 1.0,
+          "unique_products": 3000,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        },
+        "dow": {
+          "success": 136,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 136,
+          "asr": 1.0,
+          "unique_products": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        }
+      },
+      "files": {
+        "attempts-benign-10.20.0.11-3957.jsonl": "be172d7dddc1730e3b578cc60c1db55bdc2da006c3293e67f46984c7e8890398",
+        "attempts-benign-10.20.0.12-3958.jsonl": "1b7d62f5bac628bbfb2f7f5ae3b0c5d2eb03f68e8ba92a08b02fcbb3ab98adac",
+        "attempts-benign-10.20.0.13-3959.jsonl": "f4993509b8ddaf8452db903ffd9ddefb34edcffd4ea2f825999014a9ea608b00",
+        "attempts-benign-10.20.0.14-3960.jsonl": "7bd5be6e4895eb6f3e2547ff81d74db7551af20d0528c6bef7e402c48925b6e4",
+        "attempts-benign-10.20.0.15-3961.jsonl": "b0cc562e51d7354441255ed6d18caaafbf2ec37d99b19297f9cb031af791e203",
+        "attempts-credential_stuffing-10.20.0.16-3962.jsonl": "7a552d5798e7bff626444d64e6124df60c0d5c81a0a5c7c46288c2298271611a",
+        "attempts-credential_stuffing-10.20.0.17-3963.jsonl": "fcc871ac99a43af1595dd658a8dc5cf54c63982d09b0bb2b8ec0237dc5214135",
+        "attempts-credential_stuffing-10.20.0.18-3964.jsonl": "107d5b0b81458b62768150e3cf0eaaee73c4847c26411794a67c918fc1f2c47d",
+        "attempts-dow-10.20.0.22-3969.jsonl": "9c1525fe490688866149baa0f55214364e2b527cf0e15baa4074808481dcac14",
+        "attempts-dow-10.20.0.23-3970.jsonl": "a181cfd5490467593850a5dfa6b8d1f59cd166450e5727198a51c4e5c5401f08",
+        "attempts-dow-10.20.0.24-3971.jsonl": "58faed5947487a61e78291cffd8feb79c1d0b3710803acf2c8e46e5aef206203",
+        "attempts-dow-10.20.0.25-3973.jsonl": "c64e6b9b5bcef433110abdd3b7d7a62ba0486fae763a85e5b865523123eed85b",
+        "attempts-scraping-10.20.0.19-3965.jsonl": "2e32d0c95dfcff7d57a832ec2cfdd851cd702a6baac70db8c12a9e7985bc7276",
+        "attempts-scraping-10.20.0.20-3967.jsonl": "901f63c2fc22dbafc85b1336b7d3a2bcbce768f083463037b33d0cfb068775bb",
+        "attempts-scraping-10.20.0.21-3968.jsonl": "23c385accfae09acc3be559f0537e4df5971bdc9e3a6a12c622b958570fa7fbb",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "manifest.json": "e6aabd60f5984ecc1e1b943fa1a0dda1686b0b1d31dfd7f0c4f5979c72986870",
+        "private_buckets.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "spend_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "spend_ledger.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "usage.json": "25506c6089a74804f7b9c568a7c167b4b51cd4d9292fb96233fc07d0463a931c",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "compat-validation-c2-current-r1": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 6,
+          "fail": 18,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 24,
+          "asr": 0.25,
+          "unique_products": 0,
+          "known_valid_attempts": 6,
+          "known_valid_success": 6
+        },
+        "scraping": {
+          "success": 233,
+          "fail": 0,
+          "blocked": 271,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 504,
+          "asr": 0.4623015873015873,
+          "unique_products": 3000,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        },
+        "dow": {
+          "success": 106,
+          "fail": 0,
+          "blocked": 30,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 136,
+          "asr": 0.7794117647058824,
+          "unique_products": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "2932c27068b5358790e5281f0664406303efd1d188208b194ab78a4482c3359b",
+        "attempts-benign-10.20.0.11-4129.jsonl": "9f9333e7528d2db2a99b99e494dad0b26c8928f9a2eb7ec7d6c2ca9f1bc6df92",
+        "attempts-benign-10.20.0.12-4130.jsonl": "d10d6177a881022020c710384a85faeaaee1b7a00fdefcbfcf066e8690594d66",
+        "attempts-benign-10.20.0.13-4131.jsonl": "3ef46995b5235337a1925ac7ca9110d1dbeb063299a6c44c9990fcba6cf164d4",
+        "attempts-benign-10.20.0.14-4132.jsonl": "5f91ab2ad0bf6d6cd99c85d28d728227c62e5b9f0f910726eef1c27386ebd8e4",
+        "attempts-benign-10.20.0.15-4133.jsonl": "698cf24c32a2c2360f0dac504b45495cddb0e23ebb20b76d18ca568a2ee9ae68",
+        "attempts-credential_stuffing-10.20.0.16-4134.jsonl": "65c99ab9e8316c167c23296fbad8c85037a1ea7342acd612c50aed6463acc711",
+        "attempts-credential_stuffing-10.20.0.17-4135.jsonl": "a2cc985d02c97bd97d9369cbf96dd68e6321607f5006245ca41b6c8d220b5cc6",
+        "attempts-credential_stuffing-10.20.0.18-4136.jsonl": "c147a473aa947a810fbc303c2ceb40ce7f1579541a7c1d5c7004b927924e1e53",
+        "attempts-dow-10.20.0.22-4140.jsonl": "20a904ae10f7ed42c0a8465f7fdc901fb5f46d3e2e4130faeaecdd40975d3e99",
+        "attempts-dow-10.20.0.23-4141.jsonl": "7f7aec1cc14e02ff3a04c2947f00408745bae5dd217427665996686ff8b6f811",
+        "attempts-dow-10.20.0.24-4142.jsonl": "f0775ce5731e57c6c563941bae5cb1b05c41bfbda87f61df2fb1c6beb6c78fec",
+        "attempts-dow-10.20.0.25-4143.jsonl": "aa1620a51b711e5aa76439a695fb157f6b4021265089ffe14f83e4950e0d5de6",
+        "attempts-scraping-10.20.0.19-4137.jsonl": "deb3970f74756f6adc91078825f0ce92899a77d8eb6a544eaabb21ade8d00310",
+        "attempts-scraping-10.20.0.20-4138.jsonl": "ae9a01d5f66d7f1f1b1e988066a016c5678de87dca3300ca62036bdc84810801",
+        "attempts-scraping-10.20.0.21-4139.jsonl": "c8b94d786f3f746c1ddf3c04cb331206864e54231e495ce7e963c49ecbbcc2e5",
+        "bans.json": "20eb6a8242c0ede47643e04a18ebe3103b6af6ddaa28e4215294036a60af12ab",
+        "decisions.jsonl": "f770e29516b331831576332f034796de426f266d6ee20fc46d448cc1cdab277b",
+        "manifest.json": "8036380ccd2fe9ea29942133b4a24c9d3ca9d277463a4d8fbfee71cffff631be",
+        "private_buckets.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "spend_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "spend_ledger.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "usage.json": "571d7a4e8e3cab3f47fd93a6b44f33c7b485dd7b62b1c2ae54d2d2aa3275df50",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "compat-validation-c2-combined-r1": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 6,
+          "fail": 18,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 24,
+          "asr": 0.25,
+          "unique_products": 0,
+          "known_valid_attempts": 6,
+          "known_valid_success": 6
+        },
+        "scraping": {
+          "success": 99,
+          "fail": 0,
+          "blocked": 405,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 504,
+          "asr": 0.19642857142857142,
+          "unique_products": 2100,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        },
+        "dow": {
+          "success": 54,
+          "fail": 0,
+          "blocked": 82,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 136,
+          "asr": 0.39705882352941174,
+          "unique_products": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "11c5c1e5b6a5decd73fa480c80635f59f3128e5b3b7dbc770c7d76c1148a5802",
+        "attempts-benign-10.20.0.11-4300.jsonl": "4c04131bedad4c833c82d4dbd416d573512a6d41677e0c23b82a9b070abf99a9",
+        "attempts-benign-10.20.0.12-4301.jsonl": "8398e2b1f3e041044734708561aca5c93b3b77fdb22c7876b4a908f3097ad217",
+        "attempts-benign-10.20.0.13-4302.jsonl": "895f7fe76eb8c64cd50fb26dabb20fa3ef60c01f9c7a291ec66458308c63f04a",
+        "attempts-benign-10.20.0.14-4303.jsonl": "bf5d70238e0cb552ded84beb5e2c840c18e51f7135bc9c8804229a7daa84742e",
+        "attempts-benign-10.20.0.15-4304.jsonl": "4580f5171caf13c5151b25e6a6d2d476f051b3a7a5fb7190c6e0f6cd26014056",
+        "attempts-credential_stuffing-10.20.0.16-4305.jsonl": "74afb5093b1a200ee5cb19e3de2605760a2670bb5b0e6256869a7f4efb442842",
+        "attempts-credential_stuffing-10.20.0.17-4306.jsonl": "4938b7b8e57369d4f55f699d40e6cc437bd77ca9f77d9bf81ecc432405b578b8",
+        "attempts-credential_stuffing-10.20.0.18-4307.jsonl": "cde6c4d5c4388c1e647f8f2f80e12f256a32f397c3e10b397258fc5fe73267d5",
+        "attempts-dow-10.20.0.22-4318.jsonl": "9155607b152d517efb5f62fad44395fa0c62ed0f56ef3843f8311d292fda9dcf",
+        "attempts-dow-10.20.0.23-4321.jsonl": "f40b7be4f68ea4656c5bc27604026325eed642f050ed221c26924d7e517ea35f",
+        "attempts-dow-10.20.0.24-4323.jsonl": "3f6d58363dd887c6e91525658490f9a1efb252a7204d5c134896b34c4ec03a2c",
+        "attempts-dow-10.20.0.25-4328.jsonl": "c01e1ea00656e846d5354fbc43e0e7bdff626f17496175590e5185275958c301",
+        "attempts-scraping-10.20.0.19-4308.jsonl": "ff8da3ae7b54be4b09961de6d9586dfd31c1f430b5ec07abab4bf1aef7093f72",
+        "attempts-scraping-10.20.0.20-4309.jsonl": "6fab75a177ab44e0d6ab352293dfbff4f95044b40742bd97f3e8aa4133d3d0ee",
+        "attempts-scraping-10.20.0.21-4317.jsonl": "8d4cd7b3ba166140dd7a37dfb339abfb30d83e4d42657835c288aaeb91ce9e30",
+        "bans.json": "c3d3a3a588e4d89385d1b3d9bfaca1c9b1dff9829a428b92a21c57dc1cc3586c",
+        "decisions.jsonl": "29160c25a29ef30a08b8ca8d4a650ebdad1f1d0f0c207b09eed4e95df24c2072",
+        "manifest.json": "de59933c85095eafa222bb3ecd26f77c449f14a0ae4741b75cdfa428adc7e1de",
+        "private_buckets.json": "288f29f62ce76d4720a073a40647a1db4c61bc4491f37766c4823df7c1b49cf4",
+        "spend_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "spend_ledger.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "usage.json": "78080d99eb08cabb7380169d576c07120976d304cf20f790c6a3d3fe9f9601b4",
+        "wallet_audit.jsonl": "6d674c064c7cc740f4828d6e1fdc51970e259e7400f9822d282d2494eac1f135"
+      }
+    },
+    "compat-validation-c3-combined-r1": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 6,
+          "fail": 18,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 24,
+          "asr": 0.25,
+          "unique_products": 0,
+          "known_valid_attempts": 6,
+          "known_valid_success": 6
+        },
+        "scraping": {
+          "success": 93,
+          "fail": 0,
+          "blocked": 411,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 504,
+          "asr": 0.18452380952380953,
+          "unique_products": 2100,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        },
+        "dow": {
+          "success": 54,
+          "fail": 0,
+          "blocked": 82,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 136,
+          "asr": 0.39705882352941174,
+          "unique_products": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "f8d383a7a8ce9ecb7bd6ab52a847f41c8a0595518f5737ad51b1eb53132399ae",
+        "attempts-benign-10.20.0.11-4454.jsonl": "6cc89d55f3f4acd77eb5257a90787308e55c1141994ebf9eab6a852ca128ae3a",
+        "attempts-benign-10.20.0.12-4455.jsonl": "6f3c7ce7ea712bf1ee7b57c183112f7ea005d5113528d694531ef0401ff26cfc",
+        "attempts-benign-10.20.0.13-4456.jsonl": "1365445e2a3be6a2b3425fe6c3043284d2dff7e80006cef40e17c02fe30c5797",
+        "attempts-benign-10.20.0.14-4457.jsonl": "2c25c64d89dd5ca39c18f2fc0b816ba6aa39c18b8606b36004ef1ed47742d6d6",
+        "attempts-benign-10.20.0.15-4458.jsonl": "4f237fcbe1339bb70771b16ddcf9c39d8b1b36aeeab6702c045b19ee475d36d5",
+        "attempts-credential_stuffing-10.20.0.16-4459.jsonl": "7e5a70c35f8fc54e976dec4e7fafe263ea80fbb3f78ff6b2dd02392003fad5f6",
+        "attempts-credential_stuffing-10.20.0.17-4460.jsonl": "dbd4d5fbdadda2d81c0df8eb7d4b11a2587c39c904f0194ca48c5584dbc0cbaf",
+        "attempts-credential_stuffing-10.20.0.18-4461.jsonl": "b759e444840bc4568bcbd8888be648180aa5190d0c413fab6a43eeb277927eea",
+        "attempts-dow-10.20.0.22-4465.jsonl": "12a797e91f066c8f6a7dedb95f90a4667aa5c4be0c181e553d9ce74571d9c811",
+        "attempts-dow-10.20.0.23-4466.jsonl": "54bb5d22de3f77d752e29042562ea36c792b8b80f8e356a1da5b6a3505b35867",
+        "attempts-dow-10.20.0.24-4471.jsonl": "c73097f1522036fb4b6b87ec6f88d2d23025fc280d1b8cc5cb7fc6e2ae114d0e",
+        "attempts-dow-10.20.0.25-4472.jsonl": "7a9c6b1a621c8bbca113a4bd98d33a01d94e5139606c2b4e2f8e89f201ebe48d",
+        "attempts-scraping-10.20.0.19-4462.jsonl": "76a875483d02bfeb624a77a0ffbf069dc7eed6b2c19112a263a1cb47b0115343",
+        "attempts-scraping-10.20.0.20-4463.jsonl": "7ddbac3108a14c59f37ddedb34692d6e5f4cad934adf1a2a29ce1237df4cea87",
+        "attempts-scraping-10.20.0.21-4464.jsonl": "a2571d1e0f7da42dd459e87761357002b3e4c4518fc5b809a48195c2a17d016a",
+        "bans.json": "cacb3a1d9501288859529f0d1747408eb875836c7e1c18acd2397200bf87e552",
+        "decisions.jsonl": "08e9b57dda92b67c4cbfb846206a46e518ea2e82f3bc8f236628ba4d87c85bab",
+        "manifest.json": "a4846d33aee5a07e8b14df587a681fe7a5f95a08e35a785a17679ca4173696bd",
+        "private_buckets.json": "8ec14506d1e404ba55424333d91b4fc9fa2552ca4b100cc5de518097b41645be",
+        "spend_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "spend_ledger.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "usage.json": "78080d99eb08cabb7380169d576c07120976d304cf20f790c6a3d3fe9f9601b4",
+        "wallet_audit.jsonl": "0b7cefb10a1b9580320e0ffa593222e2f45f841d73bef88102a8d6557c009be8"
+      }
+    },
+    "compat-validation-c3-combined-r2": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 6,
+          "fail": 18,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 24,
+          "asr": 0.25,
+          "unique_products": 0,
+          "known_valid_attempts": 6,
+          "known_valid_success": 6
+        },
+        "scraping": {
+          "success": 93,
+          "fail": 0,
+          "blocked": 411,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 504,
+          "asr": 0.18452380952380953,
+          "unique_products": 2100,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        },
+        "dow": {
+          "success": 54,
+          "fail": 0,
+          "blocked": 82,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 136,
+          "asr": 0.39705882352941174,
+          "unique_products": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "4dbb0d49643c0a649b4e8a7d35156ecf0678d9ec9ddfd277066355e13364ede2",
+        "attempts-benign-10.20.0.11-4586.jsonl": "db07dc8ba9cb6f33076a0d3014d644ff7b2f7cca3d87108d1f3328197e5c0a23",
+        "attempts-benign-10.20.0.12-4587.jsonl": "33c88841a3173215eb755f6405e590428e48688e6a28e59edf5f210372cb9d3a",
+        "attempts-benign-10.20.0.13-4588.jsonl": "8e57944557772865a3a2b9a235f5a74cc88460fcd6d2c9a3fd89da1a758d3b5c",
+        "attempts-benign-10.20.0.14-4589.jsonl": "f9ad39264555f43abd9fb2175e2ea2c241d83adf8f303a593c33468f042ba04a",
+        "attempts-benign-10.20.0.15-4590.jsonl": "6b80b9f18221118c13153383c04cf24d97262b0cca7fe3a1f4dbfe0464a34fc5",
+        "attempts-credential_stuffing-10.20.0.16-4591.jsonl": "feb54a560903e3dcf56519ec08d8082ec0867a5eed72eade9c247fae7f7eb170",
+        "attempts-credential_stuffing-10.20.0.17-4592.jsonl": "fc559053a181e9940a723e13b1f43bef6dc97f6d1f04996ada0d0b44764db8de",
+        "attempts-credential_stuffing-10.20.0.18-4593.jsonl": "a5497cb448e38a4075e63d3cd8630524436bca71b2ecd2428c94f700b0d50493",
+        "attempts-dow-10.20.0.22-4602.jsonl": "8607ce443e35a970585c1a5882b232dc6c5e29b810d8b63401f7ecd3a2a2dc80",
+        "attempts-dow-10.20.0.23-4607.jsonl": "93341f191e61e6b938eceffd789a6b968271cb07571bdd6da53e6a5f65f227b8",
+        "attempts-dow-10.20.0.24-4608.jsonl": "c49755fe777b7871f10af4046d88b003b9e87e40577bf59557765cc083baa941",
+        "attempts-dow-10.20.0.25-4615.jsonl": "dc1114174e45e776887aaf6a9f68047834c446c7bf26054b373b778551d1ecab",
+        "attempts-scraping-10.20.0.19-4594.jsonl": "9984caf0f44a771b42077e7e672756767d2a6b3bd858e1f79b2288f61a5621f3",
+        "attempts-scraping-10.20.0.20-4600.jsonl": "a2b4fd020d7047cfa3e0fc8ac871f884bbfc6f82f0cd1801a013a102b2fe12be",
+        "attempts-scraping-10.20.0.21-4601.jsonl": "21c93a95aecaa7d9910fd366c5c0bace808640211c79fa61ba876cf99446887f",
+        "bans.json": "95be37cb814a4ac579db512d7f511e36403367df547c4c59ea9750c1d139041d",
+        "decisions.jsonl": "d3eb68b759345ff9b8376c116382ac90aa55fa6dbb2f6bc9f7456f87892622af",
+        "manifest.json": "06278aa5dd9f3e7458bf662da6682b9488873b2eb864bbf0aa001ae337830199",
+        "private_buckets.json": "a93a339cfaab2cedcc5a079094a151b9fdeb6d51347ea6cebd145afed4748e4a",
+        "spend_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "spend_ledger.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "usage.json": "78080d99eb08cabb7380169d576c07120976d304cf20f790c6a3d3fe9f9601b4",
+        "wallet_audit.jsonl": "5f1d9242050a33f54410f51d992a87a30392c7d3a40a10b766880ec341fb7a93"
+      }
+    },
+    "compat-validation-c2-combined-r2": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 6,
+          "fail": 18,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 24,
+          "asr": 0.25,
+          "unique_products": 0,
+          "known_valid_attempts": 6,
+          "known_valid_success": 6
+        },
+        "scraping": {
+          "success": 99,
+          "fail": 0,
+          "blocked": 405,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 504,
+          "asr": 0.19642857142857142,
+          "unique_products": 2100,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        },
+        "dow": {
+          "success": 54,
+          "fail": 0,
+          "blocked": 82,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 136,
+          "asr": 0.39705882352941174,
+          "unique_products": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "8d0be0f6e6e35ae284472958768cc537e8f6f86c82c9ec7bb410d27a14ff77f6",
+        "attempts-benign-10.20.0.11-4701.jsonl": "778f124df01cb1ceafb15f504012a8de7c9282e17091eca82df8a5598659b23d",
+        "attempts-benign-10.20.0.12-4702.jsonl": "14c6c5fe37d5bf5eed6b1c70fb433a77e3bfb30832b5601ae97da199e9ea584a",
+        "attempts-benign-10.20.0.13-4703.jsonl": "03ef7fc0490ead2d5128611d60aecea33e621d600a7387595b014cca1c87ccde",
+        "attempts-benign-10.20.0.14-4704.jsonl": "07f0ea6dc91f994635476b161343b1cd8139d8eea069fbfe4545d52a25335b2c",
+        "attempts-benign-10.20.0.15-4705.jsonl": "9be806356743fc4cbfdd6aa74428da2ce5dc8144f284e9c7e12fad085dd31ca1",
+        "attempts-credential_stuffing-10.20.0.16-4706.jsonl": "9b9dbef8289d95e510da7494c32c56641922ef902e71257bae65e115effbdd5c",
+        "attempts-credential_stuffing-10.20.0.17-4709.jsonl": "18dc2b1064376080a3bbb101f5d34b44d6d185143fc94771f003556dcb6f2fa1",
+        "attempts-credential_stuffing-10.20.0.18-4711.jsonl": "96b8ff2794ae94d7f4316ed915f3dbb5d3b1c51238eb6509c287dedd0b67b4f2",
+        "attempts-dow-10.20.0.22-4720.jsonl": "0abf53ba6d97ad154fe798924dd502ac8ecf083b7e9077de41a642536d5c5c87",
+        "attempts-dow-10.20.0.23-4721.jsonl": "9bcd15caca9417f39de6e17fea02c5e3f168d9c45c9d7b70e551b8fc222adf2a",
+        "attempts-dow-10.20.0.24-4722.jsonl": "0c9116a8a9ecf3f54f93fd99a2ef275b4cadb9ac79842040b4946e90e55f56c4",
+        "attempts-dow-10.20.0.25-4727.jsonl": "14a08a18512ec20a2273c838e82061cc9eb594f5cbee8cbca87d979e53cf82c5",
+        "attempts-scraping-10.20.0.19-4716.jsonl": "bf239b1b28250b405b52c38624553453191e861919e63fe6ed5e196d5b63ea52",
+        "attempts-scraping-10.20.0.20-4718.jsonl": "a82f84cfc85d6dab8bd0c4e4849132c63564c70ef4ee291cdae88455eef855d1",
+        "attempts-scraping-10.20.0.21-4719.jsonl": "868131001370fd1fa775cc6f1f2d83f0dc706a5deca8bd28164601e8dcb677b9",
+        "bans.json": "fb55867ac27926564594e27080f037fd39f206c6aa1000426d3cbfdb0d592684",
+        "decisions.jsonl": "216268cfd9d425b2c224a6ae74f72f0e09f79220af4b7359bbe1f0f9eab9010f",
+        "manifest.json": "4197008d3722b85b3fe08abcc34065fb3e6563f327911911aff85047b4077d93",
+        "private_buckets.json": "abb5164b8343da69cf6c3f1ea21fdb4987215e2c8d411baa9fd626aca8e229c9",
+        "spend_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "spend_ledger.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "usage.json": "78080d99eb08cabb7380169d576c07120976d304cf20f790c6a3d3fe9f9601b4",
+        "wallet_audit.jsonl": "b8b0380c47abc5416ad6eee0760960f93573bdd1ec55124fb1993ad981d99ae6"
+      }
+    },
+    "compat-validation-c2-current-r2": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 6,
+          "fail": 18,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 24,
+          "asr": 0.25,
+          "unique_products": 0,
+          "known_valid_attempts": 6,
+          "known_valid_success": 6
+        },
+        "scraping": {
+          "success": 233,
+          "fail": 0,
+          "blocked": 271,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 504,
+          "asr": 0.4623015873015873,
+          "unique_products": 3000,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        },
+        "dow": {
+          "success": 106,
+          "fail": 0,
+          "blocked": 30,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 136,
+          "asr": 0.7794117647058824,
+          "unique_products": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "0ad01b4ffbf665575b7099b08d1f73d685cc6180eece94fdc01c734d4667aec3",
+        "attempts-benign-10.20.0.11-4826.jsonl": "2412b16f74a25fdc4f42cd23b1dd6e90dbc94a5f791db1f09fd96f6fd143b0b4",
+        "attempts-benign-10.20.0.12-4827.jsonl": "35e9a81942165da713a0dc0c925a488406c7839e66a64802135029d2404e1498",
+        "attempts-benign-10.20.0.13-4828.jsonl": "c88dca559a62b694a56ab527614ff554bab190b2e4f2bfc671fc7de8b0e3ef75",
+        "attempts-benign-10.20.0.14-4829.jsonl": "c190ca8b17cb33888c9d2b4f3861c2524463cc85be369f5e7a79e76f1d994a73",
+        "attempts-benign-10.20.0.15-4830.jsonl": "7c0aa5d462a5a1bb9dbf425eb288068dda53caca7e921150bd16485d858a9975",
+        "attempts-credential_stuffing-10.20.0.16-4831.jsonl": "df6cd3426a431904c40e9d0d7d3ce821404bedd6f9e4f4fef7775209d69b52f6",
+        "attempts-credential_stuffing-10.20.0.17-4832.jsonl": "0fc9a7821949576e11e441cdc1385aa5ad3149200eaaf28c30634b5297f9b0a8",
+        "attempts-credential_stuffing-10.20.0.18-4833.jsonl": "004247024c0db8d2045c87ca02e318885de06f1ddcd0d4315597b491cb4ce77b",
+        "attempts-dow-10.20.0.22-4849.jsonl": "d01fea4b9b8e29c1aab128dad100bf9bd9060d607f9378d79ac1fbcfba71c42c",
+        "attempts-dow-10.20.0.23-4853.jsonl": "1ff179e46ac7f63da429eba7cc22c0a12932da23373fd4f05618a4c48ccaccbe",
+        "attempts-dow-10.20.0.24-4854.jsonl": "a89dedeae1e1914ff6e71288cf3d25305bef52d2d8f08726c6276a919ff158ed",
+        "attempts-dow-10.20.0.25-4858.jsonl": "ec11c47722ea945e66fa3458723671a9a82cfac36d8992412af129526b2d2035",
+        "attempts-scraping-10.20.0.19-4834.jsonl": "779b7c270229b3181c28a0e825c21bbfa39aa6ab1959dd8d056253a56278b41e",
+        "attempts-scraping-10.20.0.20-4835.jsonl": "f4ed76d1556dd5e17987475f80ec7ff805cb286b1500018d3220c123b672582e",
+        "attempts-scraping-10.20.0.21-4836.jsonl": "7c852ba01cba159e54d0c306749ea1719c4d62fabf01702692bb258fea2f48e9",
+        "bans.json": "be0c8ca429618a58c4fc5116b6c8f197caef520823acd34914090e8cebd6978d",
+        "decisions.jsonl": "2d3f42f99e8541bef5fdaf939b9cc427dde564273f053b06e768b24005dcd64f",
+        "manifest.json": "8ff23f314c2c6464f5ef14bb6138636ec35815674424d9e622b7af5649aa25e3",
+        "private_buckets.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "spend_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "spend_ledger.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "usage.json": "571d7a4e8e3cab3f47fd93a6b44f33c7b485dd7b62b1c2ae54d2d2aa3275df50",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "compat-validation-c0-current-r2": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 6,
+          "fail": 18,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 24,
+          "asr": 0.25,
+          "unique_products": 0,
+          "known_valid_attempts": 6,
+          "known_valid_success": 6
+        },
+        "scraping": {
+          "success": 504,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 504,
+          "asr": 1.0,
+          "unique_products": 3000,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        },
+        "dow": {
+          "success": 136,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 136,
+          "asr": 1.0,
+          "unique_products": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        }
+      },
+      "files": {
+        "attempts-benign-10.20.0.11-4959.jsonl": "ede48baf9ebe3989d74f3ef6a9db0035e08c96dd18905f7db6f4c781dcf48917",
+        "attempts-benign-10.20.0.12-4960.jsonl": "8f9532e3cf5c6d2f0ab74d4fd1c1666461bc18ffab2546219ca293e284ca8c60",
+        "attempts-benign-10.20.0.13-4961.jsonl": "524408c33739a68df9d74a7a0a8c0d8d9d86b53765f744dcb1ccf91164f9d5a4",
+        "attempts-benign-10.20.0.14-4962.jsonl": "24097c3eefb4af287314b9bc7acc662b962fdeafcb0548374a11b738f390ec4e",
+        "attempts-benign-10.20.0.15-4963.jsonl": "6b5b232261050f2e10dc3bd6252e698c89d7f0567b9e53deeaf4de5e5823c771",
+        "attempts-credential_stuffing-10.20.0.16-4964.jsonl": "620d56d755b1ad6ef46306b2b72852424e1b0babb58bef8b95e96de721c94085",
+        "attempts-credential_stuffing-10.20.0.17-4965.jsonl": "c7b01e5ff511d2df8c07aed368346d9b3073d51ba174e4812fc5b5c3ffe33af7",
+        "attempts-credential_stuffing-10.20.0.18-4966.jsonl": "85a8a9b96845fddd619868742fed3428f56c7f40edcca70db4a6a952e7722d1b",
+        "attempts-dow-10.20.0.22-4972.jsonl": "43459f3962d47a829df71cd9cba59eeb7a291d2e83c8f6d1c7b9da33145bbc54",
+        "attempts-dow-10.20.0.23-4973.jsonl": "f9e36231d33ef7a9d96b3355ed5236eea504a08814c5f919d73ae3b6aa95f4c3",
+        "attempts-dow-10.20.0.24-4974.jsonl": "ae817d0b7fa5d2b77b73168dd8fbbd6ccb7f90069611c7c07d9f7965e7a4f218",
+        "attempts-dow-10.20.0.25-4979.jsonl": "3b43debd0a7ef41fd3a69cbdf5074ba641b5450287baa777499b30fbf37a0bc7",
+        "attempts-scraping-10.20.0.19-4969.jsonl": "e08c779750fe0bf1020d1c971915f9e2fc0730b58c1cb8b6f89bc073cbcd0ce7",
+        "attempts-scraping-10.20.0.20-4970.jsonl": "0afc1d6afd59558416b0ec101520966b7894e7e6d1133f658e9beb16931c0d29",
+        "attempts-scraping-10.20.0.21-4971.jsonl": "696c86a8a581efa6501ff3916c01514230414186dbdf45b49abeef6ccae8eff3",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "manifest.json": "d6d70ea2cc5436d4c39f5ff8b297ebe78c1a0f0892a5edac33ff189867719cb5",
+        "private_buckets.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "spend_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "spend_ledger.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "usage.json": "25506c6089a74804f7b9c568a7c167b4b51cd4d9292fb96233fc07d0463a931c",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "compat-validation-c0-current-r3": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 6,
+          "fail": 18,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 24,
+          "asr": 0.25,
+          "unique_products": 0,
+          "known_valid_attempts": 6,
+          "known_valid_success": 6
+        },
+        "scraping": {
+          "success": 504,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 504,
+          "asr": 1.0,
+          "unique_products": 3000,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        },
+        "dow": {
+          "success": 136,
+          "fail": 0,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 136,
+          "asr": 1.0,
+          "unique_products": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        }
+      },
+      "files": {
+        "attempts-benign-10.20.0.11-5095.jsonl": "20d9e94b9c1fe4b0bdae8f5744cdebadbe855c8cbff3de1ebb05427506f230f0",
+        "attempts-benign-10.20.0.12-5096.jsonl": "ceac321645c7d9d56c7a3d65c85c4e4992c3a8fff657453bd1bc1f8ab2e579ec",
+        "attempts-benign-10.20.0.13-5097.jsonl": "941c5a5cb3461b03b3fb874283aed8aac5728059d1fda2c1b8959959e0f303f0",
+        "attempts-benign-10.20.0.14-5098.jsonl": "7fb5e1d723b9713f07b948a58b5e4a54ff35bcc40976d06de12f9dc762133cbe",
+        "attempts-benign-10.20.0.15-5099.jsonl": "43af4dedbebae2825587ba289f11709da75f257932cd2bbea7cd5913fe15d126",
+        "attempts-credential_stuffing-10.20.0.16-5100.jsonl": "847f41fe46d7e0443b4913a2624a7fde878411f277d14381a1ddab37cd63ceeb",
+        "attempts-credential_stuffing-10.20.0.17-5101.jsonl": "f4ae5bed7f82973e373fa3ae8e00b97eb1c1544aef2eec62e8ab3563287bdf46",
+        "attempts-credential_stuffing-10.20.0.18-5102.jsonl": "68e4245b2ae18f01d2236d6f64d75667a4acc1bbd2f8b87ee73e84c955a4a55a",
+        "attempts-dow-10.20.0.22-5112.jsonl": "cee8a2bbfe1476d8478143bbbd53223bd5e8837c6894e32fad817b857455adee",
+        "attempts-dow-10.20.0.23-5117.jsonl": "b4065d2e8f8c1cff7d22b4ab7a7ac57ce80601a16c8caa3f0065cdaca77285bf",
+        "attempts-dow-10.20.0.24-5118.jsonl": "a39db0cade50abdd027d7e31dbc7fa42257e4e3b9ac98cde4c3a92713eb18692",
+        "attempts-dow-10.20.0.25-5123.jsonl": "589bacae8b1d6b8c329cb978a8f701348c19b5de14125de475037136faa38004",
+        "attempts-scraping-10.20.0.19-5103.jsonl": "fc79a1fd80c2fa15a01bd8f6e10d71cf787180a6edb1b632301c9eadd334b335",
+        "attempts-scraping-10.20.0.20-5104.jsonl": "85be0b64351b889cb850e933fb6a40ee37110bbed2eb40d4f18c82b699b95b12",
+        "attempts-scraping-10.20.0.21-5109.jsonl": "1fce15b0d7eb8ed53ae14b47a0b4411f2d3134ecde3c8758a8a2881a22812bd1",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "manifest.json": "33ed78522695447b84891b6caa9cffa3c7537f697a9bdb77cb50435e4b1579bf",
+        "private_buckets.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "spend_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "spend_ledger.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "usage.json": "25506c6089a74804f7b9c568a7c167b4b51cd4d9292fb96233fc07d0463a931c",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "compat-validation-c2-current-r3": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 6,
+          "fail": 18,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 24,
+          "asr": 0.25,
+          "unique_products": 0,
+          "known_valid_attempts": 6,
+          "known_valid_success": 6
+        },
+        "scraping": {
+          "success": 235,
+          "fail": 0,
+          "blocked": 269,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 504,
+          "asr": 0.4662698412698413,
+          "unique_products": 3000,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        },
+        "dow": {
+          "success": 107,
+          "fail": 0,
+          "blocked": 29,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 136,
+          "asr": 0.7867647058823529,
+          "unique_products": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "cbbdda1213482f7455198466a886ae3fca1d2eac9fd326684ca77bfa9ea88f2b",
+        "attempts-benign-10.20.0.11-5207.jsonl": "72d1bd7c8d6c560dbed044a1f3a4325a7ed7f744693e414f91895d310e6f8f90",
+        "attempts-benign-10.20.0.12-5208.jsonl": "91630b37bbe843bf0529962f3c80244b063f86c3e92ff1293d93231c90d0ad77",
+        "attempts-benign-10.20.0.13-5209.jsonl": "0bce518620eea6a45a6d35f4005530911b66ec5ca5b2d4572fa0cfe20fbb7cd2",
+        "attempts-benign-10.20.0.14-5210.jsonl": "6ce714d29fd882bcad5491b31c51f4b75c5ed35884a38f8c06cfa45fb1f6992d",
+        "attempts-benign-10.20.0.15-5211.jsonl": "82a37a1068dcb1b94c57b2f93a92dfcfaeee2630c14e77543350d5708d6d9509",
+        "attempts-credential_stuffing-10.20.0.16-5212.jsonl": "646a8eb37c4b21f1f5f7bc8d4357a16846ff6e835614d45c16895ba1fa39008b",
+        "attempts-credential_stuffing-10.20.0.17-5213.jsonl": "df8d5312a99fd0eb4d248fb3fe418fca4e82007a3b57132ae048ed2d934f3b96",
+        "attempts-credential_stuffing-10.20.0.18-5214.jsonl": "4692a31f4956dc8490795c900be174ec7862b25411210f4d339ba4c51f47cf28",
+        "attempts-dow-10.20.0.22-5224.jsonl": "64da20a8eadb4a53db82da56125fd294188a8e4e18d0f7eb114d6db52a178a92",
+        "attempts-dow-10.20.0.23-5225.jsonl": "989a38515d8f2517dccf5f9fc7ac4a8deca9e8e17bf889266d6d007b10d4dd2d",
+        "attempts-dow-10.20.0.24-5226.jsonl": "cf4fce9ea9bffa7966d2775e01f4dabfa537a28e97319303f47b226577c62b2f",
+        "attempts-dow-10.20.0.25-5227.jsonl": "b54c46f1e22da8b4e927ca3839332182b0192b24361a75fedc1e1ea7143ed39e",
+        "attempts-scraping-10.20.0.19-5215.jsonl": "bbda0aef30e2b77040286a029f4c7aedaa8c6fbe41266f29dc62d071b371964a",
+        "attempts-scraping-10.20.0.20-5216.jsonl": "4d47c04968a23db8ea5603c278f6af478c110f7dee9ea7276a31cb03af44d27c",
+        "attempts-scraping-10.20.0.21-5217.jsonl": "dff9286c03af869608bdf2470e6b70ea46d2e237dce39df6a724b470f4288126",
+        "bans.json": "e99d001c97a235a641b62cb263668d1a930cfd024c9ddb7747aab07437e66af4",
+        "decisions.jsonl": "abfeb7f9c77715ad7aa56212de9da236e772847b881bec227954d7f8fcfc5f46",
+        "manifest.json": "5488ff922aa0276be2e5f43a9260234aa40c6290a6dc4d04378edb848d7ba9dc",
+        "private_buckets.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "spend_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "spend_ledger.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "usage.json": "f3f56207225efd3e90f0920a82687544099390dfd39468ece1ba184cea7309ce",
+        "wallet_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "compat-validation-c2-combined-r3": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 6,
+          "fail": 18,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 24,
+          "asr": 0.25,
+          "unique_products": 0,
+          "known_valid_attempts": 6,
+          "known_valid_success": 6
+        },
+        "scraping": {
+          "success": 99,
+          "fail": 0,
+          "blocked": 405,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 504,
+          "asr": 0.19642857142857142,
+          "unique_products": 2100,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        },
+        "dow": {
+          "success": 54,
+          "fail": 0,
+          "blocked": 82,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 136,
+          "asr": 0.39705882352941174,
+          "unique_products": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "0b2644d75d86f42ae255ae843aa7d3df0855276f1cff1b8608c619b2394da321",
+        "attempts-benign-10.20.0.11-5331.jsonl": "e59570262a6c92f04a986861789437a65243bc8bd23fd904d5a9adf3656ae55c",
+        "attempts-benign-10.20.0.12-5332.jsonl": "785d97723fde42b18dad3a88f25cf92b388af040f0d164cdc6b1ab9d763f34df",
+        "attempts-benign-10.20.0.13-5333.jsonl": "be36ce32e04785a7ccb43a7cb8396e7502ac3113e9e6774ff3eb89c15fe4d0d7",
+        "attempts-benign-10.20.0.14-5334.jsonl": "3778ff6fc371f3096f82617feeeb22a810336b625bb67256f99eec9f790d7612",
+        "attempts-benign-10.20.0.15-5335.jsonl": "55b74f0ae93487025ba03fa65ddfd281a44f376fb1bb8de29cbb8f2dd2e7b90b",
+        "attempts-credential_stuffing-10.20.0.16-5336.jsonl": "86f2271fb38e6da1ec8a20fe817f23f7e8f8496795912e1a39b0a0aef73c8384",
+        "attempts-credential_stuffing-10.20.0.17-5337.jsonl": "7f71051bac58e6cbc0d465b3dcd8d327a0d2e4247910d0eb799a08e1431034cc",
+        "attempts-credential_stuffing-10.20.0.18-5340.jsonl": "0c0bf6ba1b65d51376b3831aa278d76e3cb281997254483df21c29b6e5d8d64c",
+        "attempts-dow-10.20.0.22-5344.jsonl": "7d151852b1fe028caa0b2c9292d88f55607adb2805f40e0880b700154e27b9b5",
+        "attempts-dow-10.20.0.23-5345.jsonl": "e78ef820c1c8ffa9dd12e31c5abb9a9f55450c343cc5759f6214b8b905fffc60",
+        "attempts-dow-10.20.0.24-5346.jsonl": "af39a92867eecba5ddb59874cb95635fd9d64bfa53e7d201df0f5a714e641c42",
+        "attempts-dow-10.20.0.25-5347.jsonl": "180a5554c85279f29e881a26129936f1bf6b6bd0ac13fb3e97dcb72acbc1c9fc",
+        "attempts-scraping-10.20.0.19-5341.jsonl": "aed629611c288115688abdb94743901f153943c3e4f15154db3c09bdd4ba87db",
+        "attempts-scraping-10.20.0.20-5342.jsonl": "0bd2f134feea93b45f6e2c2af339d9e3fca3f8394184614129c9f269632812d3",
+        "attempts-scraping-10.20.0.21-5343.jsonl": "a80d2ec9eab7b46d02041651425ab17d548d402e6a09fbae52d345a41c0af649",
+        "bans.json": "1e1d7d24048f9080b809a340558c67b242496da8330112f9a7d22453d8153040",
+        "decisions.jsonl": "f9bfba09efe4c22b224e69a965154150dc8ee57cb6d84b71e827adab4f941a2e",
+        "manifest.json": "db275d858cd167246a33c7f0940ff0b6021ba9fbdf17114bf1d7a694f9e8e433",
+        "private_buckets.json": "584c2c3f48790b987464639395c359f1932615f291101cb33ecda3c4819bb974",
+        "spend_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "spend_ledger.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "usage.json": "78080d99eb08cabb7380169d576c07120976d304cf20f790c6a3d3fe9f9601b4",
+        "wallet_audit.jsonl": "cd012cd1d4a26c3628a12174e1051215279f18254ca292ff55f756470e13e45e"
+      }
+    },
+    "compat-validation-c3-combined-r3": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 6,
+          "fail": 18,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 24,
+          "asr": 0.25,
+          "unique_products": 0,
+          "known_valid_attempts": 6,
+          "known_valid_success": 6
+        },
+        "scraping": {
+          "success": 93,
+          "fail": 0,
+          "blocked": 411,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 504,
+          "asr": 0.18452380952380953,
+          "unique_products": 2100,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        },
+        "dow": {
+          "success": 54,
+          "fail": 0,
+          "blocked": 82,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 136,
+          "asr": 0.39705882352941174,
+          "unique_products": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "16b5ceaf91ec31add451f8de38d82c7f96616470a062b478568ab2979ca639a2",
+        "attempts-benign-10.20.0.11-5513.jsonl": "4c40cfa2f976e57666233e172ad456e8d3c717a2c43f0a0dba67a9dabcadc4e9",
+        "attempts-benign-10.20.0.12-5514.jsonl": "cf7e71e09a22a4a7ff71cb5618cb7f26814351ef33117ba179e129496c299cca",
+        "attempts-benign-10.20.0.13-5515.jsonl": "89c9d3a6ecca94e69f127f4dafa680e3c50e5a170812b7c1e45dd4bc0d8b028b",
+        "attempts-benign-10.20.0.14-5516.jsonl": "5d116bf3542ad071551e95d84929619ce774d138d0d12a6cf3835d7cf1c933d5",
+        "attempts-benign-10.20.0.15-5517.jsonl": "2b239c68e2ad1e94c521d6c241cf56a938d67c411ff306b76df1e62b66b91dec",
+        "attempts-credential_stuffing-10.20.0.16-5518.jsonl": "83159d24540a273c1fee27fec2a0fa112bf9540e4a77aa06049bc0b55fe33545",
+        "attempts-credential_stuffing-10.20.0.17-5519.jsonl": "3a0bb02f0c4b13702349d850a01dc8497407cf4e66d69c9a4d0e9e21de9f723d",
+        "attempts-credential_stuffing-10.20.0.18-5520.jsonl": "f396ef8ee200800cc4b7a76a639c81d2aeb77a26f28c9650cbe5e5ca564115f6",
+        "attempts-dow-10.20.0.22-5524.jsonl": "86ff29b343abddf275cda8d9c7e5cf7200b1a099d266a722b9793670b1d0bf43",
+        "attempts-dow-10.20.0.23-5525.jsonl": "84c976528815d672a2b10fa1a0d5f286f3adb94535a72caac6df870f23bd6ba4",
+        "attempts-dow-10.20.0.24-5531.jsonl": "ac1d17361b1d2bce176b9fa1ff7ba1f3c4034fc3fdeacea87b6664b1a0801f66",
+        "attempts-dow-10.20.0.25-5537.jsonl": "2d3e77ec10927b3991f327d18cb0d55f429c26ac6d45a6a9209c9d3fce0b5802",
+        "attempts-scraping-10.20.0.19-5521.jsonl": "fafd4fae4891d8d3d32435fa168a153e6eaf3fba55fa34802d50c1183622f9d8",
+        "attempts-scraping-10.20.0.20-5522.jsonl": "f8f6972719213b9f603995cfa1bc488dbee75d6f396e7f01f4d2764f3e9c4cea",
+        "attempts-scraping-10.20.0.21-5523.jsonl": "8037c960b031dab31cd735b75ec3810fae49b1b806fa55a142f4d5d36c9e1b90",
+        "bans.json": "4ed8bb931547b7c3651d3ece4b4663384ed27d03928af951205be27a3d5f53de",
+        "decisions.jsonl": "e133dc52d9fef6e111d9e669a8f7fd73c223a5935e8ac4dd8db0f1baa68887a6",
+        "manifest.json": "183137278064cb65efc2a057c6259f736d44b78c66231d97c24c090ba062e556",
+        "private_buckets.json": "21bc4d809a649af8fb6b407913dd38b078769a9ef56c052851429706698b76f9",
+        "spend_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "spend_ledger.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "usage.json": "78080d99eb08cabb7380169d576c07120976d304cf20f790c6a3d3fe9f9601b4",
+        "wallet_audit.jsonl": "2698d56d141d243a24588ff1bb96ed419cac334bb7213ea2d75e92582aeee632"
+      }
+    }
+  },
+  "source_revision": "f6de6d29213e460d12ad199668e67bd153d8fa42",
+  "model_sha256": "1eb84211004b6abe42cd2b8ec03e4b06b8504884ad0a8b9c1ca81ce2f55829e3",
+  "validator_sha256": "9bb53044b2bdc08c0677becae34489f62d08ced145b5c29bb6ffcc8b80314ae3",
+  "kernel_integrated": false,
+  "candidates_deployed": false
+}

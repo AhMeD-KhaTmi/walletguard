@@ -8,13 +8,18 @@ import math
 import time
 import uuid
 from dataclasses import dataclass
+from urllib.parse import parse_qs
+from pydantic import TypeAdapter
 from starlette.datastructures import Headers
 
 from common.tokens import TOKENIZER_VERSION
 from common.agent import DEFAULT_AGENT_STEPS, MAX_AGENT_STEPS, reserve_tokens
 from waf.bans import BanStore
-from waf.buckets import TokenBucket
+from waf.buckets import TokenBucket, SpendLedger
+from common.pricing import cost_microusd, reserve_microusd
 from waf.features import FEATURE_VERSION, FeatureStore
+
+QUERY_INT = TypeAdapter(int)  # Match FastAPI's accepted integer query forms.
 
 
 @dataclass
@@ -25,6 +30,7 @@ class Verdict:
     retry_after: float = 0
     reserved: tuple | None = None
     wallet_reserved: tuple | None = None
+    spend_reserved: tuple | None = None
 
 
 async def buffer_body(receive, limit):
@@ -65,6 +71,7 @@ class WAFMiddleware:
     def __init__(self, app, *, state):
         self.app, self.state, self.cfg = app, state, state.config
         self.tb = TokenBucket(state, max_keys=5*self.cfg.max_clients)
+        self.spend = SpendLedger(state)
         self.bans = BanStore(state, shadow=self.cfg.mode == "observe")
         self.features = FeatureStore(state)
         state.waf = self
@@ -115,7 +122,8 @@ class WAFMiddleware:
                 "route": path, "feature_version": FEATURE_VERSION,
                 "body_truncated": int(oversize),
             }, 500_000)
-        verdict = await self._decide(ip, user, method, path, parsed, oversize, score)
+        verdict = await self._decide(ip, user, method, path, parsed, oversize, score,
+                                    query=scope.get('query_string',b''),request_id=request_id)
         decision_ms = int(time.time()*1000)
         downstream = 0.0
         status = 0
@@ -154,9 +162,17 @@ class WAFMiddleware:
                     refunded = max(0, reserve-(charged or 0))
                     await asyncio.shield(self.tb.refund(key, cfg.budgets["llm_tok"][0], refunded))
             if verdict.wallet_reserved and known:
-                key, reserve = verdict.wallet_reserved
+                key, reserve, capacity, _ = verdict.wallet_reserved
                 wallet_refunded = max(0, reserve-(charged or 0))
-                await asyncio.shield(self.tb.refund(key, cfg.wallet_capacity, wallet_refunded))
+                await asyncio.shield(self.tb.refund(key, capacity, wallet_refunded))
+            if verdict.spend_reserved:
+                key,rid,reserve = verdict.spend_reserved
+                actual=cost_microusd(usage.tokens_in,usage.tokens_out) if usage else 0
+                released=await asyncio.shield(self.spend.finish(key,rid,actual)) if known else None
+                await self.state.log('p20:app:spend_audit',dict(run_id=cfg.run_id,request_id=rid,
+                    period=cfg.spend_period,reserved=reserve,charged=actual if known else '',
+                    refunded=released if released is not None else '',uncertain=int(not known),
+                    reconciled=int(released is not None),cap=cfg.spend_cap_microusd),200_000)
             if cfg.wallet_capacity and path == "/chat":
                 await self.state.log("p20:app:wallet_audit", {
                     "run_id": cfg.run_id, "request_id": request_id, "ts_ms": int(time.time()*1000),
@@ -166,6 +182,7 @@ class WAFMiddleware:
                     "charged": charged if verdict.wallet_reserved and known else 0,
                     "uncertain": int(bool(verdict.wallet_reserved) and not known),
                     "capacity": cfg.wallet_capacity, "refill_per_s": cfg.wallet_refill_per_s,
+                    "lane": verdict.wallet_reserved[0].rsplit(':',1)[-1] if verdict.wallet_reserved else '',
                 }, 200_000)
             await self.features.record(ip, path, status)
             shown = verdict.decision
@@ -187,7 +204,7 @@ class WAFMiddleware:
                                        "waf_overhead_ms": (time.perf_counter()-started-downstream)*1000,
                                        "scoring_ms": scoring_ms, "degraded": self.tb.degraded})
 
-    async def _decide(self, ip, user, method, path, body, oversize, score):
+    async def _decide(self, ip, user, method, path, body, oversize, score, *, query=b'',request_id=None):
         cfg = self.cfg
         budget_kind = "budget" if cfg.account_pressure_bans else "ip_budget"
         if oversize:
@@ -196,10 +213,10 @@ class WAFMiddleware:
             return Verdict("block", "banned", 403)
         if cfg.enable_honeypot and any(path == p or path.startswith(p+"/") for p in cfg.honeypot_paths):
             return Verdict("ban", "honeypot", 404)
-        verdict = await self._budgets(ip, user, method, path, body) if cfg.enable_buckets else Verdict()
+        verdict = await self._budgets(ip, user, method, path, body,query,request_id) if cfg.enable_buckets else Verdict()
         if verdict.decision == "throttle":
-            account_pressure = verdict.reason in {"login_acct", "chat_req", "llm_tok", "wallet_tok"}
-            escalate = verdict.reason != "wallet_tok" and (not account_pressure or cfg.account_pressure_bans)
+            account_pressure = verdict.reason in {"login_acct", "chat_req", "llm_tok", "wallet_tok","products_items"}
+            escalate = verdict.reason not in {'wallet_tok','products_items'} and (not account_pressure or cfg.account_pressure_bans)
             if escalate and await self.bans.strike(ip, budget_kind) >= cfg.strike_limit:
                 verdict.decision, verdict.reason = "ban", "budget"
             return verdict
@@ -209,11 +226,11 @@ class WAFMiddleware:
             count = await self.bans.strike(ip, "anomaly")
             if count >= cfg.strike_limit and await self.bans.has_budget_strike(ip, budget_kind):
                 return Verdict("ban", "anomaly", 403, reserved=verdict.reserved,
-                               wallet_reserved=verdict.wallet_reserved)
+                               wallet_reserved=verdict.wallet_reserved,spend_reserved=verdict.spend_reserved)
             verdict.reason = "anomalous_strike"
         return verdict
 
-    async def _budgets(self, ip, user, method, path, body):
+    async def _budgets(self, ip, user, method, path, body,query=b'',request_id=None):
         cfg = self.cfg
         prefix = "p20:shadow:bkt:" if cfg.mode == "observe" else "p20:bkt:"
 
@@ -228,6 +245,13 @@ class WAFMiddleware:
         result = await take("ip_req", ip)
         if result.decision != "allow":
             return result
+        if path=='/products' and method=='GET' and cfg.products_capacity:
+            try:
+                params=parse_qs(query.decode('ascii'),keep_blank_values=True)
+                QUERY_INT.validate_python(params.get('page',['1'])[-1]);items=min(100,max(1,QUERY_INT.validate_python(params.get('per_page',['20'])[-1])))
+            except (ValueError,UnicodeError):return Verdict()
+            ok,_,retry=await self.tb.take(f'{prefix}products:{ip}',cfg.products_capacity,cfg.products_refill_per_s,items) if items<=cfg.products_capacity else (False,0,0)
+            if not ok:return Verdict('throttle','products_items',429,retry_after=retry) if retry else Verdict('block','products_task_exceeds_capacity',400)
         if path == "/login" and method == "POST":
             result = await take("login_ip", ip)
             if result.decision != "allow":
@@ -253,12 +277,25 @@ class WAFMiddleware:
             if result.decision == "allow":
                 result.reserved = (f"{prefix}llm_tok:{user}", reserve)
                 if cfg.wallet_capacity:
-                    key = f"{prefix}wallet:global"
-                    if reserve > cfg.wallet_capacity:
+                    key = f"{prefix}wallet:global";capacity=cfg.wallet_capacity;rate=cfg.wallet_refill_per_s
+                    if cfg.wallet_small_capacity:
+                        small=reserve<=cfg.wallet_small_task_max
+                        key=f"{prefix}wallet:{'small' if small else 'general'}"
+                        capacity=cfg.wallet_small_capacity if small else cfg.wallet_capacity-cfg.wallet_small_capacity
+                        rate=cfg.wallet_small_refill_per_s if small else cfg.wallet_refill_per_s-cfg.wallet_small_refill_per_s
+                    if reserve > capacity:
                         return Verdict("block", "wallet_task_exceeds_capacity", 400, reserved=result.reserved)
-                    allowed, _, retry = await self.tb.take(key, cfg.wallet_capacity, cfg.wallet_refill_per_s, reserve)
+                    allowed, _, retry = await self.tb.take(key, capacity, rate, reserve)
                     if not allowed:
                         return Verdict("throttle", "wallet_tok", 429, retry_after=retry, reserved=result.reserved)
-                    result.wallet_reserved = (key, reserve)
+                    result.wallet_reserved = (key, reserve, capacity, rate)
+                if cfg.spend_cap_microusd:
+                    amount=reserve_microusd(prompt,output,steps);rid=request_id or uuid.uuid4().hex
+                    key=f"p20:{'shadow:' if cfg.mode=='observe' else ''}spend:{cfg.spend_period}"
+                    status,_=await self.spend.reserve(key,cfg.spend_cap_microusd,amount,rid)
+                    if status!=1:
+                        result.decision='block';result.status=429 if status==0 else 503
+                        result.reason='spend_cap' if status==0 else 'spend_unavailable'
+                    else:result.spend_reserved=(key,rid,amount)
             return result
         return Verdict()

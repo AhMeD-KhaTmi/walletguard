@@ -18,6 +18,11 @@ def client(app,ip):
 
 async def setup_app(llm_url,**options):
     options.setdefault('account_pressure_bans',False)
+    if 'wallet_capacity' in options and 'wallet_small_capacity' not in options:
+        # Earlier pooled-wallet tests select that policy explicitly.
+        options.setdefault('wallet_small_capacity',0)
+        options.setdefault('wallet_small_refill_per_s',0)
+        options.setdefault('wallet_small_task_max',0)
     cfg=Config(mode='enforce',redis_url=TEST_REDIS_URL,**options)
     return create_app(Settings(redis_url=TEST_REDIS_URL,llm_base_url=llm_url,waf_mode='enforce'),cfg)
 
@@ -98,22 +103,31 @@ async def test_wallet_refund_on_downstream_validation_and_permanent_rejection(re
 
 
 def test_wallet_configuration_is_paired_and_finite():
+    pooled=dict(wallet_capacity=0,wallet_refill_per_s=0,wallet_small_capacity=0,wallet_small_refill_per_s=0,wallet_small_task_max=0)
     for options in [dict(wallet_capacity=1),dict(wallet_refill_per_s=1),dict(wallet_capacity=float('nan'))]:
-        with pytest.raises(ValueError):Config(**options)
+        with pytest.raises(ValueError):Config(**{**pooled,**options})
 
 
-def test_qualified_account_default_legacy_replay_and_wallet_opt_in(monkeypatch):
+def test_qualified_defaults_and_explicit_legacy_policy(monkeypatch):
     monkeypatch.delenv('WAF_ACCOUNT_PRESSURE_BANS',raising=False)
     monkeypatch.delenv('WAF_WALLET_CAPACITY',raising=False)
     monkeypatch.delenv('WAF_WALLET_REFILL_PER_S',raising=False)
     assert Config().account_pressure_bans is False
     current=Config.from_env(mode='enforce',redis_url=TEST_REDIS_URL)
     assert current.account_pressure_bans is False
-    assert current.wallet_capacity==current.wallet_refill_per_s==0
+    assert (current.wallet_capacity,current.wallet_refill_per_s)==(56000,7300)
+    assert (current.wallet_small_capacity,current.wallet_small_refill_per_s,current.wallet_small_task_max)==(9000,1800,2048)
+    assert current.budgets['ip_req']==(60,2)
+    assert (current.products_capacity,current.products_refill_per_s)==(1000,50)
+    monkeypatch.setenv('WAF_WALLET_CAPACITY','0')
+    monkeypatch.setenv('WAF_WALLET_REFILL_PER_S','0')
+    disabled=Config.from_env(mode='enforce',redis_url=TEST_REDIS_URL)
+    assert disabled.wallet_capacity==disabled.wallet_small_capacity==disabled.wallet_small_task_max==0
     monkeypatch.setenv('WAF_ACCOUNT_PRESSURE_BANS','1')
     assert Config.from_env(mode='enforce',redis_url=TEST_REDIS_URL).account_pressure_bans is True
     monkeypatch.setenv('WAF_WALLET_CAPACITY','40000')
     monkeypatch.setenv('WAF_WALLET_REFILL_PER_S','5700')
+    for name in ['WAF_WALLET_SMALL_CAPACITY','WAF_WALLET_SMALL_REFILL_PER_S','WAF_WALLET_SMALL_TASK_MAX']:monkeypatch.setenv(name,'0')
     opt_in=Config.from_env(mode='enforce',redis_url=TEST_REDIS_URL)
     assert opt_in.wallet_capacity==40000 and opt_in.wallet_refill_per_s==5700
 
@@ -136,7 +150,7 @@ from test_real_outage import disposable_redis
 
 async def test_wallet_keeps_known_local_balance_and_conservative_recovery(disposable_redis,llm_url):
     url,start=disposable_redis;process=start()
-    cfg=Config(mode='enforce',redis_url=url,account_pressure_bans=False,wallet_capacity=1000,wallet_refill_per_s=.001)
+    cfg=Config(mode='enforce',redis_url=url,account_pressure_bans=False,wallet_capacity=1000,wallet_refill_per_s=.001,wallet_small_capacity=0,wallet_small_refill_per_s=0,wallet_small_task_max=0)
     app=create_app(Settings(redis_url=url,llm_base_url=llm_url,waf_mode='enforce'),cfg)
     async with app.router.lifespan_context(app),client(app,'10.20.0.11') as c:
         login=await c.post('/login',json={'username':'user1','password':'Passw0rd!1'})

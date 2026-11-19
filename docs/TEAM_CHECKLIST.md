@@ -29,8 +29,9 @@
 
 - [x] **B:** Complete five harder profiles in 45 matched C0/C2/C3 captures, three fresh repetitions, plus 15 separate pipeline smokes. Preserve unfavorable results and unchanged controls. [Results](ROBUSTNESS_RESULTS.md).
 - [x] **B:** Define account-attribution/global-wallet remedies, calibrate on six fresh benign groups, and validate57 primary plus nine independent mixed captures. Qualify account-aware escalation; reject global default after mixed comfort failure, preserving opt-in candidate and all results. [Results](ACCOUNT_WALLET_REMEDY_RESULTS.md).
-- [ ] **B:** Prospectively address above-IP-capacity burst collateral bans, harvesting limits, shared-wallet fairness/isolation and absolute spending caps using separate new data. Do not tune on opened remedy groups.
-- [ ] **B:** Add response-aware benign clients that honor Retry-After alongside these fixed schedules; compare both explicitly.
+- [x] **B:** Fit/test task-size lanes, burst/item budgets and absolute synthetic caps on fresh groups; pass93 component and12 combined captures, then qualify lane/IP/item defaults. [Results](FOLLOWUP_RESULTS.md).
+- [x] **B:** Implement and compare clients honoring Retry-After against fixed schedules. Waiting alone reduces baseline denials but preserves collateral bans; fitted candidate passes. [Results](FOLLOWUP_RESULTS.md).
+- [ ] **B:** Prospectively investigate identical small-job contention, broader tenant fairness and unique public-catalogue extraction; volume throttling does not prevent all extraction. Use new unopened groups.
 
 - [x] **B:** Publish the tested split remedy decision, evidence and masterv1.7 on `main` ([8c40962](https://github.com/AhMeD-KhaTmi/walletguard/commit/8c40962d82941291f546ef3a24249aee54898f81)).
 

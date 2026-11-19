@@ -1,0 +1,354 @@
+{
+  "runs": 1,
+  "smoke_only": true,
+  "compatibility": true,
+  "gates": {
+    "combined_compatibility": true
+  },
+  "policy": {
+    "small_task_max": 2048,
+    "lanes": {
+      "small": {
+        "largest": 2046,
+        "peak1s": 7149,
+        "peak60s": 85080,
+        "tasks": 302,
+        "capacity": 9000,
+        "refill_per_s": 1800
+      },
+      "general": {
+        "largest": 19188,
+        "peak1s": 36912,
+        "peak60s": 262968,
+        "tasks": 182,
+        "capacity": 47000,
+        "refill_per_s": 5500
+      }
+    },
+    "wallet_capacity": 56000,
+    "wallet_refill_per_s": 7300,
+    "ip_capacity": 60,
+    "products_capacity": 1000,
+    "products_refill_per_s": 50,
+    "burst_peaks": {
+      "requests_1s": 42,
+      "items_1s": 800,
+      "items_60s": 2400
+    },
+    "calibration": [
+      {
+        "run_id": "followup-cal-normal-r1",
+        "seed": 2001,
+        "profile": "normal",
+        "source": {
+          "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+          "dirty": false,
+          "status": "ok"
+        },
+        "files": {
+          "manifest.json": "e11a7d4d3fb06a2928e121d755ed012fa2c72ea8e5c56b0c15d2e642523528d4",
+          "features.jsonl": "c5f6eb3e6ba4163da984feb953610574a5c5c1428d4ad78b7edaa3dc1e11c005",
+          "usage.json": "29c9708ea8a1f31e8a2cd9666ad10cc9cac1d572c479dedba71e926b6c054ccb"
+        }
+      },
+      {
+        "run_id": "followup-cal-varied-r1",
+        "seed": 2001,
+        "profile": "varied",
+        "source": {
+          "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+          "dirty": false,
+          "status": "ok"
+        },
+        "files": {
+          "manifest.json": "2d47cd1c7e6a0c2adce7f0d87fcf3907f1b1a37a2d4c101552dc86595b094ef8",
+          "features.jsonl": "c0ef6812ce8dbeff1c2542d5d736de8188b1dc8b6413a7e1d87223b33eb8dca2",
+          "usage.json": "bcc671377d791792106c3ab9bf95c8585b768c5f1f1fc1064155f347294ef5d0"
+        }
+      },
+      {
+        "run_id": "followup-cal-normal-r2",
+        "seed": 2002,
+        "profile": "normal",
+        "source": {
+          "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+          "dirty": false,
+          "status": "ok"
+        },
+        "files": {
+          "manifest.json": "1b7c6f56955e842d3c2b907ed84fa8e6a17ca37b98ad61a815522494ddb9eb23",
+          "features.jsonl": "6ceb8f3179583eb03eb1c29edfa5a47ccfd8a623f1f1b196e6ebe493b2913c84",
+          "usage.json": "eca02b9c3cb6dd77e69d8e192df673fc193a6a6b78ebfda073a81c81599aada9"
+        }
+      },
+      {
+        "run_id": "followup-cal-varied-r2",
+        "seed": 2002,
+        "profile": "varied",
+        "source": {
+          "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+          "dirty": false,
+          "status": "ok"
+        },
+        "files": {
+          "manifest.json": "91ed357c0532a7aaf078ad420bc3a110f1dc3bab11d862151be2c785cd7a4ec4",
+          "features.jsonl": "07f8034a4e37fffba98008334ddc72bb75f15d2858fd301e7009346a7783f7f5",
+          "usage.json": "08d17f59b7d3abbb53932fb570f1109f149dc2d38050a116f9b6cd4a62dce4b5"
+        }
+      },
+      {
+        "run_id": "followup-cal-normal-r3",
+        "seed": 2003,
+        "profile": "normal",
+        "source": {
+          "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+          "dirty": false,
+          "status": "ok"
+        },
+        "files": {
+          "manifest.json": "0b64921dff0df0a4ab21070e85450f40dc52f7babef720e2a80c29866b64836b",
+          "features.jsonl": "87593aed36c54bed42c7a18b041aaf36cd7bae1727ec8322d43f6d09fd6163a3",
+          "usage.json": "97f876e52a90f4d47d5363f67cce27a1325c20aee1bee716ebfb3a6921638c5a"
+        }
+      },
+      {
+        "run_id": "followup-cal-varied-r3",
+        "seed": 2003,
+        "profile": "varied",
+        "source": {
+          "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+          "dirty": false,
+          "status": "ok"
+        },
+        "files": {
+          "manifest.json": "8ffff8dd3f93bb2a8e42f3682a51728489436c2b7add9e8fd8d7893811e041ea",
+          "features.jsonl": "c859de40c3af461943c46fbf247391604982af965a1fc69a84b3e29831c71090",
+          "usage.json": "5a74be36296928518b4bb048639a7f9480c5bfc14ce93e929539d5626bd0d3ea"
+        }
+      },
+      {
+        "run_id": "followup-cal-burst-r1",
+        "seed": 2201,
+        "profile": "burst",
+        "source": {
+          "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+          "dirty": false,
+          "status": "ok"
+        },
+        "files": {
+          "manifest.json": "799eb506f4b0ef09f2b23475a622bf6a2fd21664cb4bc6af4743c6be4fc4f1cb",
+          "features.jsonl": "d06305769a13126eedbfbda83545f9edd414105376f05df96e26ab1a6d2562ce",
+          "usage.json": "ba3a811d9a4eef95c6eab47582387a6731f45c29e1c02ef022a7ed9792572194"
+        }
+      },
+      {
+        "run_id": "followup-cal-burst-r2",
+        "seed": 2202,
+        "profile": "burst",
+        "source": {
+          "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+          "dirty": false,
+          "status": "ok"
+        },
+        "files": {
+          "manifest.json": "4860914e2fc77e0f017ed2a01738124d291b79051050adea5b83454920849117",
+          "features.jsonl": "3b8d52183bef48cd6364ed9c0fa79d1f05d503d61d185c38fbfc3e839b55a34e",
+          "usage.json": "ba3a811d9a4eef95c6eab47582387a6731f45c29e1c02ef022a7ed9792572194"
+        }
+      },
+      {
+        "run_id": "followup-cal-burst-r3",
+        "seed": 2203,
+        "profile": "burst",
+        "source": {
+          "commit": "15e37e7573f216e61b2adbec7dbe44aad7daa70d",
+          "dirty": false,
+          "status": "ok"
+        },
+        "files": {
+          "manifest.json": "74daffdd433a7c3ca6f53fd05096353eb09aed48157ea72012a680374b32e97e",
+          "features.jsonl": "e69715d6c233428048f7982e24d80c71ba06180356e652d3f4edcc7c782542c8",
+          "usage.json": "ba3a811d9a4eef95c6eab47582387a6731f45c29e1c02ef022a7ed9792572194"
+        }
+      }
+    ],
+    "frozen_before_validation": true
+  },
+  "summary": {
+    "combined_burst/C2/combined": {
+      "benign_attempts": 210,
+      "benign_denials": 0,
+      "benign_bans": 0,
+      "benign_other_unsuccessful": 0,
+      "benign_setup_unsuccessful": 0,
+      "all_unknown": 0,
+      "ban_records": 0,
+      "wallet_tok_denials": 11,
+      "products_items_denials": 45,
+      "spend_cap_denials": 0,
+      "retry_events": 0,
+      "retry_wait_s": 0,
+      "metrics": {
+        "latency_p50_ms": {
+          "median": 23.6575,
+          "min": 23.6575,
+          "max": 23.6575
+        },
+        "latency_p95_ms": {
+          "median": 51.01005,
+          "min": 51.01005,
+          "max": 51.01005
+        },
+        "waf_overhead_p50_ms": {
+          "median": 22.00710949999518,
+          "min": 22.00710949999518,
+          "max": 22.00710949999518
+        },
+        "waf_overhead_p95_ms": {
+          "median": 84.82205179998482,
+          "min": 84.82205179998482,
+          "max": 84.82205179998482
+        },
+        "server_tokens": {
+          "median": 75191.0,
+          "min": 75191.0,
+          "max": 75191.0
+        },
+        "server_cost_usd": {
+          "median": 0.654453,
+          "min": 0.654453,
+          "max": 0.654453
+        }
+      },
+      "attacks": {
+        "credential_stuffing": {
+          "attempts": 6,
+          "success": 1,
+          "fail": 5,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 1,
+          "known_valid_success": 1,
+          "asr": 0.16666666666666666,
+          "unique_products_per_run": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          }
+        },
+        "scraping": {
+          "attempts": 84,
+          "success": 39,
+          "fail": 0,
+          "blocked": 45,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 0.4642857142857143,
+          "unique_products_per_run": {
+            "median": 2100,
+            "min": 2100,
+            "max": 2100
+          }
+        },
+        "dow": {
+          "attempts": 24,
+          "success": 13,
+          "fail": 0,
+          "blocked": 11,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0,
+          "asr": 0.5416666666666666,
+          "unique_products_per_run": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          }
+        }
+      }
+    }
+  },
+  "details": {
+    "compat-smoke-c2-combined-r1": {
+      "attacks": {
+        "credential_stuffing": {
+          "success": 1,
+          "fail": 5,
+          "blocked": 0,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 6,
+          "asr": 0.16666666666666666,
+          "unique_products": 0,
+          "known_valid_attempts": 1,
+          "known_valid_success": 1
+        },
+        "scraping": {
+          "success": 39,
+          "fail": 0,
+          "blocked": 45,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 84,
+          "asr": 0.4642857142857143,
+          "unique_products": 2100,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        },
+        "dow": {
+          "success": 13,
+          "fail": 0,
+          "blocked": 11,
+          "error": 0,
+          "timeout": 0,
+          "unknown": 0,
+          "attempts": 24,
+          "asr": 0.5416666666666666,
+          "unique_products": 0,
+          "known_valid_attempts": 0,
+          "known_valid_success": 0
+        }
+      },
+      "files": {
+        "app-evidence.json": "9f8e710d19a7a5c67a51ebe1d3c28b4757eed5f76a96c77d39f25600f1cc8c1e",
+        "attempts-benign-10.20.0.11-3890.jsonl": "78f956543cedf812f63d9f05d1e5b7a953bc52201c3f77bca372dee9fe02a695",
+        "attempts-benign-10.20.0.12-3891.jsonl": "9b3e6f01a1934939e11d5ff61bd6626ec49c43c849fc09cbf956d0ab46fc9373",
+        "attempts-benign-10.20.0.13-3892.jsonl": "30daf95d48f276af45cd34e88e03c60295a3d9303d9f575eaf27cb1fedea7343",
+        "attempts-benign-10.20.0.14-3893.jsonl": "18bdf61ba30540234acded534821ace6b231337569a968f5a68bf96a8a670f99",
+        "attempts-benign-10.20.0.15-3894.jsonl": "7ea2462780cb037dbc4aa5ad3130fc132b64d0d95924976235444db371ea8c6b",
+        "attempts-credential_stuffing-10.20.0.16-3895.jsonl": "7affaadcc63ced11cd96211612ebfd1ca5399ddc02aeb34322451e38f95dab6b",
+        "attempts-credential_stuffing-10.20.0.17-3896.jsonl": "5be8398b7b1760a4188a7e0f9ec22d6a053c102ed1dace4b5bcef4a64998d931",
+        "attempts-credential_stuffing-10.20.0.18-3897.jsonl": "66d6e0bd42f3d2766fe6f3deafd5240c2317367a1d458bf93605721ffd644ae0",
+        "attempts-dow-10.20.0.22-3901.jsonl": "49320dcca22bd14018bd6f7473ff10f7bae78da16af83d8c464ef6f1a87bcd23",
+        "attempts-dow-10.20.0.23-3902.jsonl": "1b3cb9bd1a5f7d2e445597afe219dd748f0491e7d8915c275ca0d53429f6883f",
+        "attempts-dow-10.20.0.24-3903.jsonl": "3670ef390f40031bcde56e4a2323a8247d93ef858634453d372dff812214f808",
+        "attempts-dow-10.20.0.25-3904.jsonl": "58a11d249f13f84d4694f3cba03922b33ef7fbb2d46657151547f08b71d3e478",
+        "attempts-scraping-10.20.0.19-3898.jsonl": "24ccd2882ef02d2cb58d7f6dad16580847eaca05b6364e85adae351f2c4b9dc3",
+        "attempts-scraping-10.20.0.20-3899.jsonl": "39753fa10b6544f1e7154e6c0c8187cb572f51e22efb62769b742d8205a46e5e",
+        "attempts-scraping-10.20.0.21-3900.jsonl": "571a543aa71a06fcb5dc17f23eee2d2f80b2026ac0c7296fd2f12e0d73f4b362",
+        "bans.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+        "decisions.jsonl": "58daa808bd65d399ee9c0e22c2457375dc94f26197449ab66df3bd0337019791",
+        "manifest.json": "f96a66548619fd89f95539148384d856efedfd799e2765f6f6d2d71bd0a197fb",
+        "private_buckets.json": "dd058c4cd7df4c2ba5e0c9ae715ba9d73762636ba1d07fa1eadd9dce017a9c30",
+        "spend_audit.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "spend_ledger.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "usage.json": "5cd8defb778e2e6aac13ecf11e1c80c6a619288e2d3efad0729d983a59628acb",
+        "wallet_audit.jsonl": "0704e034652439517d2d64f9dc87dda4925b153a0af5ce003bfb0d0e3ecd0891"
+      }
+    }
+  },
+  "source_revision": "f6de6d29213e460d12ad199668e67bd153d8fa42",
+  "model_sha256": "1eb84211004b6abe42cd2b8ec03e4b06b8504884ad0a8b9c1ca81ce2f55829e3",
+  "validator_sha256": "9bb53044b2bdc08c0677becae34489f62d08ced145b5c29bb6ffcc8b80314ae3",
+  "kernel_integrated": false,
+  "candidates_deployed": false
+}
