@@ -2304,3 +2304,9 @@ IT-1–IT-6. Current acceptance failures must remain visible until fresh tests p
   Identical small-job contention and real C4/IT-1–IT-6 remain open. No A-owned
   source changed. Remote main still6b82e70 before publication; reviewed release
   and compact evidence will publish with an expected-head lease and exact-tree check.
+- Published reviewed release **fc37e6d4887e8b35641322084b500de64846275c** to main, verified exact tree
+  `82bcf9a4a7a300c8255295b31d351e433a073211` against prepared3484c5f. Model hash remains1eb84211….
+  Connected GitHub API used because terminal Git credentials are unavailable;
+  no history archive or real credentials uploaded. Publication manifest records
+  119 captures,133/109/12 final checks, fitted defaults, hard-cap opt-in and no
+  A-owned source edits. Follow-up provenance/journal commit records this check.

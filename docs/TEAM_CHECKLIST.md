@@ -35,6 +35,8 @@
 
 - [x] **B:** Publish the tested split remedy decision, evidence and masterv1.7 on `main` ([8c40962](https://github.com/AhMeD-KhaTmi/walletguard/commit/8c40962d82941291f546ef3a24249aee54898f81)).
 
+- [x] **B:** Publish qualified resource defaults, optional spending, full evidence and masterv1.8 on `main` ([fc37e6d](https://github.com/AhMeD-KhaTmi/walletguard/commit/fc37e6d4887e8b35641322084b500de64846275c)).
+
 ## In parallel — C4 kernel work
 
 - [ ] **A:** Deliver the app-scoped connect/execve sensor and Redis signals, plus expiring XDP enforcement or a documented generic/skb, tc/nftables/WAF fallback and its measured telemetry.
