@@ -39,7 +39,7 @@
 
 ## In parallel — C4 kernel work
 
-- [ ] **A:** Deliver the app-scoped connect/execve sensor and Redis signals, plus expiring XDP enforcement or a documented generic/skb, tc/nftables/WAF fallback and its measured telemetry.
+- [x] **A:** Deliver the app-scoped connect/execve sensor and Redis signals, plus expiring XDP enforcement or a documented generic/skb, tc/nftables/WAF fallback and its measured telemetry. Delivered on `codex/member-a-kernel`; see [the kernel handoff](KERNEL_HANDOFF.md), [sensor evidence](KERNEL_SENSOR.md) and [enforcement evidence](XDP_ENFORCEMENT.md). Joint integration below remains open.
 - [ ] **Both — integrate here:** Once A's kernel code runs on the VM and publishes real [Redis schema v2](../contract/redis_schema.md) signals, connect it to B's app in observe mode to collect sensor data.
 - [ ] **B:** Train and evaluate the augmented model on separate runs with real sensor data. Enable C4 once the model and kernel are ready.
 - [ ] **Both:** Run IT‑1–IT‑6 together, then complete the matched C0–C4 benchmark and publish the combined results. [Integration tests](MASTER_PLAN.md#8-integration-acceptance-tests)

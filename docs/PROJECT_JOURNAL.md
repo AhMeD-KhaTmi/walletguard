@@ -1,6 +1,6 @@
 # Project 20 — review and work journal
 
-Last updated: 2026-11-18 (Africa/Lagos).
+Last updated: 2026-11-20 (Member A kernel branch).
 
 Latest snapshot: fixed-policy robustness study completed45 captures/15 matched
 C0/C2/C3 triplets at source3904048, plus15 separate pipeline smokes. It exposes
@@ -2310,3 +2310,439 @@ IT-1–IT-6. Current acceptance failures must remain visible until fresh tests p
   no history archive or real credentials uploaded. Publication manifest records
   119 captures,133/109/12 final checks, fitted defaults, hard-cap opt-in and no
   A-owned source edits. Follow-up provenance/journal commit records this check.
+
+### 2026-11-20 — Member A: kernel branch and first sensor producer stage
+
+- Fetched origin/main at 6fd4aa6; created `codex/member-a-kernel` without
+  changing `member-a/traffic-handoff` or pushing. VM branch synchronized from
+  a verified bundle. Five regenerated eval files matched main by content and
+  were preserved in a named VM stash before the switch; old runs were untouched.
+- Fixed a Hyper-V Default Switch/VM duplicate MAC configuration through a
+  graceful guest shutdown and a distinct VM static MAC. The guest now receives
+  a new DHCP address and Windows reaches its verified SSH host key. No VM
+  force-stop, broad reset, or clean command was used.
+- User verified Ubuntu 24.04.5, kernel 6.8.0-149-generic, BTF, system-Python
+  BCC, bpftool 7.4, clang 18, nftables 1.0.9 and tc 6.1. A standalone
+  BCC execve probe attached and emitted an event; no application attribution
+  or real Redis signal is claimed from that smoke test.
+- Added `ebpf/signals.py` rolling per-IP/host windows and schema-v2 Redis
+  publisher plus focused tests and `docs/KERNEL_SENSOR.md`. Only healthy
+  measured channels are serialized as available; Redis hashes are replaced
+  atomically to remove fields when a probe becomes unavailable. This stage
+  does not attach probes or produce measured traffic. Windows
+  `python -m py_compile ebpf/signals.py ebpf/tests/test_signals.py` and
+  `git diff --check` passed. First VM unit-test run: 3 passed, 1 failed;
+  malformed IP raised the standard-library message instead of the stable
+  `source IPv4` error expected by the test. Wrapped that ValueError; user reran
+  `.venv/bin/python -m pytest ebpf/tests -q` on the VM: 4 passed. These are
+  isolated publisher tests, not real kernel, Redis or C4 integration evidence.
+- Next: validate the isolated publisher tests on the VM; implement app-scoped
+  real BCC probes with lost-event handling and independent measurement
+  checks before any integration or XDP claim. B-owned app/WAF/ML unchanged;
+  C4 readiness remains blocked. No push.
+
+- Began the event-only capture stage in `ebpf/bpf/sensor.c` and
+  `ebpf/sensor.py`: API-PID/port-scoped IPv4 connect syscall results,
+  descendants forked after attach and their exec events. This is **not**
+  accepted connections, SYNs, TCP payload bytes or a fresh Redis signal.
+  The optional bounded event stream contains sanitized destination details
+  with an empty client-IP field; it requires schema2. Added two isolated
+  formatting/clock tests. VM compilation/attachment and app attribution
+  are pending; no kernel event result is claimed.
+
+- User ran `.venv/bin/python -m pytest ebpf/tests -q`: 6 passed. An
+  unmeasured three-second shell-PID attach smoke compiled/attached all
+  BCC probes and detached normally with `lost_perf_events: 0`. This does
+  not establish correct app attribution, useful measurements, or any
+  Redis signal. Next is a controlled loopback connect and descendant
+  exec probe, then real API/mock validation.
+- Controlled Python-target probe ran twice: each captured one loopback
+  connect syscall to 127.0.0.1:8001 (kernel result -111: connection refused)
+  and one child `/bin/true` exec, with an empty contract client-IP field
+  and no reported perf losses. The first pasted shell command accidentally
+  concatenated `wait "$target"` with `cd`, causing a shell `wait` error
+  after the valid probe; a second independent run completed cleanly.
+  This verifies controlled PID/descendant filtering only, not actual API
+  traffic or a successful TCP connection.
+- Implemented a separately scoped `inet_csk_accept` return probe for the
+  API PID/local port8000. This is an accepted TCP socket and captures the
+  returned IPv4 peer, unlike the app-to-mock connect syscall or a SYN.
+  Added a connection-count-only schema2 signal path after a complete10s
+  no-loss window, and stopped refreshing inactive per-IP hashes after60s.
+  All other signal fields remain unavailable. The accept probe and actual
+  Redis publication are **not tested on the VM yet**; independent IP/count
+  verification is required before checking off the sensor. B-owned files
+  remain unchanged and C4 is still refused.
+- User ran seven isolated `ebpf/tests` tests on the VM (7 passed) and
+  attached the accepted-connection probe to an idle shell PID for three
+  seconds without reported perf loss. Actual accepted socket peer-IP
+  attribution, counts and Redis publication remain unverified; next is a
+  controlled loopback listener and client on port18000.
+- The first port18000 controlled test captured an actual completed accept
+  in PID2130 with socket peer127.0.0.1 and no reported perf loss; the
+  listener/client processes completed. The paste then duplicated the
+  block and concatenated `wait "$client"` with the next `python3`, so the
+  second attempt failed before sensor attachment and its client saw
+  connection refused. Preserve both outcomes; only the first is evidence
+  of accepted-peer attribution. No API/Redis tests or measurements yet.
+  Future multi-step probes should be transferred as scripts, not pasted
+  as shell blocks.
+- System Python imports redis-py4.3.4; Redis replies PONG and reserved DB15
+  was empty at check time. Added a single-command opt-in DB15 integration
+  smoke (`ebpf/tests/smoke_accept_redis.py`) that refuses a nonempty database,
+  exercises one real local accept after the 10s health gate and checks
+  schema-v2 hash/event/TTL. It cleans up only its own keys/processes.
+  Script is unrun; no Redis publication has yet been claimed.
+- First DB15 integration smoke failed after attach: no per-IP hash was
+  observed (`AssertionError: {}`). The server entered `accept()` before
+  the kretprobe attached, so the return hook could miss that in-flight
+  function call. Changed the smoke to keep the server waiting on stdin
+  until attachment and the 10s health gate complete, then explicitly
+  release it to call `accept()`. This is a test-orchestration correction,
+  not a sensor result or a change to the kernel program. Verify DB15
+  cleanup before rerunning; do not claim Redis publication yet.
+- Corrected DB15 smoke passed on the VM: one real accepted socket from
+  127.0.0.1 in PID2376 generated exactly one Redis `accept` event and
+  `conn_rate_10s=1`. Only `conn_rate_1s/10s` were marked available;
+  host availability was empty. Observed remaining IP/host TTLs were
+  59,897/119,898ms. This confirms a controlled loopback producer path,
+  not a FastAPI/netns source-IP match or SYN/byte/failure/egress capture.
+  The test has a scoped finally cleanup; post-run DB15 size is pending
+  independent confirmation. No C4 or XDP claim.
+- Added an independent **unverified** `tcp_v4_rcv` IPv4 SYN-packet probe
+  filtered to API port, with retransmissions explicitly included.
+  Packet context has no app PID and is not counted as accepted TCP.
+  SYN availability is conditional on successful attachment and a
+  complete no-loss 10s window. Updated isolated formatting and DB15
+  smoke checks; VM build, packet capture and independent count still
+  pending. No change to B's application or Redis contract.
+- First VM unit-test gate after the SYN change: 7 passed, 1 failed.
+  The old "unknown event" test used kind4, which is now the valid SYN
+  kind and consequently lacked SYN fields. Corrected the test to use
+  unknown kind5; VM rerun pending. No new SYN probe load or Redis
+  result has been claimed.
+- User reran isolated tests: 8 passed. Reserved DB15 independently checked
+  empty after the previous controlled accept smoke. `tcp_v4_rcv` probe
+  attached successfully to an idle shell-PID smoke with zero reported
+  perf losses. No SYN packet/count has yet been observed; the Redis
+  SYN-versus-accept smoke remains the next gate.
+- SYN-versus-accept DB15 smoke passed: one `syn` event from
+  127.0.0.1 with no invented PID, followed by one `accept` event with
+  actual server PID2803. Redis reported syn_rate_10s=1,
+  conn_rate_10s=1, exactly the three implemented IP fields available,
+  host fields unavailable and ~60/120s IP/host PTTLs. Post-smoke DB15
+  size0 independently confirmed cleanup. This remains loopback
+  development evidence, not an ASGI/netns or C4 benchmark.
+- Extended the same controlled DB15 smoke with an **unverified**
+  `--netns` mode using existing ns15 10.20.0.25 and bridge10.20.0.1.
+  It checks namespace address before writing scratch Redis, uses port
+  18000 rather than the real API, and asserts both SYN/accept peer IPs.
+  No namespace creation/teardown or changes to B-owned files. VM test
+  pending; do not treat this as an ASGI integration result.
+- VM preflight after reboot found `ip netns list` empty, ns15 missing and
+  `p20br0` absent. The namespace smoke did not run; source-IP attribution
+  remains unverified. Reviewed `eval/netns.py`: `apply` creates the canonical
+  bridge and all 15 namespaces, but does not first remove anything; its
+  `_run` tolerates individual command failures, so preflight and the
+  separate `check` are essential. Corrected the misleading idempotence
+  comment in `scripts/make_netns.sh`. Next: VM dry-run and confirm no
+  traffic or interface/name/address conflicts, then restore with the
+  repository setup and run its check. Only if DB15 is empty, rerun the
+  single-command namespace smoke; no cleanup/flush or C4 claim.
+- VM dry-run listed `p20br0` at 10.20.0.1/24 and canonical ns1..ns15
+  veth pairs (ns15 at 10.20.0.25/24). Preflight showed an empty namespace
+  list, only lo/eth0 interfaces, routes confined to 172.25.224.0/20,
+  and no matching Uvicorn/Locust/sensor/smoke/harness process. Safe to
+  attempt the repository setup while traffic remains stopped. Setup,
+  bridge/address check, scratch-DB check and namespace smoke are still
+  pending; no source-IP attribution result claimed.
+- VM `sudo python3 eval/netns.py apply` reported all 15 planned namespace
+  addresses and `done` with no skips; a separate `check` confirmed
+  ns1..ns15 including ns15=10.20.0.25. Bridge p20br0 was UP at
+  10.20.0.1/24, and scratch Redis DB15 reported size0. Canonical network
+  setup subcheck complete; neither actual API reachability nor kernel
+  source-IP attribution has been verified. Next: run the one-command
+  `--netns` smoke from ns15 against a disposable listener on port18000,
+  then independently check DB15 returns to size0.
+- The controlled `--netns` smoke passed on the VM: ns15's observed
+  source 10.20.0.25 produced one SYN (packet context, no PID) and one
+  accept (server PID3255) at 10.20.0.1:18000, both stamped with the
+  same run ID. Redis reported conn_rate_10s=1, syn_rate_10s=1,
+  exactly conn_rate_1s/10s and syn_rate_10s available, host fields
+  unavailable, IP TTL59,988ms and host TTL119,989ms. Independent
+  post-smoke DB15 size0 confirmed cleanup. Namespace source-IP sensor
+  subcheck complete; this is a disposable listener, not FastAPI,
+  mock-egress, XDP, IT-2 or C4 evidence. Next: controlled real API
+  test and independent failure/byte/egress/exec measurements.
+- Added an **unrun** single-command real-API/C1 namespace smoke at
+  `ebpf/tests/smoke_api_netns.py`. It reserves bridge:8000 and
+  loopback:8001, launches owned Uvicorn API/mock with scratch DB15,
+  attaches to the real API PID, waits for a complete signal window,
+  sends one ns15 `/products` request, and compares the WAF decision's
+  ASGI IP with kernel SYN/accepted peer. API/mock readiness is checked
+  over HTTP; only canonical management bridge IP 10.20.0.1 enters the
+  scratch allowlist, which is removed afterward. It stops only its
+  own processes and deletes only explicit DB15 keys. No B-owned app/WAF/ML changes,
+  no C4 signal consumption, no actual mock-egress measurement. VM
+  result and cleanup verification pending. Windows
+  `python -m py_compile` of sensor/signals/both smokes and
+  `git diff --check` passed. Windows `python -m pytest ebpf/tests -q`
+  could not run because C:\Python315 has no pytest installed; no
+  dependency was installed or claimed test result. Prior VM eight
+  unit tests passed before this new integration script.
+- Real API/C1 namespace smoke passed on VM after preflight found ports
+  8000/8001 free and DB15 size0. API PID3339 answered the one ns15
+  `/products` request with HTTP200 and catalogue total5000. B's C1
+  decision recorded ASGI IP10.20.0.25; the kernel independently emitted
+  one `syn` (empty PID) and one `accept` (API PID3339) for that same
+  source, with conn_rate_10s=1 and syn_rate_10s=1. C1 explicitly
+  reported sensor_status=not_used: identity aligns but B has not
+  consumed kernel features. Script and independent post-run checks
+  both reported DB15 size0. Real API/netns source-IP subcheck complete;
+  no failed-connection, payload-byte, mock-egress, XDP, C4 or IT-2 claim.
+- Added an **unverified event-only** `tcp_cleanup_rbuf` API-PID/port/
+  IPv4-peer filter for delivered inbound TCP payload bytes, with
+  optional attach status; it cannot yet mark `bytes_in_10s` available
+  in Redis. A new `--verify-inbound-bytes` mode of the real-API/ns15
+  smoke sends one exact raw `/products` request and compares client
+  sent bytes to summed kernel byte events for the API PID, while
+  checking the Redis field remains unavailable. Unknown event test
+  moved to kind6; VM compile/attachment and byte comparison pending.
+  Windows syntax and whitespace checks passed, including parsing
+  both embedded client snippets; no kernel attach on Windows.
+- User ran 9/9 VM isolated sensor tests successfully. The new
+  `tcp_cleanup_rbuf` hook attached in an idle shell-PID BCC smoke
+  alongside SYN/accept probes and stopped with zero reported perf
+  losses. Inbound-byte probe attachment subcheck complete, but no
+  real byte event or independent sent-vs-delivered count has yet
+  been observed. `bytes_in_10s` stays unavailable; next gate is the
+  single-command ns15/raw-HTTP real API comparison on empty DB15.
+- VM real-API/ns15 raw HTTP comparison passed: client sent exactly 80
+  request bytes and one `tcp_cleanup_rbuf` event from API PID3595
+  reported 80 delivered TCP payload bytes for source10.20.0.25;
+  a separate SYN and accept were observed, C1 returned HTTP200 and
+  matched the ASGI IP. `bytes_in_10s` was deliberately not present
+  in the Redis hash. Script and independent checks returned DB15
+  size0. Exact single-request inbound-byte subcheck complete, not
+  a high-load or retransmission test.
+- Wired the verified inbound-byte hook into `RollingSignals` and
+  schema2 publication, conditional on attachment and a full10s
+  loss-free window. Updated publisher test to assert measured80
+  appears, then disappears on unhealthy publish; controlled API
+  smoke now requires `bytes_in_10s=80`, while accept-only smoke
+  requires a measured zero. VM re-test and independent DB15 cleanup
+  are pending; do not claim the Redis byte field verified yet.
+- VM re-test passed: 9/9 sensor tests, both ports free, DB15 empty.
+  The real-API/ns15 raw request published `bytes_in_10s=80` with its
+  availability flag, alongside `conn_rate_10s=1`, `syn_rate_10s=1`,
+  matching ASGI/kernel peer10.20.0.25 and separate SYN/accept events.
+  Script and independent post-run checks both returned DB15 size0.
+  One-request Redis inbound-byte subcheck complete; high-load and
+  retransmission accuracy remain untested.
+- Added and wired an **unverified** API-to-mock egress probe:
+  `tcp_sendmsg` kprobe/kretprobe scoped by API PID and destination
+  port8001, counting TCP-accepted payload bytes (not wire bytes),
+  emitted as kind6 `egress_bytes` with an empty host-scoped `ip`.
+  `RollingSignals` now accepts host-only `egress_bytes`/`egress_conn`
+  and the publisher exposes `egress_bytes_llm_60s` and
+  `egress_conns_llm_60s` only when that probe attached and a full10s
+  loss-free window elapsed. Added sensor/publisher tests, made the
+  accept-only smoke require measured egress zeros from a listener that
+  never talks to port8001, and added `smoke_api_netns --verify-egress`
+  (login + one `/chat` behind a test-only loopback counting proxy on
+  8001; requires kernel event sum, published host total and independent
+  proxy-received bytes to agree). The egress smoke disables wallet lanes
+  and explicitly removes the session, observe budget and app-usage keys
+  its `/chat` creates, so the empty-DB15 precondition still holds.
+  The kretprobe is attached before the entry probe so a partial attach
+  cannot create a pending item or emit bytes while availability is false;
+  process/thread exit also removes any pending egress entry.
+  Windows `py_compile`, embedded-snippet parsing, a local proxy
+  forwarding/count check (`proxy-ok 12345`) and `git diff --check`
+  passed. VM tests/attach/egress run pending; no `/chat` egress, host
+  signal, C4 or IT-3 claim yet.
+- First VM egress unit gate ran 11 tests: 10 passed and the new kind6
+  formatting test failed before any kernel attach because its synthetic
+  `SimpleNamespace` omitted `comm`, although the real C `kernel_event`
+  always includes it. Added `comm=b"python\0"` to that fixture only.
+  Re-test pending; attachment and `/chat` egress smoke were correctly
+  not run after the failed gate.
+- Corrected kind6 fixture re-test passed 11/11. Idle VM attach then
+  loaded SYN, inbound-byte and `tcp_sendmsg` entry/return probes and
+  stopped after3s with zero reported perf losses.
+- VM real-API/ns15 `--verify-egress` smoke passed on empty DB15:
+  login plus one one-step `/chat` returned HTTP200 with exact synthetic
+  usage2 input/8 output tokens. API PID5836 emitted two host-scoped
+  `egress_bytes` events (202+46=248 bytes, empty `ip`, destination
+  127.0.0.1:8001 in detail); Redis `egress_bytes_llm_60s=248` and the
+  independent counting proxy received248 bytes exactly. The host hash
+  exposed one `egress_conns_llm_60s`; the scoped connect syscall
+  returned EINPROGRESS (-115), while subsequent positive sends
+  corroborate completion for this controlled connection. Two ns15
+  SYN/accept events and `bytes_in_10s=419` matched login+chat traffic.
+  Cleanup deleted the one owned session and returned DB15 size0;
+  independent post-check also reported0. API-to-mock payload-byte
+  subcheck complete. This is one smoke, not IT-3 calibration/held-out
+  validation, and the connect counter alone is still an attempt rather
+  than a general completed-connection detector.
+- Implemented **unverified** unexpected-exec publication using the existing
+  fork/exec tracepoints. The explicit policy counts every exec by a process
+  forked from the target API after attachment; pre-existing descendants and
+  the API PID itself are not mislabeled. Kind2 events now feed the host-only
+  60s `unexpected_exec_count`, marked healthy after the common loss-free
+  gate because the tracepoints are part of successful BPF load. Extended
+  the controlled accept smoke with `--verify-exec`: its owned target runs
+  `/bin/true` after attachment and must produce exactly one host-scoped
+  `comm=true` event/count; default mode requires a measured zero. Updated
+  rolling-signal tests. Windows syntax and whitespace checks passed; VM
+  unit/attach/positive/zero smokes pending, so do not claim this field yet.
+- VM unexpected-exec gate passed: 11/11 unit tests; empty DB15 and free
+  port18000. Default controlled listener run published the host field as
+  a measured zero with no exec event. Positive run made target PID5978
+  fork/exec `/bin/true`; one event identified child PID5980, `comm=true`,
+  empty client `ip`, and Redis published `unexpected_exec_count=1`.
+  SYN/accept checks remained valid, host/IP TTLs were correct, and both
+  runs plus independent checks returned DB15 size0. Unexpected-exec
+  measurement/publication subcheck complete under the explicit post-
+  attach descendant policy; load/loss behavior remains pending.
+- Implemented **unverified** `failed_conn_10s` with an explicit narrow
+  kernel boundary: an inbound IPv4 SYN to API_PORT observed in
+  `tcp_v4_send_reset`, meaning a local TCP rejection (for example no
+  listener), not failed login, malformed HTTP, client abandonment or
+  every timeout. Kind7 packet events carry source IPv4, blank PID/comm
+  and the definition in detail. Optional attach health controls field
+  availability. Added formatting coverage and an isolated DB15 smoke
+  that pre-checks then closes loopback port18001, sends one SYN, requires
+  connection refused, one failure, zero accepts, and explicit cleanup.
+  VM compile/attach/positive measurement pending.
+- VM failed-connection gate passed: 12/12 unit tests, port18001 free,
+  DB15 empty. One SYN to the owned closed port produced one `failed_conn`
+  event with source127.0.0.1, blank PID/comm and the explicit local-reset
+  definition; Redis published `failed_conn_10s=1`, `conn_rate_10s=0`,
+  `syn_rate_10s=1` with all five IP fields available, no accept, and
+  DB15 size0 before and after an independent check. Narrow failed-
+  connection measurement subcheck complete.
+- Added an **unverified** `smoke_load_netns.py` controlled churn check:
+  100 ns15 connections each deliver exactly100 bytes to an owned listener
+  on10.20.0.1:18002. It requires100 accepts, at least100 SYN observations,
+  exactly10,000 delivered bytes, zero failures/execs/egress and no reported
+  perf loss; not IT-2, a benchmark, or a retransmission test. Windows
+  syntax/whitespace checks passed; VM run pending.
+- First VM load run failed only `conn_rate_10s == 100`: owner accepted100 and
+  received10,000 bytes, Redis published `bytes_in_10s=10000`,
+  `syn_rate_10s=100` and `conn_rate_10s=99`. Preserved as a harness defect:
+  the smoke never drained the sensor's per-event stdout, so a full pipe could
+  stall the perf callback. Added a background drain and reran.
+- Second VM load run failed identically at99. Cause not yet proven; the sensor
+  publishes from the same thread as the perf callback, so a stalled `print`
+  can delay accounting past the 10-second window. Harness now drains from
+  attach, waits for100 accept events in the stream before reading signals,
+  and prints stream/row diagnostics before asserting. Still **unverified**;
+  no kernel count-loss claim is made.
+- Third VM load run produced decisive evidence: owned listener accepted100 and
+  received10,000 bytes; stream had99 accept,100 SYN and100 inbound-byte events;
+  `perf_loss_reported=false` with the sensor's own `lost_perf_events=0`; the
+  row read 33s after the load had legitimately aged out to zeros. Root cause is
+  the attach boundary: `on_accept` is a kretprobe, and the listener called
+  `accept()` after READY but before attach, so one invocation was already
+  blocked in `inet_csk_accept` and its return could not be observed. Fixed the
+  harness to gate the listener's accept loop on stdin after attach, fail fast
+  on a short stream count, and read the window within5s. Operational rule for
+  the real API: attach before its accept loop, or make one warm-up request
+  after attach before measuring. VM rerun pending; high-load subcheck open.
+- Fourth VM load run confirmed the attach gate:100 accept events,100 SYN,
+  100 inbound-byte events, `conn_rate_10s=100`, `conn_rate_1s=100`,
+  `bytes_in_10s=10000`, `failed_conn_10s=0`, no perf loss. It failed only
+  `syn_rate_10s >= 100` because that row was published25ms after the load and
+  held97; SYN events arrive from softirq CPUs on separate perf buffers, so a
+  snapshot can be a tick behind the accept stream. Harness now waits for a
+  publish containing accept, byte and SYN counts. Preserved; no kernel defect
+  claimed.
+- Fifth VM load run passed: 12/12 unit tests, port18002 free, DB15 empty.
+  Gated load produced100 accept /100 SYN /100 inbound events,
+  `conn_rate_10s=100`, `bytes_in_10s=10000`, `syn_rate_10s=100`,
+  `failed_conn_10s=0`, zero exec/egress, no perf loss, `LOAD-NETNS-OK`, and
+  DB15 size0 before and after. **P2 controlled high-load count/byte subcheck
+  complete** (one controlled load; not a benchmark, IT-2, retransmission or
+  sustained-load test). Next P2 items: stale-key/restart behavior and perf-loss
+  handling, then optional forced retransmission; P3 XDP/ban sync follows.
+- Added an **unverified** `smoke_restart_netns.py`: one measured connection,
+  sensor stop, require the per-IP hash to expire within70s (TTL60s), then a
+  second sensor that must publish no host fields until its own10s window,
+  followed by one measured connection (accept/SYN/byte events and IP row).
+  Not a traffic or C4 test; it takes about90s because of the TTL wait.
+  Windows syntax/whitespace checks passed; VM run pending.
+- VM restart/staleness gate passed: 12/12 unit tests, port18004 free, DB15
+  empty. One connection measured, then the per-IP hash expired60.1s after the
+  sensor stopped (`ip_ttl_ms=59898` at the last publish, host key still present
+  with59393ms). A second sensor published `available_fields=[]` before its
+  window, then one accept/SYN/inbound event with `conn_rate_10s=1` and
+  `bytes_in_10s=100`; DB15 size0 before and after. **P2 stale-key/restart
+  subcheck complete.**
+- Added a test-only `--perf-page-cnt` sensor option (default64, power-of-two
+  validation) and an **unverified** `smoke_loss_netns.py`: pause the sensor,
+  generate a refusal burst against a closed API port with a1-page ring, then
+  require nonzero `lost_perf_events`, explicit empty hashes (not zeros, not
+  missing keys) for the10s post-loss window, and restored fields afterwards.
+  Windows syntax/whitespace checks passed; VM run pending.
+- First VM loss run failed and exposed a real sensor gap: with a1-page ring the
+  sensor received only64 of about4,002 submissions (baseline plus a2,000-attempt
+  refusal burst), `lost_cb` never fired, and Redis kept the five fields with
+  zeros. `PERF_RECORD_LOST` is not emitted for `bpf_perf_event_output` drops, so
+  the existing loss path was blind to the dominant loss mode. Added an `emit`
+  helper that checks `perf_submit`'s return and atomically increments
+  `submit_dropped`; userspace now reports `lost_perf_events` from that counter,
+  keeps `perf_lost_records` separate, and withdraws availability from the first
+  drop until a full loss-free window. VM rerun pending; no loss-handling claim.
+- VM loss rerun passed: 12/12 unit tests, port18005 closed, DB15 empty. Baseline
+  refusal `failed_conn_10s=1`/`syn_rate_10s=1`; a2,000-attempt burst with a
+  1-page ring reported `lost_perf_events=3937`; both hashes became
+  `available_fields=[]` while the window was incomplete; all fields returned
+  afterwards.65 events survived (33 SYN,32 failed), no accept/inbound; DB15
+  size0. **P2 perf-loss subcheck complete** for one forced-overflow case.
+  Remaining P2 item is optional forced-retransmission validation.
+- Started P3 enforcement. Added `ebpf/xdp_ban.py` (BCC XDP loader + Redis ban
+  reconciler) and an **unverified** `smoke_xdp_netns.py`, plus new unit cases
+  in `test_xdp_ban.py` (8 test functions, 20 parametrized cases). Design: ban
+  key JSON is validated; Redis PTTL becomes a `CLOCK_MONOTONIC` deadline in the
+  XDP map so a dead loader cannot extend a ban; allowlist/local-address
+  exclusions are re-applied every reconcile; pub/sub triggers an immediate
+  full reconcile and a periodic scan covers missed messages and expiry.
+  `p20:xdp:drops` is written with absolute total/per-IP counters
+  (`--keep-drops` preserves a published base across a restart).
+  Auto mode tries native, then generic/skb, records both attempts and the
+  observed attachment evidence, and refuses to claim a drop path if both fail.
+  The smoke covers pub/sub latency, timeout-not-reset, per-IP counters,
+  missed-pubsub add/delete, allowlist removal/restoration, local-address
+  exclusion, SIGKILL + kernel TTL expiry, restart reconciliation and graceful
+  detach. Docs: `docs/XDP_ENFORCEMENT.md`. Windows syntax/AST/whitespace checks
+  passed; no VM attach, mode, drop or cleanup claim yet.
+- First VM execution of that smoke attached in generic/skb mode, then aborted
+  before publishing any ban: the harness called `publish_ban(r)` without its IP
+  argument. The `finally` block detached the program (`detached=true`) and left
+  DB15 at0, so no manual cleanup was needed. Fixed the call and made two harness
+  corrections found by review: the TTL-shortening wait now only accepts a
+  `refreshed` event emitted after the `EXPIRE` (a stale event could otherwise
+  have killed the loader before the map deadline was shortened), and the
+  post-expiry client waits0.3s past Redis key removal so the millisecond-rounded
+  monotonic deadline has certainly passed.
+- P3 XDP enforcement **VM-verified** in generic/skb mode. Native XDP is
+  unavailable on `p20br0` (`Operation not supported`), which is expected for a
+  bridge master. `.venv/bin/python -m pytest ebpf/tests -q` gave32 passed, then
+  `sudo python3 -m ebpf.tests.smoke_xdp_netns` printed `XDP-BAN-OK`. Evidence:
+  `prog/xdp id337 name xdp_drop_banned` attached with local addresses
+  `10.20.0.1`, `127.0.0.1`, `172.25.236.217` excluded; a `PUBLISH` ban reached
+  the map in1.0ms; the ns15 client failed with `TimeoutError` after1202ms and
+  its SYN never reached the listener; the ns1 control stayed `OK` at1.1ms with
+  no per-IP field; `total_dropped_pkts=1`, `dropped_pkts:10.20.0.25=1` and
+  `map_size=1` on the first read, and6 drops by the expiry step. Delete and
+  create without `PUBLISH` reconciled in both directions; allowlisting removed
+  the entry and unblocked, un-allowlisting restored the ban and blocking; a ban
+  on10.20.0.1 was never installed and produced no telemetry. After `EXPIRE3` and
+  SIGKILL the program stayed attached, and once the Redis key vanished the
+  client connected successfully (1.4ms), which is the kernel-side expiry claim. A restart with
+  `--replace-existing --keep-drops` installed `id340`, reconciled `map_size` to0
+  and preserved total/per-IP6; graceful stop detached (`detached=true`,
+  `prog/xdp` gone); DB15 ended at0. Scope limits: generic/skb only, bridge
+  host-delivery path only, IPv4 without VLAN tags, no throughput or latency
+  claim, and no ban written by B's middleware yet, so IT-4 and C4 stay open.

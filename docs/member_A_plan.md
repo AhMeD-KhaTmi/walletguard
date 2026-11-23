@@ -76,12 +76,18 @@
   backend calls. Use only synthetic local data and fixed run seeds.
 - [ ] Supply real schema-v2 signals with TTLs, timestamps and availability flags.
   Test freshness and missing signals jointly with B before C4.
-- [ ] Attempt native XDP, then generic/skb. If XDP is unusable, document and test
+- [x] Attempt native XDP, then generic/skb. If XDP is unusable, document and test
   tc/nftables enforcement using the same Redis bans, or the allowed WAF fallback
   with the sensor. Record backend, interface, attach mode, fallback reason and
   what was actually blocked. Kernel drop claims require measured kernel drops.
-- [ ] Preserve remaining Redis TTL, expiry when the agent dies, dynamic allowlist
+  **Done 2026-11-23:** native failed with `Operation not supported` on the
+  `p20br0` bridge master; generic/skb enforced and measured 6 drops. See
+  `docs/XDP_ENFORCEMENT.md`.
+- [x] Preserve remaining Redis TTL, expiry when the agent dies, dynamic allowlist
   handling, missed-pubsub reconciliation and per-IP enforcement telemetry.
+  **Done 2026-11-23:** all five were measured in the same smoke, including a
+  successful client after SIGKILL plus TTL expiry with the program still
+  attached.
 - [x] B ran the current matched C0/C2/C3 campaign using A's workloads and updated
   harness on the Linux VM: 81 valid runs at clean source revision aa51185.
 - [ ] After B's calibration and the kernel handoff, run the final matched C0–C4
@@ -95,10 +101,16 @@
 
 ## Next integration point
 
-Deliver the tested sensor and selected enforcement backend with launch commands,
-readiness evidence, Redis signal samples, expiry/allowlist tests and per-IP drop
-records. B will consume the real signals, collect augmented C1 data, train the
+Delivered on `codex/member-a-kernel` (2026-11-23): the tested sensor and XDP
+consumer with launch commands, readiness checks, Redis signal samples,
+expiry/allowlist evidence and per-IP drop records, summarized in
+[`KERNEL_HANDOFF.md`](KERNEL_HANDOFF.md).
+
+B can now consume the real signals, collect augmented C1 data, train the
 augmented model and enable C4. The current API rejects unfinished C4 readiness.
+Still joint: IT-1–IT-6, matched C0–C4 with three repetitions per
+workload/configuration, joined ASR/FPR/p50/p95 reporting, slides, rehearsals
+and the backup recording.
 
 ## Original plan and starter examples — reference only where not superseded
 
@@ -908,7 +920,10 @@ sequenceDiagram
 - [ ] H2 sent: benign/attacker IP lists and dataset for B's IsolationForest training
 - [ ] A2: evaluation harness produces `eval/results.csv` with ASR per config/attack
 - [ ] A3: sensor publishes `p20:sig:ip:*` and `p20:sig:host` live, including egress bytes (Section 5.2 completed)
-- [ ] A4: XDP program loaded, banned IPs dropped within 1s, drop counters in `p20:xdp:drops`
+- [x] A4: XDP program loaded, banned IPs dropped within 1s, drop counters in `p20:xdp:drops`
+  (2026-11-23: generic/skb on `p20br0`; ban in the map 1.0ms after `PUBLISH`;
+  `TimeoutError` for the banned client; `total_dropped_pkts` and
+  `dropped_pkts:10.20.0.25` measured)
 - [ ] `fake_waf.py` committed and used to test A4 independently
 - [ ] IT-1 to IT-6 pass with B
 - [ ] Slides 2, 3, 4, 7, 9, 12, 13, 15 done (+ joint 8 and 17)
